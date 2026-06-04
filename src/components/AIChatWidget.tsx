@@ -14,6 +14,35 @@ interface LiveChatMessage {
   createdAt: string;
 }
 
+const mergeLiveChatMessage = (
+  currentMessages: LiveChatMessage[],
+  incomingMessage: LiveChatMessage,
+  optimisticMessageId?: string
+) => {
+  let messages = optimisticMessageId
+    ? currentMessages.filter(message => message.id !== optimisticMessageId)
+    : currentMessages;
+
+  if (messages.some(message => message.id === incomingMessage.id)) {
+    return messages;
+  }
+
+  const optimisticMatchIndex = messages.findIndex(message =>
+    message.id.startsWith('temp_') &&
+    message.sessionId === incomingMessage.sessionId &&
+    message.role === incomingMessage.role &&
+    message.body === incomingMessage.body
+  );
+
+  if (optimisticMatchIndex >= 0) {
+    const nextMessages = [...messages];
+    nextMessages[optimisticMatchIndex] = incomingMessage;
+    return nextMessages;
+  }
+
+  return [...messages, incomingMessage];
+};
+
 export function AIChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
   
@@ -100,8 +129,7 @@ export function AIChatWidget() {
 
     newSocket.on("live_chat:message", (message: LiveChatMessage) => {
       setMessages(prev => {
-        if (prev.find(m => m.id === message.id)) return prev;
-        return [...prev, message];
+        return mergeLiveChatMessage(prev, message);
       });
       // Optionally end loading on agent reply
       if (message.role === 'agent' || message.role === 'operator') {
@@ -184,14 +212,12 @@ export function AIChatWidget() {
       }, (response: any) => {
         if (response?.message) {
           setMessages(prev => {
-            const filtered = prev.filter(m => m.id !== optimisticMsg.id);
-            return [...filtered, response.message];
+            return mergeLiveChatMessage(prev, response.message, optimisticMsg.id);
           });
         }
         if (response?.agentMessage) {
           setMessages(prev => {
-            if (prev.find(m => m.id === response.agentMessage.id)) return prev;
-            return [...prev, response.agentMessage];
+            return mergeLiveChatMessage(prev, response.agentMessage);
           });
           setIsLoading(false);
         }
@@ -218,10 +244,11 @@ export function AIChatWidget() {
         const data = await response.json();
         
         setMessages(prev => {
-          const filtered = prev.filter(m => m.id !== optimisticMsg.id);
-          const newMsgs = [...filtered, data.message];
+          let newMsgs = data.message
+            ? mergeLiveChatMessage(prev, data.message, optimisticMsg.id)
+            : prev.filter(m => m.id !== optimisticMsg.id);
           if (data.agentMessage) {
-            newMsgs.push(data.agentMessage);
+            newMsgs = mergeLiveChatMessage(newMsgs, data.agentMessage);
           }
           return newMsgs;
         });
