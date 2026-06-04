@@ -28,12 +28,20 @@ Add these repository secrets in GitHub:
 - `VPS_HOST`: your VPS IP address or domain
 - `VPS_USER`: SSH user, for example `root` or `deploy`
 - `VPS_SSH_KEY`: private key that can SSH into the VPS
+- `LIVE_CHAT_API_BASE_URL`: TradeQuest CRM origin, for example `https://crm.example.com`
+- `LIVE_CHAT_API_TOKEN`: private live chat provider token
+- `APP_URL`: optional production app URL
+- `GEMINI_API_KEY`: optional Gemini API key, if server-side Gemini calls are used
 - `VPS_PORT`: optional SSH port, defaults to `22`
 - `VPS_DEPLOY_PATH`: optional deploy path, defaults to `/var/www/iotsight`
 
-On the VPS, install Node.js 22 or newer. If PM2 is not installed, the workflow will install it during deployment.
+You can also set repository variable `PORT` to override the default app port of `3005`.
 
-If the production app needs environment variables, create `/var/www/iotsight/.env` on the VPS, or use your custom `VPS_DEPLOY_PATH`. The deployment keeps this file in place.
+The workflow writes these secrets into `.env` on the VPS during deployment. Do not put `LIVE_CHAT_API_TOKEN` in a `VITE_` environment variable or in frontend code, because those values are visible in the browser bundle.
+
+Live chat requests are proxied by this app's server to `LIVE_CHAT_API_BASE_URL`, so the browser only talks to this website and never receives the provider API token.
+
+On the VPS, install Node.js 22 or newer. If PM2 is not installed, the workflow will install it during deployment.
 
 By default, the production server listens on port `3005`. Set `PORT` in the VPS `.env` file to override it.
 

@@ -44,6 +44,7 @@ export function AIChatWidget() {
   const [messages, setMessages] = useState<LiveChatMessage[]>([]);
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const [socket, setSocket] = useState<Socket | null>(null);
@@ -119,18 +120,15 @@ export function AIChatWidget() {
     e.preventDefault();
     if (!formData.name || !formData.email || !formData.phone) return;
     setIsLoading(true);
+    setErrorMessage('');
     
     localStorage.setItem('iotSightChatUser', JSON.stringify(formData));
     
     try {
-      // In a real application, place this token in an environment variable e.g. import.meta.env.VITE_LIVE_CHAT_API_TOKEN
-      const apiToken = "tq_generated_website_api_token"; 
-      
       const response = await fetch('/api/live-chat/public/sessions', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          apiToken,
           visitorName: formData.name,
           visitorEmail: formData.email,
           visitorPhone: formData.phone,
@@ -153,22 +151,7 @@ export function AIChatWidget() {
       
     } catch (error) {
       console.error('Error starting chat session:', error);
-      // Optional fallback if no backend is available locally for demo:
-      // alert('Unable to connect to live chat server.');
-      
-      // DEMO FALLBACK for development if backend isn't there:
-      const fakeSession = { id: `lc_${Date.now()}`, token: `tok_${Date.now()}` };
-      setSessionInfo(fakeSession);
-      localStorage.setItem('iotSightChatSession', JSON.stringify(fakeSession));
-      setIsFormSubmitted(true);
-      setMessages([{
-        id: 'msg_welcome',
-        sessionId: fakeSession.id,
-        role: 'agent',
-        senderName: 'Live Chat Agent',
-        body: `Hi ${formData.name}, how can I help you today? (Backend not connected - Demo mode)`,
-        createdAt: new Date().toISOString()
-      }]);
+      setErrorMessage('Unable to connect to live chat. Please try again later.');
     } finally {
       setIsLoading(false);
     }
@@ -180,6 +163,7 @@ export function AIChatWidget() {
 
     const msgText = inputValue.trim();
     setInputValue('');
+    setErrorMessage('');
     
     // Optimistic update
     const optimisticMsg: LiveChatMessage = {
@@ -244,17 +228,8 @@ export function AIChatWidget() {
         
       } catch (error) {
         console.error('Error sending message:', error);
-        
-        // DEMO FALLBACK if backend isn't there:
-        const fakeAgentReply: LiveChatMessage = {
-          id: `reply_${Date.now()}`,
-          sessionId: sessionInfo.id,
-          role: 'agent',
-          senderName: 'Live Chat Agent',
-          body: 'I received your message, but the backend is currently unavailable. This is a local demo fallback.',
-          createdAt: new Date().toISOString()
-        };
-        setMessages(prev => [...prev.filter(m => m.id !== optimisticMsg.id), { ...optimisticMsg, id: `real_${Date.now()}` }, fakeAgentReply]);
+        setMessages(prev => prev.filter(m => m.id !== optimisticMsg.id));
+        setErrorMessage('Message failed to send. Please try again.');
         
       } finally {
         setIsLoading(false);
@@ -368,6 +343,9 @@ export function AIChatWidget() {
                   </div>
                   
                   <div className="pt-2 mt-auto pb-2">
+                    {errorMessage && (
+                      <p className="text-xs text-red-300 mb-3" role="alert">{errorMessage}</p>
+                    )}
                     <button 
                       type="submit"
                       disabled={isLoading}
@@ -436,6 +414,9 @@ export function AIChatWidget() {
 
                 {/* Input Area */}
                 <div className="p-3 bg-slate-800 border-t border-slate-700 shrink-0">
+                  {errorMessage && (
+                    <p className="text-xs text-red-300 mb-2 px-1" role="alert">{errorMessage}</p>
+                  )}
                   <form onSubmit={handleSendMessage} className="flex gap-2 relative">
                     <input
                       type="text"

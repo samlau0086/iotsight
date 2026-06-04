@@ -41,6 +41,30 @@ jobs:
           cp -r dist release/
           tar -czf release.tar.gz -C release .
 
+      - name: Prepare production env
+        env:
+          APP_URL: ${{ secrets.APP_URL }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          LIVE_CHAT_API_BASE_URL: ${{ secrets.LIVE_CHAT_API_BASE_URL }}
+          LIVE_CHAT_API_TOKEN: ${{ secrets.LIVE_CHAT_API_TOKEN }}
+          PORT: ${{ vars.PORT }}
+        run: |
+          write_env() {
+            key="$1"
+            value="$2"
+            escaped=$(printf "%s" "$value" | sed "s/'/'\\\\''/g")
+            printf "%s='%s'\n" "$key" "$escaped"
+          }
+
+          {
+            echo "NODE_ENV=production"
+            write_env "PORT" "${PORT:-3005}"
+            if [ -n "$APP_URL" ]; then write_env "APP_URL" "$APP_URL"; fi
+            if [ -n "$GEMINI_API_KEY" ]; then write_env "GEMINI_API_KEY" "$GEMINI_API_KEY"; fi
+            if [ -n "$LIVE_CHAT_API_BASE_URL" ]; then write_env "LIVE_CHAT_API_BASE_URL" "$LIVE_CHAT_API_BASE_URL"; fi
+            if [ -n "$LIVE_CHAT_API_TOKEN" ]; then write_env "LIVE_CHAT_API_TOKEN" "$LIVE_CHAT_API_TOKEN"; fi
+          } > .env.production
+
       - name: Configure SSH
         env:
           VPS_HOST: ${{ secrets.VPS_HOST }}
@@ -66,6 +90,7 @@ jobs:
           DEPLOY_PATH="${VPS_DEPLOY_PATH:-/var/www/iotsight}"
           ssh -i ~/.ssh/deploy_key -p "${VPS_PORT:-22}" "$VPS_USER@$VPS_HOST" "mkdir -p '$DEPLOY_PATH'"
           scp -i ~/.ssh/deploy_key -P "${VPS_PORT:-22}" release.tar.gz "$VPS_USER@$VPS_HOST:$DEPLOY_PATH/release.tar.gz"
+          scp -i ~/.ssh/deploy_key -P "${VPS_PORT:-22}" .env.production "$VPS_USER@$VPS_HOST:$DEPLOY_PATH/.env.production"
 
       - name: Install and restart on VPS
         env:
@@ -81,6 +106,8 @@ jobs:
           rm -rf dist
           tar -xzf release.tar.gz
           rm release.tar.gz
+          mv .env.production .env
+          chmod 600 .env
           npm ci --omit=dev
           if command -v pm2 >/dev/null 2>&1; then
             pm2 startOrReload ecosystem.config.cjs --env production
