@@ -14,9 +14,9 @@ import SolutionDetail from './pages/SolutionDetail';
 import ScrollToTop from './components/ScrollToTop';
 import { AIChatWidget } from './components/AIChatWidget';
 
-function App() {
+export function AppLayout() {
   return (
-    <BrowserRouter>
+    <>
       <ScrollToTop />
       <div className="flex flex-col min-h-screen">
         <Navbar />
@@ -37,6 +37,14 @@ function App() {
         <Footer />
         <AIChatWidget />
       </div>
+    </>
+  );
+}
+
+function App() {
+  return (
+    <BrowserRouter>
+      <AppLayout />
     </BrowserRouter>
   );
 }

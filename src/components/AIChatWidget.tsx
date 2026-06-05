@@ -47,6 +47,7 @@ export function AIChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
   
   const [sessionInfo, setSessionInfo] = useState<{ id: string, token: string } | null>(() => {
+    if (typeof window === 'undefined') return null;
     const saved = localStorage.getItem('iotSightChatSession');
     if (saved) {
       try {
@@ -61,6 +62,9 @@ export function AIChatWidget() {
   });
   
   const [formData, setFormData] = useState(() => {
+    if (typeof window === 'undefined') {
+      return { name: '', email: '', phone: '', company: '' };
+    }
     const saved = localStorage.getItem('iotSightChatUser');
     if (saved) {
       try {

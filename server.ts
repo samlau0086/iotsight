@@ -1,5 +1,6 @@
 import "dotenv/config";
 import express from "express";
+import fs from "fs";
 import path from "path";
 import { createServer as createViteServer } from "vite";
 import { Server as SocketIOServer } from "socket.io";
@@ -167,9 +168,14 @@ async function startServer() {
     app.use(vite.middlewares);
   } else {
     const distPath = path.join(process.cwd(), "dist");
-    app.use(express.static(distPath));
+    app.use(express.static(distPath, { redirect: false }));
     app.get("*", (req, res) => {
-      res.sendFile(path.join(distPath, "index.html"));
+      const prerenderedPath = path.join(distPath, req.path, "index.html");
+      const fallbackPath = fs.existsSync(prerenderedPath)
+        ? prerenderedPath
+        : path.join(distPath, "index.html");
+
+      res.sendFile(fallbackPath);
     });
   }
 
