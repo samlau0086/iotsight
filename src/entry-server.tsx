@@ -1,6 +1,6 @@
 import React from 'react';
 import { renderToString } from 'react-dom/server';
-import { StaticRouter } from 'react-router-dom/server';
+import { MemoryRouter } from 'react-router-dom';
 import { AppLayout } from './App';
 import { blogPosts } from './data/blog';
 import { solutions } from './data/solutions';
@@ -8,9 +8,9 @@ import { solutions } from './data/solutions';
 export function render(url: string) {
   return renderToString(
     <React.StrictMode>
-      <StaticRouter location={url}>
+      <MemoryRouter initialEntries={[url]}>
         <AppLayout />
-      </StaticRouter>
+      </MemoryRouter>
     </React.StrictMode>
   );
 }
