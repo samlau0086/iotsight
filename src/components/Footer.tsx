@@ -7,7 +7,7 @@ export default function Footer() {
         <div className="space-y-4">
            <div className="flex items-center gap-3">
              <div className="w-8 h-8 bg-blue-600 rounded flex items-center justify-center font-bold text-white">I</div>
-             <span className="text-xl font-bold tracking-tight text-white">IOT<span className="text-blue-500">SIGHT</span></span>
+             <span className="text-xl font-bold tracking-tight text-white">IoT<span className="text-blue-500">Edges</span></span>
           </div>
           <p className="text-sm text-slate-400 leading-relaxed font-medium">
             Make industrial energy and equipment visible from anywhere. AI-powered monitoring platform for modern factories.
