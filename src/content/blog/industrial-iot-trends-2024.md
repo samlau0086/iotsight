@@ -31,4 +31,4 @@ As more industrial systems come online, they become targets for cyber threats. C
 
 ## Conclusion
 
-The future of manufacturing relies on the successful integration of these IIoT trends. At IoTSight, our mission is to facilitate this transition by providing secure, reliable, and easy-to-use edge hardware and cloud dashboards. Embracing these technologies is no longer optional; it is a necessity for staying competitive in the modern industrial landscape.
+The future of manufacturing relies on the successful integration of these IIoT trends. At IoTEdges, our mission is to facilitate this transition by providing secure, reliable, and easy-to-use edge hardware and cloud dashboards. Embracing these technologies is no longer optional; it is a necessity for staying competitive in the modern industrial landscape.

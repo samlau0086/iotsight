@@ -8,13 +8,13 @@ export const solutions = [
     detailedContent: [
       "In today's highly competitive manufacturing environment, understanding and controlling energy consumption is critical. Our Factory Energy Monitoring solution provides an end-to-end connected system that offers deep insights into peak demand, hidden inefficiencies, and overall equipment effectiveness (OEE).",
       "By capturing real-time metrics across your entire production line with high precision, factory managers can optimize operational scheduling and significantly lower their carbon footprint. The platform automatically processes these metrics to generate ISO 50001 compliance reports, eliminating the need for manual data entry and audits.",
-      "Integration is seamless with our IoTSight Energy Box gateways. You can pinpoint extremely energy-intensive assets, discover operational baseline drifts, and receive instant threshold alerts via SMS or email—preventing unexpected overhead costs and maximizing overall plant profitability."
+      "Integration is seamless with our IoTEdges Energy Box gateways. You can pinpoint extremely energy-intensive assets, discover operational baseline drifts, and receive instant threshold alerts via SMS or email—preventing unexpected overhead costs and maximizing overall plant profitability."
     ],
     icon: Zap,
     link: '/factory-energy',
     image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=800',
     hardware: [
-      'IoTSight Energy Box Series Gateway',
+      'IoTEdges Energy Box Series Gateway',
       'Split-core Current Transformers (CT)',
       'Modbus RTU / TCP Power Meters',
       'Temperature & Vibration Sensors'
@@ -40,7 +40,7 @@ export const solutions = [
     link: '/solutions/solar-energy',
     image: 'https://images.unsplash.com/photo-1509391366360-12009a3258db?auto=format&fit=crop&q=80&w=800',
     hardware: [
-      'IoTSight Solar Kit Gateway (4G LTE)',
+      'IoTEdges Solar Kit Gateway (4G LTE)',
       'String Combiner Boxes',
       'Irradiance & Temperature Weather Stations', // Changed manually if needed, but keeping it standard
       'Compatible with leading Inverters (Modbus API)'
@@ -66,7 +66,7 @@ export const solutions = [
     link: '/solutions/water-management',
     image: 'https://images.unsplash.com/photo-1581822261290-991b38693d1b?auto=format&fit=crop&q=80&w=800',
     hardware: [
-      'IoTSight Industrial RTU (IP65 Outdoor)',
+      'IoTEdges Industrial RTU (IP65 Outdoor)',
       'Ultrasonic Level Sensors',
       'Water Quality Probes (pH, Turbidity)',
       'Variable Frequency Drives (VFDs)'
@@ -92,7 +92,7 @@ export const solutions = [
     link: '/solutions/smart-agriculture',
     image: 'https://images.unsplash.com/photo-1625246333195-78d9c38ad449?auto=format&fit=crop&q=80&w=800',
     hardware: [
-      'IoTSight Agri-Node (Battery/Solar powered)',
+      'IoTEdges Agri-Node (Battery/Solar powered)',
       'Multi-depth Soil Moisture Probes',
       'Environmental Temperature/Humidity Sensors',
       'Solenoid Valve Controllers'
@@ -118,7 +118,7 @@ export const solutions = [
     link: '/solutions/building-automation',
     image: 'https://images.unsplash.com/photo-1517406323631-f11270bc701f?auto=format&fit=crop&q=80&w=800',
     hardware: [
-      'IoTSight BACnet/Modbus Protocol Converter',
+      'IoTEdges BACnet/Modbus Protocol Converter',
       'Smart HVAC Thermostats',
       'Indoor Air Quality (IAQ) Monitors',
       'Occupancy Sensors'

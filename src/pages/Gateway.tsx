@@ -128,8 +128,8 @@ export default function Gateway() {
                 <tr className="hover:bg-slate-900/50 transition-colors">
                   <td className="px-6 py-4 font-medium text-white">Cloud Integration</td>
                   <td className="px-6 py-4">Bring Your Own Cloud (BYOC)</td>
-                  <td className="px-6 py-4">IoTSight Dashboard included</td>
-                  <td className="px-6 py-4">IoTSight Dashboard included</td>
+                  <td className="px-6 py-4">IoTEdges Dashboard included</td>
+                  <td className="px-6 py-4">IoTEdges Dashboard included</td>
                 </tr>
               </tbody>
             </table>

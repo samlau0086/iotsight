@@ -87,7 +87,7 @@ jobs:
           VPS_DEPLOY_PATH: ${{ secrets.VPS_DEPLOY_PATH }}
         run: |
           test -n "$VPS_USER"
-          DEPLOY_PATH="${VPS_DEPLOY_PATH:-/var/www/iotsight}"
+          DEPLOY_PATH="${VPS_DEPLOY_PATH:-/var/www/iotedges}"
           ssh -i ~/.ssh/deploy_key -p "${VPS_PORT:-22}" "$VPS_USER@$VPS_HOST" "mkdir -p '$DEPLOY_PATH'"
           scp -i ~/.ssh/deploy_key -P "${VPS_PORT:-22}" release.tar.gz "$VPS_USER@$VPS_HOST:$DEPLOY_PATH/release.tar.gz"
           scp -i ~/.ssh/deploy_key -P "${VPS_PORT:-22}" .env.production "$VPS_USER@$VPS_HOST:$DEPLOY_PATH/.env.production"
@@ -99,7 +99,7 @@ jobs:
           VPS_USER: ${{ secrets.VPS_USER }}
           VPS_DEPLOY_PATH: ${{ secrets.VPS_DEPLOY_PATH }}
         run: |
-          DEPLOY_PATH="${VPS_DEPLOY_PATH:-/var/www/iotsight}"
+          DEPLOY_PATH="${VPS_DEPLOY_PATH:-/var/www/iotedges}"
           ssh -i ~/.ssh/deploy_key -p "${VPS_PORT:-22}" "$VPS_USER@$VPS_HOST" "DEPLOY_PATH='$DEPLOY_PATH' bash -s" <<'EOF'
           set -euo pipefail
           cd "$DEPLOY_PATH"

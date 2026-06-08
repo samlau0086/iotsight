@@ -11,7 +11,7 @@ export default function SolutionsList() {
             Industry Solutions
           </h1>
           <p className="text-lg text-slate-400 leading-relaxed max-w-3xl mx-auto font-medium">
-            Discover how IoTSight's robust industrial gateways and cloud dashboards are transforming sectors globally. Tailored, end-to-end monitoring solutions for every environment.
+            Discover how IoTEdges' robust industrial gateways and cloud dashboards are transforming sectors globally. Tailored, end-to-end monitoring solutions for every environment.
           </p>
         </div>
 

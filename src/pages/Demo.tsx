@@ -117,7 +117,7 @@ export default function Demo() {
             <div>
               <h2 className="text-2xl font-bold text-white mb-6" style={{ fontFamily: 'var(--font-display)' }}>The Industrial Cloud Dashboard</h2>
               <p className="text-slate-400 mb-6 leading-relaxed">
-                The IoTSight cloud dashboard is the command center of our <strong>industrial energy monitoring system</strong>. Designed for facility managers, it translates raw telemetry data collected from our <strong>Modbus MQTT gateways</strong> into highly visual, actionable insights. By securely transmitting data from the factory floor to the cloud, it ensures seamless <strong>remote equipment monitoring</strong> from anywhere in the world.
+                The IoTEdges cloud dashboard is the command center of our <strong>industrial energy monitoring system</strong>. Designed for facility managers, it translates raw telemetry data collected from our <strong>Modbus MQTT gateways</strong> into highly visual, actionable insights. By securely transmitting data from the factory floor to the cloud, it ensures seamless <strong>remote equipment monitoring</strong> from anywhere in the world.
               </p>
               <p className="text-slate-400 leading-relaxed">
                 We've built this platform with speed and reliability in mind. It handles millions of data points per second, meaning the moment a machine drops offline or experiences a surge, you see it instantly on your screen.

@@ -9,7 +9,7 @@ export default function About() {
         <div className="text-center mb-20">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6" style={{ fontFamily: 'var(--font-display)' }}>We Build Remote Equipment Monitoring Solutions</h1>
           <p className="text-lg md:text-xl text-slate-400 leading-relaxed max-w-3xl mx-auto">
-            IoTSight provides industrial-grade edge hardware, Modbus MQTT gateways, and cloud platforms to make legacy industrial equipment visible, measurable, and manageable remotely.
+            IoTEdges provides industrial-grade edge hardware, Modbus MQTT gateways, and cloud platforms to make legacy industrial equipment visible, measurable, and manageable remotely.
           </p>
         </div>
 
@@ -68,7 +68,7 @@ export default function About() {
 
         {/* Why Choose Us */}
         <div className="bg-slate-800 border border-slate-700 rounded-2xl p-10 lg:p-12 shadow-2xl mb-24">
-          <h3 className="text-2xl lg:text-3xl font-bold text-white mb-10 text-center" style={{ fontFamily: 'var(--font-display)' }}>Why Choose IoTSight as your IoT Partner?</h3>
+          <h3 className="text-2xl lg:text-3xl font-bold text-white mb-10 text-center" style={{ fontFamily: 'var(--font-display)' }}>Why Choose IoTEdges as your IoT Partner?</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
             <div>
               <h4 className="text-xl font-bold text-white mb-4">End-to-End Solution</h4>

@@ -54,7 +54,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold text-white">Email Us</h3>
-                  <p className="text-slate-400 mt-1">sales@iotsight.com</p>
+                  <p className="text-slate-400 mt-1">sales@iotedges.com</p>
                 </div>
               </div>
 

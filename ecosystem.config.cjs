@@ -1,7 +1,7 @@
 module.exports = {
   apps: [
     {
-      name: "iotsight",
+      name: "iotedges",
       cwd: __dirname,
       script: "dist/server.cjs",
       env: {

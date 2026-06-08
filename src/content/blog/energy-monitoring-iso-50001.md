@@ -38,10 +38,10 @@ The "Check" phase of the ISO 50001 PDCA cycle requires verifying that energy eff
 Implementing a monitoring system does not require overhauling your entire factory. It can be done incrementally:
 
 1. **Pilot Phase:** Start with high-energy-consuming equipment, such as HVAC and compressors.
-2. **Data Collection:** Use an IoTSight Modbus MQTT gateway to push meter data to the cloud.
+2. **Data Collection:** Use an IoTEdges Modbus MQTT gateway to push meter data to the cloud.
 3. **Analysis:** Set baselines and identify optimization opportunities via the dashboard.
 4. **Scale:** Roll out monitoring to the rest of the facility.
 
 ## Take the First Step
 
-Achieving ISO 50001 is a journey, and accurate data is your compass. Contact IoTSight today to learn how our hardware and cloud solutions can support your energy management goals.
+Achieving ISO 50001 is a journey, and accurate data is your compass. Contact IoTEdges today to learn how our hardware and cloud solutions can support your energy management goals.

@@ -36,7 +36,7 @@ export function getSeoMeta(url: string) {
 
   if (post) {
     return {
-      title: `${post.title} | IoTSight Blog`,
+      title: `${post.title} | IoTEdges Blog`,
       description: post.excerpt,
       imageUrl: post.imageUrl,
       type: 'article',
@@ -48,7 +48,7 @@ export function getSeoMeta(url: string) {
 
   if (solution) {
     return {
-      title: `${solution.title} | IoTSight Solutions`,
+      title: `${solution.title} | IoTEdges Solutions`,
       description: solution.description,
       imageUrl: solution.image,
       type: 'article',
@@ -57,15 +57,15 @@ export function getSeoMeta(url: string) {
 
   if (url === '/blog') {
     return {
-      title: 'Industrial IoT Blog | IoTSight',
+      title: 'Industrial IoT Blog | IoTEdges',
       description: 'Insights, guides, and trends on factory energy monitoring, remote equipment tracking, and industrial networking.',
       type: 'website',
     };
   }
 
   return {
-    title: 'Industrial IoT Monitoring & Energy Management Platform | IoTSight',
-    description: 'IoTSight provides industrial energy monitoring systems, Modbus to MQTT IoT gateways, and remote equipment monitoring solutions for factories, solar farms, and cold storage.',
+    title: 'Industrial IoT Monitoring & Energy Management Platform | IoTEdges',
+    description: 'IoTEdges provides industrial energy monitoring systems, Modbus to MQTT IoT gateways, and remote equipment monitoring solutions for factories, solar farms, and cold storage.',
     type: 'website',
   };
 }

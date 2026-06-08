@@ -138,7 +138,7 @@ export default function SolutionDetail() {
                 <div className="flex gap-4">
                   <div className="w-10 h-10 rounded bg-blue-900/30 border border-blue-500/30 flex items-center justify-center font-bold text-blue-400 shrink-0">2</div>
                   <div>
-                    <h4 className="font-bold text-white mb-1">IoTSight Gateway</h4>
+                    <h4 className="font-bold text-white mb-1">IoTEdges Gateway</h4>
                     <p className="text-sm text-slate-400">Securely aggregates edge data and pushes it over cellular or WiFi networks.</p>
                   </div>
                 </div>

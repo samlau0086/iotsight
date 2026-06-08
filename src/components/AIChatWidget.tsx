@@ -48,7 +48,7 @@ export function AIChatWidget() {
   
   const [sessionInfo, setSessionInfo] = useState<{ id: string, token: string } | null>(() => {
     if (typeof window === 'undefined') return null;
-    const saved = localStorage.getItem('iotSightChatSession');
+    const saved = localStorage.getItem('iotEdgesChatSession');
     if (saved) {
       try {
         return JSON.parse(saved);
@@ -65,7 +65,7 @@ export function AIChatWidget() {
     if (typeof window === 'undefined') {
       return { name: '', email: '', phone: '', company: '' };
     }
-    const saved = localStorage.getItem('iotSightChatUser');
+    const saved = localStorage.getItem('iotEdgesChatUser');
     if (saved) {
       try {
         return JSON.parse(saved);
@@ -118,13 +118,13 @@ export function AIChatWidget() {
             })
             .catch((e) => {
               console.warn("Session verification failed via fetch:", e);
-              localStorage.removeItem('iotSightChatSession');
+              localStorage.removeItem('iotEdgesChatSession');
               setSessionInfo(null);
               setIsFormSubmitted(false);
             });
         } else {
           console.warn("Socket auth failed, resetting session:", res?.error);
-          localStorage.removeItem('iotSightChatSession');
+          localStorage.removeItem('iotEdgesChatSession');
           setSessionInfo(null);
           setIsFormSubmitted(false);
         }
@@ -154,7 +154,7 @@ export function AIChatWidget() {
     setIsLoading(true);
     setErrorMessage('');
     
-    localStorage.setItem('iotSightChatUser', JSON.stringify(formData));
+    localStorage.setItem('iotEdgesChatUser', JSON.stringify(formData));
     
     try {
       const response = await fetch('/api/live-chat/public/sessions', {
@@ -178,7 +178,7 @@ export function AIChatWidget() {
       
       const newSessionInfo = { id: data.session.id, token: data.token };
       setSessionInfo(newSessionInfo);
-      localStorage.setItem('iotSightChatSession', JSON.stringify(newSessionInfo));
+      localStorage.setItem('iotEdgesChatSession', JSON.stringify(newSessionInfo));
       setIsFormSubmitted(true);
       
     } catch (error) {
@@ -298,7 +298,7 @@ export function AIChatWidget() {
                   <Bot className="w-5 h-5 text-blue-400" />
                 </div>
                 <div>
-                  <h3 className="text-white font-medium text-sm">IoTSight Live Chat</h3>
+                  <h3 className="text-white font-medium text-sm">IoTEdges Live Chat</h3>
                   <div className="flex items-center gap-1.5">
                     <span className="w-1.5 h-1.5 rounded-full bg-green-500"></span>
                     <span className="text-xs text-slate-400">Online</span>

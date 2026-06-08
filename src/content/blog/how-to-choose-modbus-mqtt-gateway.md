@@ -39,8 +39,8 @@ When transmitting sensitive operational data to the cloud, security must be a pr
 
 ## Step 5: Consider Cloud Compatibility and Edge Processing
 
-Some gateways only push raw data, while others offer edge computing capabilities like data filtering, aggregation, and local alerting. Furthermore, check if the gateway is certified or easily integrates with your preferred cloud platform, such as AWS IoT, Azure IoT, or specialized dashboards like IoTSight.
+Some gateways only push raw data, while others offer edge computing capabilities like data filtering, aggregation, and local alerting. Furthermore, check if the gateway is certified or easily integrates with your preferred cloud platform, such as AWS IoT, Azure IoT, or specialized dashboards like IoTEdges.
 
-## The IoTSight Advantage
+## The IoTEdges Advantage
 
-At IoTSight, our industrial IoT gateways are designed to check all these boxes. Whether you need a simple Modbus RTU bridge or a sophisticated edge controller with custom OEM branding, we provide reliable, secure, and ready-to-deploy hardware.
+At IoTEdges, our industrial IoT gateways are designed to check all these boxes. Whether you need a simple Modbus RTU bridge or a sophisticated edge controller with custom OEM branding, we provide reliable, secure, and ready-to-deploy hardware.
