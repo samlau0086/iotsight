@@ -38,7 +38,7 @@ Primary SEO goals:
 | Knowledge fact database | In progress | Knowledge topics drafted and first factual source cards created at `docs/seo/factual-source-cards.json`; first public-safe knowledge pages are live in Markdown, but add more source cards before large-scale article generation. |
 | Case library | Drafted | First 30 reusable case records created at `docs/seo/case-study-topic-database.json`; target remains 100+ cases. |
 | Article templates | Not started | Need templates for product, solution, knowledge base, comparison, how-to, troubleshooting, case study. |
-| Internal link map | In progress | Machine-readable rules exist; first implementation pass now connects homepage, gateway page, solution pages, blog articles and knowledge pages to product pages. |
+| Internal link map | In progress | Machine-readable rules exist; first implementation pass now connects homepage, gateway page, solution pages, blog articles, knowledge pages and product pages into a bidirectional topic network. |
 | Review workflow | Not started | Planner, researcher, writer, SEO reviewer, fact checker, publisher. |
 
 Status values:

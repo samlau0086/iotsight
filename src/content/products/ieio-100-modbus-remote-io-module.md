@@ -53,6 +53,11 @@ RS485 Modbus RTU is the baseline protocol target for IEIO-100. A draft register 
 
 IEIO-100 should not be described as an MQTT gateway, 4G telemetry device, WiFi device or LoRaWAN device. MQTT and cloud publishing belong to gateway products such as IEG-100.
 
+## Related Knowledge
+
+- [Modbus for Industrial IoT Gateways and RTUs](/knowledge/modbus)
+- [RS485 Wiring for Modbus RTU Devices](/knowledge/rs485)
+
 ## Validation Status
 
 IEIO-100 remains under engineering validation. Exact relay ratings, analog specifications, RS485 isolation, surge/ESD levels, operating temperature and certifications will be published only after prototype reports and product approval.

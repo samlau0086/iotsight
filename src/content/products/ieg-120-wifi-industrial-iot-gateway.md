@@ -49,6 +49,12 @@ IEG-120 should not be positioned as a 4G gateway, LoRa gateway or outdoor long-r
 
 IEG-120 is a baseline WiFi gateway. Do not claim OPC UA, BACnet, CAN, TLS, offline buffering, exact polling limits, WiFi range or WiFi certification until those capabilities are validated.
 
+## Related Knowledge
+
+- [Modbus for Industrial IoT Gateways and RTUs](/knowledge/modbus)
+- [MQTT in Industrial IoT Monitoring](/knowledge/mqtt)
+- [RS485 Wiring for Modbus RTU Devices](/knowledge/rs485)
+
 ## Model Comparison
 
 | Model | Uplink | Best Fit |

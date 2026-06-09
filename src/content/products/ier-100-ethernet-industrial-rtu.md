@@ -55,6 +55,12 @@ Do not claim DNP3, IEC 60870, IEC 61850 or safety controller behavior for IER-10
 | IEG-100 Gateway | Modbus data collection and MQTT publishing |
 | IEIO-100 Remote IO | Distributed IO expansion over Modbus |
 
+## Related Knowledge
+
+- [Modbus for Industrial IoT Gateways and RTUs](/knowledge/modbus)
+- [RS485 Wiring for Modbus RTU Devices](/knowledge/rs485)
+- [MQTT in Industrial IoT Monitoring](/knowledge/mqtt)
+
 ## Validation Status
 
 IER-100 remains under engineering validation. Relay rating, analog accuracy, RS485 isolation, operating temperature, environmental rating and final protocol behavior should stay unpublished until prototype evidence is available.

@@ -40,6 +40,12 @@ IEG-100 should not be positioned as a 4G, WiFi or LoRa gateway. Those uplinks be
 
 IEG-100 is a baseline gateway, not an advanced edge gateway. Do not claim OPC UA, BACnet, CAN, remote write/control, TLS, offline buffering or exact point-count limits until those capabilities are validated.
 
+## Related Knowledge
+
+- [Modbus for Industrial IoT Gateways and RTUs](/knowledge/modbus)
+- [MQTT in Industrial IoT Monitoring](/knowledge/mqtt)
+- [RS485 Wiring for Modbus RTU Devices](/knowledge/rs485)
+
 ## Model Comparison
 
 | Model | Uplink | Best Fit |

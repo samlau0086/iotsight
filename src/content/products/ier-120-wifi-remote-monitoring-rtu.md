@@ -56,6 +56,12 @@ IER-120 should not be positioned as a 4G RTU, LoRa RTU or outdoor long-range wir
 
 Do not claim 4G, LoRa, 5G, outdoor long-range wireless behavior, hazardous-area certification, relay rating, analog accuracy, RS485 isolation or WiFi certification until those capabilities are validated.
 
+## Related Knowledge
+
+- [Modbus for Industrial IoT Gateways and RTUs](/knowledge/modbus)
+- [MQTT in Industrial IoT Monitoring](/knowledge/mqtt)
+- [RS485 Wiring for Modbus RTU Devices](/knowledge/rs485)
+
 ## Validation Status
 
 IER-120 remains under engineering validation. Exact WiFi module behavior, antenna performance, relay rating, analog accuracy, RS485 isolation, MQTT retry behavior and environmental ratings will be published only after prototype tests and documentation are complete.
