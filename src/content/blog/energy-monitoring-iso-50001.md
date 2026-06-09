@@ -6,6 +6,8 @@ date: May 18, 2024
 author: Customer Success
 category: Case Studies
 imageUrl: https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=800
+relatedProducts: ieg-100-ethernet-industrial-iot-gateway,ier-100-ethernet-industrial-rtu,ieio-100-modbus-remote-io-module
+relatedResources: /factory-energy,/knowledge/modbus,/blog/how-to-choose-modbus-mqtt-gateway
 order: 3
 ---
 

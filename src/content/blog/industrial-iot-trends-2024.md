@@ -6,6 +6,8 @@ date: March 15, 2024
 author: Engineering Team
 category: Industry Trends
 imageUrl: https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=800
+relatedProducts: ieg-100-ethernet-industrial-iot-gateway,ieg-120-wifi-industrial-iot-gateway,ier-100-ethernet-industrial-rtu
+relatedResources: /knowledge/modbus,/knowledge/mqtt,/products
 order: 1
 ---
 

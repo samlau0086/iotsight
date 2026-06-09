@@ -127,6 +127,27 @@ export default function SolutionDetail() {
                     </div>
                   </div>
                 )}
+
+                {solution.relatedResources && (
+                  <div>
+                    <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                      <Monitor className="w-5 h-5 text-blue-400" />
+                      Related Resources
+                    </h3>
+                    <div className="grid grid-cols-1 gap-3">
+                      {solution.relatedResources.map((resource) => (
+                        <Link
+                          key={resource.href}
+                          to={resource.href}
+                          className="flex items-center justify-between gap-4 bg-slate-900 border border-slate-800 p-4 rounded-lg text-sm font-bold text-slate-200 hover:border-blue-500/50 hover:text-blue-300 transition-colors"
+                        >
+                          {resource.title}
+                          <ArrowRight className="w-4 h-4 shrink-0" />
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
             

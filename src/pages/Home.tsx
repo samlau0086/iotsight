@@ -33,16 +33,16 @@ export default function Home() {
           </div>
           <div className="grid grid-cols-3 gap-6 pt-8 border-t border-slate-800 mt-4">
             <div className="flex flex-col">
-              <span className="text-2xl font-bold text-white">15%</span>
-              <span className="text-[10px] text-slate-500 uppercase tracking-widest font-bold">Energy Reduction</span>
+              <span className="text-2xl font-bold text-white">6</span>
+              <span className="text-[10px] text-slate-500 uppercase tracking-widest font-bold">Product Drafts</span>
             </div>
             <div className="flex flex-col">
-              <span className="text-2xl font-bold text-white">99.9%</span>
-              <span className="text-[10px] text-slate-500 uppercase tracking-widest font-bold">Uptime Reliability</span>
+              <span className="text-2xl font-bold text-white">4</span>
+              <span className="text-[10px] text-slate-500 uppercase tracking-widest font-bold">Core Protocol Topics</span>
             </div>
             <div className="flex flex-col">
-              <span className="text-2xl font-bold text-white">24h</span>
-              <span className="text-[10px] text-slate-500 uppercase tracking-widest font-bold">Alert Response</span>
+              <span className="text-2xl font-bold text-white">EU</span>
+              <span className="text-[10px] text-slate-500 uppercase tracking-widest font-bold">Access Control Focus</span>
             </div>
           </div>
         </motion.div>
@@ -207,19 +207,20 @@ export default function Home() {
            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-12 gap-6">
             <div>
               <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-4 tracking-tight">Core Hardwares & Kits</h2>
-              <p className="text-lg text-slate-400 font-medium">Validation-aware product drafts for gateways, RTUs, and Remote IO modules.</p>
+              <p className="text-lg text-slate-400 font-medium">Validation-aware product drafts for gateways, RTUs, Remote IO modules, and access controllers.</p>
             </div>
             <Link to="/products" className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-blue-400 hover:text-blue-300">
               View all products <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
             {[
               { title: "IEG-100 Ethernet Gateway", desc: "Planned Ethernet gateway for Modbus data collection and MQTT telemetry.", icon: Server, href: "/products/ieg-100-ethernet-industrial-iot-gateway" },
               { title: "IEIO-100 Remote IO", desc: "Planned Modbus Remote IO family for DI, DO/relay, AI, and AO expansion.", icon: Activity, href: "/products/ieio-100-modbus-remote-io-module" },
               { title: "IER-100 Ethernet RTU", desc: "Planned wired RTU with local IO and Modbus connectivity targets.", icon: Zap, href: "/products/ier-100-ethernet-industrial-rtu" },
-              { title: "IEG-120 WiFi Gateway", desc: "Planned indoor WiFi gateway for Modbus-to-MQTT applications.", icon: ShieldCheck, href: "/products/ieg-120-wifi-industrial-iot-gateway" }
+              { title: "IEG-120 WiFi Gateway", desc: "Planned indoor WiFi gateway for Modbus-to-MQTT applications.", icon: Cloud, href: "/products/ieg-120-wifi-industrial-iot-gateway" },
+              { title: "IEAC-140 Gate Opener", desc: "Planned 4G-first remote access controller for European gate and door projects.", icon: ShieldCheck, href: "/products/ieac-140-4g-gsm-gate-opener" }
             ].map((item, i) => (
               <Link key={i} to={item.href} className="bg-slate-900 border border-slate-800 rounded-xl p-6 hover:border-blue-500/50 transition block">
                 <item.icon className="w-8 h-8 text-blue-400 mb-6" />

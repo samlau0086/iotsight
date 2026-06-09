@@ -31,6 +31,11 @@ export const solutions = [
       { title: 'IER-100 Ethernet Industrial RTU', href: '/products/ier-100-ethernet-industrial-rtu' },
       { title: 'IEIO-100 Modbus Remote IO Module', href: '/products/ieio-100-modbus-remote-io-module' }
     ],
+    relatedResources: [
+      { title: 'Achieving ISO 50001 with Real-Time Energy Monitoring', href: '/blog/energy-monitoring-iso-50001' },
+      { title: 'How to Choose the Right Modbus to MQTT Gateway', href: '/blog/how-to-choose-modbus-mqtt-gateway' },
+      { title: 'Modbus for Industrial IoT Gateways and RTUs', href: '/knowledge/modbus' }
+    ],
     architectureImage: 'https://images.unsplash.com/photo-1620022285141-9fc542ae77ff?auto=format&fit=crop&q=80&w=1200'
   },
   {
@@ -184,6 +189,10 @@ export const solutions = [
     ],
     relatedProducts: [
       { title: 'IEAC-140 4G GSM Gate Opener', href: '/products/ieac-140-4g-gsm-gate-opener' }
+    ],
+    relatedResources: [
+      { title: 'How to Choose a 4G Gate Opener for Europe', href: '/blog/how-to-choose-4g-gate-opener-europe' },
+      { title: 'GSM vs 4G Gate Opener for Europe', href: '/knowledge/4g-gsm-gate-opener-europe' }
     ],
     architectureImage: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&q=80&w=1200'
   }

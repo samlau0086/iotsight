@@ -6,6 +6,8 @@ date: April 02, 2024
 author: Product Management
 category: Hardware Guide
 imageUrl: https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=800
+relatedProducts: ieg-100-ethernet-industrial-iot-gateway,ieg-120-wifi-industrial-iot-gateway,ier-100-ethernet-industrial-rtu,ieio-100-modbus-remote-io-module
+relatedResources: /knowledge/modbus,/knowledge/mqtt,/knowledge/rs485
 order: 2
 ---
 

@@ -7,6 +7,8 @@ export interface BlogPost {
   author: string;
   category: string;
   imageUrl?: string;
+  relatedProducts: string[];
+  relatedResources: string[];
 }
 
 export interface ProductPage {

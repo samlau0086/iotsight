@@ -42,6 +42,13 @@ function parseFrontmatter(markdown: string) {
   };
 }
 
+function parseList(value = '') {
+  return value
+    .split(',')
+    .map(item => item.trim())
+    .filter(Boolean);
+}
+
 function createBlogPost(path: string, markdown: string): BlogPostWithOrder {
   const { metadata, content } = parseFrontmatter(markdown);
   const fallbackId = path.split('/').pop()?.replace(/\.md$/, '') || 'blog-post';
@@ -55,6 +62,8 @@ function createBlogPost(path: string, markdown: string): BlogPostWithOrder {
     author: metadata.author || '',
     category: metadata.category || '',
     imageUrl: metadata.imageUrl || undefined,
+    relatedProducts: parseList(metadata.relatedProducts),
+    relatedResources: parseList(metadata.relatedResources),
     order: Number(metadata.order || 0),
   };
 }

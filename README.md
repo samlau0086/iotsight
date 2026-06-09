@@ -130,6 +130,25 @@ Product draft pages live in `src/content/products/*.md`.
 
 Each file starts with frontmatter metadata followed by Markdown content. Adding a new Markdown file automatically adds it to the corresponding list after the next build or dev-server reload.
 
+Blog frontmatter can include optional related links:
+
+```md
+---
+id: how-to-choose-4g-gate-opener-europe
+title: How to Choose a 4G Gate Opener for Europe
+excerpt: Short summary used on the blog list and SEO meta.
+date: June 09, 2026
+author: Product Management
+category: Buyer Guide
+imageUrl: https://example.com/image.jpg
+relatedProducts: ieac-140-4g-gsm-gate-opener
+relatedResources: /solutions/gate-access-control,/knowledge/4g-gsm-gate-opener-europe
+order: 4
+---
+
+# How to Choose a 4G Gate Opener for Europe
+```
+
 Knowledge Base example:
 
 ```md
@@ -371,6 +390,25 @@ Knowledge Base 文章位于 `src/content/knowledge/*.md`。
 产品草稿页位于 `src/content/products/*.md`。
 
 每个文件以 frontmatter 元数据开头，后面是 Markdown 正文。新增 Markdown 文件后，下一次构建或开发服务刷新时会自动进入对应列表。
+
+Blog frontmatter 可以配置相关产品和资源：
+
+```md
+---
+id: how-to-choose-4g-gate-opener-europe
+title: How to Choose a 4G Gate Opener for Europe
+excerpt: 用于 Blog 列表和 SEO meta 的简短摘要。
+date: June 09, 2026
+author: Product Management
+category: Buyer Guide
+imageUrl: https://example.com/image.jpg
+relatedProducts: ieac-140-4g-gsm-gate-opener
+relatedResources: /solutions/gate-access-control,/knowledge/4g-gsm-gate-opener-europe
+order: 4
+---
+
+# How to Choose a 4G Gate Opener for Europe
+```
 
 Knowledge Base 示例：
 

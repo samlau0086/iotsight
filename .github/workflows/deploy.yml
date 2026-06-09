@@ -67,6 +67,11 @@ jobs:
           grep -q "RS485 Wiring for Modbus RTU Devices" dist/knowledge/rs485/index.html
           grep -q "GSM vs 4G Gate Opener for Europe" dist/knowledge/4g-gsm-gate-opener-europe/index.html
 
+      - name: Verify prerendered blog pages
+        run: |
+          test -f dist/blog/how-to-choose-4g-gate-opener-europe/index.html
+          grep -q "How to Choose a 4G Gate Opener for Europe" dist/blog/how-to-choose-4g-gate-opener-europe/index.html
+
       - name: Verify SEO discovery files
         run: |
           test -f dist/sitemap.xml
@@ -75,6 +80,7 @@ jobs:
           grep -q "https://iotedges.com/products/ieac-140-4g-gsm-gate-opener" dist/sitemap.xml
           grep -q "https://iotedges.com/knowledge/modbus" dist/sitemap.xml
           grep -q "https://iotedges.com/knowledge/4g-gsm-gate-opener-europe" dist/sitemap.xml
+          grep -q "https://iotedges.com/blog/how-to-choose-4g-gate-opener-europe" dist/sitemap.xml
           grep -q "Sitemap: https://iotedges.com/sitemap.xml" dist/robots.txt
           grep -q "application/ld+json" dist/products/ieg-100-ethernet-industrial-iot-gateway/index.html
           grep -q "application/ld+json" dist/knowledge/modbus/index.html
