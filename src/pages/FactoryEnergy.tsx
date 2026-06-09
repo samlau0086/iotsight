@@ -74,9 +74,12 @@ export default function FactoryEnergy() {
                 <h3 className="font-bold text-blue-400 tracking-widest uppercase text-xs mb-6 border-b border-blue-500/20 pb-3">2. IoT Gateway</h3>
                 <ul className="text-sm text-blue-200/80 space-y-4 text-left font-medium">
                   <li className="flex items-start gap-3"><span className="w-5 h-5 rounded-full bg-blue-500/20 border border-blue-500/30 text-blue-400 flex items-center justify-center shrink-0 mt-0.5"><CheckCircle2 className="w-3 h-3" /></span> Modbus RTU Polling</li>
-                  <li className="flex items-start gap-3"><span className="w-5 h-5 rounded-full bg-blue-500/20 border border-blue-500/30 text-blue-400 flex items-center justify-center shrink-0 mt-0.5"><CheckCircle2 className="w-3 h-3" /></span> 4G / WiFi Connection</li>
+                  <li className="flex items-start gap-3"><span className="w-5 h-5 rounded-full bg-blue-500/20 border border-blue-500/30 text-blue-400 flex items-center justify-center shrink-0 mt-0.5"><CheckCircle2 className="w-3 h-3" /></span> Ethernet, WiFi, or 4G model selected separately</li>
                   <li className="flex items-start gap-3"><span className="w-5 h-5 rounded-full bg-blue-500/20 border border-blue-500/30 text-blue-400 flex items-center justify-center shrink-0 mt-0.5"><CheckCircle2 className="w-3 h-3" /></span> MQTT Publish</li>
                 </ul>
+                <Link to="/products" className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-blue-300 hover:text-white mt-6">
+                  View product options <ArrowRight className="w-4 h-4" />
+                </Link>
              </div>
 
              <ArrowRight className="text-slate-600 rotate-90 md:rotate-0 hidden md:block" />

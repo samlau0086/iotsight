@@ -23,7 +23,7 @@ You cannot manage what you cannot measure. Traditionally, energy audits relied o
 
 ### Granular Visibility
 
-By installing Modbus-enabled power meters on individual machines or production lines and connecting them via an IoT gateway, facility managers gain granular visibility. You can see exactly which processes are consuming the most power and when.
+By installing Modbus-enabled power meters on individual machines or production lines and connecting them through an IoT gateway, facility managers gain granular visibility. You can see exactly which processes are consuming the most power and when. For Ethernet-based cabinet deployments, the [IEG-100 Ethernet Industrial IoT Gateway](/products/ieg-100-ethernet-industrial-iot-gateway) is the relevant IoTEdges product draft to review first.
 
 ### Identifying Hidden Waste
 
@@ -38,9 +38,11 @@ The "Check" phase of the ISO 50001 PDCA cycle requires verifying that energy eff
 Implementing a monitoring system does not require overhauling your entire factory. It can be done incrementally:
 
 1. **Pilot Phase:** Start with high-energy-consuming equipment, such as HVAC and compressors.
-2. **Data Collection:** Use an IoTEdges Modbus MQTT gateway to push meter data to the cloud.
+2. **Data Collection:** Use an IoTEdges gateway or RTU path to collect meter data and publish telemetry to the dashboard.
 3. **Analysis:** Set baselines and identify optimization opportunities via the dashboard.
 4. **Scale:** Roll out monitoring to the rest of the facility.
+
+If the project needs local dry-contact status, relay output, or analog signal capture in addition to meter polling, compare the [IER-100 Ethernet Industrial RTU](/products/ier-100-ethernet-industrial-rtu) and [IEIO-100 Modbus Remote IO Module](/products/ieio-100-modbus-remote-io-module) before finalizing the architecture.
 
 ## Take the First Step
 

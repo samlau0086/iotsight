@@ -21,3 +21,14 @@ export interface ProductPage {
   route: string;
   order: number;
 }
+
+export interface KnowledgePage {
+  id: string;
+  title: string;
+  excerpt: string;
+  content: string;
+  category: string;
+  primaryKeyword: string;
+  relatedProducts: string[];
+  order: number;
+}

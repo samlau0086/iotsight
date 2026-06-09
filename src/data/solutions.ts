@@ -4,132 +4,156 @@ export const solutions = [
   {
     id: 'factory-energy',
     title: 'Factory Energy Monitoring',
-    description: 'Track power consumption across your entire production line to achieve ISO 50001 compliance and reduce energy waste.',
+    description: 'Track power consumption across your entire production line to support energy management, reduce waste, and improve visibility.',
     detailedContent: [
-      "In today's highly competitive manufacturing environment, understanding and controlling energy consumption is critical. Our Factory Energy Monitoring solution provides an end-to-end connected system that offers deep insights into peak demand, hidden inefficiencies, and overall equipment effectiveness (OEE).",
-      "By capturing real-time metrics across your entire production line with high precision, factory managers can optimize operational scheduling and significantly lower their carbon footprint. The platform automatically processes these metrics to generate ISO 50001 compliance reports, eliminating the need for manual data entry and audits.",
-      "Integration is seamless with our IoTEdges Energy Box gateways. You can pinpoint extremely energy-intensive assets, discover operational baseline drifts, and receive instant threshold alerts via SMS or email—preventing unexpected overhead costs and maximizing overall plant profitability."
+      'In manufacturing environments, understanding and controlling energy consumption is critical. Factory energy monitoring connects Modbus power meters, production assets, and dashboards so teams can see peak demand, hidden waste, and operating patterns.',
+      'By capturing real-time metrics across production lines, factory managers can optimize schedules, compare baseline consumption, and prepare better energy management reports.',
+      'Integration starts with validated IoTEdges gateway, RTU, and Remote IO product paths. The final hardware selection should follow the meter protocol, cabinet layout, local IO needs, and uplink method of the project.'
     ],
     icon: Zap,
     link: '/factory-energy',
     image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=800',
     hardware: [
-      'IoTEdges Energy Box Series Gateway',
+      'IEG-100 Ethernet gateway for wired Modbus meter collection',
+      'IER-100 Ethernet RTU when local DI/DO/AI signals are required',
+      'IEIO-100 Remote IO modules for distributed signal expansion',
       'Split-core Current Transformers (CT)',
-      'Modbus RTU / TCP Power Meters',
-      'Temperature & Vibration Sensors'
+      'Modbus RTU / TCP power meters'
     ],
     software: [
       'Real-time energy consumption dashboard',
-      'OEE (Overall Equipment Effectiveness) tracking',
-      'Automated ISO 50001 compliance reporting',
-      'Peak demand anomaly alerts via SMS/Email'
+      'Energy baseline and peak demand trend analysis',
+      'Automated energy reports',
+      'Threshold alarms via configured notification channels'
+    ],
+    relatedProducts: [
+      { title: 'IEG-100 Ethernet Industrial IoT Gateway', href: '/products/ieg-100-ethernet-industrial-iot-gateway' },
+      { title: 'IER-100 Ethernet Industrial RTU', href: '/products/ier-100-ethernet-industrial-rtu' },
+      { title: 'IEIO-100 Modbus Remote IO Module', href: '/products/ieio-100-modbus-remote-io-module' }
     ],
     architectureImage: 'https://images.unsplash.com/photo-1620022285141-9fc542ae77ff?auto=format&fit=crop&q=80&w=1200'
   },
   {
     id: 'solar-energy',
     title: 'Solar & Renewable Energy',
-    description: 'Monitor inverter efficiency, string outputs, and weather conditions in real-time to maximize solar plant ROI.',
+    description: 'Monitor inverter data, site conditions, and renewable energy assets with validation-aware gateway architecture.',
     detailedContent: [
-      "Managing a distributed portfolio of solar energy assets requires high-granularity data to ensure optimal generation capacity. Our Solar & Renewable Energy solution monitors inverter efficiency, string outputs, and micro-climate weather conditions in real-time.",
-      "The comprehensive dashboards empower plant operators to detect string-level faults immediately, calculate precise Performance Ratios (PR), and automate grid export limitations where necessary. Reduced downtime translates directly to maximized ROI and a reliable energy supply.",
-      "Designed for both utility-scale plants and commercial rooftop systems, the platform integrates with leading inverters through standard Modbus APIs. Combining hardware gateways with intelligent cloud analytics ensures you capture every kilowatt-hour potential."
+      'Managing distributed solar and renewable energy assets requires consistent access to inverter, meter, and site-condition data. A practical monitoring architecture starts by confirming protocol support, cabinet networking, and the required uplink method.',
+      'Dashboards can help operators compare production trends, detect abnormal generation, and understand equipment behavior across sites. Control and grid-management functions should remain project-specific and validation-gated.',
+      'For early IoTEdges planning, Ethernet gateway deployments are the safest public path. 4G and LoRaWAN solar scenarios should wait for LTE module, frequency band, RF, and field validation before final product pages are published.'
     ],
     icon: Sun,
     link: '/solutions/solar-energy',
     image: 'https://images.unsplash.com/photo-1509391366360-12009a3258db?auto=format&fit=crop&q=80&w=800',
     hardware: [
-      'IoTEdges Solar Kit Gateway (4G LTE)',
-      'String Combiner Boxes',
-      'Irradiance & Temperature Weather Stations', // Changed manually if needed, but keeping it standard
-      'Compatible with leading Inverters (Modbus API)'
+      'IEG-100 Ethernet gateway for LAN-connected inverter cabinets',
+      'Future IEG-140 4G gateway after LTE module and band validation',
+      'String combiner boxes',
+      'Irradiance and temperature weather stations',
+      'Modbus-capable solar inverters'
     ],
     software: [
-      'Multi-site PV portfolio dashboard',
-      'String-level fault detection algorithms',
-      'Performance Ratio (PR) real-time calculation',
-      'Grid export limitation controls'
+      'Multi-site PV dashboard',
+      'Inverter and meter trend visualization',
+      'Performance ratio analysis after data validation',
+      'Fault and threshold notification workflows'
+    ],
+    relatedProducts: [
+      { title: 'IEG-100 Ethernet Industrial IoT Gateway', href: '/products/ieg-100-ethernet-industrial-iot-gateway' }
     ],
     architectureImage: 'https://images.unsplash.com/photo-1592833159155-c62df1b65634?auto=format&fit=crop&q=80&w=1200'
   },
   {
     id: 'water-management',
     title: 'Water Management',
-    description: 'Remote monitoring for pump stations, tank levels, and water quality sensors across distributed geographical areas.',
+    description: 'Remote monitoring for pump stations, tank levels, flow meters, and water quality sensors across distributed sites.',
     detailedContent: [
-      "Effective water distribution and treatment require constant vigilance. Our solution enables complete remote monitoring and control for municipal pump stations, diverse tank levels, and critical water quality sensors across broad geographical areas.",
-      "The platform helps utilities actively reduce non-revenue water loss by detecting leaks through pressure variations. Our automated pump sequencing logic prevents tank overflows and extends equipment lifespan by balancing run times.",
-      "Leveraging historical data patterns allows for highly proactive maintenance planning. Ensure a continuous, safe, and efficient water supply while drastically reducing the need for manual on-site inspections."
+      'Water distribution and treatment systems need reliable telemetry from pumps, tanks, valves, meters, and water quality sensors. A practical solution starts by mapping local IO, Modbus devices, and uplink availability at each station.',
+      'Dashboards can help operators monitor tank levels, pressure trends, pump status, and abnormal events. Automated control should be scoped carefully and validated against the site control philosophy.',
+      'For IoTEdges planning, wired RTU and Remote IO paths are the safest first public pages. Cellular water monitoring remains a strong SEO topic, but final 4G RTU specifications should wait for module, band, and field validation.'
     ],
     icon: Droplets,
     link: '/solutions/water-management',
     image: 'https://images.unsplash.com/photo-1581822261290-991b38693d1b?auto=format&fit=crop&q=80&w=800',
     hardware: [
-      'IoTEdges Industrial RTU (IP65 Outdoor)',
-      'Ultrasonic Level Sensors',
-      'Water Quality Probes (pH, Turbidity)',
+      'IER-100 Ethernet RTU for cabinet-based water telemetry',
+      'IEIO-100 Remote IO modules for pump and level signal expansion',
+      'Future IER-140 4G RTU after cellular validation',
+      'Ultrasonic level sensors',
+      'Water quality probes and flow or pressure transmitters',
       'Variable Frequency Drives (VFDs)'
     ],
     software: [
-      'Geographical map-view of pump stations',
-      'Automated pump sequencing control logic',
+      'Pump station and tank dashboard',
+      'Level, pressure, and flow trend analysis',
       'Tank level threshold alarms',
-      'Historical trend analysis for preventive maintenance'
+      'Maintenance history and event review'
+    ],
+    relatedProducts: [
+      { title: 'IER-100 Ethernet Industrial RTU', href: '/products/ier-100-ethernet-industrial-rtu' },
+      { title: 'IEIO-100 Modbus Remote IO Module', href: '/products/ieio-100-modbus-remote-io-module' }
     ],
     architectureImage: 'https://images.unsplash.com/photo-1542314831-c6a4d14eff4c?auto=format&fit=crop&q=80&w=1200'
   },
   {
     id: 'smart-agriculture',
     title: 'Smart Agriculture',
-    description: 'Track soil moisture, greenhouse climate, and automated irrigation systems for precision farming.',
+    description: 'Track soil moisture, greenhouse climate, and irrigation equipment with an architecture that separates wired, LoRa, WiFi, and 4G paths.',
     detailedContent: [
-      "Revolutionize precision farming by continuously tracking multi-depth soil moisture, greenhouse micro-climates, and automating large-scale irrigation systems. Agriculture today relies on data to maximize yields and minimize resource waste.",
-      "By integrating real-time field data with advanced weather forecasting APIs, farm operators can minimize water wastage during rainy periods and prevent crop stress during droughts. The resulting optimization significantly boosts crop yields and crop quality.",
-      "All sensor data is captured via battery or solar-powered wireless Agri-Nodes, making installation across vast acres simple. Visualize historic yield correlations and ensure environmentally sustainable agricultural practices season after season."
+      'Smart agriculture projects often combine soil sensors, greenhouse climate data, pump stations, irrigation valves, and remote dashboards. The right architecture depends heavily on distance, power availability, and whether the site can use wired cabinets, LoRa, WiFi, or cellular uplinks.',
+      'For greenhouses and equipment rooms, wired Remote IO can be a practical first step. Field-wide LoRa or 4G products should remain validation-gated until wireless range, antenna, power, and regional frequency requirements are confirmed.',
+      'IoTEdges should publish agriculture pages by application first, then connect them to product pages only after each wireless model has engineering evidence.'
     ],
     icon: Sprout,
     link: '/solutions/smart-agriculture',
     image: 'https://images.unsplash.com/photo-1625246333195-78d9c38ad449?auto=format&fit=crop&q=80&w=800',
     hardware: [
-      'IoTEdges Agri-Node (Battery/Solar powered)',
-      'Multi-depth Soil Moisture Probes',
-      'Environmental Temperature/Humidity Sensors',
-      'Solenoid Valve Controllers'
+      'Future LoRa or 4G RTU path after wireless and power validation',
+      'IEIO-100 Remote IO modules for wired greenhouse cabinets',
+      'Multi-depth soil moisture probes',
+      'Environmental temperature and humidity sensors',
+      'Solenoid valve controllers'
     ],
     software: [
-      'Precision irrigation schedules',
+      'Irrigation schedule dashboard',
       'Crop stress warning notifications',
-      'Weather API integration & forecasting',
-      'Yield correlation reporting'
+      'Weather data integration after project scoping',
+      'Historical sensor trend reporting'
+    ],
+    relatedProducts: [
+      { title: 'IEIO-100 Modbus Remote IO Module', href: '/products/ieio-100-modbus-remote-io-module' }
     ],
     architectureImage: 'https://images.unsplash.com/photo-1588180892313-09b674843cc1?auto=format&fit=crop&q=80&w=1200'
   },
   {
     id: 'building-automation',
     title: 'Building Automation',
-    description: 'Optimize building climate control and energy use through centralized monitoring of chillers, AHUs, and thermostats.',
+    description: 'Optimize building energy and equipment visibility through validated Modbus data collection and future advanced protocol paths.',
     detailedContent: [
-      "Transform legacy infrastructure into intelligent, data-driven environments. Our Building Automation solution optimizes commercial building climate control and overall energy usage through centralized, real-time monitoring of chillers, Air Handling Units (AHUs), and smart thermostats.",
-      "By deploying our multi-protocol BACnet and Modbus gateways, facility managers gain full visibility over building performance. Automated HVAC setback schedules ensure energy isn't wasted heating or cooling empty spaces, directly reducing utility overheads.",
-      "Enhance tenant comfort while enforcing strict Indoor Air Quality (IAQ) compliance. The platform also includes a tenant energy billing engine that fairly distributes energy costs based on actual sub-metered consumption, unlocking new revenue and cost-recovery streams."
+      'Building automation projects often involve chillers, AHUs, thermostats, energy meters, IAQ monitors, and occupancy sensors. The first step is confirming which devices expose Modbus data and which require advanced building protocols.',
+      'By starting with validated Modbus data collection and keeping advanced BACnet or OPC UA requirements as separate engineering gates, facility managers can build visibility over building performance without over-scoping the first hardware deployment.',
+      'IoTEdges should keep BACnet, OPC UA, and multi-protocol edge gateway claims separate from baseline IEG-100 pages until protocol interoperability testing is complete.'
     ],
     icon: ThermometerSnowflake,
     link: '/solutions/building-automation',
     image: 'https://images.unsplash.com/photo-1517406323631-f11270bc701f?auto=format&fit=crop&q=80&w=800',
     hardware: [
-      'IoTEdges BACnet/Modbus Protocol Converter',
-      'Smart HVAC Thermostats',
-      'Indoor Air Quality (IAQ) Monitors',
-      'Occupancy Sensors'
+      'IEG-100 Ethernet gateway for Modbus device collection',
+      'Future edge gateway path for BACnet or OPC UA after protocol validation',
+      'Smart HVAC thermostats',
+      'Indoor Air Quality (IAQ) monitors',
+      'Occupancy sensors'
     ],
     software: [
       'Floorplan layout visualization',
-      'Automated HVAC setback scheduling',
-      'Tenant energy billing engine',
-      'Air quality index (AQI) compliance tracking'
+      'HVAC trend and schedule review',
+      'Tenant energy report workflow',
+      'Air quality index (AQI) dashboard'
+    ],
+    relatedProducts: [
+      { title: 'IEG-100 Ethernet Industrial IoT Gateway', href: '/products/ieg-100-ethernet-industrial-iot-gateway' },
+      { title: 'IEIO-100 Modbus Remote IO Module', href: '/products/ieio-100-modbus-remote-io-module' }
     ],
     architectureImage: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1200'
   }
 ];
-

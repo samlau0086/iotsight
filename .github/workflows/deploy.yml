@@ -48,6 +48,26 @@ jobs:
           grep -q "IEG-120 WiFi Industrial IoT Gateway" dist/products/ieg-120-wifi-industrial-iot-gateway/index.html
           grep -q "IER-120 WiFi Remote Monitoring RTU" dist/products/ier-120-wifi-remote-monitoring-rtu/index.html
 
+      - name: Verify prerendered knowledge pages
+        run: |
+          test -f dist/knowledge/index.html
+          test -f dist/knowledge/modbus/index.html
+          test -f dist/knowledge/mqtt/index.html
+          test -f dist/knowledge/rs485/index.html
+          grep -q "Modbus for Industrial IoT Gateways and RTUs" dist/knowledge/modbus/index.html
+          grep -q "MQTT in Industrial IoT Monitoring" dist/knowledge/mqtt/index.html
+          grep -q "RS485 Wiring for Modbus RTU Devices" dist/knowledge/rs485/index.html
+
+      - name: Verify SEO discovery files
+        run: |
+          test -f dist/sitemap.xml
+          test -f dist/robots.txt
+          grep -q "https://iotedges.com/products/ieg-100-ethernet-industrial-iot-gateway" dist/sitemap.xml
+          grep -q "https://iotedges.com/knowledge/modbus" dist/sitemap.xml
+          grep -q "Sitemap: https://iotedges.com/sitemap.xml" dist/robots.txt
+          grep -q "application/ld+json" dist/products/ieg-100-ethernet-industrial-iot-gateway/index.html
+          grep -q "application/ld+json" dist/knowledge/modbus/index.html
+
       - name: Package release
         run: |
           mkdir release

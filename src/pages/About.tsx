@@ -54,10 +54,10 @@ export default function About() {
         {/* Global Footprint or Stats Section */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-24">
           {[
-            { label: 'Gateways Deployed', value: '10,000+' },
-            { label: 'Data Points Tracked', value: '50M+' },
-            { label: 'Partner Integrators', value: '250+' },
-            { label: 'Uptime Reliability', value: '99.99%' }
+            { label: 'Product Families Planned', value: '4' },
+            { label: 'Core Protocol Focus', value: 'Modbus' },
+            { label: 'Primary Cloud Protocol', value: 'MQTT' },
+            { label: 'Wireless Uplink Strategy', value: 'Separate' }
           ].map((stat, i) => (
             <div key={i} className="text-center p-6 bg-slate-800/50 rounded-xl border border-slate-700/50">
               <div className="text-3xl lg:text-4xl font-bold text-white mb-2" style={{ fontFamily: 'var(--font-display)' }}>{stat.value}</div>
@@ -71,16 +71,16 @@ export default function About() {
           <h3 className="text-2xl lg:text-3xl font-bold text-white mb-10 text-center" style={{ fontFamily: 'var(--font-display)' }}>Why Choose IoTEdges as your IoT Partner?</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
             <div>
-              <h4 className="text-xl font-bold text-white mb-4">End-to-End Solution</h4>
-              <p className="text-slate-400 leading-relaxed">We don't just sell boxes. We provide the complete package: the <strong>industrial IoT gateway</strong>, the cloud dashboard, and native alert integrations. This eliminates integration headaches and provides a single point of support.</p>
+              <h4 className="text-xl font-bold text-white mb-4">Architecture First</h4>
+              <p className="text-slate-400 leading-relaxed">We plan hardware, dashboard, and alert workflows together so the <strong>industrial IoT gateway</strong>, RTU, or Remote IO module fits the monitoring architecture instead of becoming an isolated box.</p>
             </div>
             <div>
-              <h4 className="text-xl font-bold text-white mb-4">Industrial Grade Hardware</h4>
-              <p className="text-slate-400 leading-relaxed">Our gateways are engineered for harsh environments. Featuring DIN-rail mounting, wide temperature operating ranges (-40 to 85°C), and optically isolated ports to prevent electrical damage on the factory floor.</p>
+              <h4 className="text-xl font-bold text-white mb-4">Validation-Driven Hardware</h4>
+              <p className="text-slate-400 leading-relaxed">Our product pages separate planned architecture from final specifications. Mounting, power input, interface behavior, wireless performance, and environmental ratings should be published only after engineering validation.</p>
             </div>
             <div>
-              <h4 className="text-xl font-bold text-white mb-4">White-label Ready (OEM/ODM)</h4>
-              <p className="text-slate-400 leading-relaxed">We empower our partners. We support system integrators and EPC contractors with fully custom-branded SaaS dashboards and unbranded or custom-labeled hardware to match your corporate identity.</p>
+              <h4 className="text-xl font-bold text-white mb-4">Partner-Friendly Roadmap</h4>
+              <p className="text-slate-400 leading-relaxed">We plan product paths for system integrators, EPC contractors, and software teams, including branded dashboard workflows and configurable hardware positioning once the model specifications are confirmed.</p>
             </div>
           </div>
         </div>

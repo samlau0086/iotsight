@@ -15,7 +15,7 @@ The Industrial Internet of Things (IIoT) is rapidly evolving, bringing unprecede
 
 ## 1. Edge Computing Takes Center Stage
 
-While cloud computing has been the backbone of IIoT, the shift towards edge computing is accelerating. Processing data locally at the "edge" associated with gateways (like our Modbus MQTT gateways) reduces latency, minimizes bandwidth usage, and ensures critical operations can continue even if cloud connectivity is interrupted. This is essential for time-sensitive manufacturing processes.
+While cloud computing has been the backbone of IIoT, the shift toward edge computing is accelerating. Processing selected data locally at the edge can reduce bandwidth usage, improve response time, and make remote monitoring systems more resilient. For many projects, the first step is still practical data acquisition through a gateway such as the [IEG-100 Ethernet Industrial IoT Gateway](/products/ieg-100-ethernet-industrial-iot-gateway) or [IEG-120 WiFi Industrial IoT Gateway](/products/ieg-120-wifi-industrial-iot-gateway).
 
 ## 2. AI-Driven Predictive Maintenance
 
@@ -27,8 +27,8 @@ The historical divide between Information Technology (IT) and Operational Techno
 
 ## 4. Enhanced Cybersecurity Measures
 
-As more industrial systems come online, they become targets for cyber threats. Consequently, securing IIoT architectures is paramount. We are seeing a heightened focus on zero-trust frameworks, encrypted communications (like secure MQTT with TLS), and hardware-level security built directly into IoT gateways.
+As more industrial systems come online, they become targets for cyber threats. Consequently, securing IIoT architectures is paramount. We are seeing a heightened focus on authenticated device access, encrypted telemetry paths, credential management, and clear IT/OT network boundaries. Public product pages should describe these capabilities only after firmware, broker onboarding, and deployment procedures are validated.
 
 ## Conclusion
 
-The future of manufacturing relies on the successful integration of these IIoT trends. At IoTEdges, our mission is to facilitate this transition by providing secure, reliable, and easy-to-use edge hardware and cloud dashboards. Embracing these technologies is no longer optional; it is a necessity for staying competitive in the modern industrial landscape.
+The future of manufacturing relies on the successful integration of these IIoT trends. At IoTEdges, our product path starts with practical [industrial IoT gateways, RTUs, and remote IO modules](/products), then expands each public specification as engineering validation progresses.

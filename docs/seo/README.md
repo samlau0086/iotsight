@@ -34,6 +34,7 @@ This folder contains structured planning databases for IoTEdges SEO content prod
 | `first-batch-product-page-capability-review-matrix.json` | Claim review matrix for the first-batch model-specific page briefs, separating safe, conditional, blocked and forbidden claims before public drafting. | Draft review matrix |
 | `first-batch-public-draft-conversion-plan.json` | Public draft conversion plan that prioritizes which safe-scope briefs can become public website drafts and which should wait for prototype or module validation. | Draft conversion plan |
 | `product-public-draft-frontend-verification-checklist.json` | Frontend verification checklist for product Markdown routes, SSR prerender outputs, SEO meta and claim-safety checks before deployment. | Draft verification checklist |
+| `src/content/knowledge/*.md` | Public website Knowledge Base Markdown pages for Modbus, MQTT, RS485 and later protocol topics; rendered through `/knowledge` routes. | In progress |
 | `supplier-datasheet-request-checklist.json` | Optional sourcing/OEM reference checklist if external modules, enclosures, manufacturing or certificates need to be evaluated. | Optional reference |
 | `supplier-response-evaluation-matrix.json` | Optional matrix for evaluating sourcing/OEM responses; not the main source of IoTEdges product definition. | Optional reference |
 | `supplier-outreach-email-templates.json` | Chinese supplier outreach templates for optional module, enclosure, certification, sample or OEM/ODM communication. | Optional reference |

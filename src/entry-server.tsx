@@ -4,6 +4,7 @@ import { MemoryRouter } from 'react-router-dom';
 import { AppLayout } from './App';
 import { blogPosts } from './data/blog';
 import { productPages } from './data/products';
+import { knowledgePages } from './data/knowledge';
 import { solutions } from './data/solutions';
 
 export function render(url: string) {
@@ -27,6 +28,8 @@ export function getPrerenderRoutes() {
     '/contact',
     '/products',
     ...productPages.map(product => `/products/${product.id}`),
+    '/knowledge',
+    ...knowledgePages.map(page => `/knowledge/${page.id}`),
     '/blog',
     ...blogPosts.map(post => `/blog/${post.id}`),
     ...solutions.map(solution => `/solutions/${solution.id}`),
@@ -73,6 +76,25 @@ export function getSeoMeta(url: string) {
     return {
       title: 'Industrial IoT Blog | IoTEdges',
       description: 'Insights, guides, and trends on factory energy monitoring, remote equipment tracking, and industrial networking.',
+      type: 'website',
+    };
+  }
+
+  const knowledgeMatch = url.match(/^\/knowledge\/([^/]+)$/);
+  const knowledge = knowledgeMatch ? knowledgePages.find(item => item.id === knowledgeMatch[1]) : null;
+
+  if (knowledge) {
+    return {
+      title: `${knowledge.title} | IoTEdges Knowledge Base`,
+      description: knowledge.excerpt,
+      type: 'article',
+    };
+  }
+
+  if (url === '/knowledge') {
+    return {
+      title: 'Industrial IoT Knowledge Base | IoTEdges',
+      description: 'Practical protocol and connectivity guides for Modbus, MQTT, RS485 and industrial IoT product selection.',
       type: 'website',
     };
   }

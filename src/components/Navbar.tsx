@@ -11,6 +11,7 @@ export default function Navbar() {
     { name: 'Home', href: '/' },
     { name: 'Solutions', href: '/solutions' },
     { name: 'Products', href: '/products' },
+    { name: 'Knowledge', href: '/knowledge' },
     { name: 'Dashboard Demo', href: '/demo' },
     { name: 'Blog', href: '/blog' },
     { name: 'About', href: '/about' },
@@ -24,6 +25,9 @@ export default function Navbar() {
       return true;
     }
     if (path === '/products' && (location.pathname.startsWith('/products') || location.pathname === '/gateway')) {
+      return true;
+    }
+    if (path === '/knowledge' && location.pathname.startsWith('/knowledge')) {
       return true;
     }
     return location.pathname === path;

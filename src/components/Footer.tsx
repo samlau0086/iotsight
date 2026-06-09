@@ -31,17 +31,20 @@ export default function Footer() {
             <li><Link to="/products/ieg-100-ethernet-industrial-iot-gateway" className="hover:text-white transition-colors">IEG-100 Gateway</Link></li>
             <li><Link to="/products/ieio-100-modbus-remote-io-module" className="hover:text-white transition-colors">IEIO-100 Remote IO</Link></li>
             <li><Link to="/products/ier-100-ethernet-industrial-rtu" className="hover:text-white transition-colors">IER-100 RTU</Link></li>
-            <li><Link to="/gateway" className="hover:text-white transition-colors">Legacy Gateway Page</Link></li>
+            <li><Link to="/products/ieg-120-wifi-industrial-iot-gateway" className="hover:text-white transition-colors">IEG-120 WiFi Gateway</Link></li>
           </ul>
         </div>
 
         <div>
-           <span className="text-[10px] text-slate-500 font-bold uppercase tracking-[0.2em] mb-4 block">Company</span>
+           <span className="text-[10px] text-slate-500 font-bold uppercase tracking-[0.2em] mb-4 block">Resources</span>
            <div className="flex flex-col gap-3">
+              <Link to="/knowledge" className="text-xs font-semibold text-slate-300 hover:text-white transition-colors">Knowledge Base</Link>
+              <Link to="/knowledge/modbus" className="text-xs font-semibold text-slate-300 hover:text-white transition-colors">Modbus Guide</Link>
+              <Link to="/knowledge/mqtt" className="text-xs font-semibold text-slate-300 hover:text-white transition-colors">MQTT Guide</Link>
+              <Link to="/knowledge/rs485" className="text-xs font-semibold text-slate-300 hover:text-white transition-colors">RS485 Guide</Link>
               <Link to="/about" className="text-xs font-semibold text-slate-300 hover:text-white transition-colors">About Us</Link>
               <Link to="/blog" className="text-xs font-semibold text-slate-300 hover:text-white transition-colors">Blog</Link>
               <Link to="/contact" className="text-xs font-semibold text-slate-300 hover:text-white transition-colors">Contact</Link>
-              <Link to="/demo" className="text-xs font-semibold text-slate-300 hover:text-white transition-colors">Dashboard Demo</Link>
            </div>
         </div>
       </div>

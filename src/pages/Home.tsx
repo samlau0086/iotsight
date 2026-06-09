@@ -27,8 +27,8 @@ export default function Home() {
             <Link to="/demo" className="px-8 py-4 bg-white text-slate-950 font-bold rounded shadow-lg shadow-white/5 hover:bg-slate-200 transition-all uppercase tracking-widest text-xs flex items-center justify-center">
               View Live Demo
             </Link>
-            <Link to="/factory-energy" className="px-8 py-4 border border-slate-700 font-bold rounded hover:bg-slate-900 transition-all uppercase tracking-widest text-xs flex items-center justify-center text-white">
-              Solutions Guide
+            <Link to="/products" className="px-8 py-4 border border-slate-700 font-bold rounded hover:bg-slate-900 transition-all uppercase tracking-widest text-xs flex items-center justify-center text-white">
+              View Products
             </Link>
           </div>
           <div className="grid grid-cols-3 gap-6 pt-8 border-t border-slate-800 mt-4">
@@ -207,25 +207,25 @@ export default function Home() {
            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-12 gap-6">
             <div>
               <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-4 tracking-tight">Core Hardwares & Kits</h2>
-              <p className="text-lg text-slate-400 font-medium">Reliable data collection endpoints for industrial environments.</p>
+              <p className="text-lg text-slate-400 font-medium">Validation-aware product drafts for gateways, RTUs, and Remote IO modules.</p>
             </div>
-            <Link to="/gateway" className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-blue-400 hover:text-blue-300">
+            <Link to="/products" className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-blue-400 hover:text-blue-300">
               View all products <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { title: "Factory Energy Box", desc: "Complete kit for tracking workshop power.", icon: Zap },
-              { title: "Modbus RTU to MQTT Gateway", desc: "Reliable protocol converter for integrators.", icon: Server },
-              { title: "Solar Monitoring Gateway", desc: "For PV inverters and solar farms.", icon: Activity },
-              { title: "Cold Storage Monitoring Kit", desc: "Temp/Humidity trackers with power-loss alerts.", icon: ShieldCheck }
+              { title: "IEG-100 Ethernet Gateway", desc: "Planned Ethernet gateway for Modbus data collection and MQTT telemetry.", icon: Server, href: "/products/ieg-100-ethernet-industrial-iot-gateway" },
+              { title: "IEIO-100 Remote IO", desc: "Planned Modbus Remote IO family for DI, DO/relay, AI, and AO expansion.", icon: Activity, href: "/products/ieio-100-modbus-remote-io-module" },
+              { title: "IER-100 Ethernet RTU", desc: "Planned wired RTU with local IO and Modbus connectivity targets.", icon: Zap, href: "/products/ier-100-ethernet-industrial-rtu" },
+              { title: "IEG-120 WiFi Gateway", desc: "Planned indoor WiFi gateway for Modbus-to-MQTT applications.", icon: ShieldCheck, href: "/products/ieg-120-wifi-industrial-iot-gateway" }
             ].map((item, i) => (
-              <div key={i} className="bg-slate-900 border border-slate-800 rounded-xl p-6 hover:border-slate-700 transition cursor-default">
+              <Link key={i} to={item.href} className="bg-slate-900 border border-slate-800 rounded-xl p-6 hover:border-blue-500/50 transition block">
                 <item.icon className="w-8 h-8 text-blue-400 mb-6" />
                 <h3 className="font-bold text-lg text-white mb-2">{item.title}</h3>
                 <p className="text-slate-400 text-sm leading-relaxed">{item.desc}</p>
-              </div>
+              </Link>
             ))}
           </div>
         </div>

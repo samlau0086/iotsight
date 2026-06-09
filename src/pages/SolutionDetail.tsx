@@ -106,6 +106,27 @@ export default function SolutionDetail() {
                     </ul>
                   </div>
                 )}
+
+                {solution.relatedProducts && (
+                  <div>
+                    <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                      <Server className="w-5 h-5 text-blue-400" />
+                      Related Products
+                    </h3>
+                    <div className="grid grid-cols-1 gap-3">
+                      {solution.relatedProducts.map((product) => (
+                        <Link
+                          key={product.href}
+                          to={product.href}
+                          className="flex items-center justify-between gap-4 bg-slate-900 border border-slate-800 p-4 rounded-lg text-sm font-bold text-slate-200 hover:border-blue-500/50 hover:text-blue-300 transition-colors"
+                        >
+                          {product.title}
+                          <ArrowRight className="w-4 h-4 shrink-0" />
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
             
@@ -139,7 +160,10 @@ export default function SolutionDetail() {
                   <div className="w-10 h-10 rounded bg-blue-900/30 border border-blue-500/30 flex items-center justify-center font-bold text-blue-400 shrink-0">2</div>
                   <div>
                     <h4 className="font-bold text-white mb-1">IoTEdges Gateway</h4>
-                    <p className="text-sm text-slate-400">Securely aggregates edge data and pushes it over cellular or WiFi networks.</p>
+                    <p className="text-sm text-slate-400">Select an Ethernet, WiFi, or validation-gated cellular gateway path based on field protocol, uplink, and deployment environment.</p>
+                    <Link to="/products" className="inline-flex items-center gap-1 text-xs font-bold text-blue-400 hover:text-blue-300 mt-3">
+                      View product options <ArrowRight className="w-3 h-3" />
+                    </Link>
                   </div>
                 </div>
                 <div className="w-0.5 h-6 bg-slate-800 ml-5 block"></div>
