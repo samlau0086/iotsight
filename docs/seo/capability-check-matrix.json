@@ -1,0 +1,480 @@
+﻿{
+  "meta": {
+    "project": "IoTEdges",
+    "database": "capability-check-matrix",
+    "version": "0.1.0",
+    "last_updated": "2026-06-09",
+    "status": "self_developed_planning_baseline",
+    "purpose": "Mainstream capability baseline for the first IoTEdges self-developed product pages. This is a product planning matrix, not a final product specification.",
+    "important_note": "Entries marked proposed_baseline are recommended engineering targets based on common market configurations and IoTEdges strategy. They must be validated through product design, firmware implementation and prototype testing before being used as final website claims."
+  },
+  "status_values": {
+    "proposed_baseline": "Recommended target capability based on common market offerings and the IoTEdges self-developed roadmap; validate before final publication.",
+    "candidate_optional": "Good to offer on selected models, but not required for the baseline product page.",
+    "avoid_until_confirmed": "Do not publish this as a claim unless engineering implementation, tests and documentation confirm it.",
+    "not_recommended_for_baseline": "Do not make this part of the first product definition unless there is a strong business reason.",
+    "out_of_scope_first_generation": "Intentionally excluded from the first-generation IoTEdges product roadmap."
+  },
+  "market_reference_notes": [
+    "Industrial Modbus/MQTT gateways commonly include RS485, Ethernet, MQTT, Modbus RTU/TCP, and optional 4G LTE.",
+    "4G Modbus/RTU products commonly support RS485, configurable serial baud rates, MQTT or TCP/IP forwarding, SIM/APN settings, and DIN-rail or industrial enclosure options.",
+    "IoTEdges plans to support 4G LTE, WiFi and LoRa/LoRaWAN in selected first-generation product families.",
+    "A device can have only one wireless uplink method. 4G LTE, WiFi and LoRa/LoRaWAN should be separate IoTEdges device variants, not combined in the same device.",
+    "5G is intentionally out of scope for the first-generation IoTEdges product roadmap.",
+    "Some edge gateways include optional GPS, CAN, BACnet, OPC UA, data logging, TLS, or protocol conversion, but these should be model-specific claims."
+  ],
+  "reference_sources": [
+    {
+      "name": "ModbusCloud Gateway",
+      "url": "https://www.modbuscloud.com/gateway",
+      "notes": "Example industrial gateway with RS485, Ethernet, 4G LTE, MQTT and Modbus settings."
+    },
+    {
+      "name": "BLIIoT BL101 Modbus to MQTT Gateway",
+      "url": "https://gateway-iot.com/industrial-iot-gateway-p00412p1.html",
+      "notes": "Example Modbus RTU/TCP to MQTT gateway with Ethernet, WiFi or cellular network options."
+    },
+    {
+      "name": "Adventis Industrial IoT Gateway",
+      "url": "https://adventis.tech/iot-gateway/",
+      "notes": "Example rugged IoT gateway with 4G/LTE, RS485, digital IO, MQTT, HTTPS, TCP/UDP and Modbus RTU/TCP."
+    },
+    {
+      "name": "Link485 4G Cellular LTE Modbus Gateway",
+      "url": "https://link485.com/us-en/products/4g-modbus-gateway.php",
+      "notes": "Example cellular Modbus gateway supporting RS485 Modbus devices and MQTT/HTTP/Modbus TCP connectivity."
+    },
+    {
+      "name": "SST Automation 2026 Catalog",
+      "url": "https://www.sstautomation.com/DownloadData/Catalog/2026_Catalog_SST_V11.pdf",
+      "notes": "Example Modbus RS485/TCP to cellular MQTT gateway with RS485, Ethernet, JSON, TLS, DIN rail, and 11-30VDC."
+    }
+  ],
+  "products": [
+    {
+      "product_id": "industrial-iot-gateway",
+      "page_title": "Industrial IoT Gateway",
+      "recommended_positioning": "A general industrial gateway for collecting Modbus, serial, Ethernet and IO data, then sending it to MQTT/cloud/SCADA-style monitoring systems.",
+      "baseline_capabilities": [
+        {
+          "capability": "Modbus RTU client/master over RS485",
+          "recommended_status": "proposed_baseline",
+          "seo_claim_style": "Can be described as supporting Modbus RTU data collection over RS485 after product confirmation.",
+          "why": "Common core function for industrial IoT gateways."
+        },
+        {
+          "capability": "Modbus TCP client over Ethernet",
+          "recommended_status": "proposed_baseline",
+          "seo_claim_style": "Can be positioned for Ethernet-based Modbus device data collection after confirmation.",
+          "why": "Important for factories, energy meters, PLCs and building equipment."
+        },
+        {
+          "capability": "MQTT publish to custom broker",
+          "recommended_status": "proposed_baseline",
+          "seo_claim_style": "Can publish industrial data to MQTT brokers or cloud platforms after confirmation.",
+          "why": "Core claim for IoTEdges cloud connectivity."
+        },
+        {
+          "capability": "Ethernet WAN/LAN",
+          "recommended_status": "proposed_baseline",
+          "seo_claim_style": "Use Ethernet gateway wording after port count is confirmed.",
+          "why": "Baseline industrial gateway connectivity."
+        },
+        {
+          "capability": "RS485 port",
+          "recommended_status": "proposed_baseline",
+          "seo_claim_style": "Mention RS485 for Modbus meters, inverters, sensors and controllers after port count is confirmed.",
+          "why": "Essential for Modbus RTU and industrial field devices."
+        },
+        {
+          "capability": "RS232 port",
+          "recommended_status": "candidate_optional",
+          "seo_claim_style": "Write as available on selected models if supported.",
+          "why": "Useful for legacy serial devices but not always required."
+        },
+        {
+          "capability": "4G LTE cellular option",
+          "recommended_status": "candidate_optional",
+          "seo_claim_style": "Write as optional cellular connectivity or selected models only.",
+          "why": "Important for remote sites, but can be split into 4G gateway/4G RTU pages."
+        },
+        {
+          "capability": "WiFi option",
+          "recommended_status": "proposed_baseline",
+          "seo_claim_style": "Write as WiFi connectivity on selected IoTEdges gateway models after firmware and RF testing.",
+          "why": "IoTEdges plans WiFi support for selected first-generation gateway/RTU models."
+        },
+        {
+          "capability": "Basic digital input and analog input",
+          "recommended_status": "candidate_optional",
+          "seo_claim_style": "Use IO wording only with channel count and signal type confirmed.",
+          "why": "Some gateways include IO, but Remote IO/RTU pages should carry heavier IO claims."
+        },
+        {
+          "capability": "DIN rail mounting",
+          "recommended_status": "proposed_baseline",
+          "seo_claim_style": "Mention industrial cabinet/DIN rail deployment once mechanical design is confirmed.",
+          "why": "Common for industrial gateway products."
+        },
+        {
+          "capability": "Wide DC power input, target 9-30VDC or 12-24VDC class",
+          "recommended_status": "proposed_baseline",
+          "seo_claim_style": "Use exact input range only after engineering validation.",
+          "why": "Industrial panels commonly use 12/24VDC power."
+        },
+        {
+          "capability": "TLS for MQTT",
+          "recommended_status": "candidate_optional",
+          "seo_claim_style": "Do not claim TLS/certificate handling until confirmed.",
+          "why": "Commercially useful, but implementation details matter."
+        },
+        {
+          "capability": "OPC UA",
+          "recommended_status": "avoid_until_confirmed",
+          "seo_claim_style": "Avoid on baseline page unless selected model supports OPC UA client/server.",
+          "why": "Often model-specific and easy to overclaim."
+        },
+        {
+          "capability": "AI / predictive maintenance",
+          "recommended_status": "not_recommended_for_baseline",
+          "seo_claim_style": "Do not claim; frame as data acquisition for analytics instead.",
+          "why": "Requires real analytics capability and proof."
+        }
+      ],
+      "recommended_model_tiers": [
+        "Base: Ethernet + RS485 + Modbus RTU/TCP + MQTT",
+        "Cellular: Base + 4G LTE",
+        "Edge: Base + local rules/data buffering/protocol conversion if supported"
+      ]
+    },
+    {
+      "product_id": "mqtt-gateway",
+      "page_title": "MQTT Gateway",
+      "recommended_positioning": "A gateway that collects industrial device data and publishes it to an MQTT broker or cloud platform.",
+      "baseline_capabilities": [
+        {
+          "capability": "MQTT publish",
+          "recommended_status": "proposed_baseline",
+          "seo_claim_style": "Core claim once broker configuration and payload behavior are confirmed.",
+          "why": "This is the defining capability of the page."
+        },
+        {
+          "capability": "Custom MQTT broker address, port, username and password",
+          "recommended_status": "proposed_baseline",
+          "seo_claim_style": "Can say configurable broker connection after UI/manual confirmation.",
+          "why": "Expected in industrial MQTT gateway products."
+        },
+        {
+          "capability": "JSON payload format",
+          "recommended_status": "proposed_baseline",
+          "seo_claim_style": "Write as JSON or configurable payload only after confirmation.",
+          "why": "Common and SEO-useful for cloud integration."
+        },
+        {
+          "capability": "Modbus RTU polling over RS485",
+          "recommended_status": "proposed_baseline",
+          "seo_claim_style": "Can connect RS485 Modbus devices and publish data to MQTT after confirmation.",
+          "why": "Main industrial input source for MQTT gateway pages."
+        },
+        {
+          "capability": "Modbus TCP polling over Ethernet",
+          "recommended_status": "proposed_baseline",
+          "seo_claim_style": "Can collect Modbus TCP data from Ethernet devices after confirmation.",
+          "why": "Common in factory/building/energy systems."
+        },
+        {
+          "capability": "Ethernet connectivity",
+          "recommended_status": "proposed_baseline",
+          "seo_claim_style": "Mention Ethernet MQTT gateway if port and network mode are confirmed.",
+          "why": "Baseline network option."
+        },
+        {
+          "capability": "4G LTE option",
+          "recommended_status": "candidate_optional",
+          "seo_claim_style": "Use 4G MQTT Gateway as selected-model page if supported.",
+          "why": "Strong remote site SEO angle."
+        },
+        {
+          "capability": "WiFi option",
+          "recommended_status": "proposed_baseline",
+          "seo_claim_style": "Use WiFi MQTT Gateway for selected IoTEdges models after firmware and RF testing.",
+          "why": "WiFi is part of the planned IoTEdges connectivity roadmap."
+        },
+        {
+          "capability": "MQTT over TLS",
+          "recommended_status": "candidate_optional",
+          "seo_claim_style": "Avoid security-specific claims until certificate/TLS behavior is confirmed.",
+          "why": "Security implementation details are product-specific."
+        },
+        {
+          "capability": "Offline buffering / store-and-forward",
+          "recommended_status": "candidate_optional",
+          "seo_claim_style": "Only claim if product supports local storage and resend behavior.",
+          "why": "Valuable feature for unstable cellular networks."
+        },
+        {
+          "capability": "Cloud presets for AWS, Azure, ThingsBoard or custom platforms",
+          "recommended_status": "candidate_optional",
+          "seo_claim_style": "Mention only platforms actually tested or supported.",
+          "why": "Useful for conversion but risky if not validated."
+        }
+      ],
+      "recommended_model_tiers": [
+        "Base MQTT Gateway: Ethernet + RS485 + Modbus RTU/TCP + MQTT JSON",
+        "4G MQTT Gateway: Base + LTE cellular",
+        "Advanced MQTT Gateway: Base + TLS + buffering + payload mapping"
+      ]
+    },
+    {
+      "product_id": "modbus-to-mqtt-gateway",
+      "page_title": "Modbus to MQTT Gateway",
+      "recommended_positioning": "A focused protocol conversion gateway for reading Modbus RTU/TCP data and publishing it to MQTT.",
+      "baseline_capabilities": [
+        {
+          "capability": "Modbus RTU master/client over RS485",
+          "recommended_status": "proposed_baseline",
+          "seo_claim_style": "Core claim after confirming polling mode and serial parameters.",
+          "why": "Primary reason buyers search Modbus to MQTT Gateway."
+        },
+        {
+          "capability": "Modbus TCP client over Ethernet",
+          "recommended_status": "proposed_baseline",
+          "seo_claim_style": "Include Modbus TCP to MQTT if confirmed.",
+          "why": "Important for Ethernet-connected PLCs/meters."
+        },
+        {
+          "capability": "MQTT publish to broker",
+          "recommended_status": "proposed_baseline",
+          "seo_claim_style": "Core output claim after confirming broker options.",
+          "why": "Defines the conversion target."
+        },
+        {
+          "capability": "Register mapping table",
+          "recommended_status": "proposed_baseline",
+          "seo_claim_style": "Can say configurable register mapping if UI/manual confirms it.",
+          "why": "Needed for practical Modbus deployments."
+        },
+        {
+          "capability": "Data type, byte order and scaling configuration",
+          "recommended_status": "candidate_optional",
+          "seo_claim_style": "Mention only if supported.",
+          "why": "High-value engineering feature but implementation varies."
+        },
+        {
+          "capability": "MQTT topic customization",
+          "recommended_status": "proposed_baseline",
+          "seo_claim_style": "Can say configurable MQTT topic structure after confirmation.",
+          "why": "Important for cloud integration."
+        },
+        {
+          "capability": "JSON payload",
+          "recommended_status": "proposed_baseline",
+          "seo_claim_style": "Use JSON payload wording once confirmed.",
+          "why": "Common for MQTT cloud dashboards."
+        },
+        {
+          "capability": "Support for multiple Modbus devices",
+          "recommended_status": "proposed_baseline",
+          "seo_claim_style": "Use exact device/tag limits only after engineering validation.",
+          "why": "Buyers need to know scale."
+        },
+        {
+          "capability": "4G cellular option",
+          "recommended_status": "candidate_optional",
+          "seo_claim_style": "Write as optional 4G Modbus to MQTT Gateway if supported.",
+          "why": "Very strong for remote energy/solar/water sites."
+        },
+        {
+          "capability": "Automatic register discovery",
+          "recommended_status": "avoid_until_confirmed",
+          "seo_claim_style": "Do not claim unless actually implemented.",
+          "why": "Most products require manual register configuration."
+        }
+      ],
+      "recommended_model_tiers": [
+        "Base: 1x RS485 + Ethernet + Modbus RTU/TCP to MQTT",
+        "Multi-port: Multiple RS485 ports or higher tag capacity",
+        "Cellular: Base + 4G LTE"
+      ]
+    },
+    {
+      "product_id": "industrial-rtu",
+      "page_title": "Industrial RTU",
+      "recommended_positioning": "A remote telemetry device for collecting field IO, Modbus data and alarms from industrial sites.",
+      "baseline_capabilities": [
+        {
+          "capability": "Digital inputs",
+          "recommended_status": "proposed_baseline",
+          "seo_claim_style": "Can mention digital status/alarm collection after channel count is confirmed.",
+          "why": "Core RTU function for pump, valve, door, alarm and equipment status."
+        },
+        {
+          "capability": "Relay or digital outputs",
+          "recommended_status": "proposed_baseline",
+          "seo_claim_style": "Mention remote output/control only with rating and safety wording confirmed.",
+          "why": "Common for alarms, pumps, valves and remote switching."
+        },
+        {
+          "capability": "Analog inputs, target 4-20mA and/or 0-10V",
+          "recommended_status": "proposed_baseline",
+          "seo_claim_style": "Can say supports analog sensor signals after exact signal types are confirmed.",
+          "why": "Needed for level, pressure, flow and water quality sensors."
+        },
+        {
+          "capability": "RS485 Modbus RTU",
+          "recommended_status": "proposed_baseline",
+          "seo_claim_style": "Can collect Modbus meter/sensor/device data after support is confirmed.",
+          "why": "Common RTU data acquisition function."
+        },
+        {
+          "capability": "Ethernet or cellular communication option",
+          "recommended_status": "proposed_baseline",
+          "seo_claim_style": "Separate Ethernet RTU and 4G RTU claims by model.",
+          "why": "RTU pages need remote communication clarity."
+        },
+        {
+          "capability": "MQTT or Modbus TCP data forwarding",
+          "recommended_status": "candidate_optional",
+          "seo_claim_style": "Mention only after protocol forwarding behavior is confirmed.",
+          "why": "Bridges RTU and IoT gateway positioning."
+        },
+        {
+          "capability": "Local alarm rules",
+          "recommended_status": "candidate_optional",
+          "seo_claim_style": "Use alarm threshold wording only if rule engine exists.",
+          "why": "Very useful for remote sites."
+        },
+        {
+          "capability": "Data logging",
+          "recommended_status": "candidate_optional",
+          "seo_claim_style": "Claim only if local storage and export behavior are confirmed.",
+          "why": "Useful where networks are unstable."
+        },
+        {
+          "capability": "Wide DC input, target 9-30VDC or 12-24VDC class",
+          "recommended_status": "proposed_baseline",
+          "seo_claim_style": "Use exact range only after engineering validation.",
+          "why": "Common industrial power requirement."
+        },
+        {
+          "capability": "DIN rail or wall mounting",
+          "recommended_status": "proposed_baseline",
+          "seo_claim_style": "Mention installation style only after mechanical design confirmation.",
+          "why": "Typical for panels and field cabinets."
+        },
+        {
+          "capability": "DNP3 / IEC 60870 / IEC 61850",
+          "recommended_status": "avoid_until_confirmed",
+          "seo_claim_style": "Do not claim utility protocols until implemented and tested.",
+          "why": "High-risk protocol claims."
+        },
+        {
+          "capability": "Hazardous area certification",
+          "recommended_status": "avoid_until_confirmed",
+          "seo_claim_style": "Never imply explosion-proof/hazardous certification unless certificates exist.",
+          "why": "Legal and safety-sensitive."
+        }
+      ],
+      "recommended_model_tiers": [
+        "Base RTU: DI/DO/AI + RS485 Modbus + Ethernet",
+        "4G RTU: Base + LTE cellular",
+        "Advanced RTU: More IO + local alarm rules + data logging"
+      ]
+    },
+    {
+      "product_id": "4g-rtu",
+      "page_title": "4G RTU",
+      "recommended_positioning": "A cellular RTU for collecting field IO and industrial data from remote sites without wired network access.",
+      "baseline_capabilities": [
+        {
+          "capability": "4G LTE cellular modem",
+          "recommended_status": "proposed_baseline",
+          "seo_claim_style": "Can say cellular/4G RTU after supported bands and regions are confirmed.",
+          "why": "Defining capability of the 4G RTU page."
+        },
+        {
+          "capability": "Nano SIM or industrial SIM support",
+          "recommended_status": "proposed_baseline",
+          "seo_claim_style": "Mention SIM/APN setup only after manual confirms details.",
+          "why": "Needed for deployment planning."
+        },
+        {
+          "capability": "External antenna connector",
+          "recommended_status": "proposed_baseline",
+          "seo_claim_style": "Mention external antenna support after connector type is confirmed.",
+          "why": "Important for remote industrial sites."
+        },
+        {
+          "capability": "MQTT data transmission",
+          "recommended_status": "proposed_baseline",
+          "seo_claim_style": "Can send remote data to MQTT/cloud after protocol behavior is confirmed.",
+          "why": "Strong IoT telemetry angle."
+        },
+        {
+          "capability": "Modbus RTU over RS485",
+          "recommended_status": "proposed_baseline",
+          "seo_claim_style": "Can collect RS485 Modbus device data at remote sites after confirmation.",
+          "why": "Common for meters, sensors and controllers."
+        },
+        {
+          "capability": "Digital inputs and relay/digital outputs",
+          "recommended_status": "proposed_baseline",
+          "seo_claim_style": "Use exact channel counts and ratings only after engineering validation.",
+          "why": "Needed for alarms and remote equipment status/control."
+        },
+        {
+          "capability": "Analog inputs for 4-20mA / 0-10V sensors",
+          "recommended_status": "proposed_baseline",
+          "seo_claim_style": "Mention level, pressure and flow sensors only after supported analog types are confirmed.",
+          "why": "Important for tank, pipeline, water and environmental monitoring."
+        },
+        {
+          "capability": "Ethernet backup or local Ethernet configuration port",
+          "recommended_status": "candidate_optional",
+          "seo_claim_style": "Mention only if available.",
+          "why": "Useful for setup and hybrid connectivity."
+        },
+        {
+          "capability": "VPN support",
+          "recommended_status": "candidate_optional",
+          "seo_claim_style": "Do not claim unless firmware supports it.",
+          "why": "Valuable but implementation-specific."
+        },
+        {
+          "capability": "LTE band list",
+          "recommended_status": "avoid_until_confirmed",
+          "seo_claim_style": "Never publish band/country coverage before selecting modem module.",
+          "why": "Band support depends on module and target market."
+        },
+        {
+          "capability": "5G support",
+          "recommended_status": "out_of_scope_first_generation",
+          "seo_claim_style": "Do not include on first-generation IoTEdges product pages.",
+          "why": "IoTEdges is not planning 5G products for the first-generation roadmap."
+        }
+      ],
+      "recommended_model_tiers": [
+        "Base 4G RTU: LTE + DI/DO/AI + RS485 + MQTT",
+        "Remote telemetry RTU: Base + local alarm rules + data logging",
+        "Advanced remote site RTU: Base + VPN/dual SIM/GNSS only if market requires and hardware supports"
+      ]
+    }
+  ],
+  "recommended_common_spec_baseline": {
+    "power": "Target 9-30VDC or 12-24VDC class; publish exact range only after hardware design and prototype validation.",
+    "temperature": "Target industrial operating temperature class such as -20C to +70C or wider; publish exact range only after engineering validation.",
+    "installation": "DIN rail mounting is recommended for panel/cabinet products.",
+    "serial": "At least 1x RS485 is recommended for baseline gateway/RTU products.",
+    "ethernet": "At least 1x 10/100M Ethernet is recommended for gateway baseline.",
+    "cellular": "4G LTE should be model-specific, not assumed on every gateway.",
+    "security": "TLS, VPN, certificate management and role-based access must be confirmed before SEO claims.",
+    "cloud": "Use generic MQTT/custom broker wording until named cloud platforms are tested."
+  },
+  "next_actions": [
+    "Use this matrix together with self-developed-product-spec-baseline.json to define the first actual IoTEdges product models.",
+    "Decide which capabilities are baseline and which are selected-model options in engineering requirement documents.",
+    "Replace proposed_baseline with validated, unsupported or conditional after prototype testing.",
+    "Do not publish final product pages until confirmed fields are updated."
+  ]
+}
+

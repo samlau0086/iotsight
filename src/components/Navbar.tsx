@@ -10,7 +10,7 @@ export default function Navbar() {
   const navigation = [
     { name: 'Home', href: '/' },
     { name: 'Solutions', href: '/solutions' },
-    { name: 'IoT Gateway', href: '/gateway' },
+    { name: 'Products', href: '/products' },
     { name: 'Dashboard Demo', href: '/demo' },
     { name: 'Blog', href: '/blog' },
     { name: 'About', href: '/about' },
@@ -21,6 +21,9 @@ export default function Navbar() {
       return true;
     }
     if (path === '/solutions' && (location.pathname.startsWith('/solutions') || location.pathname === '/factory-energy')) {
+      return true;
+    }
+    if (path === '/products' && (location.pathname.startsWith('/products') || location.pathname === '/gateway')) {
       return true;
     }
     return location.pathname === path;

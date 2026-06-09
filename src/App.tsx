@@ -9,6 +9,8 @@ import About from './pages/About';
 import Contact from './pages/Contact';
 import BlogList from './pages/BlogList';
 import BlogPostPage from './pages/BlogPostPage';
+import ProductList from './pages/ProductList';
+import ProductDetail from './pages/ProductDetail';
 import SolutionsList from './pages/SolutionsList';
 import SolutionDetail from './pages/SolutionDetail';
 import ScrollToTop from './components/ScrollToTop';
@@ -26,6 +28,8 @@ export function AppLayout() {
             <Route path="/factory-energy" element={<FactoryEnergy />} />
             <Route path="/solutions" element={<SolutionsList />} />
             <Route path="/solutions/:id" element={<SolutionDetail />} />
+            <Route path="/products" element={<ProductList />} />
+            <Route path="/products/:id" element={<ProductDetail />} />
             <Route path="/gateway" element={<Gateway />} />
             <Route path="/demo" element={<Demo />} />
             <Route path="/about" element={<About />} />

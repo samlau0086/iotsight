@@ -1,0 +1,412 @@
+{
+  "meta": {
+    "project": "IoTEdges",
+    "database": "factual-source-cards",
+    "version": "0.1.0",
+    "last_updated": "2026-06-08",
+    "status": "drafted",
+    "purpose": "Factual source cards for protocol, communication, and industrial IoT concepts used in IoTEdges SEO content generation."
+  },
+  "field_definitions": {
+    "id": "Stable machine-readable identifier.",
+    "title": "Topic name for the factual card.",
+    "source_quality": "official, standards_body, vendor_application_note, or secondary_reference.",
+    "primary_sources": "Preferred sources to use when fact-checking content.",
+    "core_facts": "Short factual claims that may be reused in page briefs and articles.",
+    "content_guardrails": "Writing rules that prevent overclaiming or technical inaccuracies.",
+    "product_claim_checks": "Product capability items that must be verified before making IoTEdges-specific claims.",
+    "supports_pages": "SEO topic IDs or page themes supported by this card.",
+    "last_verified": "Date this source card was last reviewed."
+  },
+  "cards": [
+    {
+      "id": "mqtt",
+      "title": "MQTT",
+      "source_quality": "standards_body",
+      "primary_sources": [
+        {
+          "name": "OASIS MQTT Version 5.0 Standard",
+          "url": "https://docs.oasis-open.org/mqtt/mqtt/v5.0/mqtt-v5.0.html",
+          "publisher": "OASIS Open"
+        },
+        {
+          "name": "MQTT Version 5.0 Standard Overview",
+          "url": "https://www.oasis-open.org/standard/mqtt-v5-0/",
+          "publisher": "OASIS Open"
+        },
+        {
+          "name": "MQTT.org",
+          "url": "https://mqtt.org/",
+          "publisher": "OASIS / MQTT community"
+        }
+      ],
+      "core_facts": [
+        "MQTT is an OASIS standard messaging protocol commonly used for IoT messaging.",
+        "MQTT uses a publish/subscribe messaging model with clients publishing messages to topics and subscribers receiving messages through a broker.",
+        "MQTT defines Quality of Service levels commonly described as QoS 0, QoS 1, and QoS 2.",
+        "MQTT application messages include a topic name, payload data, QoS, and related properties in MQTT 5.0.",
+        "MQTT security design is implementation-specific; TLS, authentication, authorization, and credential management must be designed for the deployment context."
+      ],
+      "content_guardrails": [
+        "Do not claim MQTT is automatically secure; explain that security depends on TLS, authentication, broker configuration, and deployment design.",
+        "Do not imply QoS 2 is always best; describe practical tradeoffs for telemetry volume, latency, and reliability.",
+        "Use MQTT 5.0 and MQTT 3.1.1 wording carefully if product version support is unknown."
+      ],
+      "product_claim_checks": [
+        "Supported MQTT protocol versions.",
+        "TLS support and certificate handling.",
+        "Username/password or token authentication support.",
+        "Payload format options.",
+        "Offline buffering or reconnect behavior."
+      ],
+      "supports_pages": ["mqtt", "mqtt-gateway", "modbus-to-mqtt-gateway", "4g-mqtt-gateway", "mqtt-vs-http-industrial-iot"],
+      "last_verified": "2026-06-08"
+    },
+    {
+      "id": "modbus",
+      "title": "Modbus",
+      "source_quality": "official",
+      "primary_sources": [
+        {
+          "name": "Modbus Specifications",
+          "url": "https://www.modbus.org/modbus-specifications",
+          "publisher": "Modbus Organization"
+        },
+        {
+          "name": "Modbus Application Protocol Specification V1.1b3",
+          "url": "https://www.modbus.org/file/secure/modbusprotocolspecification.pdf",
+          "publisher": "Modbus Organization"
+        },
+        {
+          "name": "Introduction to Modbus",
+          "url": "https://www.modbus.org/introduction-to-modbus",
+          "publisher": "Modbus Organization"
+        }
+      ],
+      "core_facts": [
+        "Modbus is an industrial communication protocol originally developed for exchanging process data between industrial control devices.",
+        "The Modbus application protocol is commonly used with serial links such as RS485 and with Ethernet/TCP networks.",
+        "Modbus RTU is commonly associated with serial communication, while Modbus TCP is used over TCP/IP networks.",
+        "Common Modbus data areas include coils, discrete inputs, input registers, and holding registers.",
+        "Modbus implementations require correct device addressing, function codes, register mapping, data type handling, and polling intervals."
+      ],
+      "content_guardrails": [
+        "Do not treat Modbus as a physical layer; clarify that it is an application protocol that can run over different transports.",
+        "Do not publish device-specific register maps unless they are verified from the target device vendor.",
+        "Avoid claiming universal compatibility; Modbus projects often require register, data type, byte order, and scaling validation."
+      ],
+      "product_claim_checks": [
+        "Modbus RTU support.",
+        "Modbus TCP support.",
+        "Maximum device count per serial bus.",
+        "Configurable polling interval.",
+        "Register mapping, scaling, and data type support.",
+        "Read/write function support."
+      ],
+      "supports_pages": ["modbus", "modbus-rtu", "modbus-tcp", "modbus-to-mqtt", "modbus-gateway", "modbus-registers"],
+      "last_verified": "2026-06-08"
+    },
+    {
+      "id": "rs485",
+      "title": "RS485 / TIA-485",
+      "source_quality": "vendor_application_note",
+      "primary_sources": [
+        {
+          "name": "Interface Circuits for TIA/EIA-485 (RS-485)",
+          "url": "https://www.ti.com/lit/an/slla036d/slla036d.pdf",
+          "publisher": "Texas Instruments"
+        },
+        {
+          "name": "RS-485 Design Guidelines",
+          "url": "https://e2e.ti.com/cfs-file/__key/telligent-evolution-components-attachments/13-143-00-00-00-26-49-53/IIF_2D00_Training_5F00_RS485_2D00_Design-Guidelines.pdf",
+          "publisher": "Texas Instruments"
+        }
+      ],
+      "core_facts": [
+        "RS485, also referred to as TIA-485 or EIA-485, defines electrical characteristics for balanced serial communication.",
+        "RS485 is commonly used in industrial multi-drop serial networks and is often paired with Modbus RTU.",
+        "RS485 design depends on wiring topology, cable quality, termination, biasing, grounding, baud rate, and electrical noise conditions.",
+        "RS485 itself does not define an application protocol, register model, connector, or data payload format."
+      ],
+      "content_guardrails": [
+        "Do not call RS485 a protocol; describe it as an electrical serial interface/standard.",
+        "Avoid fixed distance claims without explaining speed, cable, topology, and environment tradeoffs.",
+        "Do not prescribe unsafe wiring practices; keep troubleshooting advice practical and conservative."
+      ],
+      "product_claim_checks": [
+        "Number of RS485 ports.",
+        "Isolation support.",
+        "Baud rate range.",
+        "Termination and biasing options.",
+        "Supported serial formats.",
+        "Maximum practical device count in target deployment."
+      ],
+      "supports_pages": ["rs485", "rs485-wiring", "rs485-to-mqtt", "rs485-gateway", "rs485-remote-io"],
+      "last_verified": "2026-06-08"
+    },
+    {
+      "id": "lorawan",
+      "title": "LoRaWAN",
+      "source_quality": "official",
+      "primary_sources": [
+        {
+          "name": "LoRa Alliance Technical Specifications",
+          "url": "https://resources.lora-alliance.org/technical-specifications",
+          "publisher": "LoRa Alliance"
+        },
+        {
+          "name": "LoRaWAN TS1-1.0.4 Specification Release",
+          "url": "https://resources.lora-alliance.org/lora-alliance-blog/lora-alliance-releases-lorawan-ts1-1-0-4-specification-simplifies-development-deployment-and-interoperability",
+          "publisher": "LoRa Alliance"
+        }
+      ],
+      "core_facts": [
+        "LoRaWAN is an LPWAN networking protocol maintained by the LoRa Alliance.",
+        "LoRaWAN is designed for low-power, long-range IoT networks with end devices, gateways, network servers, and application integrations.",
+        "LoRa is the radio modulation technology, while LoRaWAN defines the networking protocol and system behavior.",
+        "LoRaWAN deployments depend on regional parameters, gateway placement, antenna design, device class, payload size, and duty-cycle or regional regulatory limits."
+      ],
+      "content_guardrails": [
+        "Do not use LoRa and LoRaWAN interchangeably.",
+        "Avoid fixed range promises; explain that coverage depends heavily on environment, antenna, height, obstacles, and regional settings.",
+        "Do not imply LoRaWAN is suitable for high-bandwidth or low-latency control loops."
+      ],
+      "product_claim_checks": [
+        "LoRaWAN version support.",
+        "Regional frequency support.",
+        "Network server compatibility.",
+        "Backhaul options such as Ethernet, WiFi, or cellular.",
+        "Outdoor enclosure and antenna options.",
+        "Payload and device class limitations."
+      ],
+      "supports_pages": ["lorawan", "lora", "lora-gateway", "lorawan-gateway", "smart-agriculture", "environmental-monitoring"],
+      "last_verified": "2026-06-08"
+    },
+    {
+      "id": "opc-ua",
+      "title": "OPC UA",
+      "source_quality": "official",
+      "primary_sources": [
+        {
+          "name": "OPC Unified Architecture Specification",
+          "url": "https://opcfoundation.org/developer-tools/specifications-unified-architecture",
+          "publisher": "OPC Foundation"
+        },
+        {
+          "name": "OPC Unified Architecture Part 1: Overview and Concepts",
+          "url": "https://reference.opcfoundation.org/specs/OPC-10000-1/full",
+          "publisher": "OPC Foundation"
+        }
+      ],
+      "core_facts": [
+        "OPC UA is a platform-independent service-oriented architecture specification from the OPC Foundation.",
+        "OPC UA provides a common infrastructure for information modeling, messaging, communication, and interoperability.",
+        "OPC UA is used across industrial domains, including device-level, control-system, enterprise, IIoT, and machine-to-machine contexts.",
+        "OPC UA can represent structure, behavior, and semantics through its information model."
+      ],
+      "content_guardrails": [
+        "Do not claim OPC UA support unless the product capability is confirmed.",
+        "Do not position OPC UA and MQTT as mutually exclusive in every scenario; they can be complementary in industrial architectures.",
+        "Avoid implying all PLCs or field devices natively support OPC UA."
+      ],
+      "product_claim_checks": [
+        "OPC UA client support.",
+        "OPC UA server support.",
+        "Supported transports and encodings.",
+        "Security policy support.",
+        "Mapping from OPC UA nodes to MQTT or cloud payloads."
+      ],
+      "supports_pages": ["opc-ua", "opc-ua-vs-mqtt", "plc-to-mqtt", "edge-controller", "protocol-converter"],
+      "last_verified": "2026-06-08"
+    },
+    {
+      "id": "4g-lte",
+      "title": "4G LTE",
+      "source_quality": "standards_body",
+      "primary_sources": [
+        {
+          "name": "3GPP Technologies",
+          "url": "https://www.3gpp.org/technologies",
+          "publisher": "3GPP"
+        },
+        {
+          "name": "3GPP System Overview",
+          "url": "https://www.3gpp.org/technologies/5g-system-overview",
+          "publisher": "3GPP"
+        }
+      ],
+      "core_facts": [
+        "LTE is part of the 3GPP family of mobile communication technologies commonly associated with 4G cellular networks.",
+        "Industrial cellular IoT deployments depend on carrier coverage, SIM provisioning, APN settings, signal quality, antenna design, and data plan constraints.",
+        "Cellular gateways are commonly used when wired Ethernet is unavailable or impractical at remote sites.",
+        "Cellular connectivity does not remove the need for secure application-layer protocols, authentication, and network configuration."
+      ],
+      "content_guardrails": [
+        "Do not promise coverage in a country or region without carrier and band validation.",
+        "Do not treat LTE, LTE-M, NB-IoT, and 5G as interchangeable.",
+        "Avoid uptime claims without field data or service-level context."
+      ],
+      "product_claim_checks": [
+        "Supported LTE bands.",
+        "SIM and APN configuration.",
+        "Antenna connector and antenna options.",
+        "Fallback network support.",
+        "VPN support if claimed.",
+        "MQTT reconnect and buffering behavior over cellular."
+      ],
+      "supports_pages": ["4g-lte", "4g-rtu", "4g-mqtt-gateway", "cellular-iot-gateway", "telecom-tower-monitoring"],
+      "last_verified": "2026-06-08"
+    },
+    {
+      "id": "rtu",
+      "title": "RTU",
+      "source_quality": "secondary_reference",
+      "primary_sources": [
+        {
+          "name": "Remote Terminal Unit Definition",
+          "url": "https://www.techtarget.com/whatis/definition/remote-terminal-unit",
+          "publisher": "TechTarget"
+        },
+        {
+          "name": "SCADA Glossary",
+          "url": "https://csrc.nist.gov/glossary/term/scada",
+          "publisher": "NIST CSRC"
+        }
+      ],
+      "core_facts": [
+        "An RTU is commonly used in industrial control and remote monitoring systems to interface field devices with supervisory systems such as SCADA.",
+        "RTUs commonly collect analog and digital field data from sensors, meters, switches, and equipment status signals.",
+        "RTUs may communicate over wired, serial, Ethernet, radio, or cellular networks depending on design and product capability.",
+        "RTUs are often used in remote or unmanned sites where telemetry, alarms, and control signals must be sent to a central system."
+      ],
+      "content_guardrails": [
+        "Do not imply every RTU is suitable for safety-critical control.",
+        "Do not claim support for DNP3, IEC 60870, IEC 61850, or other utility protocols unless confirmed.",
+        "Separate general RTU explanations from IoTEdges-specific product specs."
+      ],
+      "product_claim_checks": [
+        "Supported IO types.",
+        "Supported protocols.",
+        "Cellular or Ethernet connectivity.",
+        "Local logic and control capabilities.",
+        "Power and enclosure rating.",
+        "Alarm handling and data logging behavior."
+      ],
+      "supports_pages": ["rtu", "industrial-rtu", "4g-rtu", "rtu-vs-plc", "pump-station-monitoring", "oil-gas-monitoring"],
+      "last_verified": "2026-06-08"
+    },
+    {
+      "id": "remote-io",
+      "title": "Remote IO",
+      "source_quality": "engineering_concept",
+      "primary_sources": [
+        {
+          "name": "Modbus Application Protocol Specification V1.1b3",
+          "url": "https://www.modbus.org/file/secure/modbusprotocolspecification.pdf",
+          "publisher": "Modbus Organization"
+        },
+        {
+          "name": "Interface Circuits for TIA/EIA-485 (RS-485)",
+          "url": "https://www.ti.com/lit/an/slla036d/slla036d.pdf",
+          "publisher": "Texas Instruments"
+        }
+      ],
+      "core_facts": [
+        "Remote IO modules are used to collect or control field signals away from a central controller or gateway.",
+        "Common IO categories include digital input, digital output, analog input, analog output, and relay output.",
+        "Remote IO modules commonly communicate with controllers, RTUs, gateways, or SCADA systems using protocols such as Modbus RTU, Modbus TCP, or vendor-specific protocols.",
+        "Digital inputs are commonly used for status, alarm, pulse, or contact signals; analog inputs are commonly used for measurements such as level, pressure, temperature, and flow."
+      ],
+      "content_guardrails": [
+        "Do not imply Remote IO always includes independent control logic; distinguish IO expansion from RTU or edge controller behavior.",
+        "Do not claim an IO module supports every sensor type without checking signal input specifications.",
+        "For analog content, distinguish 4-20mA, 0-10V, RTD, thermocouple, pulse, and digital contact inputs."
+      ],
+      "product_claim_checks": [
+        "IO channel counts.",
+        "Input/output signal types.",
+        "Isolation and protection.",
+        "Modbus RTU/TCP support.",
+        "Power supply range.",
+        "Relay ratings and safe switching limits."
+      ],
+      "supports_pages": ["remote-io", "remote-io-module", "modbus-remote-io", "digital-input", "analog-input", "remote-io-for-scada"],
+      "last_verified": "2026-06-08"
+    },
+    {
+      "id": "scada",
+      "title": "SCADA",
+      "source_quality": "official",
+      "primary_sources": [
+        {
+          "name": "SCADA Glossary",
+          "url": "https://csrc.nist.gov/glossary/term/scada",
+          "publisher": "NIST CSRC"
+        }
+      ],
+      "core_facts": [
+        "SCADA stands for supervisory control and data acquisition.",
+        "SCADA systems are used in industrial and infrastructure contexts where remote monitoring, supervisory control, data integrity, and communication over varied media are important.",
+        "RTUs, PLCs, communication networks, servers, and operator interfaces can all be part of SCADA architectures.",
+        "SCADA remote monitoring content should distinguish supervisory visibility from local machine control and safety functions."
+      ],
+      "content_guardrails": [
+        "Do not claim IoTEdges replaces a full SCADA platform unless the product offering explicitly includes SCADA software.",
+        "Describe IoTEdges devices as data acquisition, telemetry, gateway, or field connectivity components when appropriate.",
+        "Avoid safety-critical or regulatory claims without system-level validation."
+      ],
+      "product_claim_checks": [
+        "SCADA protocol support.",
+        "Data polling and alarm features.",
+        "Integration interface such as MQTT, Modbus TCP, REST, or platform connector.",
+        "Data logging and timestamping.",
+        "Remote control support and safeguards."
+      ],
+      "supports_pages": ["scada", "scada-remote-monitoring", "rtu", "remote-io-for-scada", "pump-station-monitoring"],
+      "last_verified": "2026-06-08"
+    },
+    {
+      "id": "edge-computing-industrial-iot",
+      "title": "Edge Computing in Industrial IoT",
+      "source_quality": "derived_architecture",
+      "primary_sources": [
+        {
+          "name": "OPC Unified Architecture Part 1: Overview and Concepts",
+          "url": "https://reference.opcfoundation.org/specs/OPC-10000-1/full",
+          "publisher": "OPC Foundation"
+        },
+        {
+          "name": "OASIS MQTT Version 5.0 Standard",
+          "url": "https://docs.oasis-open.org/mqtt/mqtt/v5.0/mqtt-v5.0.html",
+          "publisher": "OASIS Open"
+        },
+        {
+          "name": "Modbus Application Protocol Specification V1.1b3",
+          "url": "https://www.modbus.org/file/secure/modbusprotocolspecification.pdf",
+          "publisher": "Modbus Organization"
+        }
+      ],
+      "core_facts": [
+        "Industrial edge computing commonly refers to processing, filtering, converting, or acting on industrial data closer to machines and field devices.",
+        "Edge gateways or controllers may collect data from protocols such as Modbus, OPC UA, or IO signals and forward selected data to cloud systems through MQTT or other interfaces.",
+        "Common edge functions include protocol conversion, local rules, data filtering, buffering, alarm handling, and reducing upstream data volume.",
+        "Actual edge capability depends entirely on product hardware, firmware, software, and supported integrations."
+      ],
+      "content_guardrails": [
+        "Do not imply all gateways are edge controllers.",
+        "Do not claim AI, predictive maintenance, local control, or offline operation unless confirmed.",
+        "When discussing predictive maintenance, frame IoTEdges as data acquisition and integration unless analytics capability is confirmed."
+      ],
+      "product_claim_checks": [
+        "Local rule engine.",
+        "Offline data buffering.",
+        "Protocol conversion features.",
+        "Local storage.",
+        "Edge application runtime.",
+        "Cloud connector support."
+      ],
+      "supports_pages": ["edge-computing-industrial-iot", "edge-controller", "iiot-edge-gateway", "oem-remote-monitoring", "machine-monitoring"],
+      "last_verified": "2026-06-08"
+    }
+  ]
+}

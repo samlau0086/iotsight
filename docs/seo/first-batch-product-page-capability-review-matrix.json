@@ -1,0 +1,458 @@
+{
+  "meta": {
+    "project": "IoTEdges",
+    "database": "first-batch-product-page-capability-review-matrix",
+    "version": "0.1.0",
+    "last_updated": "2026-06-09",
+    "status": "draft_review_matrix",
+    "purpose": "Capability and claim review matrix for the first-batch model-specific safe-scope Markdown briefs before they are converted into public website product pages.",
+    "important_note": "This matrix reviews page claims, not hardware test results. A public page can only use exact specifications after the related claim is validated through engineering evidence, prototype test reports and product approval."
+  },
+  "review_status_values": {
+    "safe": "Claim can be used with planning or category-level wording.",
+    "conditional": "Claim can be used only with validation wording such as planned, target, designed for, or under validation.",
+    "blocked": "Claim should not appear until engineering evidence exists.",
+    "forbidden": "Claim must not appear for this model."
+  },
+  "global_rules": [
+    {
+      "rule_id": "no-5g",
+      "status": "forbidden",
+      "rule": "Do not claim 5G support on any first-generation product page."
+    },
+    {
+      "rule_id": "separate-wireless-uplink",
+      "status": "forbidden",
+      "rule": "Do not combine 4G, WiFi and LoRa/LoRaWAN in one model. Each wireless uplink must remain a separate SKU or product family."
+    },
+    {
+      "rule_id": "baseline-gateway-protocol-boundary",
+      "status": "forbidden",
+      "rule": "Do not claim OPC UA, BACnet or CAN on baseline IEG-100, IEG-120 or IEG-140 gateway pages."
+    },
+    {
+      "rule_id": "no-unvalidated-electrical-specs",
+      "status": "blocked",
+      "rule": "Do not publish exact relay rating, analog accuracy, isolation voltage, ESD/surge level, temperature range, IP rating or certifications until validated."
+    },
+    {
+      "rule_id": "safe-public-language",
+      "status": "safe",
+      "rule": "Use planning-safe language such as planned, designed for, target, intended for and under validation until evidence exists."
+    }
+  ],
+  "source_files": [
+    "docs/seo/confirmed-first-product-publishing-plan.json",
+    "docs/seo/product-page-markdown-briefs/",
+    "docs/seo/product-model-definition-draft.json",
+    "docs/seo/product-protocol-support-matrix.json",
+    "docs/seo/product-io-interface-matrix.json",
+    "docs/seo/first-product-electrical-validation-targets.json",
+    "docs/seo/first-product-prototype-test-report-templates.json"
+  ],
+  "page_reviews": [
+    {
+      "model_code": "IEIO-100",
+      "page_title": "Modbus Remote IO Module",
+      "brief_file": "docs/seo/product-page-markdown-briefs/ieio-100-modbus-remote-io-module.md",
+      "route": "/products/modbus-remote-io-module",
+      "overall_publication_readiness": "internal_brief_only",
+      "safe_claims": [
+        "IEIO-100 is planned as a Modbus Remote IO family.",
+        "RS485 Modbus RTU is the baseline protocol target.",
+        "First-generation variants are planned as DI8, DO8/relay, AI4 and AO4.",
+        "The product is intended for distributed IO expansion in industrial monitoring and SCADA applications."
+      ],
+      "conditional_claims": [
+        {
+          "claim": "Modbus register map support",
+          "required_wording": "draft register map under engineering validation",
+          "evidence_needed": ["firmware implementation", "prototype Modbus test"]
+        },
+        {
+          "claim": "Ethernet/Modbus TCP variant",
+          "required_wording": "optional planned variant",
+          "evidence_needed": ["hardware decision", "firmware validation"]
+        }
+      ],
+      "blocked_claims": [
+        "exact relay rating",
+        "exact analog input accuracy",
+        "exact analog output accuracy or load capability",
+        "RS485 isolation voltage",
+        "surge/ESD level",
+        "operating temperature range",
+        "certifications"
+      ],
+      "forbidden_claims": [
+        "MQTT/cloud gateway behavior",
+        "4G uplink",
+        "WiFi uplink",
+        "LoRa/LoRaWAN uplink",
+        "direct motor or pump control",
+        "safety controller behavior"
+      ],
+      "required_next_evidence": [
+        "completed PTR-DI-001 report",
+        "completed PTR-RELAY-001 report",
+        "completed PTR-AI-001 report",
+        "completed PTR-AO-001 report if AO is included",
+        "completed PTR-RS485-001 report"
+      ]
+    },
+    {
+      "model_code": "IER-100",
+      "page_title": "Ethernet Industrial RTU",
+      "brief_file": "docs/seo/product-page-markdown-briefs/ier-100-ethernet-industrial-rtu.md",
+      "route": "/products/ethernet-industrial-rtu",
+      "overall_publication_readiness": "internal_brief_only",
+      "safe_claims": [
+        "IER-100 is the planned Ethernet-only wired RTU.",
+        "The planning baseline IO is 4DI + 2DO/relay + 2AI.",
+        "The page can position IER-100 for wired cabinet, local LAN and SCADA-style monitoring applications."
+      ],
+      "conditional_claims": [
+        {
+          "claim": "Modbus RTU/TCP support",
+          "required_wording": "planned support requiring firmware validation",
+          "evidence_needed": ["firmware specification", "prototype Modbus RTU/TCP test"]
+        },
+        {
+          "claim": "MQTT telemetry",
+          "required_wording": "optional telemetry target after validation",
+          "evidence_needed": ["MQTT publish test"]
+        }
+      ],
+      "blocked_claims": [
+        "relay rating",
+        "analog input accuracy",
+        "RS485 isolation voltage",
+        "temperature range",
+        "IP rating",
+        "local Web UI details before UI exists"
+      ],
+      "forbidden_claims": [
+        "4G support",
+        "WiFi support",
+        "LoRa support",
+        "DNP3 support",
+        "IEC 60870 support",
+        "IEC 61850 support",
+        "safety control certification"
+      ],
+      "required_next_evidence": [
+        "completed PTR-DI-001 report",
+        "completed PTR-RELAY-001 report",
+        "completed PTR-AI-001 report",
+        "completed PTR-RS485-001 report",
+        "completed PTR-ETH-001 report"
+      ]
+    },
+    {
+      "model_code": "IER-120",
+      "page_title": "WiFi Remote Monitoring RTU",
+      "brief_file": "docs/seo/product-page-markdown-briefs/ier-120-wifi-remote-monitoring-rtu.md",
+      "route": "/products/wifi-remote-monitoring-rtu",
+      "overall_publication_readiness": "internal_brief_only",
+      "safe_claims": [
+        "IER-120 is the planned WiFi RTU variant.",
+        "WiFi is the only wireless uplink planned for this model.",
+        "The planning baseline IO is 4DI + 2DO/relay + 2AI.",
+        "The page can position IER-120 for indoor WiFi-enabled facility and equipment monitoring."
+      ],
+      "conditional_claims": [
+        {
+          "claim": "WiFi setup and telemetry behavior",
+          "required_wording": "planned WiFi setup and MQTT telemetry after validation",
+          "evidence_needed": ["WiFi module selection", "RF sanity test", "firmware setup workflow"]
+        },
+        {
+          "claim": "MQTT telemetry",
+          "required_wording": "target feature after firmware validation",
+          "evidence_needed": ["MQTT publish/reconnect test"]
+        }
+      ],
+      "blocked_claims": [
+        "WiFi range",
+        "WiFi certification",
+        "antenna performance",
+        "relay rating",
+        "analog accuracy",
+        "RS485 isolation",
+        "environmental rating"
+      ],
+      "forbidden_claims": [
+        "4G support",
+        "LoRa support",
+        "5G support",
+        "outdoor long-range wireless positioning",
+        "hazardous-area certification"
+      ],
+      "required_next_evidence": [
+        "WiFi module decision",
+        "completed WiFi setup and reconnect test",
+        "completed PTR-DI-001 report",
+        "completed PTR-RELAY-001 report",
+        "completed PTR-AI-001 report",
+        "completed PTR-RS485-001 report"
+      ]
+    },
+    {
+      "model_code": "IER-140",
+      "page_title": "4G Remote Monitoring RTU",
+      "brief_file": "docs/seo/product-page-markdown-briefs/ier-140-4g-remote-monitoring-rtu.md",
+      "route": "/products/4g-remote-monitoring-rtu",
+      "overall_publication_readiness": "internal_brief_only",
+      "safe_claims": [
+        "IER-140 is the planned 4G LTE RTU variant.",
+        "4G LTE is the only wireless uplink planned for this model.",
+        "The planning baseline IO is 4DI + 2DO/relay + 2AI.",
+        "The page can position IER-140 for remote pump, tank, pipeline, telecom cabinet and environmental monitoring."
+      ],
+      "conditional_claims": [
+        {
+          "claim": "4G LTE uplink",
+          "required_wording": "planned 4G LTE uplink; bands and regional compatibility require validation",
+          "evidence_needed": ["LTE module selection", "band policy", "SIM/APN test"]
+        },
+        {
+          "claim": "MQTT telemetry and retry",
+          "required_wording": "target telemetry behavior after validation",
+          "evidence_needed": ["MQTT publish/reconnect test", "buffer/retry test if claimed"]
+        }
+      ],
+      "blocked_claims": [
+        "LTE bands",
+        "country or carrier compatibility",
+        "VPN",
+        "dual SIM",
+        "GNSS",
+        "battery runtime",
+        "relay rating",
+        "analog accuracy",
+        "temperature range"
+      ],
+      "forbidden_claims": [
+        "WiFi support",
+        "LoRa support",
+        "5G support",
+        "global band guarantee",
+        "hazardous-area certification",
+        "safety controller behavior"
+      ],
+      "required_next_evidence": [
+        "LTE module and band decision",
+        "SIM/APN connection test",
+        "MQTT publish/reconnect test",
+        "completed PTR-DI-001 report",
+        "completed PTR-RELAY-001 report",
+        "completed PTR-AI-001 report",
+        "completed PTR-RS485-001 report"
+      ]
+    },
+    {
+      "model_code": "IEG-100",
+      "page_title": "Ethernet Industrial IoT Gateway",
+      "brief_file": "docs/seo/product-page-markdown-briefs/ieg-100-ethernet-industrial-iot-gateway.md",
+      "route": "/products/ethernet-industrial-iot-gateway",
+      "overall_publication_readiness": "internal_brief_only",
+      "safe_claims": [
+        "IEG-100 is the planned Ethernet-only baseline gateway.",
+        "The page can position IEG-100 for wired Modbus-to-MQTT and industrial Ethernet deployments.",
+        "Baseline gateway role is Modbus RTU/TCP data collection and MQTT publishing after validation."
+      ],
+      "conditional_claims": [
+        {
+          "claim": "Modbus RTU/TCP polling",
+          "required_wording": "planned polling behavior under validation",
+          "evidence_needed": ["GM test cases", "prototype polling test"]
+        },
+        {
+          "claim": "MQTT JSON payload",
+          "required_wording": "draft payload format under validation",
+          "evidence_needed": ["MQTT payload schema test", "broker compatibility test"]
+        }
+      ],
+      "blocked_claims": [
+        "exact device count",
+        "exact data point count",
+        "guaranteed 1-second polling",
+        "TLS",
+        "offline buffering duration",
+        "remote write/control",
+        "RS485 isolation voltage"
+      ],
+      "forbidden_claims": [
+        "4G support",
+        "WiFi support",
+        "LoRa support",
+        "OPC UA support",
+        "BACnet support",
+        "CAN support",
+        "heavy built-in IO positioning"
+      ],
+      "required_next_evidence": [
+        "completed PTR-GW-MQTT-001 report",
+        "completed PTR-RS485-001 report",
+        "completed PTR-ETH-001 report"
+      ]
+    },
+    {
+      "model_code": "IEG-120",
+      "page_title": "WiFi Industrial IoT Gateway",
+      "brief_file": "docs/seo/product-page-markdown-briefs/ieg-120-wifi-industrial-iot-gateway.md",
+      "route": "/products/wifi-industrial-iot-gateway",
+      "overall_publication_readiness": "internal_brief_only",
+      "safe_claims": [
+        "IEG-120 is the planned WiFi gateway variant.",
+        "WiFi is the only wireless uplink planned for this model.",
+        "The page can position IEG-120 for indoor WiFi Modbus-to-MQTT deployments."
+      ],
+      "conditional_claims": [
+        {
+          "claim": "WiFi setup and connection behavior",
+          "required_wording": "planned WiFi behavior requiring module and RF validation",
+          "evidence_needed": ["WiFi module selection", "setup workflow test", "network reconnect test"]
+        },
+        {
+          "claim": "Modbus-to-MQTT behavior",
+          "required_wording": "planned behavior under firmware validation",
+          "evidence_needed": ["PTR-GW-MQTT-001 or equivalent gateway test"]
+        }
+      ],
+      "blocked_claims": [
+        "WiFi range",
+        "WiFi certification",
+        "antenna performance",
+        "TLS",
+        "offline buffering",
+        "exact polling limits",
+        "exact device or point count"
+      ],
+      "forbidden_claims": [
+        "4G support",
+        "LoRa support",
+        "5G support",
+        "outdoor long-range wireless positioning",
+        "OPC UA support",
+        "BACnet support",
+        "CAN support"
+      ],
+      "required_next_evidence": [
+        "WiFi module and antenna decision",
+        "WiFi setup/reconnect test",
+        "completed PTR-GW-MQTT-001 report",
+        "completed PTR-RS485-001 report"
+      ]
+    },
+    {
+      "model_code": "IEG-140",
+      "page_title": "4G Industrial IoT Gateway",
+      "brief_file": "docs/seo/product-page-markdown-briefs/ieg-140-4g-industrial-iot-gateway.md",
+      "route": "/products/4g-industrial-iot-gateway",
+      "overall_publication_readiness": "internal_brief_only",
+      "safe_claims": [
+        "IEG-140 is the planned 4G LTE gateway variant.",
+        "4G LTE is the only wireless uplink planned for this model.",
+        "The page can position IEG-140 for remote Modbus-to-MQTT deployments."
+      ],
+      "conditional_claims": [
+        {
+          "claim": "4G LTE uplink",
+          "required_wording": "planned cellular uplink; bands and carrier compatibility require validation",
+          "evidence_needed": ["LTE module selection", "band policy", "SIM/APN test"]
+        },
+        {
+          "claim": "Modbus-to-MQTT gateway behavior",
+          "required_wording": "planned behavior under firmware validation",
+          "evidence_needed": ["PTR-GW-MQTT-001 or equivalent gateway test"]
+        }
+      ],
+      "blocked_claims": [
+        "LTE bands",
+        "global or country compatibility",
+        "carrier compatibility",
+        "VPN",
+        "dual SIM",
+        "GNSS",
+        "TLS",
+        "offline buffering",
+        "exact device or point count"
+      ],
+      "forbidden_claims": [
+        "WiFi support",
+        "LoRa support",
+        "5G support",
+        "OPC UA support",
+        "BACnet support",
+        "CAN support"
+      ],
+      "required_next_evidence": [
+        "LTE module and band decision",
+        "SIM/APN connection test",
+        "completed PTR-GW-MQTT-001 report",
+        "completed PTR-RS485-001 report"
+      ]
+    },
+    {
+      "model_code": "IEG-L100",
+      "page_title": "Industrial LoRaWAN Gateway",
+      "brief_file": "docs/seo/product-page-markdown-briefs/ieg-l100-industrial-lorawan-gateway.md",
+      "route": "/products/industrial-lorawan-gateway",
+      "overall_publication_readiness": "internal_brief_only",
+      "safe_claims": [
+        "IEG-L100 is the planned LoRaWAN gateway product.",
+        "The page can position IEG-L100 for LoRaWAN sensor network architectures.",
+        "Ethernet backhaul is the planning target.",
+        "MQTT/application integration can be discussed as a target after validation."
+      ],
+      "conditional_claims": [
+        {
+          "claim": "LoRaWAN regional frequency support",
+          "required_wording": "regional frequency variants require validation",
+          "evidence_needed": ["module selection", "regional frequency policy", "RF test"]
+        },
+        {
+          "claim": "MQTT/application integration",
+          "required_wording": "target integration after firmware/platform validation",
+          "evidence_needed": ["integration test", "payload/application behavior definition"]
+        }
+      ],
+      "blocked_claims": [
+        "fixed communication range",
+        "frequency bands",
+        "outdoor IP rating",
+        "PoE",
+        "GPS",
+        "built-in network server",
+        "antenna gain",
+        "field coverage guarantee"
+      ],
+      "forbidden_claims": [
+        "4G support in same device",
+        "WiFi support in same device unless a validated future variant exists",
+        "heavy built-in IO controller positioning",
+        "real-time control guarantee",
+        "fixed LoRa range guarantee"
+      ],
+      "required_next_evidence": [
+        "LoRaWAN module and frequency policy",
+        "RF and antenna validation",
+        "Ethernet backhaul test",
+        "MQTT/application integration test if claimed",
+        "outdoor enclosure evidence if outdoor claims are used"
+      ]
+    }
+  ],
+  "publication_decision": {
+    "current_decision": "Do not convert safe-scope briefs into public product pages yet.",
+    "reason": "All first-batch pages still rely on planning targets and require engineering validation before exact specifications can be published.",
+    "allowed_next_step": "Use these reviews to edit public-page drafts with conditional wording, or wait for prototype evidence before publishing full product specs."
+  },
+  "next_actions": [
+    "Review each safe-scope Markdown brief against this matrix before public drafting.",
+    "Create completed prototype report records when hardware is available.",
+    "Update this matrix when a claim moves from conditional or blocked to safe.",
+    "Only publish exact specs after related test evidence is linked."
+  ]
+}

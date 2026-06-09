@@ -1,0 +1,482 @@
+{
+  "meta": {
+    "project": "IoTEdges",
+    "database": "content-brief-templates",
+    "version": "0.1.0",
+    "last_updated": "2026-06-08",
+    "status": "drafted",
+    "purpose": "Reusable content brief templates for IoTEdges SEO page planning before Markdown content generation."
+  },
+  "global_rules": {
+    "language": "English first for export SEO; Chinese planning notes may be kept in internal docs.",
+    "tone": "Professional, engineering-focused, practical, and conversion-aware.",
+    "claim_policy": [
+      "Do not claim unsupported certifications, protocol support, environmental ratings, security features, or compliance.",
+      "Use conservative wording for sample or planned case studies until real data is available.",
+      "Separate factual protocol explanations from product capability claims."
+    ],
+    "required_before_drafting": [
+      "Confirm source database record.",
+      "Confirm product capability and unsupported candidate fields.",
+      "Confirm target route and canonical slug.",
+      "Confirm required internal links.",
+      "Confirm factual source cards for technical claims."
+    ],
+    "common_seo_fields": [
+      "primary_keyword",
+      "secondary_keywords",
+      "search_intent",
+      "meta_title",
+      "meta_description",
+      "canonical_url",
+      "open_graph_title",
+      "open_graph_description",
+      "recommended_schema"
+    ],
+    "common_internal_links": [
+      "parent product or solution pillar",
+      "related product pages",
+      "related solution pages",
+      "related knowledge base pages",
+      "related case studies",
+      "related long-tail articles"
+    ],
+    "common_conversion_elements": [
+      "clear product fit section",
+      "architecture or workflow section",
+      "FAQ section",
+      "contact or inquiry CTA",
+      "links to relevant products and solutions"
+    ]
+  },
+  "templates": [
+    {
+      "id": "product-page-template",
+      "name": "Product Page Brief",
+      "applies_to": ["product_pillar", "product_page"],
+      "recommended_route": "/products/{slug}",
+      "status": "drafted",
+      "brief_fields": {
+        "source_database": "products-topic-database.json",
+        "source_id": "",
+        "page_title": "",
+        "primary_keyword": "",
+        "secondary_keywords": [],
+        "buyer_persona": ["system integrator", "OEM engineer", "factory automation engineer", "utility operator"],
+        "search_intent": "product/commercial",
+        "product_capability_validation": {
+          "required": true,
+          "items": ["protocol support", "connectivity options", "IO interfaces", "power supply", "enclosure/environment", "software/cloud compatibility"]
+        },
+        "target_products_to_link": [],
+        "target_solutions_to_link": [],
+        "target_knowledge_to_link": [],
+        "target_cases_to_link": [],
+        "recommended_schema": "Product"
+      },
+      "required_sections": [
+        "Hero: product category, primary value proposition, and inquiry CTA",
+        "What this product does",
+        "Typical architecture",
+        "Key capabilities",
+        "Supported protocols and interfaces",
+        "Where it is used",
+        "Product selection notes",
+        "Related solutions",
+        "Related knowledge base",
+        "FAQ",
+        "CTA"
+      ],
+      "faq_prompts": [
+        "What devices can this product connect to?",
+        "Which protocols are supported?",
+        "Can it send data to an MQTT broker or cloud platform?",
+        "Is it suitable for remote sites?",
+        "How do I choose IO and connectivity options?"
+      ],
+      "quality_checks": [
+        "No unsupported protocol or certification claims.",
+        "At least 5 internal links are included.",
+        "Product page links to at least 3 solution pages.",
+        "FAQ answers are concise and factual.",
+        "CTA is commercial but not pushy."
+      ]
+    },
+    {
+      "id": "protocol-product-page-template",
+      "name": "Protocol Product Page Brief",
+      "applies_to": ["protocol_product_page", "protocol_based_gateway", "connectivity_based_gateway"],
+      "recommended_route": "/products/{slug}",
+      "status": "drafted",
+      "brief_fields": {
+        "source_database": "products-topic-database.json",
+        "source_id": "",
+        "page_title": "",
+        "primary_keyword": "",
+        "secondary_keywords": [],
+        "search_intent": "product/commercial",
+        "protocol_or_connectivity": "",
+        "conversion_use_cases": [],
+        "target_products_to_link": [],
+        "target_solutions_to_link": [],
+        "target_knowledge_to_link": [],
+        "target_cases_to_link": [],
+        "recommended_schema": "Product"
+      },
+      "required_sections": [
+        "Hero: protocol-specific product value",
+        "What problem this gateway solves",
+        "Protocol conversion workflow",
+        "Example architecture",
+        "Supported source devices",
+        "Data destination options",
+        "Configuration considerations",
+        "Use cases",
+        "Related products",
+        "FAQ",
+        "CTA"
+      ],
+      "faq_prompts": [
+        "What is the difference between this gateway and a generic IoT gateway?",
+        "Can it convert legacy industrial devices to MQTT or Ethernet?",
+        "How many devices can be connected?",
+        "What should be checked before deployment?",
+        "Which applications commonly use this gateway?"
+      ],
+      "quality_checks": [
+        "Protocol explanation matches source cards.",
+        "Architecture is technically plausible.",
+        "Product claims are capability-validated.",
+        "Links to both product pillar and protocol knowledge page.",
+        "Includes at least 2 application examples."
+      ]
+    },
+    {
+      "id": "solution-page-template",
+      "name": "Solution Page Brief",
+      "applies_to": ["solution_pillar", "solution_page", "pillar_solution"],
+      "recommended_route": "/solutions/{slug}",
+      "status": "drafted",
+      "brief_fields": {
+        "source_database": "solutions-topic-database.json",
+        "source_id": "",
+        "page_title": "",
+        "primary_keyword": "",
+        "secondary_keywords": [],
+        "industry": "",
+        "site_types": [],
+        "search_intent": "solution/commercial",
+        "target_products_to_link": [],
+        "target_knowledge_to_link": [],
+        "target_cases_to_link": [],
+        "recommended_schema": "Article"
+      },
+      "required_sections": [
+        "Hero: solution outcome and target application",
+        "Monitoring challenges",
+        "Recommended IoTEdges architecture",
+        "Typical connected assets and sensors",
+        "Protocols and communication options",
+        "Alarm and data workflow",
+        "Recommended products",
+        "Example deployment or case reference",
+        "Implementation checklist",
+        "FAQ",
+        "CTA"
+      ],
+      "faq_prompts": [
+        "What data can be monitored in this application?",
+        "Which IoTEdges products are typically used?",
+        "Which protocols are common?",
+        "Can this work at remote sites?",
+        "What information is needed to design a solution?"
+      ],
+      "quality_checks": [
+        "Links to at least 2 product pages.",
+        "Links to at least 2 knowledge base pages.",
+        "Links to at least 1 case study or planned case.",
+        "No industry compliance claims without proof.",
+        "Includes practical implementation checklist."
+      ]
+    },
+    {
+      "id": "knowledge-base-template",
+      "name": "Knowledge Base Brief",
+      "applies_to": ["pillar_guide", "technical_guide", "technical_reference", "explainer"],
+      "recommended_route": "/knowledge-base/{slug}",
+      "status": "drafted",
+      "brief_fields": {
+        "source_database": "knowledge-base-topic-database.json",
+        "source_id": "",
+        "page_title": "",
+        "primary_keyword": "",
+        "secondary_keywords": [],
+        "search_intent": "informational/commercial",
+        "technical_depth": "practical_engineering",
+        "facts_required": [],
+        "target_products_to_link": [],
+        "target_solutions_to_link": [],
+        "related_articles_to_link": [],
+        "recommended_schema": "Article"
+      },
+      "required_sections": [
+        "Definition",
+        "How it works",
+        "Where it is used in industrial IoT",
+        "Key parameters or concepts",
+        "Common architecture",
+        "Common mistakes",
+        "Related IoTEdges products",
+        "Related solutions",
+        "FAQ"
+      ],
+      "faq_prompts": [
+        "What is this technology?",
+        "How is it used in industrial monitoring?",
+        "What should engineers check before deployment?",
+        "Which IoTEdges products use it?",
+        "How does it compare with related technologies?"
+      ],
+      "quality_checks": [
+        "Every technical claim is source-card backed.",
+        "No generic textbook filler.",
+        "Includes product and solution links naturally.",
+        "Explains practical deployment implications.",
+        "Avoids unsupported product claims."
+      ]
+    },
+    {
+      "id": "comparison-article-template",
+      "name": "Comparison Article Brief",
+      "applies_to": ["comparison"],
+      "recommended_route": "/knowledge-base/{slug}",
+      "status": "drafted",
+      "brief_fields": {
+        "source_database": "long-tail-article-topic-database.json",
+        "source_id": "",
+        "page_title": "",
+        "primary_keyword": "",
+        "secondary_keywords": [],
+        "search_intent": "comparison/informational",
+        "items_compared": [],
+        "decision_context": "",
+        "target_products_to_link": [],
+        "target_solutions_to_link": [],
+        "target_knowledge_to_link": [],
+        "recommended_schema": "Article"
+      },
+      "required_sections": [
+        "Short answer",
+        "Comparison table",
+        "What each option means",
+        "Key differences",
+        "When to choose option A",
+        "When to choose option B",
+        "Industrial IoT examples",
+        "Recommended IoTEdges product fit",
+        "FAQ"
+      ],
+      "faq_prompts": [
+        "Which option is better for remote monitoring?",
+        "Which option is better for factory systems?",
+        "Can both be used together?",
+        "What gateway is needed?",
+        "What should be checked before choosing?"
+      ],
+      "quality_checks": [
+        "Comparison is balanced and not artificially absolute.",
+        "Includes a clear decision table.",
+        "Links to both compared knowledge topics.",
+        "Links to relevant product pages.",
+        "Avoids unsupported performance claims."
+      ]
+    },
+    {
+      "id": "how-to-article-template",
+      "name": "How-to Article Brief",
+      "applies_to": ["how_to"],
+      "recommended_route": "/blog/{slug}",
+      "status": "drafted",
+      "brief_fields": {
+        "source_database": "long-tail-article-topic-database.json",
+        "source_id": "",
+        "page_title": "",
+        "primary_keyword": "",
+        "secondary_keywords": [],
+        "search_intent": "how-to/commercial",
+        "prerequisites": [],
+        "steps": [],
+        "required_products_to_link": [],
+        "required_knowledge_to_link": [],
+        "related_cases_to_link": [],
+        "recommended_schema": "HowTo"
+      },
+      "required_sections": [
+        "What you are building",
+        "Required devices and signals",
+        "Architecture overview",
+        "Step-by-step workflow",
+        "Configuration checklist",
+        "Data mapping or payload example",
+        "Testing and troubleshooting",
+        "Recommended products",
+        "FAQ",
+        "CTA"
+      ],
+      "faq_prompts": [
+        "What hardware is required?",
+        "Which protocol is used?",
+        "What data should be mapped?",
+        "How do I test the connection?",
+        "What are common mistakes?"
+      ],
+      "quality_checks": [
+        "Steps are actionable and ordered.",
+        "No invented UI settings unless product UI is confirmed.",
+        "Examples are generic or source-backed.",
+        "Links to product and knowledge pages.",
+        "Includes testing checklist."
+      ]
+    },
+    {
+      "id": "troubleshooting-template",
+      "name": "Troubleshooting Article Brief",
+      "applies_to": ["troubleshooting"],
+      "recommended_route": "/knowledge-base/{slug}",
+      "status": "drafted",
+      "brief_fields": {
+        "source_database": "long-tail-article-topic-database.json",
+        "source_id": "",
+        "page_title": "",
+        "primary_keyword": "",
+        "secondary_keywords": [],
+        "search_intent": "troubleshooting",
+        "symptoms": [],
+        "likely_causes": [],
+        "diagnostic_steps": [],
+        "target_products_to_link": [],
+        "target_knowledge_to_link": [],
+        "recommended_schema": "FAQPage"
+      },
+      "required_sections": [
+        "Symptom summary",
+        "Quick checklist",
+        "Common causes",
+        "Step-by-step diagnostics",
+        "How to prevent recurrence",
+        "When to check gateway configuration",
+        "Related products",
+        "FAQ"
+      ],
+      "faq_prompts": [
+        "What is the most common cause?",
+        "How do I isolate wiring from configuration problems?",
+        "What settings should be checked first?",
+        "When should the gateway be replaced or reconfigured?",
+        "What information should be sent to support?"
+      ],
+      "quality_checks": [
+        "Troubleshooting order goes from simple to advanced.",
+        "Does not blame user or vendor.",
+        "No unsafe electrical advice.",
+        "Includes support information checklist.",
+        "Links to relevant protocol guide."
+      ]
+    },
+    {
+      "id": "buyer-guide-template",
+      "name": "Buyer Guide Brief",
+      "applies_to": ["buyer_guide"],
+      "recommended_route": "/blog/{slug}",
+      "status": "drafted",
+      "brief_fields": {
+        "source_database": "long-tail-article-topic-database.json",
+        "source_id": "",
+        "page_title": "",
+        "primary_keyword": "",
+        "secondary_keywords": [],
+        "search_intent": "commercial",
+        "buyer_persona": [],
+        "decision_criteria": [],
+        "target_products_to_link": [],
+        "target_solutions_to_link": [],
+        "target_cases_to_link": [],
+        "recommended_schema": "Article"
+      },
+      "required_sections": [
+        "Short recommendation",
+        "What the buyer is trying to solve",
+        "Key selection criteria",
+        "Protocol and connectivity decisions",
+        "IO and sensor requirements",
+        "Remote site considerations",
+        "Recommended IoTEdges product fit",
+        "Questions to ask before buying",
+        "FAQ",
+        "CTA"
+      ],
+      "faq_prompts": [
+        "What specs matter most?",
+        "How do I choose the right protocol?",
+        "How do I choose wired vs wireless connectivity?",
+        "What information should I provide for quotation?",
+        "Which IoTEdges product family fits this project?"
+      ],
+      "quality_checks": [
+        "Commercial but useful, not just sales copy.",
+        "Includes decision table.",
+        "Links to product pages and solution pages.",
+        "Highlights capability validation requirements.",
+        "CTA asks for project details."
+      ]
+    },
+    {
+      "id": "case-study-template",
+      "name": "Case Study Brief",
+      "applies_to": ["case_study"],
+      "recommended_route": "/case-studies/{slug}",
+      "status": "drafted",
+      "brief_fields": {
+        "source_database": "case-study-topic-database.json",
+        "source_id": "",
+        "page_title": "",
+        "industry": "",
+        "site_type": "",
+        "case_type": "real_or_anonymized_required",
+        "proof_level": "",
+        "metrics_available": [],
+        "products_used": [],
+        "protocols_used": [],
+        "related_solutions_to_link": [],
+        "related_knowledge_to_link": [],
+        "recommended_schema": "Article"
+      },
+      "required_sections": [
+        "Project snapshot",
+        "Customer challenge",
+        "Site architecture",
+        "Devices and protocols used",
+        "Implementation workflow",
+        "Results and metrics",
+        "Why this architecture worked",
+        "Related products",
+        "Related solutions",
+        "CTA"
+      ],
+      "faq_prompts": [
+        "What devices were connected?",
+        "Which protocols were used?",
+        "What data was monitored?",
+        "What result was achieved?",
+        "Can this architecture be adapted to similar sites?"
+      ],
+      "quality_checks": [
+        "No fake customer name.",
+        "Metrics are real, anonymized, or clearly conservative.",
+        "No unverifiable performance claims.",
+        "Links to products, solutions, and knowledge pages.",
+        "Case can support at least 2 commercial pages."
+      ]
+    }
+  ]
+}

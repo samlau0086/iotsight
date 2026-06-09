@@ -8,3 +8,16 @@ export interface BlogPost {
   category: string;
   imageUrl?: string;
 }
+
+export interface ProductPage {
+  id: string;
+  title: string;
+  excerpt: string;
+  content: string;
+  category: string;
+  model: string;
+  status: string;
+  primaryKeyword: string;
+  route: string;
+  order: number;
+}

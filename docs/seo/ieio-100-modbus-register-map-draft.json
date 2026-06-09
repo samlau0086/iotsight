@@ -1,0 +1,629 @@
+{
+  "meta": {
+    "project": "IoTEdges",
+    "database": "ieio-100-modbus-register-map-draft",
+    "version": "0.1.0",
+    "last_updated": "2026-06-09",
+    "status": "draft_register_map",
+    "purpose": "Draft Modbus register map for the IEIO-100 Modbus Remote IO family. This file is intended for engineering review, firmware implementation planning and later validation test cases.",
+    "important_note": "This is not a confirmed production specification. Do not publish exact register addresses, electrical ratings, accuracy or timing claims on public product pages until firmware and prototype validation pass."
+  },
+  "scope": {
+    "product_family": "IEIO-100",
+    "positioning": "Modbus Remote IO module family for distributed DI, DO/relay, AI and AO expansion.",
+    "baseline_protocol": "Modbus RTU over RS485",
+    "optional_future_protocols": [
+      "Modbus TCP for a future Ethernet Remote IO variant"
+    ],
+    "first_generation_variants": [
+      {
+        "model_code": "IEIO-100-DI8",
+        "io_profile": "8DI",
+        "description": "8-channel digital input module."
+      },
+      {
+        "model_code": "IEIO-100-DO8",
+        "io_profile": "8DO/relay",
+        "description": "8-channel digital output or relay output module. Final output type and rating require hardware validation."
+      },
+      {
+        "model_code": "IEIO-100-AI4",
+        "io_profile": "4AI",
+        "description": "4-channel analog input module. Current and voltage modes require hardware validation."
+      },
+      {
+        "model_code": "IEIO-100-AO4",
+        "io_profile": "4AO",
+        "description": "4-channel analog output module. Output mode, resolution and load capability require hardware validation."
+      }
+    ],
+    "second_wave_variants": [
+      {
+        "model_code": "IEIO-100-MD44",
+        "io_profile": "4DI + 4DO/relay",
+        "description": "Mixed digital input/output module."
+      },
+      {
+        "model_code": "IEIO-100-MA44",
+        "io_profile": "4AI + 4AO",
+        "description": "Mixed analog input/output module."
+      }
+    ]
+  },
+  "addressing_convention": {
+    "protocol_addressing": "Modbus protocol addresses are zero-based offsets in the request frame.",
+    "documentation_addressing": "Documentation display addresses use common Modbus reference notation such as 00001, 10001, 30001 and 40001.",
+    "conversion_rule": "Protocol offset = documentation display address minus base address. Example: display register 40001 uses protocol offset 0 for FC03/FC06/FC16.",
+    "address_spaces": [
+      {
+        "space": "coils",
+        "display_range": "00001-00064",
+        "protocol_offset_range": "0-63",
+        "function_codes": ["FC01", "FC05", "FC15"],
+        "usage": "Writable DO/relay command and state bits."
+      },
+      {
+        "space": "discrete_inputs",
+        "display_range": "10001-10064",
+        "protocol_offset_range": "0-63",
+        "function_codes": ["FC02"],
+        "usage": "Read-only DI status bits."
+      },
+      {
+        "space": "input_registers",
+        "display_range": "30001-31999",
+        "protocol_offset_range": "0-1998",
+        "function_codes": ["FC04"],
+        "usage": "Read-only AI values, device status and device information."
+      },
+      {
+        "space": "holding_registers",
+        "display_range": "40001-41999",
+        "protocol_offset_range": "0-1998",
+        "function_codes": ["FC03", "FC06", "FC16"],
+        "usage": "Writable AO setpoints and device or IO configuration."
+      }
+    ]
+  },
+  "supported_function_codes": [
+    {
+      "code": "FC01",
+      "name": "Read Coils",
+      "baseline_support": true,
+      "usage": "Read DO/relay output states on DO-capable variants."
+    },
+    {
+      "code": "FC02",
+      "name": "Read Discrete Inputs",
+      "baseline_support": true,
+      "usage": "Read DI states on DI-capable variants."
+    },
+    {
+      "code": "FC03",
+      "name": "Read Holding Registers",
+      "baseline_support": true,
+      "usage": "Read AO setpoints and configuration registers."
+    },
+    {
+      "code": "FC04",
+      "name": "Read Input Registers",
+      "baseline_support": true,
+      "usage": "Read AI values, status registers and device information."
+    },
+    {
+      "code": "FC05",
+      "name": "Write Single Coil",
+      "baseline_support": true,
+      "usage": "Write one DO/relay output on DO-capable variants."
+    },
+    {
+      "code": "FC06",
+      "name": "Write Single Holding Register",
+      "baseline_support": true,
+      "usage": "Write one AO setpoint or configuration register."
+    },
+    {
+      "code": "FC15",
+      "name": "Write Multiple Coils",
+      "baseline_support": true,
+      "usage": "Write multiple DO/relay outputs on DO-capable variants."
+    },
+    {
+      "code": "FC16",
+      "name": "Write Multiple Holding Registers",
+      "baseline_support": true,
+      "usage": "Write multiple AO setpoints or configuration registers."
+    }
+  ],
+  "unsupported_baseline_function_codes": [
+    {
+      "code": "FC07",
+      "name": "Read Exception Status",
+      "reason": "Not required for baseline Remote IO behavior."
+    },
+    {
+      "code": "FC08",
+      "name": "Diagnostics",
+      "reason": "Optional later engineering decision."
+    },
+    {
+      "code": "FC23",
+      "name": "Read/Write Multiple Registers",
+      "reason": "Not required for first-generation firmware."
+    }
+  ],
+  "data_encoding": {
+    "register_size": "16-bit unsigned register unless otherwise specified.",
+    "byte_order": "Standard Modbus big-endian byte order.",
+    "word_order_for_32bit_values": "High word first by default; configurable word order can be considered later if customer PLC compatibility requires it.",
+    "signed_values": "Use signed 16-bit two's complement only where the register explicitly states int16.",
+    "bitmask_values": "Bit 0 represents channel 1 unless otherwise specified.",
+    "ai_raw_unit": {
+      "current_mode": "0.001 mA. Example: 4000 means 4.000 mA; 20000 means 20.000 mA.",
+      "voltage_mode": "0.001 V. Example: 0 means 0.000 V; 10000 means 10.000 V."
+    },
+    "ao_raw_unit": {
+      "current_mode": "0.001 mA.",
+      "voltage_mode": "0.001 V."
+    }
+  },
+  "coil_map": [
+    {
+      "display_address": "00001-00008",
+      "protocol_offset": "0-7",
+      "name": "DO/relay output command state",
+      "access": "read_write",
+      "function_codes": ["FC01", "FC05", "FC15"],
+      "data_type": "bit",
+      "values": {
+        "0": "output off/open",
+        "1": "output on/closed"
+      },
+      "applicable_models": ["IEIO-100-DO8", "IEIO-100-MD44"],
+      "notes": "For IEIO-100-MD44, only channels 1-4 are available. Accessing unavailable channels must return Modbus exception 02."
+    }
+  ],
+  "discrete_input_map": [
+    {
+      "display_address": "10001-10008",
+      "protocol_offset": "0-7",
+      "name": "DI channel state",
+      "access": "read_only",
+      "function_codes": ["FC02"],
+      "data_type": "bit",
+      "values": {
+        "0": "input inactive",
+        "1": "input active"
+      },
+      "applicable_models": ["IEIO-100-DI8", "IEIO-100-MD44"],
+      "notes": "For IEIO-100-MD44, only channels 1-4 are available. Input polarity and wet/dry contact behavior require hardware validation."
+    }
+  ],
+  "input_register_map": [
+    {
+      "display_address": "30001-30004",
+      "protocol_offset": "0-3",
+      "name": "AI raw value",
+      "access": "read_only",
+      "function_codes": ["FC04"],
+      "data_type": "uint16",
+      "unit": "0.001 mA or 0.001 V based on channel mode",
+      "applicable_models": ["IEIO-100-AI4", "IEIO-100-MA44"],
+      "notes": "For IEIO-100-MA44, all four AI channels are available. AI mode and accuracy require hardware validation."
+    },
+    {
+      "display_address": "30021-30024",
+      "protocol_offset": "20-23",
+      "name": "AI channel status",
+      "access": "read_only",
+      "function_codes": ["FC04"],
+      "data_type": "uint16_bitmask",
+      "bit_definitions": {
+        "bit_0": "channel enabled",
+        "bit_1": "under range",
+        "bit_2": "over range",
+        "bit_3": "open circuit or sensor fault",
+        "bit_4": "calibration required"
+      },
+      "applicable_models": ["IEIO-100-AI4", "IEIO-100-MA44"]
+    },
+    {
+      "display_address": "30101",
+      "protocol_offset": "100",
+      "name": "Device status",
+      "access": "read_only",
+      "function_codes": ["FC04"],
+      "data_type": "uint16_bitmask",
+      "bit_definitions": {
+        "bit_0": "device ready",
+        "bit_1": "configuration changed but not applied",
+        "bit_2": "IO fault present",
+        "bit_3": "communication error present",
+        "bit_4": "firmware self-test warning"
+      },
+      "applicable_models": ["all"]
+    },
+    {
+      "display_address": "30102",
+      "protocol_offset": "101",
+      "name": "RS485 communication error counter",
+      "access": "read_only",
+      "function_codes": ["FC04"],
+      "data_type": "uint16",
+      "applicable_models": ["all"]
+    },
+    {
+      "display_address": "30103-30104",
+      "protocol_offset": "102-103",
+      "name": "Device uptime",
+      "access": "read_only",
+      "function_codes": ["FC04"],
+      "data_type": "uint32",
+      "unit": "seconds",
+      "applicable_models": ["all"]
+    },
+    {
+      "display_address": "31001",
+      "protocol_offset": "1000",
+      "name": "Model code enum",
+      "access": "read_only",
+      "function_codes": ["FC04"],
+      "data_type": "uint16",
+      "enum_values": {
+        "1001": "IEIO-100-DI8",
+        "1002": "IEIO-100-DO8",
+        "1003": "IEIO-100-AI4",
+        "1004": "IEIO-100-AO4",
+        "1011": "IEIO-100-MD44",
+        "1012": "IEIO-100-MA44"
+      },
+      "applicable_models": ["all"]
+    },
+    {
+      "display_address": "31002",
+      "protocol_offset": "1001",
+      "name": "Hardware version",
+      "access": "read_only",
+      "function_codes": ["FC04"],
+      "data_type": "uint16",
+      "encoding": "major * 100 + minor",
+      "applicable_models": ["all"]
+    },
+    {
+      "display_address": "31003",
+      "protocol_offset": "1002",
+      "name": "Firmware version",
+      "access": "read_only",
+      "function_codes": ["FC04"],
+      "data_type": "uint16",
+      "encoding": "major * 100 + minor",
+      "applicable_models": ["all"]
+    },
+    {
+      "display_address": "31004",
+      "protocol_offset": "1003",
+      "name": "Register map version",
+      "access": "read_only",
+      "function_codes": ["FC04"],
+      "data_type": "uint16",
+      "encoding": "major * 100 + minor",
+      "applicable_models": ["all"],
+      "notes": "Firmware should return 10 for version 0.1.0 draft after implementation agreement."
+    }
+  ],
+  "holding_register_map": [
+    {
+      "display_address": "40001-40004",
+      "protocol_offset": "0-3",
+      "name": "AO output setpoint",
+      "access": "read_write",
+      "function_codes": ["FC03", "FC06", "FC16"],
+      "data_type": "uint16",
+      "unit": "0.001 mA or 0.001 V based on channel mode",
+      "applicable_models": ["IEIO-100-AO4", "IEIO-100-MA44"],
+      "notes": "Final output range, resolution and load capability require hardware validation."
+    },
+    {
+      "display_address": "41001",
+      "protocol_offset": "1000",
+      "name": "Modbus slave address",
+      "access": "read_write",
+      "function_codes": ["FC03", "FC06"],
+      "data_type": "uint16",
+      "valid_range": "1-247",
+      "default": 1,
+      "applicable_models": ["all"],
+      "notes": "New address takes effect only after apply command or reboot."
+    },
+    {
+      "display_address": "41002",
+      "protocol_offset": "1001",
+      "name": "Baud rate",
+      "access": "read_write",
+      "function_codes": ["FC03", "FC06"],
+      "data_type": "uint16_enum",
+      "enum_values": {
+        "0": "9600",
+        "1": "19200",
+        "2": "38400",
+        "3": "57600",
+        "4": "115200"
+      },
+      "default": 1,
+      "applicable_models": ["all"]
+    },
+    {
+      "display_address": "41003",
+      "protocol_offset": "1002",
+      "name": "Parity",
+      "access": "read_write",
+      "function_codes": ["FC03", "FC06"],
+      "data_type": "uint16_enum",
+      "enum_values": {
+        "0": "None",
+        "1": "Even",
+        "2": "Odd"
+      },
+      "default": 1,
+      "applicable_models": ["all"]
+    },
+    {
+      "display_address": "41004",
+      "protocol_offset": "1003",
+      "name": "Stop bits",
+      "access": "read_write",
+      "function_codes": ["FC03", "FC06"],
+      "data_type": "uint16_enum",
+      "enum_values": {
+        "1": "1 stop bit",
+        "2": "2 stop bits"
+      },
+      "default": 1,
+      "applicable_models": ["all"]
+    },
+    {
+      "display_address": "41005",
+      "protocol_offset": "1004",
+      "name": "Response delay",
+      "access": "read_write",
+      "function_codes": ["FC03", "FC06"],
+      "data_type": "uint16",
+      "unit": "ms",
+      "valid_range": "0-1000",
+      "default": 0,
+      "applicable_models": ["all"]
+    },
+    {
+      "display_address": "41006",
+      "protocol_offset": "1005",
+      "name": "Apply communication configuration",
+      "access": "write_only",
+      "function_codes": ["FC06"],
+      "data_type": "uint16",
+      "valid_write_value": "0xA55A",
+      "applicable_models": ["all"],
+      "notes": "Firmware should reject all other values with exception 03."
+    },
+    {
+      "display_address": "41007",
+      "protocol_offset": "1006",
+      "name": "Device reboot command",
+      "access": "write_only",
+      "function_codes": ["FC06"],
+      "data_type": "uint16",
+      "valid_write_value": "0x5AA5",
+      "applicable_models": ["all"],
+      "notes": "Use only for engineering/test tools; public documentation should include warning text."
+    },
+    {
+      "display_address": "41101-41108",
+      "protocol_offset": "1100-1107",
+      "name": "DI channel mode",
+      "access": "read_write",
+      "function_codes": ["FC03", "FC06", "FC16"],
+      "data_type": "uint16_enum",
+      "enum_values": {
+        "0": "dry contact",
+        "1": "wet contact",
+        "2": "pulse counter"
+      },
+      "applicable_models": ["IEIO-100-DI8", "IEIO-100-MD44"],
+      "notes": "Wet/dry contact and pulse mode availability require hardware and firmware validation."
+    },
+    {
+      "display_address": "41201-41208",
+      "protocol_offset": "1200-1207",
+      "name": "DO/relay failsafe state",
+      "access": "read_write",
+      "function_codes": ["FC03", "FC06", "FC16"],
+      "data_type": "uint16_enum",
+      "enum_values": {
+        "0": "off/open on failsafe",
+        "1": "on/closed on failsafe",
+        "2": "hold last state"
+      },
+      "applicable_models": ["IEIO-100-DO8", "IEIO-100-MD44"],
+      "notes": "Failsafe trigger condition requires firmware definition."
+    },
+    {
+      "display_address": "41301-41304",
+      "protocol_offset": "1300-1303",
+      "name": "AI channel mode",
+      "access": "read_write",
+      "function_codes": ["FC03", "FC06", "FC16"],
+      "data_type": "uint16_enum",
+      "enum_values": {
+        "0": "4-20 mA",
+        "1": "0-10 V"
+      },
+      "applicable_models": ["IEIO-100-AI4", "IEIO-100-MA44"],
+      "notes": "Final channel mode options depend on analog front-end hardware."
+    },
+    {
+      "display_address": "41401-41404",
+      "protocol_offset": "1400-1403",
+      "name": "AO channel mode",
+      "access": "read_write",
+      "function_codes": ["FC03", "FC06", "FC16"],
+      "data_type": "uint16_enum",
+      "enum_values": {
+        "0": "4-20 mA",
+        "1": "0-10 V"
+      },
+      "applicable_models": ["IEIO-100-AO4", "IEIO-100-MA44"],
+      "notes": "Final channel mode options depend on analog output hardware."
+    },
+    {
+      "display_address": "41421-41424",
+      "protocol_offset": "1420-1423",
+      "name": "AO failsafe value",
+      "access": "read_write",
+      "function_codes": ["FC03", "FC06", "FC16"],
+      "data_type": "uint16",
+      "unit": "0.001 mA or 0.001 V based on channel mode",
+      "applicable_models": ["IEIO-100-AO4", "IEIO-100-MA44"],
+      "notes": "Value must be validated against AO channel range."
+    }
+  ],
+  "variant_applicability_rules": [
+    {
+      "rule_id": "unavailable-channel-address",
+      "rule": "If a register or coil belongs to an IO channel not present on the model, firmware must return Modbus exception 02 Illegal Data Address."
+    },
+    {
+      "rule_id": "unsupported-function-code",
+      "rule": "If a function code is unsupported by the firmware, return Modbus exception 01 Illegal Function."
+    },
+    {
+      "rule_id": "invalid-register-value",
+      "rule": "If a write value is outside the defined enum or valid range, return Modbus exception 03 Illegal Data Value."
+    },
+    {
+      "rule_id": "reserved-addresses",
+      "rule": "Reserved addresses should return exception 02 until they are formally assigned in a future register map version."
+    }
+  ],
+  "validation_plan": {
+    "static_review": [
+      "Confirm address ranges do not overlap within each Modbus address space.",
+      "Confirm each first-generation variant has a clear applicable register subset.",
+      "Confirm display addresses and zero-based protocol offsets are both documented.",
+      "Confirm unavailable channel behavior is deterministic."
+    ],
+    "firmware_validation": [
+      "Verify every supported function code with normal and boundary values.",
+      "Verify unavailable addresses return exception 02.",
+      "Verify invalid write values return exception 03.",
+      "Verify communication settings persist after reboot when apply command is used.",
+      "Verify output failsafe behavior after communication timeout and power cycle."
+    ],
+    "prototype_validation": [
+      "Verify DI state changes with actual input wiring.",
+      "Verify DO/relay output behavior with actual load within validated rating.",
+      "Verify AI reading accuracy and stability using calibrated current/voltage source.",
+      "Verify AO output accuracy and load behavior using calibrated meter/load.",
+      "Verify RS485 multi-drop communication stability with at least 3 nodes on the bus."
+    ],
+    "recommended_tools": [
+      "Modbus Poll",
+      "QModMaster",
+      "pymodbus test script",
+      "PLC or SCADA master used by target customers",
+      "Calibrated current/voltage source for AI validation",
+      "Calibrated multimeter or data logger for AO validation"
+    ]
+  },
+  "validation_test_cases": [
+    {
+      "test_id": "MR-001",
+      "title": "Read DI channels",
+      "models": ["IEIO-100-DI8", "IEIO-100-MD44"],
+      "procedure": "Use FC02 to read display addresses 10001-10008 while toggling each physical DI channel.",
+      "expected_result": "Returned bit states match physical input states; unavailable channels on MD44 return exception 02 if addressed beyond channel 4."
+    },
+    {
+      "test_id": "MR-002",
+      "title": "Write DO/relay channels",
+      "models": ["IEIO-100-DO8", "IEIO-100-MD44"],
+      "procedure": "Use FC05 and FC15 to write display addresses 00001-00008, then use FC01 to read back states.",
+      "expected_result": "Physical outputs follow command values; readback matches output state; unavailable channels on MD44 return exception 02 if addressed beyond channel 4."
+    },
+    {
+      "test_id": "MR-003",
+      "title": "Read AI raw values",
+      "models": ["IEIO-100-AI4", "IEIO-100-MA44"],
+      "procedure": "Apply known current or voltage values and read display addresses 30001-30004 using FC04.",
+      "expected_result": "Raw values match the defined 0.001 mA or 0.001 V unit within validated engineering tolerance."
+    },
+    {
+      "test_id": "MR-004",
+      "title": "Write and read AO setpoints",
+      "models": ["IEIO-100-AO4", "IEIO-100-MA44"],
+      "procedure": "Use FC06 and FC16 to write display addresses 40001-40004, then measure physical AO output.",
+      "expected_result": "Physical AO output matches setpoint within validated engineering tolerance; out-of-range values return exception 03."
+    },
+    {
+      "test_id": "MR-005",
+      "title": "Invalid address behavior",
+      "models": ["all"],
+      "procedure": "Read and write reserved or unavailable addresses in each address space.",
+      "expected_result": "Firmware returns Modbus exception 02 Illegal Data Address."
+    },
+    {
+      "test_id": "MR-006",
+      "title": "Invalid value behavior",
+      "models": ["all"],
+      "procedure": "Write invalid enum values to baud rate, parity, IO mode and command registers.",
+      "expected_result": "Firmware returns Modbus exception 03 Illegal Data Value and does not change existing configuration."
+    },
+    {
+      "test_id": "MR-007",
+      "title": "Communication configuration apply",
+      "models": ["all"],
+      "procedure": "Write new slave address, baud rate or parity, then write 0xA55A to display register 41006.",
+      "expected_result": "New communication parameters take effect according to firmware design and persist after reboot."
+    },
+    {
+      "test_id": "MR-008",
+      "title": "Power cycle persistence",
+      "models": ["all"],
+      "procedure": "Configure communication and IO mode registers, reboot device, then read back configuration.",
+      "expected_result": "Persistent configuration remains stored; volatile output states follow defined startup or failsafe behavior."
+    },
+    {
+      "test_id": "MR-009",
+      "title": "RS485 multi-drop stability",
+      "models": ["all"],
+      "procedure": "Run IEIO-100 with at least two additional Modbus RTU slave devices on the same RS485 bus and poll continuously.",
+      "expected_result": "No address conflict; stable polling; communication error counter remains within engineering acceptance threshold."
+    },
+    {
+      "test_id": "MR-010",
+      "title": "Register map version check",
+      "models": ["all"],
+      "procedure": "Read display register 31004 using FC04.",
+      "expected_result": "Firmware returns the agreed register map version for traceability."
+    }
+  ],
+  "seo_claim_policy": {
+    "allowed_before_validation": [
+      "Designed as a Modbus RTU Remote IO family.",
+      "Planned DI8, DO8/relay, AI4 and AO4 variants.",
+      "Register map under engineering validation."
+    ],
+    "not_allowed_before_validation": [
+      "Exact relay output rating.",
+      "Exact AI/AO accuracy or resolution.",
+      "Certified isolation rating.",
+      "Confirmed production register map.",
+      "Guaranteed PLC compatibility with a named PLC brand."
+    ]
+  },
+  "next_actions": [
+    "Engineering review of address ranges, function codes and variant applicability.",
+    "Decide whether DI mode and AI/AO mode are hardware-configurable or fixed per SKU.",
+    "Decide DO output type for IEIO-100-DO8: transistor output, relay output or separate variants.",
+    "Implement firmware simulator or prototype firmware based on this register map.",
+    "Run MR-001 through MR-010 and record evidence in first-product-capability-validation-checklist.json."
+  ]
+}

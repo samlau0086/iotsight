@@ -1,0 +1,477 @@
+{
+  "meta": {
+    "project": "IoTEdges",
+    "database": "ieg-100-modbus-mqtt-behavior-draft",
+    "version": "0.1.0",
+    "last_updated": "2026-06-09",
+    "status": "draft_firmware_behavior",
+    "purpose": "Draft mainstream behavior definition for IEG-100 Modbus data collection and MQTT publishing. This file is used for engineering planning, firmware validation, SEO claim control and future product page drafting.",
+    "important_note": "This is a planning baseline, not a confirmed production specification. Public product pages should use safe wording until firmware, UI and prototype tests validate device limits, polling performance and MQTT behavior."
+  },
+  "product_scope": {
+    "model_code": "IEG-100",
+    "model_name": "Ethernet Industrial IoT Gateway",
+    "positioning": "Ethernet-only baseline industrial IoT gateway for collecting Modbus RTU/TCP data and publishing it to MQTT brokers or cloud platforms.",
+    "uplink": "Ethernet",
+    "field_interfaces": [
+      {
+        "interface": "RS485",
+        "planned_quantity": 1,
+        "protocols": ["Modbus RTU master"],
+        "validation_status": "isolation rating and bus protection require hardware validation"
+      },
+      {
+        "interface": "Ethernet LAN",
+        "planned_quantity": 1,
+        "protocols": ["Modbus TCP client", "MQTT client", "HTTP/HTTPS local web UI if implemented"],
+        "validation_status": "final port count and web UI behavior require hardware and firmware validation"
+      }
+    ],
+    "explicitly_excluded_from_ieg_100": [
+      "OPC UA client/server",
+      "BACnet/IP or BACnet MS/TP",
+      "CAN bus gateway",
+      "PLC programming runtime",
+      "5G cellular uplink",
+      "combined 4G + WiFi + LoRa wireless uplink"
+    ]
+  },
+  "mainstream_capacity_targets": {
+    "modbus_devices": {
+      "target": 32,
+      "safe_public_wording": "Supports multiple Modbus devices after validation.",
+      "notes": "32 slave devices is a practical first-generation target for a baseline gateway. Final number depends on polling interval, register count, baud rate and firmware memory."
+    },
+    "data_points": {
+      "target": 512,
+      "safe_public_wording": "Designed for hundreds of configured data points after validation.",
+      "notes": "512 points is a mainstream baseline target. Higher point counts should be reserved for IEG-E200 or later advanced edge gateways."
+    },
+    "polling_tasks": {
+      "target": 128,
+      "definition": "A polling task is one Modbus request block, such as reading contiguous holding registers from one slave.",
+      "notes": "Task grouping should reduce Modbus bus traffic by reading contiguous registers in blocks."
+    },
+    "minimum_poll_interval": {
+      "target": "1 second",
+      "default": "5 seconds",
+      "notes": "1 second should be treated as a best-case target for small point counts. Use 5 seconds as the default because it is more realistic for RS485 multi-device applications."
+    },
+    "local_cache": {
+      "target": "10000 latest records or 24 hours, whichever is reached first",
+      "safe_public_wording": "Store-and-forward buffering is planned and requires validation.",
+      "notes": "If local storage is removed from hardware, downgrade this feature to reconnect-only publishing without offline buffering."
+    }
+  },
+  "modbus_collection_behavior": {
+    "roles": [
+      {
+        "protocol": "Modbus RTU",
+        "gateway_role": "master",
+        "physical_layer": "RS485",
+        "supported_function_codes": ["FC01", "FC02", "FC03", "FC04"],
+        "write_function_codes": ["FC05", "FC06", "FC15", "FC16"],
+        "write_support_policy": "Optional and disabled by default in UI; enable only for controlled output/write use cases."
+      },
+      {
+        "protocol": "Modbus TCP",
+        "gateway_role": "client",
+        "physical_layer": "Ethernet",
+        "supported_function_codes": ["FC01", "FC02", "FC03", "FC04"],
+        "write_function_codes": ["FC05", "FC06", "FC15", "FC16"],
+        "write_support_policy": "Optional and disabled by default in UI."
+      }
+    ],
+    "default_serial_parameters": {
+      "baud_rate": 9600,
+      "data_bits": 8,
+      "parity": "Even",
+      "stop_bits": 1,
+      "timeout_ms": 1000,
+      "retry_count": 2,
+      "inter_request_delay_ms": 50
+    },
+    "supported_data_types": [
+      "bool",
+      "uint16",
+      "int16",
+      "uint32",
+      "int32",
+      "float32",
+      "bit_from_register"
+    ],
+    "byte_word_order_options": [
+      "ABCD big-endian",
+      "CDAB word-swapped",
+      "BADC byte-swapped",
+      "DCBA byte-and-word-swapped"
+    ],
+    "point_configuration_fields": [
+      "point_id",
+      "point_name",
+      "device_id",
+      "protocol",
+      "slave_id_or_unit_id",
+      "function_code",
+      "register_address",
+      "quantity",
+      "data_type",
+      "byte_word_order",
+      "scale",
+      "offset",
+      "unit",
+      "poll_interval_seconds",
+      "deadband",
+      "enabled"
+    ],
+    "error_handling": {
+      "timeout": "Mark affected points as stale and retry according to retry_count.",
+      "crc_error": "Discard frame, increment error counter and retry.",
+      "illegal_function_or_address": "Mark point configuration error and stop aggressive retries for that point.",
+      "device_offline": "Set device status to offline after 3 consecutive failed polling cycles.",
+      "recovery": "Set device status to online after 2 consecutive successful polling cycles."
+    }
+  },
+  "mqtt_behavior": {
+    "client_role": "MQTT client",
+    "supported_versions": ["MQTT 3.1.1"],
+    "optional_future_versions": ["MQTT 5.0 after validation"],
+    "transport": [
+      {
+        "mode": "TCP",
+        "default_port": 1883,
+        "status": "baseline"
+      },
+      {
+        "mode": "TLS",
+        "default_port": 8883,
+        "status": "planned_after_certificate_validation"
+      }
+    ],
+    "authentication": [
+      "anonymous for lab testing only",
+      "username/password",
+      "client ID",
+      "CA certificate for TLS after validation",
+      "client certificate for mutual TLS after validation"
+    ],
+    "qos": {
+      "supported": [0, 1],
+      "default": 1,
+      "not_planned_for_baseline": [2],
+      "notes": "QoS 1 is a practical default for industrial telemetry. QoS 2 is usually unnecessary for baseline gateways and adds complexity."
+    },
+    "retain_policy": {
+      "telemetry": false,
+      "status": true,
+      "birth_will": true
+    },
+    "keep_alive_seconds": {
+      "default": 60,
+      "configurable_range": "30-300"
+    },
+    "reconnect_policy": {
+      "initial_delay_seconds": 3,
+      "max_delay_seconds": 60,
+      "strategy": "exponential backoff with jitter"
+    }
+  },
+  "mqtt_topic_design": {
+    "topic_prefix": "iotedges",
+    "recommended_topics": [
+      {
+        "purpose": "telemetry",
+        "topic": "iotedges/{gateway_id}/telemetry",
+        "retain": false,
+        "qos": 1
+      },
+      {
+        "purpose": "device status",
+        "topic": "iotedges/{gateway_id}/status",
+        "retain": true,
+        "qos": 1
+      },
+      {
+        "purpose": "gateway birth message",
+        "topic": "iotedges/{gateway_id}/birth",
+        "retain": true,
+        "qos": 1
+      },
+      {
+        "purpose": "gateway last will message",
+        "topic": "iotedges/{gateway_id}/will",
+        "retain": true,
+        "qos": 1
+      },
+      {
+        "purpose": "optional command input",
+        "topic": "iotedges/{gateway_id}/command",
+        "retain": false,
+        "qos": 1,
+        "status": "optional_after_write_safety_validation"
+      },
+      {
+        "purpose": "optional command response",
+        "topic": "iotedges/{gateway_id}/command/response",
+        "retain": false,
+        "qos": 1,
+        "status": "optional_after_write_safety_validation"
+      }
+    ],
+    "topic_rules": [
+      "Use stable gateway_id, not IP address, in MQTT topics.",
+      "Do not include customer names or site names in default topics unless user-configured.",
+      "Keep telemetry on one default topic for simple cloud ingestion; advanced per-device or per-point topics can be added later."
+    ]
+  },
+  "telemetry_payload_format": {
+    "format": "JSON",
+    "encoding": "UTF-8",
+    "timestamp": "ISO 8601 UTC string preferred; Unix milliseconds optional for platforms that require it.",
+    "default_publish_mode": "batch_by_poll_cycle",
+    "sample_payload": {
+      "gateway_id": "IEG100-000001",
+      "model": "IEG-100",
+      "firmware": "0.1.0",
+      "ts": "2026-06-09T10:30:00Z",
+      "seq": 1024,
+      "devices": [
+        {
+          "device_id": "meter_01",
+          "protocol": "modbus_rtu",
+          "slave_id": 1,
+          "status": "online",
+          "points": [
+            {
+              "id": "voltage_l1",
+              "name": "Voltage L1",
+              "value": 229.7,
+              "unit": "V",
+              "quality": "good",
+              "ts": "2026-06-09T10:29:59Z"
+            },
+            {
+              "id": "active_power",
+              "name": "Active Power",
+              "value": 12.45,
+              "unit": "kW",
+              "quality": "good",
+              "ts": "2026-06-09T10:29:59Z"
+            }
+          ]
+        }
+      ]
+    },
+    "point_quality_values": [
+      "good",
+      "stale",
+      "offline",
+      "config_error",
+      "read_error"
+    ],
+    "payload_rules": [
+      "Every telemetry message must include gateway_id, timestamp and sequence number.",
+      "Every point must include id, value, quality and timestamp.",
+      "Unavailable or failed points should not be silently omitted; publish them with quality status when possible.",
+      "Large configurations may split payloads by device to keep MQTT messages small."
+    ],
+    "payload_size_target": {
+      "recommended_max": "64 KB per MQTT message",
+      "notes": "Split payloads when a polling cycle produces a larger message."
+    }
+  },
+  "status_payload_format": {
+    "sample_payload": {
+      "gateway_id": "IEG100-000001",
+      "model": "IEG-100",
+      "firmware": "0.1.0",
+      "ts": "2026-06-09T10:30:00Z",
+      "status": "online",
+      "uptime_s": 86400,
+      "mqtt": {
+        "connected": true,
+        "broker": "mqtt.example.com",
+        "last_publish_ts": "2026-06-09T10:29:59Z"
+      },
+      "modbus": {
+        "configured_devices": 12,
+        "online_devices": 11,
+        "offline_devices": 1,
+        "error_count": 7
+      }
+    },
+    "publish_triggers": [
+      "on MQTT connection",
+      "on device status change",
+      "periodically every 60 seconds by default"
+    ]
+  },
+  "optional_command_behavior": {
+    "status": "optional_after_write_safety_validation",
+    "default": "disabled",
+    "use_cases": [
+      "Write Modbus coil",
+      "Write Modbus holding register",
+      "Trigger configuration reload",
+      "Request immediate poll"
+    ],
+    "safety_rules": [
+      "Commands must be disabled by default.",
+      "Each writable point must be explicitly enabled.",
+      "Command payload must include request_id, target device, point/register and value.",
+      "Gateway must publish a command response with success or error reason.",
+      "Do not enable public SEO claims for remote write/control until validation is complete."
+    ]
+  },
+  "local_configuration_baseline": {
+    "configuration_methods": [
+      {
+        "method": "local web UI",
+        "status": "recommended"
+      },
+      {
+        "method": "import/export JSON configuration file",
+        "status": "recommended"
+      },
+      {
+        "method": "cloud remote configuration",
+        "status": "future"
+      }
+    ],
+    "minimum_configuration_sections": [
+      "Network",
+      "RS485 serial port",
+      "Modbus devices",
+      "Data points",
+      "MQTT broker",
+      "Publish policy",
+      "Diagnostics",
+      "Firmware information"
+    ],
+    "configuration_validation_rules": [
+      "Reject duplicate point_id values.",
+      "Warn when polling interval is too short for configured device and point count.",
+      "Warn when a Modbus register block crosses an invalid address boundary.",
+      "Test MQTT broker connection before saving production configuration.",
+      "Test Modbus read for a selected point before enabling it."
+    ]
+  },
+  "diagnostics_baseline": {
+    "local_diagnostics": [
+      "Modbus request success/failure counter",
+      "Device online/offline status",
+      "Last read value and timestamp per point",
+      "MQTT connection state",
+      "Last publish time",
+      "System uptime",
+      "Firmware version",
+      "Configuration export for support"
+    ],
+    "log_targets": [
+      "local recent event log",
+      "optional MQTT status/error topic after validation"
+    ]
+  },
+  "validation_plan": {
+    "test_cases": [
+      {
+        "test_id": "GM-001",
+        "title": "Modbus RTU polling basic read",
+        "procedure": "Configure one RS485 Modbus slave with FC03 and FC04 points and poll at 5 second interval.",
+        "expected_result": "Values are read correctly, scaled and published to MQTT with quality good."
+      },
+      {
+        "test_id": "GM-002",
+        "title": "Modbus TCP polling basic read",
+        "procedure": "Configure one Modbus TCP device and poll FC03/FC04 registers.",
+        "expected_result": "Values are read correctly and published to MQTT."
+      },
+      {
+        "test_id": "GM-003",
+        "title": "Multi-device polling",
+        "procedure": "Configure 32 Modbus devices or simulators with mixed polling tasks.",
+        "expected_result": "Gateway polls devices according to schedule without memory leak or task lockup."
+      },
+      {
+        "test_id": "GM-004",
+        "title": "512-point configuration",
+        "procedure": "Configure 512 data points across multiple devices and run a 24-hour stability test.",
+        "expected_result": "Gateway remains stable; telemetry publishes successfully; diagnostics remain usable."
+      },
+      {
+        "test_id": "GM-005",
+        "title": "MQTT reconnect",
+        "procedure": "Disconnect broker network, then restore network.",
+        "expected_result": "Gateway reconnects using backoff policy and resumes publishing."
+      },
+      {
+        "test_id": "GM-006",
+        "title": "Store-and-forward",
+        "procedure": "Disconnect MQTT broker while Modbus polling continues, then restore broker.",
+        "expected_result": "Cached records are published in order if local cache hardware is implemented; otherwise feature must remain unpublished."
+      },
+      {
+        "test_id": "GM-007",
+        "title": "Payload schema",
+        "procedure": "Validate telemetry and status messages against the JSON payload rules.",
+        "expected_result": "Payload contains gateway_id, timestamp, sequence number, device status, point quality and values."
+      },
+      {
+        "test_id": "GM-008",
+        "title": "Point error handling",
+        "procedure": "Configure invalid register address and offline slave.",
+        "expected_result": "Gateway marks affected points as config_error, read_error or offline; other points continue polling."
+      },
+      {
+        "test_id": "GM-009",
+        "title": "MQTT QoS 1 delivery",
+        "procedure": "Publish telemetry using QoS 1 under unstable network conditions.",
+        "expected_result": "Gateway handles acknowledgements and reconnects without duplicated sequence confusion in downstream processing."
+      },
+      {
+        "test_id": "GM-010",
+        "title": "Configuration import/export",
+        "procedure": "Export configuration, factory reset, import the configuration and restart polling.",
+        "expected_result": "Gateway restores Modbus devices, points and MQTT settings correctly."
+      }
+    ],
+    "recommended_test_tools": [
+      "Modbus RTU slave simulator",
+      "Modbus TCP slave simulator",
+      "Mosquitto MQTT broker",
+      "MQTT Explorer",
+      "Wireshark",
+      "24-hour stability test script"
+    ]
+  },
+  "seo_claim_policy": {
+    "allowed_before_validation": [
+      "IEG-100 is planned as an Ethernet industrial IoT gateway for Modbus RTU/TCP data collection and MQTT publishing.",
+      "Designed for Modbus-to-MQTT applications such as energy meters, solar inverters, PLC-connected sensors and remote equipment monitoring.",
+      "MQTT JSON payload and local configuration workflow are under engineering validation."
+    ],
+    "not_allowed_before_validation": [
+      "Exact maximum number of Modbus devices.",
+      "Exact maximum number of data points.",
+      "Guaranteed 1-second polling across all configurations.",
+      "Guaranteed offline buffering duration.",
+      "TLS or mutual TLS certification.",
+      "Remote write/control claims.",
+      "OPC UA, BACnet or CAN support on IEG-100."
+    ],
+    "publishable_after_validation": [
+      "Validated device count.",
+      "Validated data point count.",
+      "Validated polling interval range.",
+      "Validated MQTT broker compatibility.",
+      "Validated store-and-forward behavior if implemented."
+    ]
+  },
+  "next_actions": [
+    "Engineering review of 32-device and 512-point targets.",
+    "Confirm whether local storage is included for store-and-forward buffering.",
+    "Confirm whether TLS is included in first firmware release.",
+    "Create a JSON schema file for telemetry and status payloads if firmware team accepts this format.",
+    "Run GM-001 through GM-010 and record evidence in first-product-capability-validation-checklist.json."
+  ]
+}

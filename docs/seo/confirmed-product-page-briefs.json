@@ -1,0 +1,145 @@
+{
+  "meta": {
+    "project": "IoTEdges",
+    "database": "confirmed-product-page-briefs",
+    "version": "0.1.0",
+    "last_updated": "2026-06-09",
+    "status": "draft_briefs",
+    "purpose": "SEO product page briefs for the currently defined IoTEdges product lineup and first-generation Remote IO variants.",
+    "important_note": "These are page briefs based on planning decisions. Final pages must still pass product capability review, engineering validation and factual review before publication."
+  },
+  "source_files": [
+    "docs/seo/product-model-definition-draft.json",
+    "docs/seo/product-protocol-support-matrix.json",
+    "docs/seo/product-io-interface-matrix.json",
+    "docs/seo/first-engineering-requirements-draft.json"
+  ],
+  "global_claim_rules": [
+    "Do not claim 5G support.",
+    "Do not combine 4G, WiFi and LoRa/LoRaWAN in one device.",
+    "Baseline gateways support Modbus RTU/TCP and MQTT; OPC UA/BACnet/CAN belong to advanced edge models only.",
+    "RTU baseline IO is 4DI + 2DO/relay + 2AI.",
+    "Remote IO first-generation variants are DI8, DO8, AI4 and AO4."
+  ],
+  "briefs": [
+    {
+      "brief_id": "brief-ieg-100",
+      "model_code": "IEG-100",
+      "page_title": "Ethernet Industrial IoT Gateway",
+      "slug": "ethernet-industrial-iot-gateway",
+      "route": "/products/ethernet-industrial-iot-gateway",
+      "primary_keyword": "Ethernet industrial IoT gateway",
+      "secondary_keywords": ["Ethernet MQTT gateway", "Modbus to MQTT gateway", "industrial Ethernet gateway", "RS485 to Ethernet gateway"],
+      "page_role": "Product page for the wired baseline gateway.",
+      "core_claims": ["Ethernet-only uplink", "1x isolated RS485 target", "Modbus RTU/TCP data collection", "MQTT publishing"],
+      "claims_to_avoid": ["4G support", "WiFi support", "LoRa support", "OPC UA support", "heavy built-in IO"],
+      "recommended_sections": ["Hero", "Where Ethernet gateways fit", "Protocol support", "Typical architecture", "Use cases", "Model comparison", "FAQ", "CTA"],
+      "internal_links": ["Modbus to MQTT Gateway", "MQTT Gateway", "Modbus Gateway", "Energy Monitoring", "Factory Monitoring"]
+    },
+    {
+      "brief_id": "brief-ieg-120",
+      "model_code": "IEG-120",
+      "page_title": "WiFi Industrial IoT Gateway",
+      "slug": "wifi-industrial-iot-gateway",
+      "route": "/products/wifi-industrial-iot-gateway",
+      "primary_keyword": "WiFi industrial IoT gateway",
+      "secondary_keywords": ["WiFi MQTT gateway", "WiFi Modbus gateway", "wireless MQTT gateway"],
+      "page_role": "Product page for indoor WiFi gateway deployments.",
+      "core_claims": ["WiFi uplink as the only wireless uplink", "1x Ethernet for setup/local network target", "1x isolated RS485 target", "Modbus RTU/TCP to MQTT"],
+      "claims_to_avoid": ["4G support in same device", "LoRa support in same device", "outdoor long-range wireless claims", "OPC UA support"],
+      "recommended_sections": ["Hero", "When to use WiFi gateway", "Network and protocol design", "Configuration workflow", "Use cases", "Model comparison", "FAQ", "CTA"],
+      "internal_links": ["MQTT Gateway", "Modbus to MQTT Gateway", "Building Energy Monitoring", "Factory Utility Monitoring"]
+    },
+    {
+      "brief_id": "brief-ieg-140",
+      "model_code": "IEG-140",
+      "page_title": "4G Industrial IoT Gateway",
+      "slug": "4g-industrial-iot-gateway",
+      "route": "/products/4g-industrial-iot-gateway",
+      "primary_keyword": "4G industrial IoT gateway",
+      "secondary_keywords": ["4G MQTT gateway", "cellular IoT gateway", "4G Modbus gateway", "remote Modbus gateway"],
+      "page_role": "Product page for cellular gateway deployments.",
+      "core_claims": ["4G LTE uplink as the only wireless uplink", "SIM/APN setup target", "external antenna connector target", "Modbus RTU/TCP to MQTT"],
+      "claims_to_avoid": ["WiFi support in same device", "LoRa support in same device", "5G support", "global LTE band guarantee", "VPN unless validated"],
+      "recommended_sections": ["Hero", "Remote site architecture", "Cellular deployment checklist", "Protocol support", "Use cases", "Model comparison", "FAQ", "CTA"],
+      "internal_links": ["4G RTU", "MQTT Gateway", "Remote Equipment Monitoring", "Solar Monitoring", "Pump Station Monitoring"]
+    },
+    {
+      "brief_id": "brief-ier-100",
+      "model_code": "IER-100",
+      "page_title": "Ethernet Industrial RTU",
+      "slug": "ethernet-industrial-rtu",
+      "route": "/products/ethernet-industrial-rtu",
+      "primary_keyword": "Ethernet industrial RTU",
+      "secondary_keywords": ["Ethernet RTU", "Modbus RTU controller", "RTU for SCADA", "wired RTU"],
+      "page_role": "Product page for wired RTU and local SCADA/LAN telemetry.",
+      "core_claims": ["Ethernet uplink", "1x isolated RS485 target", "4DI + 2DO/relay + 2AI baseline", "Modbus RTU/TCP"],
+      "claims_to_avoid": ["4G in baseline", "WiFi in baseline", "certified safety control", "DNP3/IEC utility protocols"],
+      "recommended_sections": ["Hero", "IO configuration", "SCADA/LAN architecture", "Alarm and control logic", "Use cases", "RTU comparison", "FAQ", "CTA"],
+      "internal_links": ["Industrial RTU", "Remote IO Module", "Pump Station Monitoring", "Factory Utility Monitoring"]
+    },
+    {
+      "brief_id": "brief-ier-120",
+      "model_code": "IER-120",
+      "page_title": "WiFi Remote Monitoring RTU",
+      "slug": "wifi-remote-monitoring-rtu",
+      "route": "/products/wifi-remote-monitoring-rtu",
+      "primary_keyword": "WiFi RTU",
+      "secondary_keywords": ["WiFi remote monitoring RTU", "wireless RTU", "WiFi telemetry RTU"],
+      "page_role": "Product page for indoor WiFi RTU deployments.",
+      "core_claims": ["WiFi uplink as the only wireless uplink", "4DI + 2DO/relay + 2AI baseline", "1x isolated RS485 target", "MQTT telemetry target"],
+      "claims_to_avoid": ["4G support in same device", "LoRa support in same device", "outdoor range claims", "hazardous-area claims"],
+      "recommended_sections": ["Hero", "Indoor WiFi RTU applications", "IO configuration", "Network setup", "Use cases", "Model comparison", "FAQ", "CTA"],
+      "internal_links": ["Industrial RTU", "Ethernet Industrial RTU", "Building Equipment Monitoring", "Factory Utility Monitoring"]
+    },
+    {
+      "brief_id": "brief-ier-140",
+      "model_code": "IER-140",
+      "page_title": "4G Remote Monitoring RTU",
+      "slug": "4g-remote-monitoring-rtu",
+      "route": "/products/4g-remote-monitoring-rtu",
+      "primary_keyword": "4G RTU",
+      "secondary_keywords": ["cellular RTU", "remote monitoring RTU", "LTE RTU", "4G telemetry RTU"],
+      "page_role": "Product page for remote cellular telemetry.",
+      "core_claims": ["4G LTE uplink as the only wireless uplink", "4DI + 2DO/relay + 2AI baseline", "1x isolated RS485 target", "MQTT telemetry target"],
+      "claims_to_avoid": ["WiFi support in same device", "LoRa support in same device", "5G support", "global band guarantee", "VPN unless validated"],
+      "recommended_sections": ["Hero", "Remote monitoring architecture", "IO configuration", "Cellular checklist", "Use cases", "RTU comparison", "FAQ", "CTA"],
+      "internal_links": ["Industrial RTU", "4G Industrial IoT Gateway", "Pump Station Monitoring", "Tank Level Monitoring", "Pipeline Monitoring"]
+    },
+    {
+      "brief_id": "brief-ieio-100-family",
+      "model_code": "IEIO-100",
+      "page_title": "Modbus Remote IO Module",
+      "slug": "modbus-remote-io-module",
+      "route": "/products/modbus-remote-io-module",
+      "primary_keyword": "Modbus Remote IO module",
+      "secondary_keywords": ["RS485 Remote IO", "remote input output module", "DI module", "DO relay module", "analog input module", "analog output module"],
+      "page_role": "Family page for first-generation wired Remote IO variants.",
+      "core_claims": ["RS485 Modbus RTU baseline", "Ethernet Modbus TCP variant optional", "separate IO-type variants", "DI/DO/AI/AO product family"],
+      "claims_to_avoid": ["MQTT gateway behavior", "cellular telemetry", "wireless uplink", "exact relay rating before validation", "exact analog accuracy before validation"],
+      "recommended_sections": ["Hero", "Remote IO family overview", "First-generation variants", "How to choose DI/DO/AI/AO", "Modbus integration", "Use cases", "FAQ", "CTA"],
+      "first_generation_variants": ["IEIO-100-DI8", "IEIO-100-DO8", "IEIO-100-AI4", "IEIO-100-AO4"],
+      "second_wave_variants": ["IEIO-100-MD44", "IEIO-100-MA44"],
+      "internal_links": ["Remote IO for Factory Automation", "Digital Input Module", "Analog Input Module", "Remote IO for SCADA"]
+    },
+    {
+      "brief_id": "brief-ieg-l100",
+      "model_code": "IEG-L100",
+      "page_title": "Industrial LoRaWAN Gateway",
+      "slug": "industrial-lorawan-gateway",
+      "route": "/products/industrial-lorawan-gateway",
+      "primary_keyword": "industrial LoRaWAN gateway",
+      "secondary_keywords": ["LoRa gateway", "LoRa MQTT gateway", "industrial LoRa gateway", "wireless sensor gateway"],
+      "page_role": "Product page for LoRaWAN gateway deployments.",
+      "core_claims": ["LoRa/LoRaWAN wireless side", "Ethernet backhaul", "MQTT/application integration target", "regional frequency variants after validation"],
+      "claims_to_avoid": ["4G support in same device", "WiFi support in same device", "fixed range guarantee", "DI/DO/AI/AO on gateway baseline"],
+      "recommended_sections": ["Hero", "LoRaWAN architecture", "Gateway and node roles", "Frequency planning", "Use cases", "Model comparison", "FAQ", "CTA"],
+      "internal_links": ["LoRa Gateway for Agriculture Monitoring", "Environmental Monitoring", "Smart Agriculture", "LoRa Remote IO Node"]
+    }
+  ],
+  "next_actions": [
+    "Use these briefs to update the first product publishing batch after engineering review.",
+    "Create Markdown product pages only after capability validation gates are passed.",
+    "Keep the older first-5-content-briefs.json for generic pillar pages; use this file for confirmed model-specific pages."
+  ]
+}

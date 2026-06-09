@@ -1,0 +1,144 @@
+{
+  "meta": {
+    "project": "IoTEdges",
+    "database": "confirmed-first-product-publishing-plan",
+    "version": "0.1.0",
+    "last_updated": "2026-06-09",
+    "status": "draft_plan",
+    "purpose": "Publishing priority plan for confirmed model-specific IoTEdges product pages.",
+    "important_note": "This plan does not replace broad pillar pages. It defines the model-specific product pages that should move through capability validation before Markdown drafting."
+  },
+  "source_brief_file": "docs/seo/confirmed-product-page-briefs.json",
+  "claim_review_file": "docs/seo/first-batch-product-page-capability-review-matrix.json",
+  "public_draft_conversion_plan": "docs/seo/first-batch-public-draft-conversion-plan.json",
+  "relationship_to_existing_plans": {
+    "first_30_pages_priority_plan": "Keeps broad product pillars, solutions, knowledge pages and case studies.",
+    "first_5_content_briefs": "Keeps generic pillar briefs for Industrial IoT Gateway, MQTT Gateway, Modbus to MQTT Gateway, Industrial RTU and 4G RTU.",
+    "confirmed_product_page_briefs": "Primary source for model-specific pages based on the confirmed IoTEdges lineup."
+  },
+  "publishing_gates": [
+    "capability_validation",
+    "protocol_claim_check",
+    "io_claim_check",
+    "wireless_uplink_check",
+    "fact_check",
+    "internal_link_check",
+    "markdown_draft"
+  ],
+  "global_rules": [
+    "Model-specific pages must not claim unvalidated electrical ratings, certifications, temperature range, IP rating, LTE bands, relay ratings or analog accuracy.",
+    "4G, WiFi and LoRa/LoRaWAN must stay as separate wireless uplink product pages.",
+    "OPC UA/BACnet/CAN must stay out of baseline gateway pages.",
+    "RTU pages can state the planned baseline IO as 4DI + 2DO/relay + 2AI, but electrical ratings remain validation-gated.",
+    "Remote IO pages can list planned first-generation variants DI8, DO8, AI4 and AO4, but relay and analog performance remain validation-gated."
+  ],
+  "product_page_batch": [
+    {
+      "rank": 1,
+      "model_code": "IEIO-100",
+      "page_title": "Modbus Remote IO Module",
+      "slug": "modbus-remote-io-module",
+      "route": "/products/modbus-remote-io-module",
+      "brief_id": "brief-ieio-100-family",
+      "why_first": "Remote IO has clear DI/DO/AI/AO search intent and supports many factory, SCADA, water and building solution pages.",
+      "primary_validation_needed": ["IO variant naming", "Modbus RTU register map", "DI/DO/AI/AO electrical ratings", "relay type decision"],
+      "readiness": "safe_scope_markdown_brief_created",
+      "safe_scope_markdown_brief": "docs/seo/product-page-markdown-briefs/ieio-100-modbus-remote-io-module.md"
+    },
+    {
+      "rank": 2,
+      "model_code": "IER-100",
+      "page_title": "Ethernet Industrial RTU",
+      "slug": "ethernet-industrial-rtu",
+      "route": "/products/ethernet-industrial-rtu",
+      "brief_id": "brief-ier-100",
+      "why_first": "Lower-risk wired RTU baseline before wireless variants.",
+      "primary_validation_needed": ["4DI + 2DO/relay + 2AI circuit design", "RS485 isolation", "Modbus RTU/TCP behavior", "local Web UI"],
+      "readiness": "safe_scope_markdown_brief_created",
+      "safe_scope_markdown_brief": "docs/seo/product-page-markdown-briefs/ier-100-ethernet-industrial-rtu.md"
+    },
+    {
+      "rank": 3,
+      "model_code": "IER-140",
+      "page_title": "4G Remote Monitoring RTU",
+      "slug": "4g-remote-monitoring-rtu",
+      "route": "/products/4g-remote-monitoring-rtu",
+      "brief_id": "brief-ier-140",
+      "why_first": "High commercial value for remote pump, tank, pipeline, telecom and environmental monitoring.",
+      "primary_validation_needed": ["LTE module choice", "LTE band policy", "SIM/APN setup", "MQTT telemetry", "local buffer/retry behavior"],
+      "readiness": "safe_scope_markdown_brief_created",
+      "safe_scope_markdown_brief": "docs/seo/product-page-markdown-briefs/ier-140-4g-remote-monitoring-rtu.md"
+    },
+    {
+      "rank": 4,
+      "model_code": "IEG-100",
+      "page_title": "Ethernet Industrial IoT Gateway",
+      "slug": "ethernet-industrial-iot-gateway",
+      "route": "/products/ethernet-industrial-iot-gateway",
+      "brief_id": "brief-ieg-100",
+      "why_first": "Lowest-risk Modbus/MQTT gateway page and foundation for protocol conversion SEO.",
+      "primary_validation_needed": ["Modbus RTU/TCP polling", "MQTT broker setup", "payload format", "RS485 isolation", "Web UI"],
+      "readiness": "safe_scope_markdown_brief_created",
+      "safe_scope_markdown_brief": "docs/seo/product-page-markdown-briefs/ieg-100-ethernet-industrial-iot-gateway.md"
+    },
+    {
+      "rank": 5,
+      "model_code": "IEG-140",
+      "page_title": "4G Industrial IoT Gateway",
+      "slug": "4g-industrial-iot-gateway",
+      "route": "/products/4g-industrial-iot-gateway",
+      "brief_id": "brief-ieg-140",
+      "why_first": "Strong remote Modbus/MQTT gateway page for solar, water and remote equipment sites.",
+      "primary_validation_needed": ["LTE module choice", "LTE band policy", "SIM/APN setup", "Modbus to MQTT workflow", "MQTT retry behavior"],
+      "readiness": "safe_scope_markdown_brief_created",
+      "safe_scope_markdown_brief": "docs/seo/product-page-markdown-briefs/ieg-140-4g-industrial-iot-gateway.md"
+    },
+    {
+      "rank": 6,
+      "model_code": "IEG-120",
+      "page_title": "WiFi Industrial IoT Gateway",
+      "slug": "wifi-industrial-iot-gateway",
+      "route": "/products/wifi-industrial-iot-gateway",
+      "brief_id": "brief-ieg-120",
+      "why_first": "Supports indoor gateway searches, but lower commercial urgency than Ethernet and 4G.",
+      "primary_validation_needed": ["WiFi module choice", "WiFi setup mode", "Modbus to MQTT workflow", "MQTT retry behavior"],
+      "readiness": "safe_scope_markdown_brief_created",
+      "safe_scope_markdown_brief": "docs/seo/product-page-markdown-briefs/ieg-120-wifi-industrial-iot-gateway.md"
+    },
+    {
+      "rank": 7,
+      "model_code": "IER-120",
+      "page_title": "WiFi Remote Monitoring RTU",
+      "slug": "wifi-remote-monitoring-rtu",
+      "route": "/products/wifi-remote-monitoring-rtu",
+      "brief_id": "brief-ier-120",
+      "why_first": "Useful indoor RTU variant, but should follow wired and 4G RTU pages.",
+      "primary_validation_needed": ["WiFi module choice", "4DI + 2DO/relay + 2AI circuit design", "MQTT telemetry", "local setup workflow"],
+      "readiness": "safe_scope_markdown_brief_created",
+      "safe_scope_markdown_brief": "docs/seo/product-page-markdown-briefs/ier-120-wifi-remote-monitoring-rtu.md"
+    },
+    {
+      "rank": 8,
+      "model_code": "IEG-L100",
+      "page_title": "Industrial LoRaWAN Gateway",
+      "slug": "industrial-lorawan-gateway",
+      "route": "/products/industrial-lorawan-gateway",
+      "brief_id": "brief-ieg-l100",
+      "why_first": "Important for agriculture, environmental monitoring and cold chain clusters, but RF/frequency claims need careful validation.",
+      "primary_validation_needed": ["LoRaWAN architecture", "regional frequency policy", "antenna/enclosure strategy", "MQTT/application integration"],
+      "readiness": "safe_scope_markdown_brief_created",
+      "safe_scope_markdown_brief": "docs/seo/product-page-markdown-briefs/ieg-l100-industrial-lorawan-gateway.md"
+    }
+  ],
+  "first_markdown_candidates_after_validation": [
+    "Modbus Remote IO Module",
+    "Ethernet Industrial RTU",
+    "Ethernet Industrial IoT Gateway"
+  ],
+  "next_actions": [
+    "Review safe-scope Markdown briefs with first-batch-product-page-capability-review-matrix.json.",
+    "Use first-batch-public-draft-conversion-plan.json to decide which briefs can become public-safe drafts.",
+    "Confirm the frontend content directory and routing convention before creating public website files.",
+    "Keep broad pillar pages and model-specific pages linked both ways."
+  ]
+}

@@ -1,0 +1,278 @@
+{
+  "meta": {
+    "project": "IoTEdges",
+    "database": "content-production-workflow",
+    "version": "0.1.0",
+    "last_updated": "2026-06-08",
+    "status": "drafted",
+    "purpose": "Workflow and state machine for turning SEO topic databases into reviewed, fact-checked, internally linked, SEO-ready Markdown pages."
+  },
+  "source_inputs": [
+    "docs/seo/products-topic-database.json",
+    "docs/seo/solutions-topic-database.json",
+    "docs/seo/knowledge-base-topic-database.json",
+    "docs/seo/case-study-topic-database.json",
+    "docs/seo/long-tail-article-topic-database.json",
+    "docs/seo/first-30-pages-priority-plan.json",
+    "docs/seo/content-brief-templates.json",
+    "docs/seo/factual-source-cards.json",
+    "docs/seo/internal-link-rules.json"
+  ],
+  "status_values": [
+    "not_started",
+    "selected",
+    "capability_check",
+    "brief_drafting",
+    "brief_ready",
+    "fact_checking",
+    "outline_ready",
+    "markdown_drafting",
+    "seo_review",
+    "technical_review",
+    "ready_to_publish",
+    "published",
+    "needs_update",
+    "blocked"
+  ],
+  "roles": {
+    "content_planner": "Selects topics, priority, route, and template.",
+    "product_reviewer": "Validates product capabilities and unsupported claims.",
+    "technical_reviewer": "Validates protocol, wiring, architecture, and factual claims.",
+    "seo_reviewer": "Checks search intent, metadata, internal links, headings, schema, and duplication.",
+    "publisher": "Creates or updates Markdown files and verifies build/prerender output."
+  },
+  "workflow_stages": [
+    {
+      "stage": "topic_selection",
+      "from_status": "not_started",
+      "to_status": "selected",
+      "owner": "content_planner",
+      "inputs": ["topic database record", "first-30 priority plan if applicable"],
+      "outputs": ["selected page route", "source_id", "page_type", "template_id"],
+      "exit_criteria": [
+        "Page type is known.",
+        "Source database and source_id are recorded.",
+        "Recommended route and slug are confirmed.",
+        "Duplicate or cannibalizing topic is checked."
+      ],
+      "blocking_conditions": [
+        "No source topic exists.",
+        "Route conflicts with existing page.",
+        "Topic overlaps another page without a clear differentiation."
+      ]
+    },
+    {
+      "stage": "product_capability_check",
+      "from_status": "selected",
+      "to_status": "capability_check",
+      "owner": "product_reviewer",
+      "inputs": ["product topic record", "solution topic record", "product specs", "capability checklist from template"],
+      "outputs": ["supported claims", "unsupported claims", "candidate page warnings"],
+      "exit_criteria": [
+        "Protocol support is confirmed or marked unknown.",
+        "Connectivity support is confirmed or marked unknown.",
+        "IO and environmental claims are confirmed or removed.",
+        "Certification and compliance claims are either verified or excluded."
+      ],
+      "blocking_conditions": [
+        "Core product capability is unknown.",
+        "Page depends on a feature not supported by current products.",
+        "Case study requires real metrics that are unavailable."
+      ]
+    },
+    {
+      "stage": "brief_creation",
+      "from_status": "capability_check",
+      "to_status": "brief_ready",
+      "owner": "content_planner",
+      "inputs": ["content brief template", "source topic record", "internal link rules", "capability check notes"],
+      "outputs": ["completed content brief"],
+      "exit_criteria": [
+        "Primary keyword and search intent are defined.",
+        "Required sections are selected.",
+        "Minimum internal links are listed.",
+        "CTA and FAQ prompts are defined.",
+        "Claims to avoid are documented."
+      ],
+      "blocking_conditions": [
+        "No matching template exists.",
+        "Required internal link targets are missing and not scheduled.",
+        "Brief contains unsupported product claims."
+      ]
+    },
+    {
+      "stage": "fact_check",
+      "from_status": "brief_ready",
+      "to_status": "fact_checking",
+      "owner": "technical_reviewer",
+      "inputs": ["completed brief", "factual source cards", "official specifications", "product capability notes"],
+      "outputs": ["approved facts", "removed claims", "source references"],
+      "exit_criteria": [
+        "Technical definitions are source-backed.",
+        "Protocol claims match factual source cards.",
+        "Product claims are separated from general facts.",
+        "Unsupported statements are removed or rewritten."
+      ],
+      "blocking_conditions": [
+        "No source card exists for a core technical concept.",
+        "Official source contradicts the brief.",
+        "A high-risk claim cannot be verified."
+      ]
+    },
+    {
+      "stage": "outline_creation",
+      "from_status": "fact_checking",
+      "to_status": "outline_ready",
+      "owner": "content_planner",
+      "inputs": ["approved brief", "fact-check notes", "template sections"],
+      "outputs": ["H1/H2/H3 outline", "FAQ outline", "internal link placement plan"],
+      "exit_criteria": [
+        "One H1 is defined.",
+        "H2 sections match the selected template.",
+        "FAQ section is planned.",
+        "Internal links have planned placements.",
+        "No section depends on unsupported claims."
+      ],
+      "blocking_conditions": [
+        "Outline does not satisfy search intent.",
+        "Outline duplicates another page too closely.",
+        "Internal links are missing from key sections."
+      ]
+    },
+    {
+      "stage": "markdown_drafting",
+      "from_status": "outline_ready",
+      "to_status": "markdown_drafting",
+      "owner": "content_planner",
+      "inputs": ["approved outline", "brief", "source cards", "internal link plan"],
+      "outputs": ["Markdown draft", "frontmatter", "FAQ block", "CTA block"],
+      "exit_criteria": [
+        "Markdown draft exists in the correct content folder.",
+        "Frontmatter includes title, description, date, tags, and route fields where required.",
+        "All required internal links are included or documented as pending.",
+        "FAQ and CTA are included where appropriate."
+      ],
+      "blocking_conditions": [
+        "Target content folder or route model is missing.",
+        "Draft includes unverified product or technical claims.",
+        "Required links point to pages that do not exist and are not scheduled."
+      ]
+    },
+    {
+      "stage": "seo_review",
+      "from_status": "markdown_drafting",
+      "to_status": "seo_review",
+      "owner": "seo_reviewer",
+      "inputs": ["Markdown draft", "internal link rules", "priority plan", "metadata"],
+      "outputs": ["SEO review notes", "metadata fixes", "internal link fixes"],
+      "exit_criteria": [
+        "Title and meta description are unique.",
+        "Search intent is satisfied.",
+        "Headings are logical.",
+        "Internal link minimums are met.",
+        "Schema recommendation is documented.",
+        "No keyword stuffing or thin content."
+      ],
+      "blocking_conditions": [
+        "Page cannibalizes another target page.",
+        "Metadata duplicates an existing page.",
+        "Internal link requirements are not met."
+      ]
+    },
+    {
+      "stage": "technical_review",
+      "from_status": "seo_review",
+      "to_status": "technical_review",
+      "owner": "technical_reviewer",
+      "inputs": ["SEO-reviewed draft", "source cards", "product capability notes"],
+      "outputs": ["technical approval notes", "claim corrections"],
+      "exit_criteria": [
+        "Protocol descriptions are accurate.",
+        "Architecture examples are plausible.",
+        "Product capability claims are verified.",
+        "Case metrics are real, anonymized, or conservative.",
+        "Safety, compliance, and certification claims are not overused."
+      ],
+      "blocking_conditions": [
+        "Technical claim cannot be supported.",
+        "Product capability is overstated.",
+        "Case study proof level is insufficient for publication."
+      ]
+    },
+    {
+      "stage": "publish_ready",
+      "from_status": "technical_review",
+      "to_status": "ready_to_publish",
+      "owner": "publisher",
+      "inputs": ["approved Markdown", "review notes", "route requirements"],
+      "outputs": ["ready-to-publish page"],
+      "exit_criteria": [
+        "All review blockers are resolved.",
+        "Markdown frontmatter is valid.",
+        "Images, diagrams, or assets are present if referenced.",
+        "Required route is supported by frontend rendering or prerender pipeline."
+      ],
+      "blocking_conditions": [
+        "Route is not implemented.",
+        "Build or typecheck fails.",
+        "Referenced media asset is missing."
+      ]
+    },
+    {
+      "stage": "publication",
+      "from_status": "ready_to_publish",
+      "to_status": "published",
+      "owner": "publisher",
+      "inputs": ["ready page", "site build", "deployment workflow"],
+      "outputs": ["published page", "updated database status", "updated roadmap"],
+      "exit_criteria": [
+        "Build succeeds.",
+        "Prerendered HTML exists for SEO-critical route where applicable.",
+        "Page is reachable locally or in staging.",
+        "Source database content_status is updated.",
+        "Roadmap progress is updated."
+      ],
+      "blocking_conditions": [
+        "Build fails.",
+        "Route is not reachable.",
+        "Published page misses critical metadata."
+      ]
+    }
+  ],
+  "batch_policy": {
+    "recommended_batch_size": 5,
+    "first_batch_order": [
+      "Industrial IoT Gateway",
+      "MQTT Gateway",
+      "Modbus to MQTT Gateway",
+      "Industrial RTU",
+      "Energy Monitoring"
+    ],
+    "rules": [
+      "Do not draft more than five pages before reviewing internal link coverage.",
+      "Start with product and solution pillars before long-tail pages.",
+      "Publish knowledge base pages early enough to support technical links.",
+      "Case studies require real or anonymized evidence before publication."
+    ]
+  },
+  "status_update_policy": {
+    "when_brief_ready": "Update the source topic record content_status to brief_ready if supported by that database.",
+    "when_markdown_created": "Update content_status to drafting.",
+    "when_review_passed": "Update content_status to ready_for_review or ready_to_publish.",
+    "when_published": "Update content_status to published and update docs/seo-roadmap.md.",
+    "when_blocked": "Set status to blocked and add a short blocker note."
+  },
+  "quality_gates": {
+    "minimum_internal_links": {
+      "product": 8,
+      "solution": 8,
+      "knowledge_base": 8,
+      "blog_article": 6,
+      "case_study": 7
+    },
+    "metadata_required": ["title", "description", "slug", "date_or_updated_date"],
+    "technical_pages_require_source_card": true,
+    "case_studies_require_proof_level": true,
+    "product_pages_require_capability_check": true
+  }
+}

@@ -1,0 +1,487 @@
+{
+  "meta": {
+    "project": "IoTEdges",
+    "database": "supplier-datasheet-request-checklist",
+    "version": "0.1.0",
+    "last_updated": "2026-06-08",
+    "status": "drafted",
+    "purpose": "Supplier inquiry and datasheet request checklist for confirming proposed IoTEdges product model specifications before SEO/product page publication."
+  },
+  "usage": {
+    "how_to_use": [
+      "Send the relevant model checklist to hardware suppliers or OEM/ODM manufacturers.",
+      "Request datasheet, user manual, configuration screenshots, certification files, and sample register/configuration examples.",
+      "Mark each item as confirmed, conditional, unsupported, or unknown after supplier response.",
+      "Update capability-check-matrix.json and product-model-definition-draft.json before publishing product claims."
+    ],
+    "confirmation_status_values": ["unknown", "confirmed", "conditional", "unsupported", "needs_sample_test"],
+    "evidence_types": ["datasheet", "user_manual", "configuration_screenshot", "test_report", "certificate", "sample_device_test", "supplier_written_confirmation"]
+  },
+  "general_supplier_questions": [
+    {
+      "question_id": "company-oem-odm",
+      "question": "Do you support OEM/ODM branding, custom enclosure label, packaging, and model number customization?",
+      "why_it_matters": "IoTEdges may need branded export products."
+    },
+    {
+      "question_id": "moq-lead-time",
+      "question": "What are the MOQ, sample price, production lead time, and warranty terms?",
+      "why_it_matters": "Needed for first product rollout and sourcing risk."
+    },
+    {
+      "question_id": "firmware-customization",
+      "question": "Can firmware functions, MQTT payload format, cloud endpoint, logo, web UI, or default settings be customized?",
+      "why_it_matters": "Important for IoTEdges differentiation and platform integration."
+    },
+    {
+      "question_id": "documentation-package",
+      "question": "Please provide datasheet, user manual, API/protocol manual, Modbus register/configuration examples, and configuration UI screenshots.",
+      "why_it_matters": "Required for product capability confirmation and SEO claim validation."
+    },
+    {
+      "question_id": "certifications",
+      "question": "Which certifications are available? Please provide files for CE, FCC, RoHS, UKCA, UL, ATEX, IECEx, carrier approvals, or other certificates if available.",
+      "why_it_matters": "Certification claims must not be published without proof."
+    },
+    {
+      "question_id": "target-markets",
+      "question": "Which countries or regions have been shipped to, and which LTE bands or power/certification versions are available for each market?",
+      "why_it_matters": "Export SEO and product pages must avoid unsupported regional claims."
+    }
+  ],
+  "model_checklists": [
+    {
+      "model_code": "IEG-100",
+      "model_name": "Base Industrial IoT Gateway",
+      "supplier_request_title": "Industrial IoT Gateway with Ethernet, RS485, Modbus RTU/TCP and MQTT",
+      "priority": "P1",
+      "request_summary": "We are looking for an industrial IoT gateway that supports Modbus RTU/TCP data collection and MQTT publishing for energy meters, solar inverters, PLCs, sensors and factory equipment.",
+      "must_confirm": [
+        {
+          "item": "Ethernet ports",
+          "question": "How many Ethernet ports are available, and are they 10/100M or Gigabit? Can the device work as WAN/LAN or only LAN?",
+          "required_evidence": ["datasheet", "user_manual"]
+        },
+        {
+          "item": "RS485 ports",
+          "question": "How many RS485 ports are available? Are they isolated? What baud rates, parity, stop bits and serial formats are supported?",
+          "required_evidence": ["datasheet", "user_manual"]
+        },
+        {
+          "item": "RS232 option",
+          "question": "Is RS232 available on this model or only on another variant?",
+          "required_evidence": ["datasheet"]
+        },
+        {
+          "item": "Modbus RTU",
+          "question": "Does the gateway work as Modbus RTU master/client? Can it poll multiple slave devices?",
+          "required_evidence": ["user_manual", "configuration_screenshot"]
+        },
+        {
+          "item": "Modbus TCP",
+          "question": "Does the gateway support Modbus TCP client polling? Does it also support Modbus TCP server mode?",
+          "required_evidence": ["user_manual", "configuration_screenshot"]
+        },
+        {
+          "item": "MQTT",
+          "question": "Which MQTT versions are supported? Can it publish to a custom broker with configurable host, port, username and password?",
+          "required_evidence": ["user_manual", "configuration_screenshot"]
+        },
+        {
+          "item": "MQTT payload",
+          "question": "Is the MQTT payload JSON? Can topic names, tag names, units, scaling, data types and payload format be customized?",
+          "required_evidence": ["user_manual", "sample_payload"]
+        },
+        {
+          "item": "Security",
+          "question": "Does it support MQTT over TLS, CA/client certificates, HTTPS, VPN, user roles or password protection?",
+          "required_evidence": ["user_manual", "security_settings_screenshot"]
+        },
+        {
+          "item": "Power and installation",
+          "question": "What is the exact power input range, operating temperature, dimensions, mounting method and enclosure material?",
+          "required_evidence": ["datasheet"]
+        },
+        {
+          "item": "Certifications",
+          "question": "Which certificates are available for this exact model?",
+          "required_evidence": ["certificate"]
+        }
+      ],
+      "nice_to_have": ["local data buffering", "extra RS485 port", "basic DI/AI", "web configuration UI", "remote firmware upgrade"],
+      "red_flags": ["no configurable MQTT broker", "no Modbus register mapping", "no English manual", "unclear certification files", "cannot provide configuration screenshots"]
+    },
+    {
+      "model_code": "IEG-140",
+      "model_name": "4G Industrial IoT Gateway",
+      "supplier_request_title": "4G Industrial IoT Gateway with RS485 Modbus and MQTT",
+      "priority": "P1",
+      "request_summary": "We are looking for a cellular industrial gateway for remote Modbus devices, solar sites, pump stations, fuel tanks and environmental monitoring stations.",
+      "must_confirm": [
+        {
+          "item": "LTE module and bands",
+          "question": "Which LTE module is used? Please provide supported LTE bands, 2G/3G fallback if any, and regional versions.",
+          "required_evidence": ["datasheet", "module_datasheet"]
+        },
+        {
+          "item": "SIM and APN",
+          "question": "What SIM type is supported? Does the configuration UI allow APN, username, password and PIN settings?",
+          "required_evidence": ["user_manual", "configuration_screenshot"]
+        },
+        {
+          "item": "Antenna",
+          "question": "What antenna connector is used? Is external antenna included? Are high-gain or outdoor antennas available?",
+          "required_evidence": ["datasheet", "accessory_list"]
+        },
+        {
+          "item": "Ethernet",
+          "question": "Is Ethernet available for local configuration, WAN backup or LAN device polling?",
+          "required_evidence": ["datasheet", "user_manual"]
+        },
+        {
+          "item": "RS485 and Modbus",
+          "question": "How many RS485 ports are available, and does the device support Modbus RTU master/client polling?",
+          "required_evidence": ["datasheet", "configuration_screenshot"]
+        },
+        {
+          "item": "MQTT over cellular",
+          "question": "Can the gateway publish Modbus data to MQTT through the 4G network? How does it reconnect after network drop?",
+          "required_evidence": ["user_manual", "test_note"]
+        },
+        {
+          "item": "Buffering",
+          "question": "Does it support local data buffering and resend after cellular interruption?",
+          "required_evidence": ["user_manual", "supplier_written_confirmation"]
+        },
+        {
+          "item": "VPN",
+          "question": "Does it support OpenVPN, IPsec, WireGuard or other VPN methods?",
+          "required_evidence": ["user_manual", "configuration_screenshot"]
+        },
+        {
+          "item": "Power and environment",
+          "question": "What are power input range, operating temperature, humidity range, enclosure rating and mounting method?",
+          "required_evidence": ["datasheet"]
+        },
+        {
+          "item": "Carrier or regional approvals",
+          "question": "Are there carrier approvals, CE/FCC/RoHS or other certificates for the cellular model?",
+          "required_evidence": ["certificate"]
+        }
+      ],
+      "nice_to_have": ["dual SIM", "GNSS/GPS", "SMS alarm", "local web UI", "watchdog/reconnect settings"],
+      "red_flags": ["LTE bands not documented", "cannot configure custom MQTT broker", "no external antenna connector", "no English cellular setup guide"]
+    },
+    {
+      "model_code": "IEG-E200",
+      "model_name": "Advanced Edge IoT Gateway",
+      "supplier_request_title": "Advanced Edge IoT Gateway with Modbus, MQTT and Local Edge Features",
+      "priority": "P2",
+      "request_summary": "We are evaluating an advanced gateway for OEM machine remote diagnostics, factory edge data filtering and PLC-to-cloud applications.",
+      "must_confirm": [
+        {
+          "item": "CPU, memory and storage",
+          "question": "Please provide CPU model, RAM, flash/storage, OS and available user storage.",
+          "required_evidence": ["datasheet"]
+        },
+        {
+          "item": "Edge logic",
+          "question": "Does the gateway support local rules, scripts, Node-RED, Docker, custom apps or other edge logic?",
+          "required_evidence": ["user_manual", "configuration_screenshot"]
+        },
+        {
+          "item": "Protocol support",
+          "question": "Please confirm support for Modbus RTU, Modbus TCP, MQTT, OPC UA, BACnet, CAN and PLC protocols. Specify client/server mode for each.",
+          "required_evidence": ["datasheet", "protocol_manual"]
+        },
+        {
+          "item": "Data buffering",
+          "question": "Can the gateway store data locally and resend after network recovery? What is the storage limit?",
+          "required_evidence": ["user_manual"]
+        },
+        {
+          "item": "Security",
+          "question": "Does it support TLS certificates, VPN, firewall, user roles, SSH control, audit logs or secure firmware updates?",
+          "required_evidence": ["user_manual", "security_settings_screenshot"]
+        },
+        {
+          "item": "Remote management",
+          "question": "Does it support remote configuration, OTA firmware upgrade, logs, device health monitoring or fleet management?",
+          "required_evidence": ["user_manual", "platform_screenshot"]
+        },
+        {
+          "item": "Interfaces",
+          "question": "Please list all Ethernet, RS485, RS232, USB, CAN, DI/DO/AI and antenna interfaces.",
+          "required_evidence": ["datasheet"]
+        }
+      ],
+      "nice_to_have": ["OPC UA client", "Docker", "Node-RED", "CAN", "WiFi", "local database", "REST API"],
+      "red_flags": ["edge features are only marketing words", "no programmable runtime", "no protocol mode details", "no security documentation"]
+    },
+    {
+      "model_code": "IER-100",
+      "model_name": "Base Industrial RTU",
+      "supplier_request_title": "Industrial RTU with DI/DO/AI, RS485 Modbus and Ethernet",
+      "priority": "P1",
+      "request_summary": "We are looking for a base industrial RTU for field signal collection, alarms, pump/tank/building equipment monitoring and SCADA-style remote telemetry.",
+      "must_confirm": [
+        {
+          "item": "Digital inputs",
+          "question": "How many DI channels are available? Are they dry contact, wet contact, pulse input or configurable?",
+          "required_evidence": ["datasheet", "user_manual"]
+        },
+        {
+          "item": "Digital or relay outputs",
+          "question": "How many DO/relay outputs are available? What are voltage/current ratings and isolation details?",
+          "required_evidence": ["datasheet"]
+        },
+        {
+          "item": "Analog inputs",
+          "question": "How many AI channels are available? Do they support 4-20mA, 0-10V, 0-5V, RTD or thermocouple?",
+          "required_evidence": ["datasheet", "user_manual"]
+        },
+        {
+          "item": "Analog accuracy",
+          "question": "What are AI resolution, accuracy and sampling rate?",
+          "required_evidence": ["datasheet"]
+        },
+        {
+          "item": "RS485 and Modbus",
+          "question": "Does it support Modbus RTU master/slave? How many RS485 ports are available?",
+          "required_evidence": ["datasheet", "protocol_manual"]
+        },
+        {
+          "item": "Ethernet uplink",
+          "question": "Does it support Ethernet? Which protocols can be used over Ethernet?",
+          "required_evidence": ["datasheet", "user_manual"]
+        },
+        {
+          "item": "Alarm rules",
+          "question": "Can the RTU define local alarm rules, thresholds, delay timers and output actions?",
+          "required_evidence": ["user_manual", "configuration_screenshot"]
+        },
+        {
+          "item": "Data logging",
+          "question": "Does it support local data logging? What is the storage capacity and export method?",
+          "required_evidence": ["user_manual"]
+        },
+        {
+          "item": "Power and installation",
+          "question": "What are power input range, operating temperature, dimensions, mounting method and enclosure rating?",
+          "required_evidence": ["datasheet"]
+        }
+      ],
+      "nice_to_have": ["MQTT uplink", "Modbus TCP", "local logic", "isolated IO", "watchdog"],
+      "red_flags": ["IO channel count unclear", "analog input type unclear", "relay ratings missing", "no English manual"]
+    },
+    {
+      "model_code": "IER-140",
+      "model_name": "4G Remote Monitoring RTU",
+      "supplier_request_title": "4G RTU with DI/DO/AI, RS485 Modbus, MQTT and Cellular Telemetry",
+      "priority": "P1",
+      "request_summary": "We are looking for a 4G RTU for remote pump stations, fuel tanks, pipelines, telecom towers and environmental monitoring stations.",
+      "must_confirm": [
+        {
+          "item": "LTE bands and module",
+          "question": "Which LTE module is used? Please provide supported LTE bands and regional variants.",
+          "required_evidence": ["datasheet", "module_datasheet"]
+        },
+        {
+          "item": "SIM/APN",
+          "question": "What SIM type is supported, and can APN settings be configured in the UI?",
+          "required_evidence": ["user_manual", "configuration_screenshot"]
+        },
+        {
+          "item": "MQTT telemetry",
+          "question": "Can it send IO and Modbus data to a custom MQTT broker over 4G?",
+          "required_evidence": ["user_manual", "configuration_screenshot"]
+        },
+        {
+          "item": "IO channels",
+          "question": "Please list DI, DO/relay, AI, AO and supported signal types.",
+          "required_evidence": ["datasheet"]
+        },
+        {
+          "item": "Analog inputs",
+          "question": "Does it support 4-20mA and 0-10V sensors? What accuracy and resolution?",
+          "required_evidence": ["datasheet"]
+        },
+        {
+          "item": "RS485 Modbus",
+          "question": "Does it support Modbus RTU master/client over RS485?",
+          "required_evidence": ["protocol_manual", "configuration_screenshot"]
+        },
+        {
+          "item": "Alarm rules",
+          "question": "Can it trigger alarms from thresholds, DI status, communication failure or sensor abnormal values?",
+          "required_evidence": ["user_manual"]
+        },
+        {
+          "item": "Offline storage",
+          "question": "Does it log data locally and resend when cellular network recovers?",
+          "required_evidence": ["user_manual", "supplier_written_confirmation"]
+        },
+        {
+          "item": "Antenna and enclosure",
+          "question": "What antenna connector, antenna type, enclosure rating and mounting options are available?",
+          "required_evidence": ["datasheet", "accessory_list"]
+        }
+      ],
+      "nice_to_have": ["dual SIM", "VPN", "SMS alarm", "battery backup input", "GPS/GNSS", "IP-rated outdoor enclosure"],
+      "red_flags": ["LTE bands missing", "MQTT not configurable", "no local alarm rules", "unclear analog specs"]
+    },
+    {
+      "model_code": "IER-160",
+      "model_name": "High-IO Industrial RTU",
+      "supplier_request_title": "High-IO Industrial RTU for Multi-Signal Remote Monitoring",
+      "priority": "P2",
+      "request_summary": "We are evaluating a high-channel RTU for wastewater treatment, substations, factory utilities, data centers and multi-sensor remote sites.",
+      "must_confirm": [
+        {
+          "item": "IO capacity",
+          "question": "Please list maximum DI, DO/relay, AI, AO and expansion module options.",
+          "required_evidence": ["datasheet"]
+        },
+        {
+          "item": "IO isolation",
+          "question": "Are IO channels isolated? What surge/ESD protection is available?",
+          "required_evidence": ["datasheet"]
+        },
+        {
+          "item": "Multiple RS485 ports",
+          "question": "Does it support 2 or more RS485 ports? Can they poll different Modbus networks?",
+          "required_evidence": ["datasheet", "user_manual"]
+        },
+        {
+          "item": "Communication options",
+          "question": "Does it support Ethernet, 4G LTE, MQTT, Modbus TCP or other uplink options?",
+          "required_evidence": ["datasheet", "user_manual"]
+        },
+        {
+          "item": "Local logic",
+          "question": "Can it run local logic, interlocks, threshold alarms and output actions?",
+          "required_evidence": ["user_manual", "configuration_screenshot"]
+        },
+        {
+          "item": "Logging and timestamping",
+          "question": "Does it support timestamped data logs and event records?",
+          "required_evidence": ["user_manual"]
+        }
+      ],
+      "nice_to_have": ["expansion modules", "isolated analog input", "temperature input", "redundant power input", "SD card"],
+      "red_flags": ["high IO count only available through custom firmware", "no isolation details", "relay ratings missing"]
+    },
+    {
+      "model_code": "IEIO-100",
+      "model_name": "Modbus Remote IO Module",
+      "supplier_request_title": "Modbus Remote IO Module with DI/DO/AI/AO Variants",
+      "priority": "P1",
+      "request_summary": "We are looking for Modbus Remote IO modules for distributed signal collection in factories, water systems, buildings and SCADA projects.",
+      "must_confirm": [
+        {
+          "item": "IO variants",
+          "question": "Which IO variants are available: DI, DO, relay, AI, AO, mixed IO, temperature input?",
+          "required_evidence": ["datasheet", "model_list"]
+        },
+        {
+          "item": "Modbus RTU",
+          "question": "Does the module support Modbus RTU slave over RS485? Please provide register map.",
+          "required_evidence": ["protocol_manual", "register_map"]
+        },
+        {
+          "item": "Modbus TCP / Ethernet",
+          "question": "Is there an Ethernet/Modbus TCP version?",
+          "required_evidence": ["datasheet"]
+        },
+        {
+          "item": "Analog signal types",
+          "question": "For AI/AO models, what signal types are supported: 4-20mA, 0-10V, RTD, thermocouple?",
+          "required_evidence": ["datasheet"]
+        },
+        {
+          "item": "Isolation and protection",
+          "question": "Are IO and communication ports isolated? What surge/ESD protection is included?",
+          "required_evidence": ["datasheet"]
+        },
+        {
+          "item": "Power and mounting",
+          "question": "What is the power input range, operating temperature and mounting method?",
+          "required_evidence": ["datasheet"]
+        }
+      ],
+      "nice_to_have": ["Ethernet version", "LoRa/wireless IO version", "DIN rail", "register map examples", "LED status indicators"],
+      "red_flags": ["no register map", "unclear analog signal type", "relay ratings missing", "no isolation details"]
+    },
+    {
+      "model_code": "IEG-L100",
+      "model_name": "Industrial LoRaWAN Gateway",
+      "supplier_request_title": "Industrial LoRaWAN Gateway for Agriculture, Environmental and Smart City Monitoring",
+      "priority": "P2",
+      "request_summary": "We are evaluating a LoRaWAN gateway for long-range wireless sensor monitoring in agriculture, environment, cold chain, water and smart city projects.",
+      "must_confirm": [
+        {
+          "item": "LoRaWAN version",
+          "question": "Which LoRaWAN version is supported? Does it support Class A/B/C devices?",
+          "required_evidence": ["datasheet", "user_manual"]
+        },
+        {
+          "item": "Regional frequencies",
+          "question": "Which frequency variants are available: EU868, US915, AU915, AS923, CN470 or others?",
+          "required_evidence": ["datasheet"]
+        },
+        {
+          "item": "Channels",
+          "question": "How many LoRa channels are supported?",
+          "required_evidence": ["datasheet"]
+        },
+        {
+          "item": "Backhaul",
+          "question": "Does it support Ethernet, WiFi, 4G LTE or PoE backhaul?",
+          "required_evidence": ["datasheet"]
+        },
+        {
+          "item": "Network server",
+          "question": "Does it include a built-in network server, or does it connect to external LoRaWAN network servers?",
+          "required_evidence": ["user_manual", "configuration_screenshot"]
+        },
+        {
+          "item": "MQTT/cloud integration",
+          "question": "Can data be forwarded to MQTT or a custom application server?",
+          "required_evidence": ["user_manual", "configuration_screenshot"]
+        },
+        {
+          "item": "Outdoor rating",
+          "question": "Is an outdoor IP-rated version available? What is the exact IP rating and operating temperature?",
+          "required_evidence": ["datasheet", "certificate_or_test_report"]
+        },
+        {
+          "item": "Antenna",
+          "question": "What antenna connector and antenna gain options are available?",
+          "required_evidence": ["datasheet", "accessory_list"]
+        }
+      ],
+      "nice_to_have": ["PoE", "4G backhaul", "GPS", "outdoor enclosure", "built-in network server", "ChirpStack compatibility"],
+      "red_flags": ["range guarantee without test conditions", "frequency version unclear", "no network server documentation", "no outdoor rating proof"]
+    }
+  ],
+  "response_scoring": {
+    "score_3": "Confirmed with datasheet/manual/screenshot/certificate and supplier can provide sample.",
+    "score_2": "Supplier confirms in writing but evidence is incomplete.",
+    "score_1": "Supplier says it may be possible through customization or selected variant.",
+    "score_0": "Unsupported, unclear, or supplier cannot provide documentation."
+  },
+  "minimum_acceptance_for_first_lineup": {
+    "IEG-100": ["Ethernet", "RS485", "Modbus RTU", "Modbus TCP", "MQTT", "English manual"],
+    "IER-140": ["4G LTE bands", "SIM/APN", "DI/DO/AI", "RS485 Modbus", "MQTT or platform telemetry", "English manual"],
+    "IEIO-100": ["DI/DO/AI variant availability", "RS485 Modbus RTU", "register map", "power/mounting specs"],
+    "IEG-140": ["4G LTE bands", "RS485 Modbus", "MQTT", "Ethernet", "English manual"],
+    "IEG-L100": ["LoRaWAN frequency variant", "channels", "backhaul", "network server/integration documentation"]
+  },
+  "next_actions": [
+    "Send model-specific checklist to shortlisted suppliers.",
+    "Collect datasheets, manuals, configuration screenshots and certificates.",
+    "Score each supplier response using response_scoring.",
+    "Update capability-check-matrix.json and product-model-definition-draft.json with confirmed data.",
+    "Only publish final product pages after minimum acceptance criteria are satisfied."
+  ]
+}

@@ -1,0 +1,124 @@
+{
+  "meta": {
+    "project": "IoTEdges",
+    "database": "supplier-outreach-email-templates",
+    "version": "0.1.0",
+    "last_updated": "2026-06-08",
+    "status": "drafted",
+    "language": "zh-CN",
+    "purpose": "面向中国供应商的中文沟通模板，用于初次询盘、资料索取、样品申请、OEM/ODM 确认、证书确认、LTE 频段确认和最终 shortlist 跟进。"
+  },
+  "variables": {
+    "{{supplier_name}}": "供应商公司名称。",
+    "{{contact_name}}": "供应商联系人姓名。",
+    "{{your_name}}": "发送人姓名。",
+    "{{company_name}}": "IoTEdges 或实际公司名称。",
+    "{{model_code}}": "我方规划型号，例如 IEG-100 或 IER-140。",
+    "{{model_name}}": "我方规划型号名称。",
+    "{{supplier_model}}": "供应商实际型号。",
+    "{{target_markets}}": "目标出口国家或地区。",
+    "{{expected_quantity}}": "预计试单或首单数量。",
+    "{{application}}": "目标应用场景，例如能耗监测、泵站监测等。"
+  },
+  "general_attachment_request": [
+    "对应准确型号的产品规格书 / datasheet",
+    "中文或英文用户手册",
+    "配置后台 / Web UI / 软件界面截图",
+    "协议/API说明文档",
+    "Modbus 寄存器表或配置示例，如适用",
+    "MQTT payload、topic、broker 配置示例，如适用",
+    "对应准确型号的证书文件",
+    "测试报告、无线/运营商/射频相关资料，如适用",
+    "价格表、MOQ、样品价和交期"
+  ],
+  "templates": [
+    {
+      "template_id": "initial-supplier-inquiry",
+      "name": "初次供应商询盘",
+      "use_case": "第一次联系潜在供应商。",
+      "subject": "工业物联网网关 / RTU / Remote IO 产品 OEM 询盘",
+      "body": "{{contact_name}} 您好，\n\n我们正在规划 IoTEdges 品牌的工业物联网产品线，主要面向海外出口市场。当前希望寻找可靠的 OEM/ODM 供应商，产品方向包括工业网关、RTU、Remote IO 模块和 LoRaWAN 网关。\n\n我们的目标应用场景包括：能耗监测、泵站监测、太阳能逆变器监测、工厂设备监测、储罐液位监测、通信基站监测、环境监测和智慧农业等。\n\n请帮忙确认贵司是否有接近以下需求的产品：\n\n1. 支持 Ethernet、RS485、Modbus RTU/TCP、MQTT 的工业物联网网关\n2. 支持 4G、RS485 Modbus、MQTT 的工业 4G 网关\n3. 支持 DI/DO/AI、RS485 Modbus、远程数据上报的 4G RTU\n4. 支持 DI/DO/AI/AO 等组合的 Modbus Remote IO 模块\n5. 用于无线传感器监测的工业 LoRaWAN 网关\n\n请提供最接近型号的规格书、用户手册、配置界面截图、证书、MOQ、样品价格和交期。\n\n我们特别关注 OEM/ODM 贴牌、固件定制、MQTT payload 定制、云平台地址定制以及长期稳定供货能力。\n\n谢谢！\n{{your_name}}\n{{company_name}}",
+      "send_with": ["公司简介", "目标产品清单", "supplier-datasheet-request-checklist.json 中对应型号的摘录"],
+      "expected_response": ["匹配型号清单", "规格书", "用户手册", "MOQ", "样品价", "交期"]
+    },
+    {
+      "template_id": "model-specific-datasheet-request",
+      "name": "指定型号资料索取",
+      "use_case": "针对某一个我方规划型号进行详细参数确认。",
+      "subject": "{{model_name}} 候选型号资料确认（{{model_code}}）",
+      "body": "{{contact_name}} 您好，\n\n感谢您提供产品资料。我们正在评估贵司型号 {{supplier_model}}，看是否适合作为我方规划型号 {{model_code}} - {{model_name}} 的候选产品。\n\n为了继续评估，请帮忙确认以下信息，注意需要针对 {{supplier_model}} 这个准确型号：\n\n1. 硬件接口：Ethernet、RS485、RS232、DI、DO/继电器、AI、AO、天线接口、SIM 卡槽等\n2. 支持协议：Modbus RTU、Modbus TCP、MQTT、HTTP/HTTPS、TCP/UDP、OPC UA、BACnet、CAN 等，如适用请注明\n3. MQTT 相关：broker 配置、账号密码认证、TLS、topic 自定义、payload 格式、断网缓存/重传能力\n4. Modbus 相关：RTU/TCP 模式、主站/从站或 client/server 模式、寄存器映射、倍率、数据类型、轮询间隔设置\n5. 蜂窝或无线相关：LTE 频段、SIM/APN 配置、天线接口、LoRaWAN 频段版本等，如适用\n6. 供电、工作温度、外壳、安装方式和尺寸\n7. 此准确型号已有的证书\n8. 用户手册、配置界面截图、协议说明和配置示例\n\n另外请告知样品价格、MOQ、质保、量产交期，以及是否支持 OEM 贴牌。\n\n谢谢！\n{{your_name}}\n{{company_name}}",
+      "send_with": ["对应型号 checklist", "目标应用场景说明"],
+      "expected_response": ["准确型号规格书", "用户手册", "配置截图", "证书", "价格和 MOQ"]
+    },
+    {
+      "template_id": "missing-documents-follow-up",
+      "name": "缺失资料追问",
+      "use_case": "供应商已回复，但证据资料不完整。",
+      "subject": "{{supplier_model}} 评估资料补充确认",
+      "body": "{{contact_name}} 您好，\n\n感谢您前面提供的资料。\n\n为了完成内部评估，我们还需要 {{supplier_model}} 这个准确型号的以下文件或截图：\n\n- 用户手册（中文或英文均可，英文更好）\n- 配置后台 / Web UI / 软件界面截图\n- 协议/API说明文档\n- Modbus 寄存器表或配置示例，如适用\n- MQTT payload、topic、broker 配置示例，如适用\n- 对应准确型号的证书文件\n- LTE 模块/频段资料或 LoRaWAN 频段版本资料，如适用\n\n我们需要这些资料来确认产品能力，后续才可以决定是否纳入 IoTEdges 产品线。没有资料支持的协议、证书、LTE 频段或软件功能，我们不能写进官网或产品资料。\n\n请问这些文件是否方便补充？如果某些资料暂时没有，也请直接说明。\n\n谢谢！\n{{your_name}}\n{{company_name}}",
+      "send_with": ["缺失资料清单"],
+      "expected_response": ["补充文件", "书面确认", "无法提供资料的说明"]
+    },
+    {
+      "template_id": "sample-request",
+      "name": "样品申请",
+      "use_case": "供应商初筛通过后，申请样品测试。",
+      "subject": "{{supplier_model}} 样品测试申请",
+      "body": "{{contact_name}} 您好，\n\n根据您提供的资料，我们希望采购 {{supplier_model}} 样品，用于 IoTEdges 产品规划和内部测试。\n\n请帮忙确认：\n\n1. 样品价格，以及发往 {{target_markets}} 的运费\n2. 样品交期\n3. 样品包含哪些配件：天线、电源适配器、端子、线缆、SIM 天线等，如适用\n4. 样品固件是否与量产版本一致\n5. 是否包含中文/英文说明书和配置软件\n6. 测试期间是否能提供技术支持\n7. 付款方式和发货方式\n\n我们计划测试硬件接口、Modbus 轮询、MQTT 上报、4G 或 Ethernet 连接、配置流程以及文档准确性。\n\n如可以提供样品，请发一份样品 PI 或报价单。\n\n谢谢！\n{{your_name}}\n{{company_name}}",
+      "send_with": ["确认后再发送收货地址"],
+      "expected_response": ["样品报价", "交期", "PI", "技术支持联系人"]
+    },
+    {
+      "template_id": "oem-odm-confirmation",
+      "name": "OEM/ODM 定制确认",
+      "use_case": "确认贴牌、包装、固件和界面定制能力。",
+      "subject": "IoTEdges 产品线 OEM/ODM 贴牌和固件定制确认",
+      "body": "{{contact_name}} 您好，\n\n我们正在评估贵司产品是否适合以 IoTEdges 品牌进行 OEM/ODM 合作。\n\n请帮忙确认以下定制项：\n\n1. 外壳标签是否可定制 Logo\n2. 产品型号和铭牌是否可定制\n3. 包装和用户手册是否可做品牌化\n4. 默认 MQTT broker 或云平台地址是否可定制\n5. MQTT payload 格式或 topic 结构是否可定制\n6. Web UI / 配置界面是否可显示自定义 Logo 或产品名称\n7. 固件定制流程、费用和周期\n8. OEM 贴牌 MOQ 要求\n9. 是否提供 SDK、API 文档或源码级支持\n10. 长期供货计划和固件升级策略\n\n也请说明哪些定制免费，哪些需要 NRE 开发费，哪些需要达到 MOQ。\n\n谢谢！\n{{your_name}}\n{{company_name}}",
+      "send_with": ["品牌定制需求，如已有"],
+      "expected_response": ["OEM/ODM 能力", "NRE 费用", "MOQ", "固件定制条款"]
+    },
+    {
+      "template_id": "certificate-verification",
+      "name": "证书验证",
+      "use_case": "确认供应商证书是否覆盖准确型号。",
+      "subject": "{{supplier_model}} 证书适用性确认",
+      "body": "{{contact_name}} 您好，\n\n感谢您提供证书资料。\n\n在我们将相关证书写入产品资料或官网前，需要确认这些证书是否适用于 {{supplier_model}} 这个准确型号。\n\n请帮忙确认：\n\n1. 证书类型：CE、FCC、RoHS、UKCA、UL、ATEX、IECEx、运营商认证或其他\n2. 证书持有人名称\n3. 证书覆盖的准确型号列表\n4. 测试标准和测试报告编号\n5. 签发日期和有效期\n6. 证书是否适用于我们将采购的同一硬件、外壳、电源和无线模块版本\n7. 是否可以提供原始 PDF 证书和测试报告\n\n我们只能在证书明确覆盖准确型号和配置时，才会在产品资料中使用相关认证说明。\n\n谢谢！\n{{your_name}}\n{{company_name}}",
+      "send_with": ["需要核验的证书文件名"],
+      "expected_response": ["证书 PDF", "测试报告", "覆盖型号列表"]
+    },
+    {
+      "template_id": "lte-band-confirmation",
+      "name": "LTE 频段和区域版本确认",
+      "use_case": "确认蜂窝模块和目标市场兼容性。",
+      "subject": "{{supplier_model}} LTE 频段和区域版本确认",
+      "body": "{{contact_name}} 您好，\n\n我们的目标市场是 {{target_markets}}，需要确认 {{supplier_model}} 的 LTE 模块和频段支持情况。\n\n请提供以下信息：\n\n1. LTE 模块品牌和型号\n2. 此准确版本支持的 LTE 频段列表\n3. 是否支持 2G/3G 回退，如有请注明\n4. 是否有不同国家/地区版本\n5. SIM 卡类型和 APN 配置方式\n6. 天线接口类型和推荐天线\n7. 是否有运营商认证或无线认证资料\n8. 同一硬件版本是否已经出口或应用到我们的目标市场\n\n请不要只发通用彩页，我们需要可以对应到具体模块/版本的 LTE 频段表。\n\n谢谢！\n{{your_name}}\n{{company_name}}",
+      "send_with": ["目标市场清单"],
+      "expected_response": ["LTE 模块资料", "频段列表", "区域版本清单", "无线认证资料"]
+    },
+    {
+      "template_id": "final-shortlist-confirmation",
+      "name": "最终 shortlist 确认",
+      "use_case": "进入供应商/型号最终筛选前确认。",
+      "subject": "{{supplier_model}} 进入 shortlist 前最终确认",
+      "body": "{{contact_name}} 您好，\n\n我们正在考虑将 {{supplier_model}} 纳入 IoTEdges 第一批产品候选清单。\n\n最终确认前，请再帮忙确认以下事项：\n\n1. 您提供的规格书和手册，对应的是可以实际供货的准确型号和硬件版本\n2. 产品支持我们前面确认过的接口和协议\n3. MOQ、样品价、量产价格区间和交期仍然有效\n4. 支持 OEM 贴牌和型号定制\n5. 证书和测试报告适用于准确型号/版本\n6. 样品测试和首批客户项目期间可以提供技术支持\n7. 该型号可以长期稳定供货\n\n如果以上都确认，请发送最新规格书、用户手册、报价单，以及样品订单 PI。\n\n谢谢！\n{{your_name}}\n{{company_name}}",
+      "send_with": ["供应商评估摘要", "样品订单意向"],
+      "expected_response": ["最终确认", "更新报价", "样品 PI"]
+    }
+  ],
+  "recommended_sequence": [
+    "initial-supplier-inquiry",
+    "model-specific-datasheet-request",
+    "missing-documents-follow-up",
+    "oem-odm-confirmation",
+    "certificate-verification",
+    "lte-band-confirmation for cellular products",
+    "sample-request",
+    "final-shortlist-confirmation"
+  ],
+  "next_actions": [
+    "复制对应模板到邮件、微信或供应商聊天窗口。",
+    "同时粘贴 supplier-datasheet-request-checklist.json 中对应型号的关键问题。",
+    "保存供应商回复，并用 supplier-response-evaluation-matrix.json 评分。",
+    "供应商回复未评分、证据未保存前，不要更新官网产品能力声明。"
+  ]
+}

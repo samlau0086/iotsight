@@ -1,0 +1,264 @@
+{
+  "meta": {
+    "project": "IoTEdges",
+    "database": "supplier-response-evaluation-matrix",
+    "version": "0.1.0",
+    "last_updated": "2026-06-08",
+    "status": "drafted",
+    "purpose": "Evaluation matrix for scoring supplier datasheet responses, sample readiness, documentation quality, and suitability for IoTEdges first product lineup."
+  },
+  "source_inputs": [
+    "docs/seo/product-model-definition-draft.json",
+    "docs/seo/capability-check-matrix.json",
+    "docs/seo/supplier-datasheet-request-checklist.json"
+  ],
+  "score_scale": {
+    "0": "Unsupported, unclear, missing, or supplier cannot provide evidence.",
+    "1": "Possible only through customization, selected variant, or weak written confirmation.",
+    "2": "Supplier confirms and provides partial evidence, but key proof is incomplete.",
+    "3": "Confirmed with datasheet, manual, screenshot, certificate, or sample test evidence."
+  },
+  "decision_levels": {
+    "approved_for_first_lineup": "Can be used as first-generation product candidate and may support website product pages after final spec cleanup.",
+    "approved_with_conditions": "Potentially usable, but selected claims or optional features must stay unpublished until confirmed.",
+    "sample_test_required": "Supplier response is promising, but a sample device must be tested before model selection.",
+    "not_ready": "Do not use for first product lineup or website claims.",
+    "reject": "Supplier or product is unsuitable."
+  },
+  "global_hard_reject_flags": [
+    "Supplier cannot provide an English datasheet or English manual.",
+    "Supplier refuses to provide configuration screenshots or sample device access.",
+    "Core protocol claim is marketing-only and not present in manual/configuration.",
+    "Certification files appear mismatched to the exact model.",
+    "LTE bands or radio frequency versions are unclear for cellular/LoRa products.",
+    "Supplier cannot confirm OEM/ODM branding or export documentation if needed.",
+    "The product requires custom firmware for baseline features but supplier cannot commit timeline."
+  ],
+  "evaluation_dimensions": [
+    {
+      "dimension_id": "core_capability_fit",
+      "name": "Core Capability Fit",
+      "weight": 30,
+      "description": "How well the product satisfies the must-confirm capabilities for its proposed IoTEdges model."
+    },
+    {
+      "dimension_id": "documentation_quality",
+      "name": "Documentation Quality",
+      "weight": 15,
+      "description": "Datasheet, English manual, register map, protocol manual, screenshots, and configuration examples."
+    },
+    {
+      "dimension_id": "software_and_configuration",
+      "name": "Software and Configuration",
+      "weight": 15,
+      "description": "MQTT payload configuration, Modbus mapping, web UI, logging, security, remote upgrade, and usability."
+    },
+    {
+      "dimension_id": "export_readiness",
+      "name": "Export Readiness",
+      "weight": 15,
+      "description": "Certificates, regional variants, LTE bands, packaging, warranty, OEM branding, and English support."
+    },
+    {
+      "dimension_id": "sample_and_testability",
+      "name": "Sample and Testability",
+      "weight": 10,
+      "description": "Sample availability, lead time, test support, demo access, and supplier willingness to troubleshoot."
+    },
+    {
+      "dimension_id": "business_fit",
+      "name": "Business Fit",
+      "weight": 10,
+      "description": "MOQ, cost, lead time, customization cost, warranty, and long-term availability."
+    },
+    {
+      "dimension_id": "seo_claim_safety",
+      "name": "SEO Claim Safety",
+      "weight": 5,
+      "description": "Whether product claims can be safely published without overclaiming protocols, certifications, LTE support, or performance."
+    }
+  ],
+  "score_formula": {
+    "method": "weighted_percentage",
+    "dimension_score_range": "0-3",
+    "calculation": "sum((dimension_score / 3) * weight)",
+    "maximum_score": 100
+  },
+  "decision_thresholds": [
+    {
+      "minimum_score": 85,
+      "decision": "approved_for_first_lineup",
+      "requirements": [
+        "No hard reject flags.",
+        "All model minimum acceptance items score 3.",
+        "Documentation quality score is at least 2.",
+        "Sample is available or supplier has strong evidence."
+      ]
+    },
+    {
+      "minimum_score": 70,
+      "decision": "approved_with_conditions",
+      "requirements": [
+        "No hard reject flags.",
+        "All core baseline features score at least 2.",
+        "Any score-2 claims are marked conditional in website copy."
+      ]
+    },
+    {
+      "minimum_score": 55,
+      "decision": "sample_test_required",
+      "requirements": [
+        "No safety/certification hard reject.",
+        "Core capability fit is promising but evidence is incomplete.",
+        "Do not publish product claims before sample testing."
+      ]
+    },
+    {
+      "minimum_score": 40,
+      "decision": "not_ready",
+      "requirements": [
+        "Use only as backup supplier or later-stage candidate."
+      ]
+    },
+    {
+      "minimum_score": 0,
+      "decision": "reject",
+      "requirements": [
+        "Reject if hard flags are present or core model purpose is unsupported."
+      ]
+    }
+  ],
+  "model_specific_minimums": [
+    {
+      "model_code": "IEG-100",
+      "model_name": "Base Industrial IoT Gateway",
+      "must_score_3": ["Ethernet", "RS485", "Modbus RTU", "Modbus TCP", "MQTT", "English manual"],
+      "must_score_at_least_2": ["register mapping", "MQTT payload configuration", "DIN rail or industrial mounting", "power input range"],
+      "conditional_features": ["TLS", "RS232", "local buffering", "basic IO"],
+      "reject_if_missing": ["RS485", "MQTT", "Modbus RTU"]
+    },
+    {
+      "model_code": "IEG-140",
+      "model_name": "4G Industrial IoT Gateway",
+      "must_score_3": ["LTE bands", "SIM/APN", "RS485 Modbus", "MQTT", "Ethernet", "English manual"],
+      "must_score_at_least_2": ["external antenna", "cellular reconnect behavior", "power input range"],
+      "conditional_features": ["VPN", "dual SIM", "GNSS", "local buffering", "TLS"],
+      "reject_if_missing": ["LTE band documentation", "RS485", "MQTT"]
+    },
+    {
+      "model_code": "IEG-E200",
+      "model_name": "Advanced Edge IoT Gateway",
+      "must_score_3": ["Ethernet", "RS485", "Modbus RTU", "Modbus TCP", "MQTT", "English manual"],
+      "must_score_at_least_2": ["local rules", "data filtering", "offline buffering", "security documentation"],
+      "conditional_features": ["OPC UA", "Docker", "Node-RED", "CAN", "BACnet", "WiFi"],
+      "reject_if_missing": ["real edge software documentation", "configuration UI or runtime proof"]
+    },
+    {
+      "model_code": "IER-100",
+      "model_name": "Base Industrial RTU",
+      "must_score_3": ["DI", "DO or relay", "AI", "RS485 Modbus", "power input range", "English manual"],
+      "must_score_at_least_2": ["alarm rules", "Ethernet or uplink protocol", "mounting specs"],
+      "conditional_features": ["data logging", "MQTT", "local logic", "temperature input"],
+      "reject_if_missing": ["IO channel documentation", "analog signal type documentation", "RS485 Modbus"]
+    },
+    {
+      "model_code": "IER-140",
+      "model_name": "4G Remote Monitoring RTU",
+      "must_score_3": ["4G LTE bands", "SIM/APN", "DI/DO/AI", "RS485 Modbus", "MQTT or platform telemetry", "English manual"],
+      "must_score_at_least_2": ["external antenna", "alarm rules", "power input range", "operating temperature"],
+      "conditional_features": ["VPN", "dual SIM", "SMS alarm", "GPS", "local buffering", "battery backup input"],
+      "reject_if_missing": ["LTE band documentation", "IO channel documentation", "telemetry protocol"]
+    },
+    {
+      "model_code": "IER-160",
+      "model_name": "High-IO Industrial RTU",
+      "must_score_3": ["high IO count", "AI signal types", "RS485 Modbus", "power input range", "English manual"],
+      "must_score_at_least_2": ["IO isolation", "local logic", "logging", "multiple RS485 or expansion"],
+      "conditional_features": ["4G LTE", "temperature input", "redundant power", "SD card"],
+      "reject_if_missing": ["IO channel documentation", "analog specs"]
+    },
+    {
+      "model_code": "IEIO-100",
+      "model_name": "Modbus Remote IO Module",
+      "must_score_3": ["DI/DO/AI variant availability", "RS485 Modbus RTU", "register map", "power/mounting specs"],
+      "must_score_at_least_2": ["IO isolation", "relay ratings", "analog signal type", "English manual"],
+      "conditional_features": ["Ethernet version", "LoRa/wireless version", "temperature input", "isolated analog input"],
+      "reject_if_missing": ["register map", "IO variant documentation", "Modbus RTU"]
+    },
+    {
+      "model_code": "IEG-L100",
+      "model_name": "Industrial LoRaWAN Gateway",
+      "must_score_3": ["LoRaWAN frequency variant", "channels", "backhaul", "network server/integration documentation"],
+      "must_score_at_least_2": ["MQTT/cloud integration", "antenna details", "operating temperature", "English manual"],
+      "conditional_features": ["PoE", "4G backhaul", "GPS", "outdoor enclosure", "built-in network server"],
+      "reject_if_missing": ["frequency variant documentation", "LoRaWAN version", "backhaul documentation"]
+    }
+  ],
+  "supplier_response_template": {
+    "supplier_name": "",
+    "contact": "",
+    "date_received": "",
+    "model_code": "",
+    "supplier_model_number": "",
+    "quoted_price": "",
+    "moq": "",
+    "sample_available": "unknown",
+    "lead_time": "",
+    "warranty": "",
+    "documents_received": {
+      "datasheet": false,
+      "english_manual": false,
+      "configuration_screenshots": false,
+      "protocol_manual": false,
+      "register_map": false,
+      "certificates": false,
+      "test_report": false
+    },
+    "dimension_scores": {
+      "core_capability_fit": 0,
+      "documentation_quality": 0,
+      "software_and_configuration": 0,
+      "export_readiness": 0,
+      "sample_and_testability": 0,
+      "business_fit": 0,
+      "seo_claim_safety": 0
+    },
+    "hard_reject_flags_found": [],
+    "confirmed_claims": [],
+    "conditional_claims": [],
+    "unsupported_claims": [],
+    "needs_sample_test": [],
+    "final_score": 0,
+    "decision": "not_ready",
+    "notes": ""
+  },
+  "website_claim_update_rules": [
+    {
+      "supplier_score": 3,
+      "website_claim_status": "confirmed",
+      "copy_rule": "May be used in product page specs and marketing copy if the evidence belongs to the exact model."
+    },
+    {
+      "supplier_score": 2,
+      "website_claim_status": "conditional",
+      "copy_rule": "May be described as available on selected models or pending confirmation; avoid exact specs."
+    },
+    {
+      "supplier_score": 1,
+      "website_claim_status": "optional_or_custom",
+      "copy_rule": "Do not publish as standard capability; mention only in internal planning or custom project discussion."
+    },
+    {
+      "supplier_score": 0,
+      "website_claim_status": "unsupported",
+      "copy_rule": "Do not publish or imply support."
+    }
+  ],
+  "next_actions": [
+    "When supplier replies arrive, create one supplier_response_template entry per supplier and model.",
+    "Score the response using the weighted evaluation dimensions.",
+    "Check hard reject flags before considering total score.",
+    "Select first-lineup candidates only if minimum model-specific requirements are met.",
+    "Update capability-check-matrix.json from proposed_baseline to confirmed, conditional, unsupported or needs_sample_test."
+  ]
+}

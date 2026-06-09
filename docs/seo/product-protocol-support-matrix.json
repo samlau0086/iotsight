@@ -1,0 +1,211 @@
+{
+  "meta": {
+    "project": "IoTEdges",
+    "database": "product-protocol-support-matrix",
+    "version": "0.1.0",
+    "last_updated": "2026-06-09",
+    "status": "planning_baseline",
+    "purpose": "Protocol support baseline for IoTEdges self-developed product models, used to keep product pages, SEO briefs and engineering requirements aligned.",
+    "important_note": "This matrix defines planned support tiers. Final protocol claims require firmware implementation, compatibility testing, documentation and field validation."
+  },
+  "support_status_values": {
+    "baseline": "Core protocol support planned for the model family.",
+    "advanced_model_only": "Supported only by advanced/edge models, not by baseline gateway models.",
+    "optional_after_validation": "Potential support after engineering validation; do not publish as a claim yet.",
+    "not_planned": "Not planned for this model."
+  },
+  "global_rules": [
+    "IEG-100, IEG-120 and IEG-140 gateway models should focus on Modbus RTU/TCP data collection and MQTT publishing.",
+    "OPC UA, BACnet and CAN should not be claimed on baseline gateway models.",
+    "OPC UA, BACnet and CAN belong to IEG-E200 or later advanced edge gateway variants after implementation and testing.",
+    "RTU models can support Modbus RTU and MQTT telemetry, but should not be positioned as full protocol-conversion gateways unless firmware supports it.",
+    "Remote IO models should focus on Modbus IO and signal collection/control, not cloud gateway behavior.",
+    "LoRa/LoRaWAN models should focus on LoRaWAN uplink and MQTT/application integration at the gateway/platform layer."
+  ],
+  "protocol_tiers": {
+    "baseline_gateway_protocols": ["Modbus RTU", "Modbus TCP", "MQTT", "RS485", "Ethernet"],
+    "advanced_gateway_protocols": ["OPC UA", "BACnet", "CAN"],
+    "rtu_protocols": ["Modbus RTU", "MQTT", "Modbus TCP on Ethernet models"],
+    "remote_io_protocols": ["Modbus RTU", "Modbus TCP on Ethernet variants"],
+    "lora_protocols": ["LoRaWAN", "MQTT/application integration"]
+  },
+  "models": [
+    {
+      "model_code": "IEG-100",
+      "model_name": "Ethernet Industrial IoT Gateway",
+      "product_line": "Gateway",
+      "uplink": "Ethernet",
+      "protocol_support": {
+        "Modbus RTU": "baseline",
+        "Modbus TCP": "baseline",
+        "MQTT": "baseline",
+        "OPC UA": "not_planned",
+        "BACnet": "not_planned",
+        "CAN": "not_planned"
+      },
+      "seo_positioning": "Ethernet MQTT Gateway, Modbus Gateway, Modbus to MQTT Gateway, Ethernet Industrial Gateway"
+    },
+    {
+      "model_code": "IEG-120",
+      "model_name": "WiFi Industrial IoT Gateway",
+      "product_line": "Gateway",
+      "uplink": "WiFi",
+      "protocol_support": {
+        "Modbus RTU": "baseline",
+        "Modbus TCP": "baseline",
+        "MQTT": "baseline",
+        "OPC UA": "not_planned",
+        "BACnet": "not_planned",
+        "CAN": "not_planned"
+      },
+      "seo_positioning": "WiFi MQTT Gateway, WiFi Industrial IoT Gateway, Modbus to MQTT Gateway"
+    },
+    {
+      "model_code": "IEG-140",
+      "model_name": "4G Industrial IoT Gateway",
+      "product_line": "Gateway",
+      "uplink": "4G LTE",
+      "protocol_support": {
+        "Modbus RTU": "baseline",
+        "Modbus TCP": "baseline",
+        "MQTT": "baseline",
+        "OPC UA": "not_planned",
+        "BACnet": "not_planned",
+        "CAN": "not_planned"
+      },
+      "seo_positioning": "4G MQTT Gateway, Cellular IoT Gateway, 4G Modbus Gateway, Remote Modbus to MQTT Gateway"
+    },
+    {
+      "model_code": "IEG-E200",
+      "model_name": "Advanced Edge IoT Gateway",
+      "product_line": "Edge Gateway",
+      "uplink": "Ethernet baseline; separate wireless-uplink variants only",
+      "protocol_support": {
+        "Modbus RTU": "baseline",
+        "Modbus TCP": "baseline",
+        "MQTT": "baseline",
+        "OPC UA": "advanced_model_only",
+        "BACnet": "optional_after_validation",
+        "CAN": "optional_after_validation"
+      },
+      "seo_positioning": "Edge IoT Gateway, MQTT Edge Gateway, OPC UA Gateway, PLC to MQTT Gateway"
+    },
+    {
+      "model_code": "IER-100",
+      "model_name": "Ethernet Industrial RTU",
+      "product_line": "RTU",
+      "uplink": "Ethernet",
+      "protocol_support": {
+        "Modbus RTU": "baseline",
+        "Modbus TCP": "baseline",
+        "MQTT": "optional_after_validation",
+        "OPC UA": "not_planned",
+        "BACnet": "not_planned",
+        "CAN": "not_planned"
+      },
+      "seo_positioning": "Ethernet RTU, Industrial RTU, RTU for SCADA"
+    },
+    {
+      "model_code": "IER-120",
+      "model_name": "WiFi Remote Monitoring RTU",
+      "product_line": "RTU",
+      "uplink": "WiFi",
+      "protocol_support": {
+        "Modbus RTU": "baseline",
+        "Modbus TCP": "optional_after_validation",
+        "MQTT": "baseline",
+        "OPC UA": "not_planned",
+        "BACnet": "not_planned",
+        "CAN": "not_planned"
+      },
+      "seo_positioning": "WiFi RTU, WiFi Remote Monitoring RTU"
+    },
+    {
+      "model_code": "IER-140",
+      "model_name": "4G Remote Monitoring RTU",
+      "product_line": "RTU",
+      "uplink": "4G LTE",
+      "protocol_support": {
+        "Modbus RTU": "baseline",
+        "Modbus TCP": "optional_after_validation",
+        "MQTT": "baseline",
+        "OPC UA": "not_planned",
+        "BACnet": "not_planned",
+        "CAN": "not_planned"
+      },
+      "seo_positioning": "4G RTU, Cellular RTU, Remote Monitoring RTU"
+    },
+    {
+      "model_code": "IEIO-100",
+      "model_name": "Modbus Remote IO Module",
+      "product_line": "Remote IO",
+      "uplink": "RS485 baseline; Ethernet variant optional",
+      "protocol_support": {
+        "Modbus RTU": "baseline",
+        "Modbus TCP": "optional_after_validation",
+        "MQTT": "not_planned",
+        "OPC UA": "not_planned",
+        "BACnet": "not_planned",
+        "CAN": "not_planned"
+      },
+      "seo_positioning": "Modbus Remote IO, RS485 Remote IO, Ethernet Remote IO"
+    },
+    {
+      "model_code": "IEG-L100",
+      "model_name": "Industrial LoRaWAN Gateway",
+      "product_line": "LoRa Gateway",
+      "uplink": "LoRa/LoRaWAN wireless side plus Ethernet backhaul",
+      "protocol_support": {
+        "LoRaWAN": "baseline",
+        "MQTT/application integration": "baseline",
+        "Modbus RTU": "not_planned",
+        "Modbus TCP": "not_planned",
+        "OPC UA": "not_planned",
+        "BACnet": "not_planned",
+        "CAN": "not_planned"
+      },
+      "seo_positioning": "LoRaWAN Gateway, Industrial LoRa Gateway, LoRa MQTT Gateway"
+    },
+    {
+      "model_code": "IEIO-L100",
+      "model_name": "LoRa Remote IO Node",
+      "product_line": "LoRa Remote IO",
+      "uplink": "LoRa/LoRaWAN",
+      "protocol_support": {
+        "LoRaWAN": "baseline",
+        "Modbus RTU": "not_planned",
+        "Modbus TCP": "not_planned",
+        "MQTT": "not_planned",
+        "OPC UA": "not_planned",
+        "BACnet": "not_planned",
+        "CAN": "not_planned"
+      },
+      "seo_positioning": "LoRa Remote IO, Wireless Remote IO, LoRa Sensor Node"
+    }
+  ],
+  "claim_rules": {
+    "safe_gateway_claims": [
+      "Baseline gateway models are planned around Modbus RTU/TCP data collection and MQTT publishing.",
+      "Ethernet, WiFi and 4G gateway variants share the same baseline protocol role but use different uplink methods."
+    ],
+    "claims_to_avoid_on_baseline_gateways": [
+      "OPC UA support",
+      "BACnet support",
+      "CAN support",
+      "PLC programming or safety controller behavior",
+      "Automatic protocol discovery"
+    ],
+    "advanced_gateway_claims_after_validation": [
+      "OPC UA client support",
+      "BACnet gateway support",
+      "CAN bus gateway support",
+      "Local rules and edge data filtering",
+      "Store-and-forward buffering"
+    ]
+  },
+  "next_actions": [
+    "Use this matrix when creating engineering requirement documents for each model.",
+    "Update product-model-definition-draft.json only after a protocol moves from planned to implemented and tested.",
+    "Use OPC UA, BACnet and CAN SEO pages only for IEG-E200 or later advanced models."
+  ]
+}

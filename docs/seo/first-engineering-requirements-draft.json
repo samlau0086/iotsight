@@ -1,0 +1,235 @@
+{
+  "meta": {
+    "project": "IoTEdges",
+    "database": "first-engineering-requirements-draft",
+    "version": "0.1.0",
+    "last_updated": "2026-06-09",
+    "status": "draft_requirements",
+    "purpose": "First engineering requirement draft for the most IO-sensitive IoTEdges models: IER-100, IER-140 and IEIO-100.",
+    "important_note": "These requirements are intended for product planning and engineering discussion. They are not final datasheets and must be validated through schematic design, PCB layout, firmware implementation, prototype testing and compliance review."
+  },
+  "shared_engineering_assumptions": {
+    "power": {
+      "target_input": "9-36VDC preferred; 12-24VDC acceptable if BOM/cost requires it",
+      "protection_targets": ["reverse polarity protection", "surge/ESD protection", "watchdog recovery"]
+    },
+    "mounting_and_enclosure": {
+      "mounting": "DIN rail baseline",
+      "enclosure": "industrial cabinet enclosure; outdoor/IP-rated enclosure only for selected variants",
+      "temperature_target": "-20C to +70C planning target"
+    },
+    "configuration": {
+      "baseline": ["local web UI where Ethernet exists", "device status page", "configuration export/import"],
+      "rtu_required_pages": ["network settings", "Modbus settings", "IO status", "alarm rules", "MQTT settings if supported"],
+      "remote_io_required_settings": ["Modbus address", "baud rate", "parity", "IO mode", "failsafe behavior"]
+    },
+    "claim_policy": [
+      "RTU baseline IO planning decision is 4DI + 2DO/relay + 2AI.",
+      "IEIO-100 Remote IO planning decision is to start with separate IO-type variants instead of one overloaded mixed IO module.",
+      "Do not publish exact electrical ratings until hardware is locked.",
+      "Do not publish relay ratings, analog accuracy, isolation voltage or surge ratings until tested.",
+      "Do not claim certifications such as CE/FCC/UL/ATEX/IECEx until certificates exist."
+    ]
+  },
+  "models": [
+    {
+      "model_code": "IER-100",
+      "model_name": "Ethernet Industrial RTU",
+      "priority": "P1",
+      "product_role": "Wired RTU for sites with existing LAN, local SCADA network or industrial Ethernet cabinet infrastructure.",
+      "target_applications": [
+        "pump station monitoring",
+        "tank level monitoring",
+        "building equipment alarms",
+        "factory utility monitoring",
+        "local SCADA cabinet monitoring"
+      ],
+      "hardware_requirements": {
+        "uplink": ["1x Ethernet"],
+        "serial": ["1x isolated RS485"],
+        "io_baseline": ["4x DI", "2x DO/relay", "2x AI"],
+        "io_optional_variants": ["4x DI + 4x DO + 4x AI", "AO variant after validation"],
+        "input_targets": {
+          "DI": ["dry contact target", "wet contact target", "pulse/status target after validation"],
+          "AI": ["4-20mA target", "0-10V target if BOM permits"]
+        },
+        "output_targets": {
+          "relay_DO": ["alarm output", "pump/valve command output with clear safety disclaimer"]
+        }
+      },
+      "firmware_requirements": {
+        "baseline_protocols": ["Modbus RTU", "Modbus TCP"],
+        "optional_protocols_after_validation": ["MQTT telemetry"],
+        "io_logic": ["DI status monitoring", "AI scaling", "alarm threshold rules", "relay/DO control rules"],
+        "data_features": ["timestamped event target", "basic local log optional", "device health status"],
+        "web_ui": ["IO status dashboard", "network settings", "Modbus settings", "alarm settings"]
+      },
+      "validation_requirements": [
+        "DI dry/wet contact behavior test",
+        "AI 4-20mA and 0-10V accuracy test if both modes are implemented",
+        "relay/DO switching and load test",
+        "RS485 Modbus RTU polling test",
+        "Modbus TCP communication test",
+        "power interruption and watchdog recovery test",
+        "temperature soak test before publishing temperature range"
+      ],
+      "seo_claim_boundary": {
+        "safe_claims_after_implementation": ["Ethernet RTU", "Industrial RTU", "Modbus RTU/TCP RTU", "DI/DO/AI monitoring"],
+        "avoid_until_validated": ["exact relay rating", "analog accuracy", "pulse counter frequency", "certified SCADA compatibility"]
+      }
+    },
+    {
+      "model_code": "IER-140",
+      "model_name": "4G Remote Monitoring RTU",
+      "priority": "P1",
+      "product_role": "Cellular RTU for remote monitoring where wired LAN is unavailable.",
+      "target_applications": [
+        "remote pump station monitoring",
+        "fuel tank monitoring",
+        "pipeline pressure monitoring",
+        "telecom cabinet monitoring",
+        "generator monitoring",
+        "flood monitoring"
+      ],
+      "hardware_requirements": {
+        "uplink": ["1x 4G LTE"],
+        "local_interface": ["optional Ethernet for setup/local network"],
+        "cellular": ["SIM slot", "external antenna connector", "signal strength diagnostics target"],
+        "serial": ["1x isolated RS485"],
+        "io_baseline": ["4x DI", "2x DO/relay", "2x AI"],
+        "io_optional_variants": ["8x DI + 4x DO + 4x AI", "battery backup input"],
+        "input_targets": {
+          "DI": ["alarm/status input", "pulse input after validation"],
+          "AI": ["4-20mA target", "0-10V target if BOM permits"]
+        }
+      },
+      "firmware_requirements": {
+        "baseline_protocols": ["Modbus RTU", "MQTT telemetry"],
+        "optional_protocols_after_validation": ["Modbus TCP through local Ethernet"],
+        "cellular_features": ["APN setup", "reconnect logic", "signal strength display", "data upload retry"],
+        "io_logic": ["alarm threshold rules", "event-triggered upload", "relay/DO control rules"],
+        "data_features": ["local buffer/store-and-forward target", "event log target", "device health status"]
+      },
+      "validation_requirements": [
+        "SIM/APN connection test",
+        "weak-signal reconnect test",
+        "MQTT publish/retry test",
+        "local buffer resend test",
+        "RS485 Modbus RTU test",
+        "DI/AI/relay functional test",
+        "antenna connector and enclosure RF sanity check",
+        "power interruption recovery test"
+      ],
+      "seo_claim_boundary": {
+        "safe_claims_after_implementation": ["4G RTU", "cellular RTU", "remote monitoring RTU", "MQTT telemetry RTU"],
+        "avoid_until_validated": ["LTE band/country compatibility", "dual SIM", "VPN", "battery runtime", "guaranteed uptime"]
+      }
+    },
+    {
+      "model_code": "IEIO-100",
+      "model_name": "Modbus Remote IO Module",
+      "priority": "P1",
+      "product_role": "Wired Remote IO foundation product for distributed signal collection and control through Modbus/RS485 or Ethernet variants.",
+      "target_applications": [
+        "factory automation IO expansion",
+        "machine runtime monitoring",
+        "pump status monitoring",
+        "industrial alarm monitoring",
+        "SCADA remote IO expansion",
+        "data center environmental monitoring"
+      ],
+      "hardware_requirements": {
+        "uplink": ["RS485 Modbus RTU baseline", "Ethernet Modbus TCP variant optional"],
+        "serial": ["1x isolated RS485"],
+        "first_generation_variants": [
+          {
+            "variant_code": "IEIO-100-DI8",
+            "variant_name": "8-channel Digital Input Remote IO",
+            "io": "8DI"
+          },
+          {
+            "variant_code": "IEIO-100-DO8",
+            "variant_name": "8-channel Digital Output / Relay Remote IO",
+            "io": "8DO/relay"
+          },
+          {
+            "variant_code": "IEIO-100-AI4",
+            "variant_name": "4-channel Analog Input Remote IO",
+            "io": "4AI"
+          },
+          {
+            "variant_code": "IEIO-100-AO4",
+            "variant_name": "4-channel Analog Output Remote IO",
+            "io": "4AO"
+          }
+        ],
+        "second_wave_variants": [
+          {
+            "variant_code": "IEIO-100-MD44",
+            "variant_name": "Mixed Digital IO Remote IO",
+            "io": "4DI + 4DO"
+          },
+          {
+            "variant_code": "IEIO-100-MA44",
+            "variant_name": "Mixed Analog IO Remote IO",
+            "io": "4AI + 4AO"
+          }
+        ],
+        "optional_variants": ["16DI", "16DO", "8AI", "temperature input variant"],
+        "input_targets": {
+          "DI": ["dry contact target", "wet contact target"],
+          "AI": ["4-20mA variant", "0-10V variant"]
+        },
+        "output_targets": {
+          "DO_relay": ["relay output variant", "transistor output variant after design decision"],
+          "AO": ["0-10V variant", "4-20mA variant after validation"]
+        }
+      },
+      "firmware_requirements": {
+        "baseline_protocols": ["Modbus RTU"],
+        "optional_protocols_after_validation": ["Modbus TCP on Ethernet variant"],
+        "configuration": ["Modbus address setting", "baud rate setting", "parity setting", "IO mode setting"],
+        "io_logic": ["IO status read", "output write", "failsafe output behavior"],
+        "diagnostics": ["communication status", "module status", "IO error indicator target"]
+      },
+      "validation_requirements": [
+        "Modbus RTU register map test",
+        "RS485 multi-drop communication test",
+        "DI input test",
+        "DO/relay switching test",
+        "AI accuracy test",
+        "AO output accuracy/load test where applicable",
+        "failsafe output behavior test",
+        "address/baud/parity setting test",
+        "isolation and ESD/surge testing before publication"
+      ],
+      "seo_claim_boundary": {
+        "safe_claims_after_implementation": ["Modbus Remote IO", "RS485 Remote IO", "DI module", "DO module", "AI module", "AO module"],
+        "avoid_until_validated": ["exact isolation voltage", "relay rating", "analog accuracy", "sampling rate", "industrial certification claims"]
+      }
+    }
+  ],
+  "engineering_priority_order": [
+    {
+      "priority": 1,
+      "model_code": "IEIO-100",
+      "reason": "Remote IO defines the DI/DO/AI/AO foundation and creates many product-page SEO opportunities."
+    },
+    {
+      "priority": 2,
+      "model_code": "IER-100",
+      "reason": "Ethernet RTU is the lower-risk wired RTU baseline."
+    },
+    {
+      "priority": 3,
+      "model_code": "IER-140",
+      "reason": "4G RTU adds high commercial value for remote monitoring after IO baseline is stable."
+    }
+  ],
+  "next_actions": [
+    "RTU baseline IO has been confirmed as 4DI + 2DO/relay + 2AI.",
+    "IEIO-100 will start with separate IO-type variants: DI8, DO8, AI4 and AO4.",
+    "Mixed IO variants MD44 and MA44 are second-wave variants.",
+    "After variant electrical specs are validated, update product pages with confirmed ratings and accuracy."
+  ]
+}

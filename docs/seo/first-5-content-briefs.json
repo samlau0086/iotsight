@@ -1,0 +1,433 @@
+{
+  "meta": {
+    "project": "IoTEdges",
+    "database": "first-5-content-briefs",
+    "version": "0.1.0",
+    "last_updated": "2026-06-08",
+    "status": "drafted",
+    "purpose": "Content briefs for the first controlled SEO production batch. These are briefs only, not final Markdown pages."
+  },
+  "workflow_reference": "docs/seo/content-production-workflow.json",
+  "template_reference": "docs/seo/content-brief-templates.json",
+  "source_priority_plan": "docs/seo/first-30-pages-priority-plan.json",
+  "batch_policy": {
+    "batch_number": 1,
+    "batch_size": 5,
+    "do_not_generate_markdown_yet": true,
+    "next_gate": "product_capability_check and fact_check before final Markdown drafting"
+  },
+  "briefs": [
+    {
+      "brief_id": "brief-industrial-iot-gateway",
+      "rank": 1,
+      "page_type": "product",
+      "template_id": "product-page-template",
+      "source_database": "products-topic-database.json",
+      "source_id": "industrial-iot-gateway",
+      "page_title": "Industrial IoT Gateway",
+      "slug": "industrial-iot-gateway",
+      "route": "/products/industrial-iot-gateway",
+      "canonical_url": "https://iotedges.com/products/industrial-iot-gateway",
+      "primary_keyword": "industrial IoT gateway",
+      "secondary_keywords": [
+        "IIoT gateway",
+        "industrial gateway",
+        "MQTT gateway",
+        "Modbus gateway",
+        "cellular IoT gateway",
+        "edge gateway"
+      ],
+      "search_intent": "product/commercial",
+      "buyer_persona": ["system integrator", "OEM engineer", "factory automation engineer", "utility operator"],
+      "meta_title": "Industrial IoT Gateway for Modbus, MQTT and Remote Monitoring | IoTEdges",
+      "meta_description": "IoTEdges industrial IoT gateways connect Modbus devices, meters, PLCs and field sensors to MQTT, cloud platforms and remote monitoring systems.",
+      "open_graph_title": "Industrial IoT Gateway for Remote Monitoring",
+      "open_graph_description": "Connect industrial devices to MQTT, cloud dashboards and remote monitoring workflows with IoTEdges gateway solutions.",
+      "recommended_schema": "Product",
+      "positioning": "Umbrella product pillar for connecting industrial field devices, meters, PLCs, RTUs and sensors to cloud or supervisory systems through protocols such as Modbus and MQTT.",
+      "capability_validation": {
+        "status": "pending_product_spec_review",
+        "must_confirm": [
+          "Supported MQTT versions and authentication methods",
+          "Supported Modbus RTU and Modbus TCP modes",
+          "Supported physical interfaces such as RS485, RS232 and Ethernet",
+          "Available cellular, WiFi or Ethernet connectivity options",
+          "Data buffering, local rules or edge processing features",
+          "Environmental rating, power supply range and enclosure options"
+        ],
+        "claims_to_avoid_until_confirmed": [
+          "5G support",
+          "OPC UA support",
+          "VPN support",
+          "AI or predictive maintenance capability",
+          "Specific certifications or IP ratings",
+          "Guaranteed uptime or fixed cellular coverage"
+        ]
+      },
+      "required_sections": [
+        "Hero: Industrial IoT Gateway for Modbus, MQTT and remote monitoring",
+        "What an industrial IoT gateway does",
+        "Typical architecture: field devices -> IoTEdges gateway -> MQTT/cloud/SCADA",
+        "Key capabilities",
+        "Supported protocols and interfaces",
+        "Common deployment scenarios",
+        "How to choose the right gateway",
+        "Related IoTEdges products",
+        "Related solutions",
+        "FAQ",
+        "CTA"
+      ],
+      "section_notes": {
+        "architecture": "Keep architecture generic until actual product model names are confirmed.",
+        "use_cases": ["Factory equipment data collection", "Energy meter monitoring", "Solar inverter monitoring", "Remote pump station telemetry", "OEM machine remote diagnostics"],
+        "cta": "Ask visitors to share protocol, device count, connectivity method and target platform."
+      },
+      "internal_link_plan": {
+        "product_links": ["MQTT Gateway", "Modbus Gateway", "Cellular IoT Gateway", "Edge Controller"],
+        "solution_links": ["Factory Monitoring", "Energy Monitoring", "Solar Monitoring", "Water Monitoring"],
+        "knowledge_links": ["What Is an Industrial IoT Gateway?", "MQTT", "Modbus", "4G LTE for Industrial IoT"],
+        "case_links": ["Factory Energy Meter Data Collection with Modbus to MQTT Gateway"],
+        "article_links": ["How to Choose an Industrial IoT Gateway for Remote Monitoring"]
+      },
+      "faq_prompts": [
+        "What devices can an industrial IoT gateway connect to?",
+        "Can an industrial IoT gateway convert Modbus data to MQTT?",
+        "Is an industrial IoT gateway suitable for remote sites?",
+        "What is the difference between an IoT gateway and an RTU?",
+        "What project information is needed to choose the right gateway?"
+      ],
+      "fact_cards_required": ["mqtt", "modbus", "rs485", "4g-lte", "edge-computing-industrial-iot"],
+      "quality_gates": ["product_capability_check", "fact_check", "internal_link_minimum_product", "seo_review"],
+      "content_status": "brief_ready"
+    },
+    {
+      "brief_id": "brief-mqtt-gateway",
+      "rank": 2,
+      "page_type": "product",
+      "template_id": "product-page-template",
+      "source_database": "products-topic-database.json",
+      "source_id": "mqtt-gateway",
+      "page_title": "MQTT Gateway",
+      "slug": "mqtt-gateway",
+      "route": "/products/mqtt-gateway",
+      "canonical_url": "https://iotedges.com/products/mqtt-gateway",
+      "primary_keyword": "MQTT gateway",
+      "secondary_keywords": [
+        "industrial MQTT gateway",
+        "Modbus MQTT gateway",
+        "RS485 to MQTT gateway",
+        "MQTT edge gateway",
+        "IoT gateway MQTT"
+      ],
+      "search_intent": "product/commercial",
+      "buyer_persona": ["system integrator", "OEM engineer", "energy monitoring provider", "factory automation engineer"],
+      "meta_title": "MQTT Gateway for Industrial IoT and Modbus Data Collection | IoTEdges",
+      "meta_description": "IoTEdges MQTT gateways collect data from Modbus devices, meters, PLCs and sensors, then publish industrial data to MQTT brokers and cloud platforms.",
+      "open_graph_title": "Industrial MQTT Gateway for Modbus and Cloud Monitoring",
+      "open_graph_description": "Collect industrial field data and publish it to MQTT brokers, dashboards and cloud monitoring platforms.",
+      "recommended_schema": "Product",
+      "positioning": "Core cloud-connectivity product page for collecting industrial device data and publishing it to MQTT-based systems.",
+      "capability_validation": {
+        "status": "pending_product_spec_review",
+        "must_confirm": [
+          "MQTT protocol versions",
+          "Broker connection options",
+          "TLS and authentication support",
+          "Payload format options",
+          "Modbus RTU/TCP polling support",
+          "Offline buffering and reconnect behavior"
+        ],
+        "claims_to_avoid_until_confirmed": [
+          "Specific broker compatibility beyond generic MQTT",
+          "TLS certificate workflows",
+          "Offline store-and-forward",
+          "Unlimited device connections",
+          "Specific cloud platform certifications"
+        ]
+      },
+      "required_sections": [
+        "Hero: MQTT Gateway for industrial device data",
+        "What an MQTT gateway does",
+        "Industrial MQTT architecture",
+        "Connecting Modbus, RS485, meters, PLCs and sensors",
+        "MQTT publishing workflow",
+        "Key configuration considerations",
+        "Where MQTT gateways are used",
+        "Related products",
+        "Related solutions",
+        "FAQ",
+        "CTA"
+      ],
+      "section_notes": {
+        "architecture": "Use broker-centered architecture: industrial devices -> gateway -> MQTT broker -> application/dashboard.",
+        "use_cases": ["Energy meter monitoring", "Solar inverter monitoring", "Factory equipment monitoring", "OEM machine remote monitoring", "Building energy monitoring"],
+        "cta": "Ask for device protocol, register map, broker details and target dashboard/cloud platform."
+      },
+      "internal_link_plan": {
+        "product_links": ["Modbus to MQTT Gateway", "RS485 to MQTT Gateway", "4G MQTT Gateway", "Industrial IoT Gateway"],
+        "solution_links": ["Energy Monitoring", "Solar Inverter Monitoring", "Factory Monitoring", "OEM Remote Monitoring"],
+        "knowledge_links": ["MQTT", "MQTT Broker", "Modbus to MQTT", "Modbus"],
+        "case_links": ["Factory Energy Meter Data Collection with Modbus to MQTT Gateway", "Solar Inverter Monitoring over RS485 and MQTT"],
+        "article_links": ["How a Modbus to MQTT Gateway Connects Industrial Devices to the Cloud"]
+      },
+      "faq_prompts": [
+        "What is an MQTT gateway?",
+        "Can an MQTT gateway read Modbus devices?",
+        "Does an MQTT gateway need a broker?",
+        "What data format can be published to MQTT?",
+        "How do I choose an MQTT gateway for industrial monitoring?"
+      ],
+      "fact_cards_required": ["mqtt", "modbus", "rs485"],
+      "quality_gates": ["product_capability_check", "fact_check", "internal_link_minimum_product", "seo_review"],
+      "content_status": "brief_ready"
+    },
+    {
+      "brief_id": "brief-modbus-to-mqtt-gateway",
+      "rank": 3,
+      "page_type": "product",
+      "template_id": "protocol-product-page-template",
+      "source_database": "products-topic-database.json",
+      "source_id": "modbus-to-mqtt-gateway",
+      "page_title": "Modbus to MQTT Gateway",
+      "slug": "modbus-to-mqtt-gateway",
+      "route": "/products/modbus-to-mqtt-gateway",
+      "canonical_url": "https://iotedges.com/products/modbus-to-mqtt-gateway",
+      "primary_keyword": "Modbus to MQTT gateway",
+      "secondary_keywords": [
+        "Modbus to MQTT",
+        "RS485 to MQTT gateway",
+        "Modbus RTU MQTT gateway",
+        "Modbus TCP MQTT gateway",
+        "industrial protocol converter"
+      ],
+      "search_intent": "product/commercial",
+      "buyer_persona": ["energy monitoring integrator", "solar monitoring provider", "factory automation engineer", "OEM engineer"],
+      "meta_title": "Modbus to MQTT Gateway for Industrial Data Collection | IoTEdges",
+      "meta_description": "Convert Modbus RTU or Modbus TCP device data into MQTT messages for energy monitoring, solar inverter monitoring, factory equipment and cloud dashboards.",
+      "open_graph_title": "Modbus to MQTT Gateway for Industrial IoT",
+      "open_graph_description": "Bridge Modbus devices, RS485 meters and industrial equipment to MQTT brokers and cloud monitoring systems.",
+      "recommended_schema": "Product",
+      "positioning": "High-intent protocol product page for converting Modbus device data into MQTT topics and payloads.",
+      "protocol_or_connectivity": "Modbus RTU / Modbus TCP to MQTT",
+      "conversion_use_cases": ["Energy meters to MQTT", "Solar inverters to MQTT", "PLC or equipment data to MQTT", "Remote Modbus devices over cellular to MQTT"],
+      "capability_validation": {
+        "status": "pending_product_spec_review",
+        "must_confirm": [
+          "Modbus RTU master/client polling support",
+          "Modbus TCP client support",
+          "MQTT publish support",
+          "Register mapping and scaling capability",
+          "Payload format customization",
+          "Multi-device polling limits"
+        ],
+        "claims_to_avoid_until_confirmed": [
+          "Automatic register discovery",
+          "Any-brand inverter compatibility",
+          "Unlimited register/device support",
+          "Specific cloud platform certification",
+          "OPC UA conversion unless confirmed"
+        ]
+      },
+      "required_sections": [
+        "Hero: Modbus to MQTT gateway for industrial devices",
+        "What problem this gateway solves",
+        "Modbus to MQTT architecture",
+        "Supported Modbus source devices",
+        "MQTT topic and payload workflow",
+        "Configuration considerations",
+        "Common applications",
+        "Related products",
+        "Related knowledge base",
+        "FAQ",
+        "CTA"
+      ],
+      "section_notes": {
+        "architecture": "Show device/register polling -> gateway mapping -> MQTT topic/payload -> broker/dashboard.",
+        "use_cases": ["Power meter monitoring", "Solar inverter monitoring", "Factory data collection", "Building energy monitoring", "OEM machine remote monitoring"],
+        "cta": "Ask for Modbus register map, device count, polling interval, target MQTT broker and payload format."
+      },
+      "internal_link_plan": {
+        "product_links": ["MQTT Gateway", "Modbus Gateway", "RS485 to MQTT Gateway", "Industrial IoT Gateway"],
+        "solution_links": ["Energy Monitoring", "Solar Inverter Monitoring", "Factory Monitoring", "Building Energy Monitoring"],
+        "knowledge_links": ["Modbus to MQTT", "MQTT", "Modbus", "Modbus Registers", "RS485"],
+        "case_links": ["Factory Energy Meter Data Collection with Modbus to MQTT Gateway", "Solar Inverter Monitoring over RS485 and MQTT"],
+        "article_links": ["How a Modbus to MQTT Gateway Connects Industrial Devices to the Cloud", "How to Connect a Modbus Energy Meter to MQTT"]
+      },
+      "faq_prompts": [
+        "What is a Modbus to MQTT gateway?",
+        "Can it read both Modbus RTU and Modbus TCP devices?",
+        "How are Modbus registers mapped to MQTT topics?",
+        "What information is needed before configuration?",
+        "Where is Modbus to MQTT commonly used?"
+      ],
+      "fact_cards_required": ["modbus", "mqtt", "rs485"],
+      "quality_gates": ["product_capability_check", "fact_check", "internal_link_minimum_product", "seo_review"],
+      "content_status": "brief_ready"
+    },
+    {
+      "brief_id": "brief-industrial-rtu",
+      "rank": 4,
+      "page_type": "product",
+      "template_id": "product-page-template",
+      "source_database": "products-topic-database.json",
+      "source_id": "industrial-rtu",
+      "page_title": "Industrial RTU",
+      "slug": "industrial-rtu",
+      "route": "/products/industrial-rtu",
+      "canonical_url": "https://iotedges.com/products/industrial-rtu",
+      "primary_keyword": "industrial RTU",
+      "secondary_keywords": [
+        "remote terminal unit",
+        "4G RTU",
+        "RTU for SCADA",
+        "remote monitoring RTU",
+        "RTU IO module"
+      ],
+      "search_intent": "product/commercial",
+      "buyer_persona": ["water utility engineer", "system integrator", "oil and gas operator", "remote site operator"],
+      "meta_title": "Industrial RTU for Remote Monitoring and SCADA Telemetry | IoTEdges",
+      "meta_description": "IoTEdges industrial RTU solutions collect field signals from sensors, meters and equipment for remote monitoring, alarms and SCADA telemetry.",
+      "open_graph_title": "Industrial RTU for Remote Monitoring",
+      "open_graph_description": "Collect analog, digital and Modbus field data from remote sites and send telemetry to monitoring systems.",
+      "recommended_schema": "Product",
+      "positioning": "Core RTU product pillar for remote telemetry, field IO, alarms, SCADA connectivity and unmanned site monitoring.",
+      "capability_validation": {
+        "status": "pending_product_spec_review",
+        "must_confirm": [
+          "Available DI/DO/AI/AO/relay channel counts",
+          "Supported Modbus RTU/TCP behavior",
+          "Cellular, Ethernet or other communication options",
+          "Alarm reporting and local logic support",
+          "Power supply range",
+          "Enclosure and environmental ratings"
+        ],
+        "claims_to_avoid_until_confirmed": [
+          "DNP3 support",
+          "IEC 60870 or IEC 61850 support",
+          "Safety-critical control",
+          "Specific waterproof or hazardous area ratings",
+          "Guaranteed SCADA platform compatibility"
+        ]
+      },
+      "required_sections": [
+        "Hero: Industrial RTU for remote telemetry",
+        "What an industrial RTU does",
+        "RTU architecture for remote sites",
+        "Field signals and connected assets",
+        "Communication options",
+        "Common applications",
+        "RTU vs gateway positioning",
+        "Related products",
+        "Related solutions",
+        "FAQ",
+        "CTA"
+      ],
+      "section_notes": {
+        "architecture": "Use remote site -> RTU -> cellular/Ethernet -> monitoring platform/SCADA.",
+        "use_cases": ["Pump station monitoring", "Tank level monitoring", "Pipeline pressure monitoring", "Telecom site alarms", "Environmental monitoring"],
+        "cta": "Ask for signal list, site count, communication method, alarm requirements and target platform."
+      },
+      "internal_link_plan": {
+        "product_links": ["4G RTU", "RTU for Pump Station Monitoring", "RTU for Tank Level Monitoring", "Remote IO Module"],
+        "solution_links": ["Water Monitoring", "Pump Station Monitoring", "Oil & Gas Monitoring", "Environmental Monitoring"],
+        "knowledge_links": ["RTU", "SCADA", "Remote IO", "4G LTE for Industrial IoT"],
+        "case_links": ["Remote Pump Station Monitoring with 4G RTU", "Pipeline Pressure Monitoring with 4G RTU"],
+        "article_links": ["How to Choose an RTU for Pump Station Monitoring", "RTU vs PLC for Remote Monitoring"]
+      },
+      "faq_prompts": [
+        "What is an industrial RTU?",
+        "What signals can an RTU collect?",
+        "How is an RTU different from a PLC or IoT gateway?",
+        "Can an RTU work at remote sites over 4G?",
+        "What information is needed to select an RTU?"
+      ],
+      "fact_cards_required": ["rtu", "remote-io", "scada", "modbus", "4g-lte"],
+      "quality_gates": ["product_capability_check", "fact_check", "internal_link_minimum_product", "seo_review"],
+      "content_status": "brief_ready"
+    },
+    {
+      "brief_id": "brief-4g-rtu",
+      "rank": 5,
+      "page_type": "product",
+      "template_id": "protocol-product-page-template",
+      "source_database": "products-topic-database.json",
+      "source_id": "4g-rtu",
+      "page_title": "4G RTU",
+      "slug": "4g-rtu",
+      "route": "/products/4g-rtu",
+      "canonical_url": "https://iotedges.com/products/4g-rtu",
+      "primary_keyword": "4G RTU",
+      "secondary_keywords": [
+        "LTE RTU",
+        "cellular RTU",
+        "remote monitoring RTU",
+        "4G remote telemetry unit",
+        "RTU for remote sites"
+      ],
+      "search_intent": "product/commercial",
+      "buyer_persona": ["water utility engineer", "telecom site operator", "oil and gas operator", "environmental monitoring integrator"],
+      "meta_title": "4G RTU for Remote Monitoring and Cellular Telemetry | IoTEdges",
+      "meta_description": "IoTEdges 4G RTU solutions collect field data from remote sites and transmit alarms, sensor readings and equipment status over cellular networks.",
+      "open_graph_title": "4G RTU for Remote Industrial Sites",
+      "open_graph_description": "Connect remote pumps, tanks, pipelines, telecom cabinets and environmental stations through cellular RTU telemetry.",
+      "recommended_schema": "Product",
+      "positioning": "Connectivity-specific RTU page for remote sites where wired network access is unavailable or impractical.",
+      "protocol_or_connectivity": "4G LTE cellular telemetry",
+      "conversion_use_cases": ["Pump station telemetry", "Tank level monitoring", "Pipeline pressure monitoring", "Telecom tower monitoring", "Remote environmental stations"],
+      "capability_validation": {
+        "status": "pending_product_spec_review",
+        "must_confirm": [
+          "Supported LTE bands and regions",
+          "SIM/APN configuration options",
+          "Antenna connector and antenna choices",
+          "Fallback network support if any",
+          "MQTT or platform transmission support",
+          "IO channel and Modbus support"
+        ],
+        "claims_to_avoid_until_confirmed": [
+          "Global cellular coverage",
+          "5G support",
+          "LTE-M or NB-IoT support",
+          "VPN support",
+          "Fixed uptime guarantees",
+          "Hazardous area certification"
+        ]
+      },
+      "required_sections": [
+        "Hero: 4G RTU for remote monitoring",
+        "Why use cellular RTU telemetry",
+        "Typical 4G RTU architecture",
+        "Field signals and devices connected",
+        "Cellular deployment checklist",
+        "Common remote site applications",
+        "How to choose a 4G RTU",
+        "Related products",
+        "Related solutions",
+        "FAQ",
+        "CTA"
+      ],
+      "section_notes": {
+        "architecture": "Use remote assets -> 4G RTU -> cellular network -> MQTT/cloud/monitoring platform.",
+        "use_cases": ["Pump stations", "Water tanks", "Fuel tanks", "Telecom towers", "Pipelines", "Flood monitoring"],
+        "cta": "Ask for country/region, carrier/SIM, signal list, site count and reporting interval."
+      },
+      "internal_link_plan": {
+        "product_links": ["Industrial RTU", "Cellular RTU", "4G MQTT Gateway", "Remote IO Module"],
+        "solution_links": ["Pump Station Monitoring", "Fuel Tank Monitoring", "Pipeline Monitoring", "Telecom Tower Monitoring"],
+        "knowledge_links": ["4G LTE for Industrial IoT", "RTU", "MQTT", "SCADA Remote Monitoring"],
+        "case_links": ["Remote Pump Station Monitoring with 4G RTU", "Telecom Generator Fuel Tank Monitoring with RTU", "Pipeline Pressure Monitoring with 4G RTU"],
+        "article_links": ["4G RTU vs LoRa RTU", "4G Industrial Gateway SIM Card and Network Checklist"]
+      },
+      "faq_prompts": [
+        "What is a 4G RTU?",
+        "When should I choose a 4G RTU instead of Ethernet or LoRa?",
+        "What cellular information is needed before deployment?",
+        "Can a 4G RTU send data to MQTT or SCADA?",
+        "What signals can a 4G RTU collect?"
+      ],
+      "fact_cards_required": ["4g-lte", "rtu", "mqtt", "remote-io"],
+      "quality_gates": ["product_capability_check", "fact_check", "internal_link_minimum_product", "seo_review"],
+      "content_status": "brief_ready"
+    }
+  ]
+}

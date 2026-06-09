@@ -21,27 +21,27 @@ export default function Footer() {
             <li><Link to="/factory-energy" className="hover:text-white transition-colors">Factory Energy</Link></li>
             <li><Link to="/solutions/solar-energy" className="hover:text-white transition-colors">Solar & Renewable</Link></li>
             <li><Link to="/solutions/smart-agriculture" className="hover:text-white transition-colors">Smart Agriculture</Link></li>
-            <li><Link to="/gateway" className="hover:text-white transition-colors">IoT Gateways</Link></li>
+            <li><Link to="/products" className="hover:text-white transition-colors">Products</Link></li>
           </ul>
         </div>
 
         <div>
-          <span className="text-[10px] text-slate-500 font-bold uppercase tracking-[0.2em] mb-4 block">Company</span>
+          <span className="text-[10px] text-slate-500 font-bold uppercase tracking-[0.2em] mb-4 block">Products</span>
           <ul className="space-y-3 text-xs font-semibold text-slate-300">
-            <li><Link to="/about" className="hover:text-white transition-colors">About Us</Link></li>
-            <li><Link to="/blog" className="hover:text-white transition-colors">Blog</Link></li>
-            <li><Link to="/contact" className="hover:text-white transition-colors">Contact</Link></li>
-            <li><Link to="/demo" className="hover:text-white transition-colors">Dashboard Demo</Link></li>
+            <li><Link to="/products/ieg-100-ethernet-industrial-iot-gateway" className="hover:text-white transition-colors">IEG-100 Gateway</Link></li>
+            <li><Link to="/products/ieio-100-modbus-remote-io-module" className="hover:text-white transition-colors">IEIO-100 Remote IO</Link></li>
+            <li><Link to="/products/ier-100-ethernet-industrial-rtu" className="hover:text-white transition-colors">IER-100 RTU</Link></li>
+            <li><Link to="/gateway" className="hover:text-white transition-colors">Legacy Gateway Page</Link></li>
           </ul>
         </div>
 
         <div>
-           <span className="text-[10px] text-slate-500 font-bold uppercase tracking-[0.2em] mb-4 block">Enterprise Grade</span>
+           <span className="text-[10px] text-slate-500 font-bold uppercase tracking-[0.2em] mb-4 block">Company</span>
            <div className="flex flex-col gap-3">
-              <span className="text-xs font-semibold text-slate-300">OEM / ODM Support</span>
-              <span className="text-xs font-semibold text-slate-300">Private Cloud</span>
-              <span className="text-xs font-semibold text-slate-300">Multi-language</span>
-              <span className="text-xs font-semibold text-slate-300">MQTT/Modbus</span>
+              <Link to="/about" className="text-xs font-semibold text-slate-300 hover:text-white transition-colors">About Us</Link>
+              <Link to="/blog" className="text-xs font-semibold text-slate-300 hover:text-white transition-colors">Blog</Link>
+              <Link to="/contact" className="text-xs font-semibold text-slate-300 hover:text-white transition-colors">Contact</Link>
+              <Link to="/demo" className="text-xs font-semibold text-slate-300 hover:text-white transition-colors">Dashboard Demo</Link>
            </div>
         </div>
       </div>

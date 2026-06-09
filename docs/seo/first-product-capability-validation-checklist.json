@@ -1,0 +1,234 @@
+{
+  "meta": {
+    "project": "IoTEdges",
+    "database": "first-product-capability-validation-checklist",
+    "version": "0.1.0",
+    "last_updated": "2026-06-09",
+    "status": "draft_checklist",
+    "purpose": "Capability validation checklist for the first model-specific product pages: IEIO-100, IER-100 and IEG-100.",
+    "important_note": "Use this checklist before drafting or publishing model-specific Markdown product pages. A page can move to Markdown drafting only when required checks are passed or explicitly marked conditional with a safe wording rule."
+  },
+  "status_values": {
+    "not_checked": "Validation has not started.",
+    "pass": "Evidence is available and the claim can be used.",
+    "conditional": "Claim can be used only with limited wording.",
+    "fail": "Claim must not be used.",
+    "blocked": "Cannot validate without engineering decision, prototype, test result or documentation."
+  },
+  "evidence_types": [
+    "engineering requirement",
+    "schematic decision",
+    "firmware specification",
+    "prototype test",
+    "register map",
+    "UI screenshot",
+    "test report",
+    "datasheet draft",
+    "certification document"
+  ],
+  "global_required_checks": [
+    {
+      "check_id": "global-no-5g",
+      "claim": "No first-generation product page should claim 5G support.",
+      "required_status": "pass",
+      "current_status": "pass",
+      "evidence": "Product roadmap excludes 5G."
+    },
+    {
+      "check_id": "global-wireless-uplink-separation",
+      "claim": "4G, WiFi and LoRa/LoRaWAN are separate wireless uplink variants.",
+      "required_status": "pass",
+      "current_status": "pass",
+      "evidence": "Product naming and connectivity rules define one wireless uplink per device."
+    },
+    {
+      "check_id": "global-no-unvalidated-ratings",
+      "claim": "Electrical ratings, certifications, temperature range, relay rating, analog accuracy and IP rating remain validation-gated.",
+      "required_status": "pass",
+      "current_status": "pass",
+      "evidence": "Claim policy in engineering and publishing plan."
+    }
+  ],
+  "product_checks": [
+    {
+      "model_code": "IEIO-100",
+      "page_title": "Modbus Remote IO Module",
+      "route": "/products/modbus-remote-io-module",
+      "drafting_gate": "blocked_until_required_checks_pass",
+      "required_checks": [
+        {
+          "check_id": "ieio-100-variant-strategy",
+          "claim": "IEIO-100 first generation includes DI8, DO8, AI4 and AO4 variants.",
+          "current_status": "pass",
+          "safe_wording": "Planned first-generation variants include 8DI, 8DO/relay, 4AI and 4AO.",
+          "evidence_needed": ["engineering requirement"],
+          "evidence_available": ["first-engineering-requirements-draft.json", "product-io-interface-matrix.json"]
+        },
+        {
+          "check_id": "ieio-100-modbus-rtu",
+          "claim": "IEIO-100 supports Modbus RTU over RS485.",
+          "current_status": "conditional",
+          "safe_wording": "Designed for Modbus RTU over RS485; final register map and firmware behavior require validation.",
+          "evidence_needed": ["firmware specification", "register map", "prototype test"],
+          "evidence_available": ["product-protocol-support-matrix.json", "ieio-100-modbus-register-map-draft.json"]
+        },
+        {
+          "check_id": "ieio-100-modbus-tcp-variant",
+          "claim": "IEIO-100 has an Ethernet/Modbus TCP variant.",
+          "current_status": "conditional",
+          "safe_wording": "Ethernet/Modbus TCP variant is planned as an optional variant.",
+          "evidence_needed": ["schematic decision", "firmware specification", "prototype test"],
+          "evidence_available": ["product-io-interface-matrix.json"]
+        },
+        {
+          "check_id": "ieio-100-relay-rating",
+          "claim": "DO/relay output rating.",
+          "current_status": "blocked",
+          "safe_wording": "Do not publish relay rating yet.",
+          "evidence_needed": ["schematic decision", "component selection", "prototype test"],
+          "evidence_available": ["first-product-electrical-validation-targets.json", "first-product-prototype-test-report-templates.json"]
+        },
+        {
+          "check_id": "ieio-100-analog-accuracy",
+          "claim": "AI/AO accuracy, resolution and load capability.",
+          "current_status": "blocked",
+          "safe_wording": "Do not publish analog accuracy, AO resolution or load capability yet.",
+          "evidence_needed": ["component selection", "calibration plan", "prototype test"],
+          "evidence_available": ["first-product-electrical-validation-targets.json", "first-product-prototype-test-report-templates.json"]
+        },
+        {
+          "check_id": "ieio-100-mqtt-cloud",
+          "claim": "IEIO-100 works as an MQTT/cloud gateway.",
+          "current_status": "fail",
+          "safe_wording": "Do not claim MQTT/cloud gateway behavior for IEIO-100.",
+          "evidence_needed": [],
+          "evidence_available": ["product-protocol-support-matrix.json"]
+        }
+      ],
+      "drafting_decision": {
+        "can_draft_markdown_now": false,
+        "reason": "Variant strategy is confirmed, but Modbus register map, relay rating and analog performance are not validated.",
+        "allowed_page_scope_before_validation": "Brief and internal planning only; no final product page."
+      }
+    },
+    {
+      "model_code": "IER-100",
+      "page_title": "Ethernet Industrial RTU",
+      "route": "/products/ethernet-industrial-rtu",
+      "drafting_gate": "blocked_until_required_checks_pass",
+      "required_checks": [
+        {
+          "check_id": "ier-100-io-baseline",
+          "claim": "IER-100 baseline IO is 4DI + 2DO/relay + 2AI.",
+          "current_status": "pass",
+          "safe_wording": "Planned baseline IO: 4DI + 2DO/relay + 2AI.",
+          "evidence_needed": ["engineering requirement"],
+          "evidence_available": ["first-engineering-requirements-draft.json", "product-model-definition-draft.json"]
+        },
+        {
+          "check_id": "ier-100-ethernet-uplink",
+          "claim": "IER-100 is an Ethernet-only wired RTU.",
+          "current_status": "pass",
+          "safe_wording": "Ethernet-only wired RTU for LAN/SCADA cabinet deployments.",
+          "evidence_needed": ["engineering requirement"],
+          "evidence_available": ["product-model-definition-draft.json"]
+        },
+        {
+          "check_id": "ier-100-modbus",
+          "claim": "IER-100 supports Modbus RTU and Modbus TCP.",
+          "current_status": "conditional",
+          "safe_wording": "Planned Modbus RTU/TCP support; final mode and register behavior require firmware validation.",
+          "evidence_needed": ["firmware specification", "register map", "prototype test"],
+          "evidence_available": ["product-protocol-support-matrix.json", "first-product-prototype-test-report-templates.json"]
+        },
+        {
+          "check_id": "ier-100-mqtt",
+          "claim": "IER-100 supports MQTT telemetry.",
+          "current_status": "conditional",
+          "safe_wording": "MQTT telemetry is optional after validation.",
+          "evidence_needed": ["firmware specification", "MQTT publish test"],
+          "evidence_available": ["product-protocol-support-matrix.json", "first-product-prototype-test-report-templates.json"]
+        },
+        {
+          "check_id": "ier-100-relay-analog-ratings",
+          "claim": "Relay rating and analog input accuracy.",
+          "current_status": "blocked",
+          "safe_wording": "Do not publish relay rating or analog accuracy yet.",
+          "evidence_needed": ["component selection", "prototype test"],
+          "evidence_available": ["first-product-electrical-validation-targets.json", "first-product-prototype-test-report-templates.json"]
+        },
+        {
+          "check_id": "ier-100-utility-protocols",
+          "claim": "DNP3, IEC 60870 or IEC 61850 support.",
+          "current_status": "fail",
+          "safe_wording": "Do not claim DNP3, IEC 60870 or IEC 61850 support.",
+          "evidence_needed": [],
+          "evidence_available": ["product-model-definition-draft.json"]
+        }
+      ],
+      "drafting_decision": {
+        "can_draft_markdown_now": false,
+        "reason": "Core positioning is confirmed, but Modbus firmware behavior and electrical ratings are not validated.",
+        "allowed_page_scope_before_validation": "Brief and internal planning only; no final product page."
+      }
+    },
+    {
+      "model_code": "IEG-100",
+      "page_title": "Ethernet Industrial IoT Gateway",
+      "route": "/products/ethernet-industrial-iot-gateway",
+      "drafting_gate": "blocked_until_required_checks_pass",
+      "required_checks": [
+        {
+          "check_id": "ieg-100-uplink",
+          "claim": "IEG-100 is Ethernet-only.",
+          "current_status": "pass",
+          "safe_wording": "Ethernet-only wired gateway for LAN and industrial Ethernet deployments.",
+          "evidence_needed": ["engineering requirement"],
+          "evidence_available": ["product-model-definition-draft.json"]
+        },
+        {
+          "check_id": "ieg-100-rs485",
+          "claim": "IEG-100 includes 1x isolated RS485 target.",
+          "current_status": "conditional",
+          "safe_wording": "Planned 1x isolated RS485 interface; final isolation rating requires validation.",
+          "evidence_needed": ["schematic decision", "prototype test"],
+          "evidence_available": ["product-model-definition-draft.json", "product-io-interface-matrix.json", "first-product-electrical-validation-targets.json", "first-product-prototype-test-report-templates.json"]
+        },
+        {
+          "check_id": "ieg-100-modbus-mqtt",
+          "claim": "IEG-100 collects Modbus RTU/TCP data and publishes MQTT.",
+          "current_status": "conditional",
+          "safe_wording": "Planned Modbus RTU/TCP to MQTT gateway behavior; final polling limits and payload behavior require firmware validation.",
+          "evidence_needed": ["firmware specification", "register map", "MQTT publish test", "prototype test"],
+          "evidence_available": ["product-protocol-support-matrix.json", "ieg-100-modbus-mqtt-behavior-draft.json", "first-product-prototype-test-report-templates.json"]
+        },
+        {
+          "check_id": "ieg-100-opcua-bacnet-can",
+          "claim": "IEG-100 supports OPC UA, BACnet or CAN.",
+          "current_status": "fail",
+          "safe_wording": "Do not claim OPC UA, BACnet or CAN on IEG-100.",
+          "evidence_needed": [],
+          "evidence_available": ["product-protocol-support-matrix.json"]
+        },
+        {
+          "check_id": "ieg-100-heavy-io",
+          "claim": "IEG-100 is a heavy IO gateway.",
+          "current_status": "fail",
+          "safe_wording": "Do not position IEG-100 as a heavy IO gateway; keep IO optional/light.",
+          "evidence_needed": [],
+          "evidence_available": ["product-io-interface-matrix.json"]
+        }
+      ],
+      "drafting_decision": {
+        "can_draft_markdown_now": false,
+        "reason": "Product role is confirmed, but Modbus/MQTT firmware behavior, polling limits and payload format are not validated.",
+        "allowed_page_scope_before_validation": "Brief and internal planning only; no final product page."
+      }
+    }
+  ],
+  "next_actions": [
+    "Review and validate ieio-100-modbus-register-map-draft.json with engineering before using exact register claims in public product pages.",
+    "Review and validate ieg-100-modbus-mqtt-behavior-draft.json with engineering before using exact polling, point-count or MQTT payload claims in public product pages.",
+    "Use first-product-prototype-test-report-templates.json when real prototype testing begins, then update this checklist with completed report filenames."
+  ]
+}

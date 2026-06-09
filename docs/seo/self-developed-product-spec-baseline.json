@@ -1,0 +1,210 @@
+{
+  "meta": {
+    "project": "IoTEdges",
+    "database": "self-developed-product-spec-baseline",
+    "version": "0.1.0",
+    "last_updated": "2026-06-09",
+    "status": "planning_baseline",
+    "purpose": "Recommended first-generation product configuration baseline for self-developed IoTEdges industrial IoT devices.",
+    "important_note": "These are product requirement targets, not final datasheets. Exact values must be validated by schematic design, firmware implementation, prototype testing, certification review and field trials before being published as final product claims."
+  },
+  "strategic_decisions": {
+    "development_mode": "self_developed",
+    "supplier_role": "Suppliers may be used for components, modules, enclosures, manufacturing and certifications, but they are not the source of the IoTEdges product definition.",
+    "planned_connectivity": ["Ethernet", "RS485", "4G LTE", "WiFi", "LoRa/LoRaWAN"],
+    "connectivity_sku_rule": "A device can have only one wireless uplink method. 4G LTE, WiFi and LoRa/LoRaWAN must be separate device variants, not combined in the same device. Use 100-series codes for Ethernet-only wired baseline models, 140-series codes for 4G models, 120-series codes for WiFi models and L-series codes for LoRa/LoRaWAN models. Ethernet can still be used as a wired uplink or configuration port.",
+    "not_planned_for_first_generation": ["5G"],
+    "seo_positioning_rule": "Build SEO around products IoTEdges intends to develop and support: 4G RTU, WiFi gateway, LoRa gateway, Modbus gateway, MQTT gateway, Remote IO and edge controller. Do not create 5G product pages unless the product strategy changes."
+  },
+  "common_first_generation_baseline": {
+    "industrial_design": {
+      "power_input_target": "9-36VDC preferred, 12-24VDC acceptable for lower-cost models",
+      "mounting": "DIN rail baseline; wall mount optional for outdoor/field products",
+      "operating_temperature_target": "-20C to +70C target for mainstream models; wider range only after component validation",
+      "protection": "Watchdog, reverse polarity protection, surge/ESD protection and isolated RS485 are recommended baseline design goals",
+      "enclosure": "Plastic DIN-rail enclosure for indoor cabinet models; IP-rated enclosure only for outdoor LoRa/field variants"
+    },
+    "software_baseline": {
+      "device_configuration": "Local web UI baseline; configuration import/export recommended",
+      "protocol_configuration": "Configurable Modbus register map, polling interval, data type, byte order, scaling and unit fields",
+      "mqtt": "Custom broker address, port, username/password, topic template, JSON payload and reconnect logic",
+      "data_reliability": "Local cache/store-and-forward recommended for 4G and edge models",
+      "security": "MQTT over TLS and password-protected web UI should be planned; certificates and advanced access control require implementation validation",
+      "maintenance": "Firmware upgrade, log export and device status diagnostics are recommended",
+      "remote_management": "Optional in first generation; avoid overclaiming until platform capability exists"
+    },
+    "wireless_baseline": {
+      "4g_lte": "Use replaceable regional module strategy where possible. Plan SIM/APN configuration, external antenna, signal strength display and reconnect logic.",
+      "wifi": "2.4GHz WiFi client baseline for WiFi models; AP mode for local setup is useful but optional.",
+      "lora_lorawan": "Plan regional frequency variants such as EU868, US915, AU915, AS923 and CN470 according to target markets. Avoid range guarantees until field testing."
+    }
+  },
+  "recommended_first_generation_lineup": [
+    {
+      "model_code": "IEG-100",
+      "model_name": "Base Industrial IoT Gateway",
+      "priority": 1,
+      "role": "Ethernet-only wired baseline gateway for Modbus to MQTT, industrial IoT gateway and energy/factory data collection pages. This is a mainstream low-cost, high-stability product type for sites with existing LAN or industrial Ethernet.",
+      "planned_specs": {
+        "network": ["1x Ethernet"],
+        "field_interfaces": ["1x RS485 isolated"],
+        "protocols": ["Modbus RTU client/master", "Modbus TCP client", "MQTT publish"],
+        "software": ["register map", "topic template", "JSON payload", "polling interval", "basic diagnostics"],
+        "optional": ["RS232", "TLS", "local data buffer", "extra RS485"]
+      }
+    },
+    {
+      "model_code": "IEG-140",
+      "model_name": "4G Industrial IoT Gateway",
+      "priority": 2,
+      "role": "Cellular gateway for remote Modbus/MQTT sites, solar monitoring, pump stations and environmental stations.",
+      "planned_specs": {
+        "network": ["4G LTE", "1x Ethernet"],
+        "field_interfaces": ["1x RS485 isolated"],
+        "protocols": ["Modbus RTU client/master", "Modbus TCP client", "MQTT publish"],
+        "software": ["SIM/APN setup", "cellular signal diagnostics", "local buffer", "reconnect logic"],
+        "optional": ["dual SIM", "VPN", "GNSS", "TLS certificate management"]
+      }
+    },
+    {
+      "model_code": "IEG-120",
+      "model_name": "WiFi Industrial IoT Gateway",
+      "priority": 4,
+      "role": "WiFi gateway for indoor Modbus/MQTT sites where a local wireless LAN is available.",
+      "planned_specs": {
+        "network": ["2.4GHz WiFi", "1x Ethernet"],
+        "field_interfaces": ["1x RS485 isolated"],
+        "protocols": ["Modbus RTU client/master", "Modbus TCP client", "MQTT publish"],
+        "software": ["WiFi client setup", "optional AP mode for setup", "MQTT reconnect logic", "basic diagnostics"],
+        "optional": ["TLS certificate management", "local data buffer", "extra RS485"]
+      }
+    },
+    {
+      "model_code": "IEG-E200",
+      "model_name": "Edge IoT Gateway / Edge Controller",
+      "priority": 4,
+      "role": "Higher-tier edge controller for OEM equipment monitoring, factory edge data filtering and local rules.",
+      "planned_specs": {
+        "network": ["Ethernet baseline"],
+        "field_interfaces": ["1x or 2x RS485 isolated"],
+        "protocols": ["Modbus RTU", "Modbus TCP", "MQTT"],
+        "edge_features": ["local rules", "data filtering", "offline buffer", "protocol conversion"],
+        "optional": ["separate wireless-uplink variant", "OPC UA client", "BACnet", "CAN", "container/app runtime"]
+      }
+    },
+    {
+      "model_code": "IER-100",
+      "model_name": "Base Industrial RTU",
+      "priority": 3,
+      "role": "Ethernet-only wired baseline RTU for cabinet monitoring, pump stations, tanks, factory utilities and SCADA-style telemetry where a LAN or local SCADA network exists.",
+      "planned_specs": {
+        "network": ["Ethernet"],
+        "io": ["DI", "DO/relay", "AI for 4-20mA and/or 0-10V"],
+        "field_interfaces": ["1x RS485 isolated"],
+        "protocols": ["Modbus RTU", "Modbus TCP", "MQTT optional"],
+        "software": ["alarm thresholds", "IO status page", "basic data logging optional"]
+      }
+    },
+    {
+      "model_code": "IER-140",
+      "model_name": "4G Remote Monitoring RTU",
+      "priority": 2,
+      "role": "Main RTU for remote pump, tank, pipeline, telecom cabinet, generator and environmental monitoring pages.",
+      "planned_specs": {
+        "network": ["4G LTE", "optional Ethernet"],
+        "io": ["DI", "DO/relay", "AI for 4-20mA and/or 0-10V"],
+        "field_interfaces": ["1x RS485 isolated"],
+        "protocols": ["Modbus RTU", "MQTT publish"],
+        "software": ["SIM/APN setup", "cellular signal diagnostics", "alarm rules", "local buffer", "event upload"]
+      }
+    },
+    {
+      "model_code": "IER-120",
+      "model_name": "WiFi Remote Monitoring RTU",
+      "priority": 4,
+      "role": "WiFi RTU for indoor facilities, cabinets, buildings and factory utility monitoring where a local wireless LAN is available.",
+      "planned_specs": {
+        "network": ["2.4GHz WiFi", "optional Ethernet"],
+        "io": ["DI", "DO/relay", "AI for 4-20mA and/or 0-10V"],
+        "field_interfaces": ["1x RS485 isolated"],
+        "protocols": ["Modbus RTU", "MQTT publish"],
+        "software": ["WiFi client setup", "optional AP mode for setup", "alarm rules", "event upload"]
+      }
+    },
+    {
+      "model_code": "IER-160",
+      "model_name": "High-IO Industrial RTU",
+      "priority": 5,
+      "role": "Expanded RTU for sites requiring more field signals, such as wastewater treatment, substations and utility cabinets.",
+      "planned_specs": {
+        "network": ["Ethernet baseline"],
+        "io": ["higher DI count", "higher DO/relay count", "multiple AI channels"],
+        "field_interfaces": ["1x or 2x RS485 isolated"],
+        "protocols": ["Modbus RTU", "Modbus TCP", "MQTT"],
+        "software": ["local logic", "data logging", "alarm rules"],
+        "optional": ["separate wireless-uplink variant"]
+      }
+    },
+    {
+      "model_code": "IEIO-100",
+      "model_name": "Modbus Remote IO Module",
+      "priority": 1,
+      "role": "Wired Remote IO foundation product for Modbus IO, RS485 IO, Ethernet IO, SCADA IO and factory monitoring pages.",
+      "planned_specs": {
+        "network": ["RS485 baseline", "Ethernet variant optional"],
+        "io": ["IEIO-100-DI8: 8DI", "IEIO-100-DO8: 8DO/relay", "IEIO-100-AI4: 4AI", "IEIO-100-AO4: 4AO"],
+        "protocols": ["Modbus RTU", "Modbus TCP optional"],
+        "software": ["address setting", "baud rate setting", "IO status", "fail-safe output behavior"],
+        "optional": ["IEIO-100-MD44: 4DI + 4DO", "IEIO-100-MA44: 4AI + 4AO", "Ethernet variant"]
+      }
+    },
+    {
+      "model_code": "IEG-L100",
+      "model_name": "Industrial LoRaWAN Gateway",
+      "priority": 3,
+      "role": "LoRa gateway for agriculture, environmental monitoring, smart city, tank level and cold-chain wireless sensor networks.",
+      "planned_specs": {
+        "network": ["Ethernet backhaul"],
+        "wireless": ["LoRaWAN regional variants"],
+        "protocols": ["LoRaWAN", "MQTT/application integration"],
+        "installation": ["indoor gateway baseline", "outdoor IP-rated variant optional"],
+        "optional": ["PoE", "GPS", "built-in network server", "cloud connector"]
+      }
+    },
+    {
+      "model_code": "IEIO-L100",
+      "model_name": "LoRa Remote IO Node",
+      "priority": 5,
+      "role": "Wireless IO node that supports LoRa agriculture, environmental, street light, tank and distributed sensor solution pages.",
+      "planned_specs": {
+        "wireless": ["LoRa/LoRaWAN uplink"],
+        "io": ["DI", "AI for sensor signals", "relay/DO optional"],
+        "power": ["DC input baseline", "battery/solar option only after power budget validation"],
+        "software": ["reporting interval", "alarm reporting", "low-power mode optional"]
+      }
+    }
+  ],
+  "content_claim_policy": {
+    "safe_to_say_now": [
+      "IoTEdges is defining a self-developed industrial IoT product family around RTU, MQTT gateway, LoRa gateway, Remote IO and edge controller devices.",
+      "Ethernet-only 100-series models are the wired baseline products for sites with existing LAN, industrial Ethernet or SCADA networks.",
+      "The planned first-generation connectivity directions are 4G LTE, WiFi, LoRa/LoRaWAN, Ethernet and RS485.",
+      "4G LTE, WiFi and LoRa/LoRaWAN are planned as separate wireless uplink variants, not combined in the same device.",
+      "5G products are not part of the first-generation IoTEdges roadmap."
+    ],
+    "avoid_until_engineering_validation": [
+      "Exact IO channel counts",
+      "Exact LTE bands and country compatibility",
+      "Exact LoRa frequency variants and range",
+      "Exact operating temperature range",
+      "IP rating, CE, FCC, UL, ATEX, IECEx or other certifications",
+      "Security, VPN, TLS, OPC UA, BACnet, CAN or cloud-platform compatibility unless implemented and tested"
+    ]
+  },
+  "next_actions": [
+    "Use this file as the product baseline when generating SEO content and product page briefs.",
+    "Convert each priority model into an engineering requirements document before schematic and firmware work starts.",
+    "After prototypes are tested, replace planned specs with validated values in product-model-definition-draft.json and capability-check-matrix.json.",
+    "Keep 5G product topics out of navigation, product pages and first-year content production."
+  ]
+}

@@ -1,0 +1,2630 @@
+﻿{
+    "meta":  {
+                 "project":  "IoTEdges",
+                 "database":  "products-topic-database",
+                 "version":  "0.1.0",
+                 "last_updated":  "2026-06-08",
+                 "status":  "drafted",
+                 "purpose":  "Structured SEO topic database for industrial IoT product pages, product-solution mapping, internal linking, and future page generation."
+             },
+    "field_definitions":  {
+                              "id":  "Stable machine-readable identifier.",
+                              "title":  "Human-readable product page or product topic title.",
+                              "slug":  "Recommended URL slug under /products/.",
+                              "category":  "Product category cluster.",
+                              "parent":  "Parent product pillar or family.",
+                              "priority":  "SEO/business priority: P1, P2, or P3.",
+                              "search_intent":  "Primary search intent.",
+                              "modifiers":  "Keyword modifiers such as protocol, connectivity, interface, or application.",
+                              "protocols":  "Protocols and communication technologies to mention.",
+                              "interfaces":  "Physical or IO interfaces relevant to the product page.",
+                              "target_solutions":  "Solution categories or pages to internally link.",
+                              "related_knowledge":  "Knowledge base entities to link.",
+                              "content_status":  "Workflow status for content production.",
+                              "page_type":  "Recommended content type.",
+                              "notes":  "Planning notes for content generation."
+                          },
+    "topics":  [
+                   {
+                       "id":  "industrial-rtu",
+                       "title":  "Industrial RTU",
+                       "slug":  "industrial-rtu",
+                       "category":  "RTU",
+                       "parent":  null,
+                       "priority":  "P1",
+                       "search_intent":  "product/commercial",
+                       "modifiers":  [
+                                         "remote telemetry",
+                                         "SCADA",
+                                         "remote monitoring"
+                                     ],
+                       "protocols":  [
+                                         "Modbus RTU",
+                                         "Modbus TCP",
+                                         "MQTT",
+                                         "4G LTE",
+                                         "Ethernet"
+                                     ],
+                       "interfaces":  [
+                                          "RS485",
+                                          "RS232",
+                                          "DI",
+                                          "DO",
+                                          "AI",
+                                          "AO",
+                                          "Relay"
+                                      ],
+                       "target_solutions":  [
+                                                "Water \u0026 Wastewater",
+                                                "Oil, Gas \u0026 Pipeline",
+                                                "Energy \u0026 Power",
+                                                "Environmental Monitoring",
+                                                "Telecom \u0026 Remote Sites"
+                                            ],
+                       "related_knowledge":  [
+                                                 "RTU",
+                                                 "SCADA",
+                                                 "Modbus",
+                                                 "RS485",
+                                                 "Remote IO"
+                                             ],
+                       "content_status":  "not_started",
+                       "page_type":  "product_pillar",
+                       "notes":  "Core commercial pillar for remote telemetry, alarm monitoring, and SCADA data acquisition."
+                   },
+                   {
+                       "id":  "mqtt-gateway",
+                       "title":  "MQTT Gateway",
+                       "slug":  "mqtt-gateway",
+                       "category":  "Gateway",
+                       "parent":  null,
+                       "priority":  "P1",
+                       "search_intent":  "product/commercial",
+                       "modifiers":  [
+                                         "cloud connectivity",
+                                         "industrial IoT",
+                                         "Modbus to MQTT"
+                                     ],
+                       "protocols":  [
+                                         "MQTT",
+                                         "Modbus RTU",
+                                         "Modbus TCP",
+                                         "RS485",
+                                         "Ethernet",
+                                         "4G LTE"
+                                     ],
+                       "interfaces":  [
+                                          "RS485",
+                                          "RS232",
+                                          "Ethernet",
+                                          "DI",
+                                          "AI"
+                                      ],
+                       "target_solutions":  [
+                                                "Energy \u0026 Power",
+                                                "Solar \u0026 Renewables",
+                                                "Factory \u0026 Manufacturing",
+                                                "Building \u0026 Facility",
+                                                "OEM \u0026 Machine Builders"
+                                            ],
+                       "related_knowledge":  [
+                                                 "MQTT",
+                                                 "Modbus",
+                                                 "RS485",
+                                                 "IoT Gateway"
+                                             ],
+                       "content_status":  "not_started",
+                       "page_type":  "product_pillar",
+                       "notes":  "Core product page for connecting meters, PLCs, inverters, sensors, and equipment to cloud platforms."
+                   },
+                   {
+                       "id":  "lora-gateway",
+                       "title":  "LoRa Gateway",
+                       "slug":  "lora-gateway",
+                       "category":  "Gateway",
+                       "parent":  null,
+                       "priority":  "P1",
+                       "search_intent":  "product/commercial",
+                       "modifiers":  [
+                                         "long range wireless",
+                                         "LoRaWAN",
+                                         "outdoor monitoring"
+                                     ],
+                       "protocols":  [
+                                         "LoRaWAN",
+                                         "LoRa",
+                                         "MQTT",
+                                         "Ethernet"
+                                     ],
+                       "interfaces":  [
+                                          "Ethernet",
+                                          "Antenna",
+                                          "DI",
+                                          "AI"
+                                      ],
+                       "target_solutions":  [
+                                                "Agriculture \u0026 Aquaculture",
+                                                "Environmental Monitoring",
+                                                "Smart City \u0026 Infrastructure",
+                                                "Cold Chain \u0026 Storage",
+                                                "Water \u0026 Wastewater"
+                                            ],
+                       "related_knowledge":  [
+                                                 "LoRa",
+                                                 "LoRaWAN",
+                                                 "MQTT",
+                                                 "Wireless Sensor"
+                                             ],
+                       "content_status":  "not_started",
+                       "page_type":  "product_pillar",
+                       "notes":  "Core pillar for long-range, low-power sensor connectivity in distributed sites."
+                   },
+                   {
+                       "id":  "remote-io-module",
+                       "title":  "Remote IO Module",
+                       "slug":  "remote-io-module",
+                       "category":  "Remote IO",
+                       "parent":  null,
+                       "priority":  "P1",
+                       "search_intent":  "product/commercial",
+                       "modifiers":  [
+                                         "distributed IO",
+                                         "remote input output",
+                                         "SCADA IO"
+                                     ],
+                       "protocols":  [
+                                         "Modbus RTU",
+                                         "Modbus TCP",
+                                         "RS485",
+                                         "Ethernet",
+                                         "MQTT"
+                                     ],
+                       "interfaces":  [
+                                          "DI",
+                                          "DO",
+                                          "AI",
+                                          "AO",
+                                          "Relay",
+                                          "RS485"
+                                      ],
+                       "target_solutions":  [
+                                                "Factory \u0026 Manufacturing",
+                                                "Water \u0026 Wastewater",
+                                                "Building \u0026 Facility",
+                                                "Energy \u0026 Power",
+                                                "Environmental Monitoring"
+                                            ],
+                       "related_knowledge":  [
+                                                 "Remote IO",
+                                                 "Modbus",
+                                                 "Digital Input",
+                                                 "Analog Input",
+                                                 "SCADA"
+                                             ],
+                       "content_status":  "not_started",
+                       "page_type":  "product_pillar",
+                       "notes":  "Core pillar for distributed digital and analog signal collection and control."
+                   },
+                   {
+                       "id":  "edge-controller",
+                       "title":  "Edge Controller",
+                       "slug":  "edge-controller",
+                       "category":  "Edge Controller",
+                       "parent":  null,
+                       "priority":  "P1",
+                       "search_intent":  "product/commercial",
+                       "modifiers":  [
+                                         "edge computing",
+                                         "local automation",
+                                         "protocol conversion"
+                                     ],
+                       "protocols":  [
+                                         "MQTT",
+                                         "Modbus RTU",
+                                         "Modbus TCP",
+                                         "OPC UA",
+                                         "Ethernet"
+                                     ],
+                       "interfaces":  [
+                                          "RS485",
+                                          "RS232",
+                                          "Ethernet",
+                                          "DI",
+                                          "DO",
+                                          "AI",
+                                          "AO"
+                                      ],
+                       "target_solutions":  [
+                                                "Factory \u0026 Manufacturing",
+                                                "Energy \u0026 Power",
+                                                "Solar \u0026 Renewables",
+                                                "OEM \u0026 Machine Builders",
+                                                "Building \u0026 Facility"
+                                            ],
+                       "related_knowledge":  [
+                                                 "Edge Computing",
+                                                 "MQTT",
+                                                 "Modbus",
+                                                 "OPC UA",
+                                                 "PLC"
+                                             ],
+                       "content_status":  "not_started",
+                       "page_type":  "product_pillar",
+                       "notes":  "Core product page for local data processing, protocol conversion, alarms, and automation logic."
+                   },
+                   {
+                       "id":  "industrial-iot-gateway",
+                       "title":  "Industrial IoT Gateway",
+                       "slug":  "industrial-iot-gateway",
+                       "category":  "Gateway",
+                       "parent":  null,
+                       "priority":  "P1",
+                       "search_intent":  "product/commercial",
+                       "modifiers":  [
+                                         "IIoT gateway",
+                                         "industrial gateway",
+                                         "cloud gateway"
+                                     ],
+                       "protocols":  [
+                                         "MQTT",
+                                         "Modbus RTU",
+                                         "Modbus TCP",
+                                         "OPC UA",
+                                         "Ethernet",
+                                         "4G LTE"
+                                     ],
+                       "interfaces":  [
+                                          "RS485",
+                                          "RS232",
+                                          "Ethernet",
+                                          "DI",
+                                          "AI"
+                                      ],
+                       "target_solutions":  [
+                                                "Factory \u0026 Manufacturing",
+                                                "Energy \u0026 Power",
+                                                "Water \u0026 Wastewater",
+                                                "Solar \u0026 Renewables",
+                                                "OEM \u0026 Machine Builders"
+                                            ],
+                       "related_knowledge":  [
+                                                 "Industrial IoT",
+                                                 "MQTT",
+                                                 "Modbus",
+                                                 "OPC UA",
+                                                 "Edge Gateway"
+                                             ],
+                       "content_status":  "not_started",
+                       "page_type":  "product_pillar",
+                       "notes":  "Umbrella product pillar that should link to MQTT, Modbus, cellular, edge, and application-specific gateway pages."
+                   },
+                   {
+                       "id":  "modbus-gateway",
+                       "title":  "Modbus Gateway",
+                       "slug":  "modbus-gateway",
+                       "category":  "Gateway",
+                       "parent":  "Industrial IoT Gateway",
+                       "priority":  "P1",
+                       "search_intent":  "product/commercial",
+                       "modifiers":  [
+                                         "Modbus",
+                                         "protocol gateway",
+                                         "serial to Ethernet"
+                                     ],
+                       "protocols":  [
+                                         "Modbus RTU",
+                                         "Modbus TCP",
+                                         "RS485",
+                                         "Ethernet",
+                                         "MQTT"
+                                     ],
+                       "interfaces":  [
+                                          "RS485",
+                                          "RS232",
+                                          "Ethernet"
+                                      ],
+                       "target_solutions":  [
+                                                "Energy \u0026 Power",
+                                                "Solar \u0026 Renewables",
+                                                "Factory \u0026 Manufacturing",
+                                                "Water \u0026 Wastewater"
+                                            ],
+                       "related_knowledge":  [
+                                                 "Modbus",
+                                                 "RS485",
+                                                 "Modbus RTU",
+                                                 "Modbus TCP"
+                                             ],
+                       "content_status":  "not_started",
+                       "page_type":  "product_pillar",
+                       "notes":  "High-intent protocol product page; should link to Modbus RTU Gateway, Modbus TCP Gateway, and Modbus to MQTT Gateway."
+                   },
+                   {
+                       "id":  "cellular-iot-gateway",
+                       "title":  "Cellular IoT Gateway",
+                       "slug":  "cellular-iot-gateway",
+                       "category":  "Gateway",
+                       "parent":  "Industrial IoT Gateway",
+                       "priority":  "P1",
+                       "search_intent":  "product/commercial",
+                       "modifiers":  [
+                                         "4G",
+                                         "LTE",
+                                         "remote site",
+                                         "cellular"
+                                     ],
+                       "protocols":  [
+                                         "4G LTE",
+                                         "MQTT",
+                                         "Modbus RTU",
+                                         "Modbus TCP",
+                                         "Ethernet"
+                                     ],
+                       "interfaces":  [
+                                          "Cellular",
+                                          "RS485",
+                                          "Ethernet",
+                                          "DI",
+                                          "AI"
+                                      ],
+                       "target_solutions":  [
+                                                "Telecom \u0026 Remote Sites",
+                                                "Water \u0026 Wastewater",
+                                                "Oil, Gas \u0026 Pipeline",
+                                                "Environmental Monitoring",
+                                                "Solar \u0026 Renewables"
+                                            ],
+                       "related_knowledge":  [
+                                                 "4G LTE",
+                                                 "MQTT",
+                                                 "RTU",
+                                                 "Remote Monitoring"
+                                             ],
+                       "content_status":  "not_started",
+                       "page_type":  "product_pillar",
+                       "notes":  "High-conversion page for remote sites without wired internet."
+                   },
+                   {
+                       "id":  "serial-device-server",
+                       "title":  "Serial Device Server",
+                       "slug":  "serial-device-server",
+                       "category":  "Protocol Converter",
+                       "parent":  "Industrial IoT Gateway",
+                       "priority":  "P2",
+                       "search_intent":  "product/commercial",
+                       "modifiers":  [
+                                         "RS485 to Ethernet",
+                                         "RS232 to Ethernet",
+                                         "serial server"
+                                     ],
+                       "protocols":  [
+                                         "RS485",
+                                         "RS232",
+                                         "TCP/IP",
+                                         "Modbus RTU",
+                                         "Modbus TCP"
+                                     ],
+                       "interfaces":  [
+                                          "RS485",
+                                          "RS232",
+                                          "Ethernet"
+                                      ],
+                       "target_solutions":  [
+                                                "Factory \u0026 Manufacturing",
+                                                "Energy \u0026 Power",
+                                                "Building \u0026 Facility"
+                                            ],
+                       "related_knowledge":  [
+                                                 "RS485",
+                                                 "RS232",
+                                                 "Modbus",
+                                                 "Serial Communication"
+                                             ],
+                       "content_status":  "not_started",
+                       "page_type":  "product_page",
+                       "notes":  "Useful supporting product keyword for industrial serial device networking."
+                   },
+                   {
+                       "id":  "protocol-converter",
+                       "title":  "Protocol Converter",
+                       "slug":  "protocol-converter",
+                       "category":  "Protocol Converter",
+                       "parent":  "Industrial IoT Gateway",
+                       "priority":  "P2",
+                       "search_intent":  "product/commercial",
+                       "modifiers":  [
+                                         "industrial protocol converter",
+                                         "gateway converter",
+                                         "protocol bridge"
+                                     ],
+                       "protocols":  [
+                                         "Modbus RTU",
+                                         "Modbus TCP",
+                                         "MQTT",
+                                         "OPC UA",
+                                         "RS485",
+                                         "Ethernet"
+                                     ],
+                       "interfaces":  [
+                                          "RS485",
+                                          "RS232",
+                                          "Ethernet"
+                                      ],
+                       "target_solutions":  [
+                                                "Factory \u0026 Manufacturing",
+                                                "Energy \u0026 Power",
+                                                "OEM \u0026 Machine Builders",
+                                                "Building \u0026 Facility"
+                                            ],
+                       "related_knowledge":  [
+                                                 "Protocol Converter",
+                                                 "Modbus",
+                                                 "MQTT",
+                                                 "OPC UA",
+                                                 "PLC"
+                                             ],
+                       "content_status":  "not_started",
+                       "page_type":  "product_pillar",
+                       "notes":  "Bridge page for protocol-based SEO and comparison articles."
+                   },
+                   {
+                       "id":  "data-acquisition-gateway",
+                       "title":  "Data Acquisition Gateway",
+                       "slug":  "data-acquisition-gateway",
+                       "category":  "Gateway",
+                       "parent":  "Industrial IoT Gateway",
+                       "priority":  "P2",
+                       "search_intent":  "product/commercial",
+                       "modifiers":  [
+                                         "data acquisition",
+                                         "DAQ gateway",
+                                         "sensor data collection"
+                                     ],
+                       "protocols":  [
+                                         "Modbus RTU",
+                                         "Modbus TCP",
+                                         "MQTT",
+                                         "RS485",
+                                         "Ethernet"
+                                     ],
+                       "interfaces":  [
+                                          "RS485",
+                                          "DI",
+                                          "DO",
+                                          "AI",
+                                          "AO",
+                                          "Ethernet"
+                                      ],
+                       "target_solutions":  [
+                                                "Factory \u0026 Manufacturing",
+                                                "Energy \u0026 Power",
+                                                "Environmental Monitoring",
+                                                "Water \u0026 Wastewater"
+                                            ],
+                       "related_knowledge":  [
+                                                 "Data Acquisition",
+                                                 "Remote IO",
+                                                 "MQTT",
+                                                 "Modbus"
+                                             ],
+                       "content_status":  "not_started",
+                       "page_type":  "product_page",
+                       "notes":  "Good page for sensor and meter data collection searches."
+                   },
+                   {
+                       "id":  "industrial-router",
+                       "title":  "Industrial Router",
+                       "slug":  "industrial-router",
+                       "category":  "Router",
+                       "parent":  "Cellular IoT Gateway",
+                       "priority":  "P2",
+                       "search_intent":  "product/commercial",
+                       "modifiers":  [
+                                         "4G router",
+                                         "industrial cellular router",
+                                         "remote networking"
+                                     ],
+                       "protocols":  [
+                                         "4G LTE",
+                                         "Ethernet",
+                                         "VPN",
+                                         "MQTT",
+                                         "Modbus TCP"
+                                     ],
+                       "interfaces":  [
+                                          "Cellular",
+                                          "Ethernet",
+                                          "RS485"
+                                      ],
+                       "target_solutions":  [
+                                                "Telecom \u0026 Remote Sites",
+                                                "Oil, Gas \u0026 Pipeline",
+                                                "Water \u0026 Wastewater",
+                                                "Solar \u0026 Renewables"
+                                            ],
+                       "related_knowledge":  [
+                                                 "4G LTE",
+                                                 "VPN",
+                                                 "Industrial Router",
+                                                 "Remote Monitoring"
+                                             ],
+                       "content_status":  "not_started",
+                       "page_type":  "product_page",
+                       "notes":  "Use only if router behavior is a real product feature."
+                   },
+                   {
+                       "id":  "iiot-edge-gateway",
+                       "title":  "IIoT Edge Gateway",
+                       "slug":  "iiot-edge-gateway",
+                       "category":  "Gateway",
+                       "parent":  "Industrial IoT Gateway",
+                       "priority":  "P2",
+                       "search_intent":  "product/commercial",
+                       "modifiers":  [
+                                         "IIoT",
+                                         "edge gateway",
+                                         "industrial edge"
+                                     ],
+                       "protocols":  [
+                                         "MQTT",
+                                         "Modbus RTU",
+                                         "Modbus TCP",
+                                         "OPC UA",
+                                         "Ethernet"
+                                     ],
+                       "interfaces":  [
+                                          "RS485",
+                                          "Ethernet",
+                                          "DI",
+                                          "AI"
+                                      ],
+                       "target_solutions":  [
+                                                "Factory \u0026 Manufacturing",
+                                                "OEM \u0026 Machine Builders",
+                                                "Energy \u0026 Power"
+                                            ],
+                       "related_knowledge":  [
+                                                 "Industrial IoT",
+                                                 "Edge Gateway",
+                                                 "MQTT",
+                                                 "OPC UA"
+                                             ],
+                       "content_status":  "not_started",
+                       "page_type":  "product_page",
+                       "notes":  "Enterprise wording version of industrial IoT gateway and edge controller."
+                   },
+                   {
+                       "id":  "modbus-rtu-gateway",
+                       "title":  "Modbus RTU Gateway",
+                       "slug":  "modbus-rtu-gateway",
+                       "category":  "Protocol-Based Gateway",
+                       "parent":  "Modbus Gateway",
+                       "priority":  "P1",
+                       "search_intent":  "product/commercial",
+                       "modifiers":  [
+                                         "Modbus RTU",
+                                         "RS485",
+                                         "serial"
+                                     ],
+                       "protocols":  [
+                                         "Modbus RTU",
+                                         "RS485",
+                                         "MQTT",
+                                         "Modbus TCP"
+                                     ],
+                       "interfaces":  [
+                                          "RS485",
+                                          "RS232",
+                                          "Ethernet"
+                                      ],
+                       "target_solutions":  [
+                                                "Energy \u0026 Power",
+                                                "Solar \u0026 Renewables",
+                                                "Factory \u0026 Manufacturing",
+                                                "Water \u0026 Wastewater"
+                                            ],
+                       "related_knowledge":  [
+                                                 "Modbus RTU",
+                                                 "RS485",
+                                                 "Modbus Gateway"
+                                             ],
+                       "content_status":  "not_started",
+                       "page_type":  "product_page",
+                       "notes":  "Important long-tail product page for RS485 Modbus device connectivity."
+                   },
+                   {
+                       "id":  "modbus-tcp-gateway",
+                       "title":  "Modbus TCP Gateway",
+                       "slug":  "modbus-tcp-gateway",
+                       "category":  "Protocol-Based Gateway",
+                       "parent":  "Modbus Gateway",
+                       "priority":  "P1",
+                       "search_intent":  "product/commercial",
+                       "modifiers":  [
+                                         "Modbus TCP",
+                                         "Ethernet",
+                                         "TCP/IP"
+                                     ],
+                       "protocols":  [
+                                         "Modbus TCP",
+                                         "Ethernet",
+                                         "Modbus RTU",
+                                         "MQTT"
+                                     ],
+                       "interfaces":  [
+                                          "Ethernet",
+                                          "RS485"
+                                      ],
+                       "target_solutions":  [
+                                                "Energy \u0026 Power",
+                                                "Factory \u0026 Manufacturing",
+                                                "Building \u0026 Facility"
+                                            ],
+                       "related_knowledge":  [
+                                                 "Modbus TCP",
+                                                 "Ethernet",
+                                                 "Modbus Gateway"
+                                             ],
+                       "content_status":  "not_started",
+                       "page_type":  "product_page",
+                       "notes":  "Should explain Modbus TCP polling, Ethernet devices, and protocol bridging."
+                   },
+                   {
+                       "id":  "modbus-to-mqtt-gateway",
+                       "title":  "Modbus to MQTT Gateway",
+                       "slug":  "modbus-to-mqtt-gateway",
+                       "category":  "Protocol-Based Gateway",
+                       "parent":  "MQTT Gateway",
+                       "priority":  "P1",
+                       "search_intent":  "product/commercial",
+                       "modifiers":  [
+                                         "Modbus to MQTT",
+                                         "cloud gateway",
+                                         "protocol conversion"
+                                     ],
+                       "protocols":  [
+                                         "Modbus RTU",
+                                         "Modbus TCP",
+                                         "MQTT",
+                                         "RS485",
+                                         "Ethernet"
+                                     ],
+                       "interfaces":  [
+                                          "RS485",
+                                          "RS232",
+                                          "Ethernet"
+                                      ],
+                       "target_solutions":  [
+                                                "Energy \u0026 Power",
+                                                "Solar \u0026 Renewables",
+                                                "Factory \u0026 Manufacturing",
+                                                "Building \u0026 Facility",
+                                                "OEM \u0026 Machine Builders"
+                                            ],
+                       "related_knowledge":  [
+                                                 "Modbus to MQTT",
+                                                 "MQTT",
+                                                 "Modbus",
+                                                 "RS485"
+                                             ],
+                       "content_status":  "not_started",
+                       "page_type":  "product_page",
+                       "notes":  "One of the most important SEO conversion pages for IoTEdges."
+                   },
+                   {
+                       "id":  "rs485-to-mqtt-gateway",
+                       "title":  "RS485 to MQTT Gateway",
+                       "slug":  "rs485-to-mqtt-gateway",
+                       "category":  "Protocol-Based Gateway",
+                       "parent":  "MQTT Gateway",
+                       "priority":  "P1",
+                       "search_intent":  "product/commercial",
+                       "modifiers":  [
+                                         "RS485 to MQTT",
+                                         "serial to cloud",
+                                         "Modbus to cloud"
+                                     ],
+                       "protocols":  [
+                                         "RS485",
+                                         "Modbus RTU",
+                                         "MQTT",
+                                         "4G LTE",
+                                         "Ethernet"
+                                     ],
+                       "interfaces":  [
+                                          "RS485",
+                                          "Ethernet",
+                                          "Cellular"
+                                      ],
+                       "target_solutions":  [
+                                                "Energy \u0026 Power",
+                                                "Solar \u0026 Renewables",
+                                                "Factory \u0026 Manufacturing",
+                                                "Water \u0026 Wastewater"
+                                            ],
+                       "related_knowledge":  [
+                                                 "RS485",
+                                                 "MQTT",
+                                                 "Modbus RTU",
+                                                 "Serial Communication"
+                                             ],
+                       "content_status":  "not_started",
+                       "page_type":  "product_page",
+                       "notes":  "Close sibling of Modbus to MQTT Gateway; can target engineers searching by physical bus."
+                   },
+                   {
+                       "id":  "rs485-gateway",
+                       "title":  "RS485 Gateway",
+                       "slug":  "rs485-gateway",
+                       "category":  "Protocol-Based Gateway",
+                       "parent":  "Industrial IoT Gateway",
+                       "priority":  "P1",
+                       "search_intent":  "product/commercial",
+                       "modifiers":  [
+                                         "RS485",
+                                         "serial gateway",
+                                         "industrial serial"
+                                     ],
+                       "protocols":  [
+                                         "RS485",
+                                         "Modbus RTU",
+                                         "MQTT",
+                                         "Modbus TCP",
+                                         "Ethernet"
+                                     ],
+                       "interfaces":  [
+                                          "RS485",
+                                          "RS232",
+                                          "Ethernet"
+                                      ],
+                       "target_solutions":  [
+                                                "Energy \u0026 Power",
+                                                "Factory \u0026 Manufacturing",
+                                                "Solar \u0026 Renewables",
+                                                "Water \u0026 Wastewater"
+                                            ],
+                       "related_knowledge":  [
+                                                 "RS485",
+                                                 "Modbus RTU",
+                                                 "Serial Communication"
+                                             ],
+                       "content_status":  "not_started",
+                       "page_type":  "product_page",
+                       "notes":  "Strong protocol and interface keyword page."
+                   },
+                   {
+                       "id":  "rs232-to-ethernet-gateway",
+                       "title":  "RS232 to Ethernet Gateway",
+                       "slug":  "rs232-to-ethernet-gateway",
+                       "category":  "Protocol-Based Gateway",
+                       "parent":  "Serial Device Server",
+                       "priority":  "P2",
+                       "search_intent":  "product/commercial",
+                       "modifiers":  [
+                                         "RS232 to Ethernet",
+                                         "serial device server"
+                                     ],
+                       "protocols":  [
+                                         "RS232",
+                                         "TCP/IP",
+                                         "Ethernet",
+                                         "Modbus RTU",
+                                         "Modbus TCP"
+                                     ],
+                       "interfaces":  [
+                                          "RS232",
+                                          "Ethernet"
+                                      ],
+                       "target_solutions":  [
+                                                "Factory \u0026 Manufacturing",
+                                                "Building \u0026 Facility"
+                                            ],
+                       "related_knowledge":  [
+                                                 "RS232",
+                                                 "Ethernet",
+                                                 "Serial Device Server"
+                                             ],
+                       "content_status":  "not_started",
+                       "page_type":  "product_page",
+                       "notes":  "Secondary but useful for legacy equipment networking."
+                   },
+                   {
+                       "id":  "opc-ua-gateway",
+                       "title":  "OPC UA Gateway",
+                       "slug":  "opc-ua-gateway",
+                       "category":  "Protocol-Based Gateway",
+                       "parent":  "Protocol Converter",
+                       "priority":  "P2",
+                       "search_intent":  "product/commercial",
+                       "modifiers":  [
+                                         "OPC UA",
+                                         "factory data",
+                                         "industrial interoperability"
+                                     ],
+                       "protocols":  [
+                                         "OPC UA",
+                                         "Modbus TCP",
+                                         "Modbus RTU",
+                                         "MQTT",
+                                         "Ethernet"
+                                     ],
+                       "interfaces":  [
+                                          "Ethernet",
+                                          "RS485"
+                                      ],
+                       "target_solutions":  [
+                                                "Factory \u0026 Manufacturing",
+                                                "OEM \u0026 Machine Builders",
+                                                "Energy \u0026 Power"
+                                            ],
+                       "related_knowledge":  [
+                                                 "OPC UA",
+                                                 "PLC",
+                                                 "MQTT",
+                                                 "Modbus"
+                                             ],
+                       "content_status":  "not_started",
+                       "page_type":  "product_page",
+                       "notes":  "Publish only with accurate feature wording if OPC UA support is confirmed."
+                   },
+                   {
+                       "id":  "plc-to-mqtt-gateway",
+                       "title":  "PLC to MQTT Gateway",
+                       "slug":  "plc-to-mqtt-gateway",
+                       "category":  "Protocol-Based Gateway",
+                       "parent":  "MQTT Gateway",
+                       "priority":  "P2",
+                       "search_intent":  "product/commercial",
+                       "modifiers":  [
+                                         "PLC to MQTT",
+                                         "PLC cloud connectivity"
+                                     ],
+                       "protocols":  [
+                                         "MQTT",
+                                         "Modbus TCP",
+                                         "Modbus RTU",
+                                         "OPC UA",
+                                         "Ethernet"
+                                     ],
+                       "interfaces":  [
+                                          "Ethernet",
+                                          "RS485"
+                                      ],
+                       "target_solutions":  [
+                                                "Factory \u0026 Manufacturing",
+                                                "OEM \u0026 Machine Builders"
+                                            ],
+                       "related_knowledge":  [
+                                                 "PLC",
+                                                 "MQTT",
+                                                 "OPC UA",
+                                                 "Modbus"
+                                             ],
+                       "content_status":  "not_started",
+                       "page_type":  "product_page",
+                       "notes":  "Good bridge between product and knowledge base content."
+                   },
+                   {
+                       "id":  "mqtt-edge-gateway",
+                       "title":  "MQTT Edge Gateway",
+                       "slug":  "mqtt-edge-gateway",
+                       "category":  "Protocol-Based Gateway",
+                       "parent":  "MQTT Gateway",
+                       "priority":  "P1",
+                       "search_intent":  "product/commercial",
+                       "modifiers":  [
+                                         "MQTT edge",
+                                         "edge gateway",
+                                         "industrial cloud gateway"
+                                     ],
+                       "protocols":  [
+                                         "MQTT",
+                                         "Modbus RTU",
+                                         "Modbus TCP",
+                                         "Ethernet",
+                                         "4G LTE"
+                                     ],
+                       "interfaces":  [
+                                          "RS485",
+                                          "Ethernet",
+                                          "DI",
+                                          "AI"
+                                      ],
+                       "target_solutions":  [
+                                                "Factory \u0026 Manufacturing",
+                                                "Energy \u0026 Power",
+                                                "OEM \u0026 Machine Builders",
+                                                "Building \u0026 Facility"
+                                            ],
+                       "related_knowledge":  [
+                                                 "MQTT",
+                                                 "Edge Gateway",
+                                                 "Modbus",
+                                                 "Industrial IoT"
+                                             ],
+                       "content_status":  "not_started",
+                       "page_type":  "product_page",
+                       "notes":  "Commercial wording for MQTT gateway with local edge processing."
+                   },
+                   {
+                       "id":  "bacnet-gateway",
+                       "title":  "BACnet Gateway",
+                       "slug":  "bacnet-gateway",
+                       "category":  "Protocol-Based Gateway",
+                       "parent":  "Protocol Converter",
+                       "priority":  "Out of scope",
+                       "search_intent":  "product/commercial",
+                       "modifiers":  [
+                                         "BACnet",
+                                         "building automation"
+                                     ],
+                       "protocols":  [
+                                         "BACnet",
+                                         "Modbus RTU",
+                                         "Modbus TCP",
+                                         "MQTT",
+                                         "Ethernet"
+                                     ],
+                       "interfaces":  [
+                                          "Ethernet",
+                                          "RS485"
+                                      ],
+                       "target_solutions":  [
+                                                "Building \u0026 Facility",
+                                                "Energy \u0026 Power"
+                                            ],
+                       "related_knowledge":  [
+                                                 "BACnet",
+                                                 "Building Automation",
+                                                 "Modbus",
+                                                 "MQTT"
+                                             ],
+                       "content_status":  "not_started",
+                       "page_type":  "candidate_product_page",
+                       "notes":  "Candidate only; verify product capability before publishing."
+                   },
+                   {
+                       "id":  "can-bus-gateway",
+                       "title":  "CAN Bus Gateway",
+                       "slug":  "can-bus-gateway",
+                       "category":  "Protocol-Based Gateway",
+                       "parent":  "Protocol Converter",
+                       "priority":  "P3",
+                       "search_intent":  "product/commercial",
+                       "modifiers":  [
+                                         "CAN bus",
+                                         "machine gateway"
+                                     ],
+                       "protocols":  [
+                                         "CAN",
+                                         "MQTT",
+                                         "Modbus TCP",
+                                         "Ethernet"
+                                     ],
+                       "interfaces":  [
+                                          "CAN",
+                                          "Ethernet"
+                                      ],
+                       "target_solutions":  [
+                                                "OEM \u0026 Machine Builders",
+                                                "Factory \u0026 Manufacturing"
+                                            ],
+                       "related_knowledge":  [
+                                                 "CAN Bus",
+                                                 "MQTT",
+                                                 "Protocol Converter"
+                                             ],
+                       "content_status":  "not_started",
+                       "page_type":  "candidate_product_page",
+                       "notes":  "Candidate only; publish if CAN interface is confirmed."
+                   },
+                   {
+                       "id":  "ethernet-ip-gateway",
+                       "title":  "EtherNet/IP Gateway",
+                       "slug":  "ethernet-ip-gateway",
+                       "category":  "Protocol-Based Gateway",
+                       "parent":  "Protocol Converter",
+                       "priority":  "P3",
+                       "search_intent":  "product/commercial",
+                       "modifiers":  [
+                                         "EtherNet/IP",
+                                         "PLC gateway"
+                                     ],
+                       "protocols":  [
+                                         "EtherNet/IP",
+                                         "Modbus TCP",
+                                         "MQTT",
+                                         "Ethernet"
+                                     ],
+                       "interfaces":  [
+                                          "Ethernet"
+                                      ],
+                       "target_solutions":  [
+                                                "Factory \u0026 Manufacturing",
+                                                "OEM \u0026 Machine Builders"
+                                            ],
+                       "related_knowledge":  [
+                                                 "EtherNet/IP",
+                                                 "PLC",
+                                                 "Protocol Converter"
+                                             ],
+                       "content_status":  "not_started",
+                       "page_type":  "candidate_product_page",
+                       "notes":  "Candidate only; verify product support before publishing."
+                   },
+                   {
+                       "id":  "4g-rtu",
+                       "title":  "4G RTU",
+                       "slug":  "4g-rtu",
+                       "category":  "Connectivity-Based RTU",
+                       "parent":  "Industrial RTU",
+                       "priority":  "P1",
+                       "search_intent":  "product/commercial",
+                       "modifiers":  [
+                                         "4G",
+                                         "remote site",
+                                         "cellular"
+                                     ],
+                       "protocols":  [
+                                         "4G LTE",
+                                         "MQTT",
+                                         "Modbus RTU",
+                                         "RS485"
+                                     ],
+                       "interfaces":  [
+                                          "Cellular",
+                                          "RS485",
+                                          "DI",
+                                          "DO",
+                                          "AI",
+                                          "Relay"
+                                      ],
+                       "target_solutions":  [
+                                                "Water \u0026 Wastewater",
+                                                "Oil, Gas \u0026 Pipeline",
+                                                "Telecom \u0026 Remote Sites",
+                                                "Environmental Monitoring"
+                                            ],
+                       "related_knowledge":  [
+                                                 "RTU",
+                                                 "4G LTE",
+                                                 "SCADA",
+                                                 "Remote Monitoring"
+                                             ],
+                       "content_status":  "not_started",
+                       "page_type":  "product_page",
+                       "notes":  "High-priority page for remote monitoring where wired internet is unavailable."
+                   },
+                   {
+                       "id":  "lte-rtu",
+                       "title":  "LTE RTU",
+                       "slug":  "lte-rtu",
+                       "category":  "Connectivity-Based RTU",
+                       "parent":  "Industrial RTU",
+                       "priority":  "P1",
+                       "search_intent":  "product/commercial",
+                       "modifiers":  [
+                                         "LTE",
+                                         "cellular",
+                                         "remote telemetry"
+                                     ],
+                       "protocols":  [
+                                         "4G LTE",
+                                         "MQTT",
+                                         "Modbus RTU",
+                                         "RS485"
+                                     ],
+                       "interfaces":  [
+                                          "Cellular",
+                                          "RS485",
+                                          "DI",
+                                          "AI",
+                                          "Relay"
+                                      ],
+                       "target_solutions":  [
+                                                "Water \u0026 Wastewater",
+                                                "Oil, Gas \u0026 Pipeline",
+                                                "Telecom \u0026 Remote Sites"
+                                            ],
+                       "related_knowledge":  [
+                                                 "LTE",
+                                                 "RTU",
+                                                 "MQTT",
+                                                 "Remote Monitoring"
+                                             ],
+                       "content_status":  "not_started",
+                       "page_type":  "product_page",
+                       "notes":  "Could canonicalize or internally link closely with 4G RTU depending on page strategy."
+                   },
+                   {
+                       "id":  "cellular-rtu",
+                       "title":  "Cellular RTU",
+                       "slug":  "cellular-rtu",
+                       "category":  "Connectivity-Based RTU",
+                       "parent":  "Industrial RTU",
+                       "priority":  "P1",
+                       "search_intent":  "product/commercial",
+                       "modifiers":  [
+                                         "cellular",
+                                         "remote telemetry",
+                                         "wireless RTU"
+                                     ],
+                       "protocols":  [
+                                         "4G LTE",
+                                         "MQTT",
+                                         "Modbus RTU",
+                                         "RS485"
+                                     ],
+                       "interfaces":  [
+                                          "Cellular",
+                                          "RS485",
+                                          "DI",
+                                          "AI",
+                                          "Relay"
+                                      ],
+                       "target_solutions":  [
+                                                "Water \u0026 Wastewater",
+                                                "Oil, Gas \u0026 Pipeline",
+                                                "Telecom \u0026 Remote Sites",
+                                                "Solar \u0026 Renewables"
+                                            ],
+                       "related_knowledge":  [
+                                                 "Cellular IoT",
+                                                 "RTU",
+                                                 "4G LTE",
+                                                 "MQTT"
+                                             ],
+                       "content_status":  "not_started",
+                       "page_type":  "product_page",
+                       "notes":  "Commercial synonym page for 4G RTU and LTE RTU searches."
+                   },
+                   {
+                       "id":  "ethernet-rtu",
+                       "title":  "Ethernet RTU",
+                       "slug":  "ethernet-rtu",
+                       "category":  "Connectivity-Based RTU",
+                       "parent":  "Industrial RTU",
+                       "priority":  "P2",
+                       "search_intent":  "product/commercial",
+                       "modifiers":  [
+                                         "Ethernet",
+                                         "LAN",
+                                         "SCADA"
+                                     ],
+                       "protocols":  [
+                                         "Ethernet",
+                                         "Modbus TCP",
+                                         "MQTT",
+                                         "Modbus RTU"
+                                     ],
+                       "interfaces":  [
+                                          "Ethernet",
+                                          "RS485",
+                                          "DI",
+                                          "AI"
+                                      ],
+                       "target_solutions":  [
+                                                "Factory \u0026 Manufacturing",
+                                                "Building \u0026 Facility",
+                                                "Energy \u0026 Power"
+                                            ],
+                       "related_knowledge":  [
+                                                 "Ethernet",
+                                                 "RTU",
+                                                 "Modbus TCP",
+                                                 "SCADA"
+                                             ],
+                       "content_status":  "not_started",
+                       "page_type":  "product_page",
+                       "notes":  "Good fit for local plant, building, and cabinet deployments."
+                   },
+                   {
+                       "id":  "wifi-rtu",
+                       "title":  "WiFi RTU",
+                       "slug":  "wifi-rtu",
+                       "category":  "Connectivity-Based RTU",
+                       "parent":  "Industrial RTU",
+                       "priority":  "P2",
+                       "search_intent":  "product/commercial",
+                       "modifiers":  [
+                                         "WiFi",
+                                         "wireless",
+                                         "local network"
+                                     ],
+                       "protocols":  [
+                                         "WiFi",
+                                         "MQTT",
+                                         "Modbus RTU",
+                                         "Modbus TCP"
+                                     ],
+                       "interfaces":  [
+                                          "WiFi",
+                                          "RS485",
+                                          "DI",
+                                          "AI"
+                                      ],
+                       "target_solutions":  [
+                                                "Building \u0026 Facility",
+                                                "Factory \u0026 Manufacturing",
+                                                "Agriculture \u0026 Aquaculture"
+                                            ],
+                       "related_knowledge":  [
+                                                 "WiFi",
+                                                 "RTU",
+                                                 "MQTT",
+                                                 "Wireless Monitoring"
+                                             ],
+                       "content_status":  "not_started",
+                       "page_type":  "product_page",
+                       "notes":  "Publish only if WiFi RTU is a real supported configuration."
+                   },
+                   {
+                       "id":  "lora-rtu",
+                       "title":  "LoRa RTU",
+                       "slug":  "lora-rtu",
+                       "category":  "Connectivity-Based RTU",
+                       "parent":  "Industrial RTU",
+                       "priority":  "P2",
+                       "search_intent":  "product/commercial",
+                       "modifiers":  [
+                                         "LoRa",
+                                         "wireless RTU",
+                                         "long range"
+                                     ],
+                       "protocols":  [
+                                         "LoRa",
+                                         "LoRaWAN",
+                                         "Modbus RTU",
+                                         "MQTT"
+                                     ],
+                       "interfaces":  [
+                                          "LoRa",
+                                          "RS485",
+                                          "DI",
+                                          "AI"
+                                      ],
+                       "target_solutions":  [
+                                                "Agriculture \u0026 Aquaculture",
+                                                "Environmental Monitoring",
+                                                "Water \u0026 Wastewater",
+                                                "Smart City \u0026 Infrastructure"
+                                            ],
+                       "related_knowledge":  [
+                                                 "LoRa",
+                                                 "LoRaWAN",
+                                                 "RTU",
+                                                 "Wireless Monitoring"
+                                             ],
+                       "content_status":  "not_started",
+                       "page_type":  "product_page",
+                       "notes":  "Useful wireless RTU keyword if product line supports LoRa uplink."
+                   },
+                   {
+                       "id":  "4g-mqtt-gateway",
+                       "title":  "4G MQTT Gateway",
+                       "slug":  "4g-mqtt-gateway",
+                       "category":  "Connectivity-Based Gateway",
+                       "parent":  "MQTT Gateway",
+                       "priority":  "P1",
+                       "search_intent":  "product/commercial",
+                       "modifiers":  [
+                                         "4G",
+                                         "MQTT",
+                                         "remote cloud"
+                                     ],
+                       "protocols":  [
+                                         "4G LTE",
+                                         "MQTT",
+                                         "Modbus RTU",
+                                         "Modbus TCP",
+                                         "RS485"
+                                     ],
+                       "interfaces":  [
+                                          "Cellular",
+                                          "RS485",
+                                          "Ethernet"
+                                      ],
+                       "target_solutions":  [
+                                                "Water \u0026 Wastewater",
+                                                "Solar \u0026 Renewables",
+                                                "Oil, Gas \u0026 Pipeline",
+                                                "Telecom \u0026 Remote Sites"
+                                            ],
+                       "related_knowledge":  [
+                                                 "MQTT",
+                                                 "4G LTE",
+                                                 "Modbus to MQTT",
+                                                 "Remote Monitoring"
+                                             ],
+                       "content_status":  "not_started",
+                       "page_type":  "product_page",
+                       "notes":  "High-priority product page for cloud-connected remote industrial sites."
+                   },
+                   {
+                       "id":  "lte-mqtt-gateway",
+                       "title":  "LTE MQTT Gateway",
+                       "slug":  "lte-mqtt-gateway",
+                       "category":  "Connectivity-Based Gateway",
+                       "parent":  "MQTT Gateway",
+                       "priority":  "P1",
+                       "search_intent":  "product/commercial",
+                       "modifiers":  [
+                                         "LTE",
+                                         "MQTT",
+                                         "cellular gateway"
+                                     ],
+                       "protocols":  [
+                                         "4G LTE",
+                                         "MQTT",
+                                         "Modbus RTU",
+                                         "Modbus TCP",
+                                         "RS485"
+                                     ],
+                       "interfaces":  [
+                                          "Cellular",
+                                          "RS485",
+                                          "Ethernet"
+                                      ],
+                       "target_solutions":  [
+                                                "Telecom \u0026 Remote Sites",
+                                                "Water \u0026 Wastewater",
+                                                "Solar \u0026 Renewables"
+                                            ],
+                       "related_knowledge":  [
+                                                 "LTE",
+                                                 "MQTT",
+                                                 "Modbus",
+                                                 "Cellular IoT"
+                                             ],
+                       "content_status":  "not_started",
+                       "page_type":  "product_page",
+                       "notes":  "Close synonym page for 4G MQTT Gateway."
+                   },
+                   {
+                       "id":  "wifi-mqtt-gateway",
+                       "title":  "WiFi MQTT Gateway",
+                       "slug":  "wifi-mqtt-gateway",
+                       "category":  "Connectivity-Based Gateway",
+                       "parent":  "MQTT Gateway",
+                       "priority":  "P2",
+                       "search_intent":  "product/commercial",
+                       "modifiers":  [
+                                         "WiFi",
+                                         "MQTT",
+                                         "wireless gateway"
+                                     ],
+                       "protocols":  [
+                                         "WiFi",
+                                         "MQTT",
+                                         "Modbus RTU",
+                                         "Modbus TCP"
+                                     ],
+                       "interfaces":  [
+                                          "WiFi",
+                                          "RS485",
+                                          "Ethernet"
+                                      ],
+                       "target_solutions":  [
+                                                "Building \u0026 Facility",
+                                                "Factory \u0026 Manufacturing",
+                                                "Energy \u0026 Power"
+                                            ],
+                       "related_knowledge":  [
+                                                 "WiFi",
+                                                 "MQTT",
+                                                 "Modbus"
+                                             ],
+                       "content_status":  "not_started",
+                       "page_type":  "product_page",
+                       "notes":  "Publish only if WiFi gateway is a real product option."
+                   },
+                   {
+                       "id":  "ethernet-mqtt-gateway",
+                       "title":  "Ethernet MQTT Gateway",
+                       "slug":  "ethernet-mqtt-gateway",
+                       "category":  "Connectivity-Based Gateway",
+                       "parent":  "MQTT Gateway",
+                       "priority":  "P2",
+                       "search_intent":  "product/commercial",
+                       "modifiers":  [
+                                         "Ethernet",
+                                         "MQTT",
+                                         "LAN gateway"
+                                     ],
+                       "protocols":  [
+                                         "Ethernet",
+                                         "MQTT",
+                                         "Modbus RTU",
+                                         "Modbus TCP"
+                                     ],
+                       "interfaces":  [
+                                          "Ethernet",
+                                          "RS485"
+                                      ],
+                       "target_solutions":  [
+                                                "Factory \u0026 Manufacturing",
+                                                "Energy \u0026 Power",
+                                                "Building \u0026 Facility"
+                                            ],
+                       "related_knowledge":  [
+                                                 "Ethernet",
+                                                 "MQTT",
+                                                 "Modbus TCP"
+                                             ],
+                       "content_status":  "not_started",
+                       "page_type":  "product_page",
+                       "notes":  "Good for factories and buildings with stable LAN connections."
+                   },
+                   {
+                       "id":  "lora-mqtt-gateway",
+                       "title":  "LoRa MQTT Gateway",
+                       "slug":  "lora-mqtt-gateway",
+                       "category":  "Connectivity-Based Gateway",
+                       "parent":  "LoRa Gateway",
+                       "priority":  "P2",
+                       "search_intent":  "product/commercial",
+                       "modifiers":  [
+                                         "LoRa to MQTT",
+                                         "LoRaWAN MQTT",
+                                         "wireless sensors"
+                                     ],
+                       "protocols":  [
+                                         "LoRaWAN",
+                                         "LoRa",
+                                         "MQTT",
+                                         "Ethernet"
+                                     ],
+                       "interfaces":  [
+                                          "LoRa",
+                                          "Ethernet"
+                                      ],
+                       "target_solutions":  [
+                                                "Agriculture \u0026 Aquaculture",
+                                                "Environmental Monitoring",
+                                                "Cold Chain \u0026 Storage",
+                                                "Smart City \u0026 Infrastructure"
+                                            ],
+                       "related_knowledge":  [
+                                                 "LoRaWAN",
+                                                 "MQTT",
+                                                 "Wireless Sensor"
+                                             ],
+                       "content_status":  "not_started",
+                       "page_type":  "product_page",
+                       "notes":  "Good bridge between LoRa gateways and cloud platform content."
+                   },
+                   {
+                       "id":  "4g-industrial-iot-gateway",
+                       "title":  "4G Industrial IoT Gateway",
+                       "slug":  "4g-industrial-iot-gateway",
+                       "category":  "Connectivity-Based Gateway",
+                       "parent":  "Industrial IoT Gateway",
+                       "priority":  "P1",
+                       "search_intent":  "product/commercial",
+                       "modifiers":  [
+                                         "4G",
+                                         "industrial IoT",
+                                         "remote site"
+                                     ],
+                       "protocols":  [
+                                         "4G LTE",
+                                         "MQTT",
+                                         "Modbus RTU",
+                                         "Modbus TCP",
+                                         "Ethernet"
+                                     ],
+                       "interfaces":  [
+                                          "Cellular",
+                                          "RS485",
+                                          "Ethernet",
+                                          "DI",
+                                          "AI"
+                                      ],
+                       "target_solutions":  [
+                                                "Telecom \u0026 Remote Sites",
+                                                "Water \u0026 Wastewater",
+                                                "Solar \u0026 Renewables",
+                                                "Oil, Gas \u0026 Pipeline"
+                                            ],
+                       "related_knowledge":  [
+                                                 "4G LTE",
+                                                 "Industrial IoT",
+                                                 "MQTT",
+                                                 "Modbus"
+                                             ],
+                       "content_status":  "not_started",
+                       "page_type":  "product_page",
+                       "notes":  "High-priority modifier page for remote industrial IoT deployments."
+                   },
+                   {
+                       "id":  "wifi-industrial-iot-gateway",
+                       "title":  "WiFi Industrial IoT Gateway",
+                       "slug":  "wifi-industrial-iot-gateway",
+                       "category":  "Connectivity-Based Gateway",
+                       "parent":  "Industrial IoT Gateway",
+                       "priority":  "P2",
+                       "search_intent":  "product/commercial",
+                       "modifiers":  [
+                                         "WiFi",
+                                         "industrial IoT",
+                                         "wireless gateway"
+                                     ],
+                       "protocols":  [
+                                         "WiFi",
+                                         "MQTT",
+                                         "Modbus RTU",
+                                         "Modbus TCP"
+                                     ],
+                       "interfaces":  [
+                                          "WiFi",
+                                          "RS485",
+                                          "Ethernet"
+                                      ],
+                       "target_solutions":  [
+                                                "Factory \u0026 Manufacturing",
+                                                "Building \u0026 Facility",
+                                                "Energy \u0026 Power"
+                                            ],
+                       "related_knowledge":  [
+                                                 "WiFi",
+                                                 "Industrial IoT",
+                                                 "MQTT",
+                                                 "Modbus"
+                                             ],
+                       "content_status":  "not_started",
+                       "page_type":  "product_page",
+                       "notes":  "Candidate for WiFi-enabled gateway product line."
+                   },
+                   {
+                       "id":  "ethernet-industrial-gateway",
+                       "title":  "Ethernet Industrial Gateway",
+                       "slug":  "ethernet-industrial-gateway",
+                       "category":  "Connectivity-Based Gateway",
+                       "parent":  "Industrial IoT Gateway",
+                       "priority":  "P2",
+                       "search_intent":  "product/commercial",
+                       "modifiers":  [
+                                         "Ethernet",
+                                         "industrial gateway",
+                                         "LAN"
+                                     ],
+                       "protocols":  [
+                                         "Ethernet",
+                                         "MQTT",
+                                         "Modbus RTU",
+                                         "Modbus TCP",
+                                         "OPC UA"
+                                     ],
+                       "interfaces":  [
+                                          "Ethernet",
+                                          "RS485"
+                                      ],
+                       "target_solutions":  [
+                                                "Factory \u0026 Manufacturing",
+                                                "Building \u0026 Facility",
+                                                "Energy \u0026 Power"
+                                            ],
+                       "related_knowledge":  [
+                                                 "Ethernet",
+                                                 "Industrial Gateway",
+                                                 "MQTT",
+                                                 "Modbus TCP"
+                                             ],
+                       "content_status":  "not_started",
+                       "page_type":  "product_page",
+                       "notes":  "Good for wired factory and building deployments."
+                   },
+                   {
+                       "id":  "5g-industrial-gateway",
+                       "title":  "5G Industrial Gateway",
+                       "slug":  "5g-industrial-gateway",
+                       "category":  "Connectivity-Based Gateway",
+                       "parent":  "Industrial IoT Gateway",
+                       "priority":  "P3",
+                       "search_intent":  "product/commercial",
+                       "modifiers":  [
+                                         "5G",
+                                         "industrial gateway",
+                                         "cellular"
+                                     ],
+                       "protocols":  [
+                                         "5G",
+                                         "4G LTE",
+                                         "MQTT",
+                                         "Modbus TCP",
+                                         "Ethernet"
+                                     ],
+                       "interfaces":  [
+                                          "Cellular",
+                                          "Ethernet",
+                                          "RS485"
+                                      ],
+                       "target_solutions":  [
+                                                "Factory \u0026 Manufacturing",
+                                                "Telecom \u0026 Remote Sites",
+                                                "Remote Sites"
+                                            ],
+                       "related_knowledge":  [
+                                                 "5G",
+                                                 "Industrial IoT",
+                                                 "MQTT"
+                                             ],
+                       "content_status":  "out_of_scope",
+                       "page_type":  "excluded_product_page",
+                       "notes":  "Not planned for the first-generation IoTEdges roadmap. Do not publish or include in navigation unless the product strategy changes."
+                   },
+                   {
+                       "id":  "lorawan-gateway",
+                       "title":  "LoRaWAN Gateway",
+                       "slug":  "lorawan-gateway",
+                       "category":  "Connectivity-Based Gateway",
+                       "parent":  "LoRa Gateway",
+                       "priority":  "P1",
+                       "search_intent":  "product/commercial",
+                       "modifiers":  [
+                                         "LoRaWAN",
+                                         "LPWAN",
+                                         "wireless sensor gateway"
+                                     ],
+                       "protocols":  [
+                                         "LoRaWAN",
+                                         "MQTT",
+                                         "Ethernet"
+                                     ],
+                       "interfaces":  [
+                                          "LoRa",
+                                          "Ethernet"
+                                      ],
+                       "target_solutions":  [
+                                                "Agriculture \u0026 Aquaculture",
+                                                "Environmental Monitoring",
+                                                "Smart City \u0026 Infrastructure",
+                                                "Water \u0026 Wastewater"
+                                            ],
+                       "related_knowledge":  [
+                                                 "LoRaWAN",
+                                                 "LoRa",
+                                                 "MQTT",
+                                                 "LPWAN"
+                                             ],
+                       "content_status":  "not_started",
+                       "page_type":  "product_page",
+                       "notes":  "High-value LoRa product keyword and should be connected to LoRa knowledge pages."
+                   },
+                   {
+                       "id":  "outdoor-lora-gateway",
+                       "title":  "Outdoor LoRa Gateway",
+                       "slug":  "outdoor-lora-gateway",
+                       "category":  "Connectivity-Based Gateway",
+                       "parent":  "LoRa Gateway",
+                       "priority":  "P2",
+                       "search_intent":  "product/commercial",
+                       "modifiers":  [
+                                         "outdoor",
+                                         "LoRa",
+                                         "weatherproof"
+                                     ],
+                       "protocols":  [
+                                         "LoRaWAN",
+                                         "LoRa",
+                                         "MQTT",
+                                         "Ethernet"
+                                     ],
+                       "interfaces":  [
+                                          "LoRa",
+                                          "Ethernet"
+                                      ],
+                       "target_solutions":  [
+                                                "Agriculture \u0026 Aquaculture",
+                                                "Environmental Monitoring",
+                                                "Smart City \u0026 Infrastructure",
+                                                "Water \u0026 Wastewater"
+                                            ],
+                       "related_knowledge":  [
+                                                 "LoRaWAN",
+                                                 "Outdoor Gateway",
+                                                 "Wireless Sensor"
+                                             ],
+                       "content_status":  "not_started",
+                       "page_type":  "product_page",
+                       "notes":  "Use only when outdoor enclosure and environmental specs are real."
+                   },
+                   {
+                       "id":  "industrial-lora-gateway",
+                       "title":  "Industrial LoRa Gateway",
+                       "slug":  "industrial-lora-gateway",
+                       "category":  "Connectivity-Based Gateway",
+                       "parent":  "LoRa Gateway",
+                       "priority":  "P1",
+                       "search_intent":  "product/commercial",
+                       "modifiers":  [
+                                         "industrial",
+                                         "LoRa",
+                                         "LoRaWAN"
+                                     ],
+                       "protocols":  [
+                                         "LoRaWAN",
+                                         "MQTT",
+                                         "Ethernet"
+                                     ],
+                       "interfaces":  [
+                                          "LoRa",
+                                          "Ethernet"
+                                      ],
+                       "target_solutions":  [
+                                                "Agriculture \u0026 Aquaculture",
+                                                "Environmental Monitoring",
+                                                "Smart City \u0026 Infrastructure",
+                                                "Cold Chain \u0026 Storage"
+                                            ],
+                       "related_knowledge":  [
+                                                 "LoRaWAN",
+                                                 "Industrial Wireless",
+                                                 "MQTT"
+                                             ],
+                       "content_status":  "not_started",
+                       "page_type":  "product_page",
+                       "notes":  "Industrial wording version of LoRa gateway for B2B searches."
+                   },
+                   {
+                       "id":  "digital-input-module",
+                       "title":  "Digital Input Module",
+                       "slug":  "digital-input-module",
+                       "category":  "IO Module",
+                       "parent":  "Remote IO Module",
+                       "priority":  "P2",
+                       "search_intent":  "product/commercial",
+                       "modifiers":  [
+                                         "DI",
+                                         "digital input",
+                                         "dry contact"
+                                     ],
+                       "protocols":  [
+                                         "Modbus RTU",
+                                         "Modbus TCP",
+                                         "RS485",
+                                         "Ethernet"
+                                     ],
+                       "interfaces":  [
+                                          "DI",
+                                          "RS485",
+                                          "Ethernet"
+                                      ],
+                       "target_solutions":  [
+                                                "Factory \u0026 Manufacturing",
+                                                "Water \u0026 Wastewater",
+                                                "Building \u0026 Facility",
+                                                "Telecom \u0026 Remote Sites"
+                                            ],
+                       "related_knowledge":  [
+                                                 "Digital Input",
+                                                 "Remote IO",
+                                                 "Modbus"
+                                             ],
+                       "content_status":  "not_started",
+                       "page_type":  "product_page",
+                       "notes":  "Good engineering keyword for status monitoring and alarms."
+                   },
+                   {
+                       "id":  "digital-output-module",
+                       "title":  "Digital Output Module",
+                       "slug":  "digital-output-module",
+                       "category":  "IO Module",
+                       "parent":  "Remote IO Module",
+                       "priority":  "P2",
+                       "search_intent":  "product/commercial",
+                       "modifiers":  [
+                                         "DO",
+                                         "digital output",
+                                         "remote control"
+                                     ],
+                       "protocols":  [
+                                         "Modbus RTU",
+                                         "Modbus TCP",
+                                         "RS485",
+                                         "Ethernet"
+                                     ],
+                       "interfaces":  [
+                                          "DO",
+                                          "Relay",
+                                          "RS485",
+                                          "Ethernet"
+                                      ],
+                       "target_solutions":  [
+                                                "Factory \u0026 Manufacturing",
+                                                "Water \u0026 Wastewater",
+                                                "Smart City \u0026 Infrastructure",
+                                                "Building \u0026 Facility"
+                                            ],
+                       "related_knowledge":  [
+                                                 "Digital Output",
+                                                 "Remote IO",
+                                                 "Modbus",
+                                                 "Relay Output"
+                                             ],
+                       "content_status":  "not_started",
+                       "page_type":  "product_page",
+                       "notes":  "Position around remote control, relay output, and actuator control."
+                   },
+                   {
+                       "id":  "analog-input-module",
+                       "title":  "Analog Input Module",
+                       "slug":  "analog-input-module",
+                       "category":  "IO Module",
+                       "parent":  "Remote IO Module",
+                       "priority":  "P2",
+                       "search_intent":  "product/commercial",
+                       "modifiers":  [
+                                         "AI",
+                                         "analog input",
+                                         "4-20mA"
+                                     ],
+                       "protocols":  [
+                                         "Modbus RTU",
+                                         "Modbus TCP",
+                                         "RS485",
+                                         "Ethernet"
+                                     ],
+                       "interfaces":  [
+                                          "AI",
+                                          "4-20mA",
+                                          "0-10V",
+                                          "RS485",
+                                          "Ethernet"
+                                      ],
+                       "target_solutions":  [
+                                                "Water \u0026 Wastewater",
+                                                "Oil, Gas \u0026 Pipeline",
+                                                "Environmental Monitoring",
+                                                "Energy \u0026 Power"
+                                            ],
+                       "related_knowledge":  [
+                                                 "Analog Input",
+                                                 "4-20mA",
+                                                 "Remote IO",
+                                                 "Modbus"
+                                             ],
+                       "content_status":  "not_started",
+                       "page_type":  "product_page",
+                       "notes":  "Important for sensor data acquisition and industrial measurement."
+                   },
+                   {
+                       "id":  "analog-output-module",
+                       "title":  "Analog Output Module",
+                       "slug":  "analog-output-module",
+                       "category":  "IO Module",
+                       "parent":  "Remote IO Module",
+                       "priority":  "P2",
+                       "search_intent":  "product/commercial",
+                       "modifiers":  [
+                                         "AO",
+                                         "analog output",
+                                         "remote control"
+                                     ],
+                       "protocols":  [
+                                         "Modbus RTU",
+                                         "Modbus TCP",
+                                         "RS485",
+                                         "Ethernet"
+                                     ],
+                       "interfaces":  [
+                                          "AO",
+                                          "4-20mA",
+                                          "0-10V",
+                                          "RS485",
+                                          "Ethernet"
+                                      ],
+                       "target_solutions":  [
+                                                "Factory \u0026 Manufacturing",
+                                                "Building \u0026 Facility",
+                                                "Water \u0026 Wastewater"
+                                            ],
+                       "related_knowledge":  [
+                                                 "Analog Output",
+                                                 "Remote IO",
+                                                 "Modbus",
+                                                 "Control Signal"
+                                             ],
+                       "content_status":  "not_started",
+                       "page_type":  "product_page",
+                       "notes":  "Useful for control applications if AO hardware is supported."
+                   },
+                   {
+                       "id":  "relay-output-module",
+                       "title":  "Relay Output Module",
+                       "slug":  "relay-output-module",
+                       "category":  "IO Module",
+                       "parent":  "Remote IO Module",
+                       "priority":  "P2",
+                       "search_intent":  "product/commercial",
+                       "modifiers":  [
+                                         "relay output",
+                                         "remote relay",
+                                         "DO module"
+                                     ],
+                       "protocols":  [
+                                         "Modbus RTU",
+                                         "Modbus TCP",
+                                         "RS485",
+                                         "Ethernet"
+                                     ],
+                       "interfaces":  [
+                                          "Relay",
+                                          "DO",
+                                          "RS485",
+                                          "Ethernet"
+                                      ],
+                       "target_solutions":  [
+                                                "Water \u0026 Wastewater",
+                                                "Smart City \u0026 Infrastructure",
+                                                "Building \u0026 Facility",
+                                                "Factory \u0026 Manufacturing"
+                                            ],
+                       "related_knowledge":  [
+                                                 "Relay Output",
+                                                 "Digital Output",
+                                                 "Remote IO",
+                                                 "Modbus"
+                                             ],
+                       "content_status":  "not_started",
+                       "page_type":  "product_page",
+                       "notes":  "Strong practical keyword for remote pump, valve, light, and alarm control."
+                   },
+                   {
+                       "id":  "modbus-remote-io",
+                       "title":  "Modbus Remote IO",
+                       "slug":  "modbus-remote-io",
+                       "category":  "IO Module",
+                       "parent":  "Remote IO Module",
+                       "priority":  "P1",
+                       "search_intent":  "product/commercial",
+                       "modifiers":  [
+                                         "Modbus",
+                                         "remote IO",
+                                         "RS485 IO"
+                                     ],
+                       "protocols":  [
+                                         "Modbus RTU",
+                                         "Modbus TCP",
+                                         "RS485",
+                                         "Ethernet"
+                                     ],
+                       "interfaces":  [
+                                          "DI",
+                                          "DO",
+                                          "AI",
+                                          "AO",
+                                          "Relay",
+                                          "RS485"
+                                      ],
+                       "target_solutions":  [
+                                                "Factory \u0026 Manufacturing",
+                                                "Water \u0026 Wastewater",
+                                                "Energy \u0026 Power",
+                                                "Building \u0026 Facility"
+                                            ],
+                       "related_knowledge":  [
+                                                 "Modbus",
+                                                 "Remote IO",
+                                                 "RS485",
+                                                 "SCADA"
+                                             ],
+                       "content_status":  "not_started",
+                       "page_type":  "product_page",
+                       "notes":  "High-value product page combining protocol and IO category."
+                   },
+                   {
+                       "id":  "ethernet-remote-io",
+                       "title":  "Ethernet Remote IO",
+                       "slug":  "ethernet-remote-io",
+                       "category":  "IO Module",
+                       "parent":  "Remote IO Module",
+                       "priority":  "P2",
+                       "search_intent":  "product/commercial",
+                       "modifiers":  [
+                                         "Ethernet",
+                                         "remote IO",
+                                         "Modbus TCP"
+                                     ],
+                       "protocols":  [
+                                         "Ethernet",
+                                         "Modbus TCP",
+                                         "MQTT"
+                                     ],
+                       "interfaces":  [
+                                          "Ethernet",
+                                          "DI",
+                                          "DO",
+                                          "AI",
+                                          "AO",
+                                          "Relay"
+                                      ],
+                       "target_solutions":  [
+                                                "Factory \u0026 Manufacturing",
+                                                "Building \u0026 Facility",
+                                                "Energy \u0026 Power"
+                                            ],
+                       "related_knowledge":  [
+                                                 "Ethernet",
+                                                 "Remote IO",
+                                                 "Modbus TCP"
+                                             ],
+                       "content_status":  "not_started",
+                       "page_type":  "product_page",
+                       "notes":  "Wired IO page for factories, panels, and buildings."
+                   },
+                   {
+                       "id":  "rs485-remote-io",
+                       "title":  "RS485 Remote IO",
+                       "slug":  "rs485-remote-io",
+                       "category":  "IO Module",
+                       "parent":  "Remote IO Module",
+                       "priority":  "P1",
+                       "search_intent":  "product/commercial",
+                       "modifiers":  [
+                                         "RS485",
+                                         "remote IO",
+                                         "Modbus RTU"
+                                     ],
+                       "protocols":  [
+                                         "RS485",
+                                         "Modbus RTU",
+                                         "MQTT"
+                                     ],
+                       "interfaces":  [
+                                          "RS485",
+                                          "DI",
+                                          "DO",
+                                          "AI",
+                                          "AO",
+                                          "Relay"
+                                      ],
+                       "target_solutions":  [
+                                                "Factory \u0026 Manufacturing",
+                                                "Water \u0026 Wastewater",
+                                                "Energy \u0026 Power",
+                                                "Environmental Monitoring"
+                                            ],
+                       "related_knowledge":  [
+                                                 "RS485",
+                                                 "Remote IO",
+                                                 "Modbus RTU"
+                                             ],
+                       "content_status":  "not_started",
+                       "page_type":  "product_page",
+                       "notes":  "Strong engineering keyword for distributed cabinet and field IO."
+                   },
+                   {
+                       "id":  "wireless-remote-io",
+                       "title":  "Wireless Remote IO",
+                       "slug":  "wireless-remote-io",
+                       "category":  "IO Module",
+                       "parent":  "Remote IO Module",
+                       "priority":  "P2",
+                       "search_intent":  "product/commercial",
+                       "modifiers":  [
+                                         "wireless",
+                                         "remote IO",
+                                         "LoRa"
+                                     ],
+                       "protocols":  [
+                                         "LoRa",
+                                         "LoRaWAN",
+                                         "MQTT"
+                                     ],
+                       "interfaces":  [
+                                          "DI",
+                                          "DO",
+                                          "AI",
+                                          "AO",
+                                          "LoRa"
+                                      ],
+                       "target_solutions":  [
+                                                "Agriculture \u0026 Aquaculture",
+                                                "Environmental Monitoring",
+                                                "Water \u0026 Wastewater",
+                                                "Smart City \u0026 Infrastructure"
+                                            ],
+                       "related_knowledge":  [
+                                                 "Wireless IO",
+                                                 "LoRaWAN",
+                                                 "Remote IO"
+                                             ],
+                       "content_status":  "not_started",
+                       "page_type":  "product_page",
+                       "notes":  "Publish if wireless IO modules or gateway bundles are supported."
+                   },
+                   {
+                       "id":  "remote-io-for-scada",
+                       "title":  "Remote IO for SCADA",
+                       "slug":  "remote-io-for-scada",
+                       "category":  "IO Module",
+                       "parent":  "Remote IO Module",
+                       "priority":  "P2",
+                       "search_intent":  "product-solution/commercial",
+                       "modifiers":  [
+                                         "SCADA",
+                                         "remote IO",
+                                         "data acquisition"
+                                     ],
+                       "protocols":  [
+                                         "Modbus RTU",
+                                         "Modbus TCP",
+                                         "RS485",
+                                         "Ethernet"
+                                     ],
+                       "interfaces":  [
+                                          "DI",
+                                          "DO",
+                                          "AI",
+                                          "AO",
+                                          "Relay",
+                                          "RS485",
+                                          "Ethernet"
+                                      ],
+                       "target_solutions":  [
+                                                "Water \u0026 Wastewater",
+                                                "Energy \u0026 Power",
+                                                "Oil, Gas \u0026 Pipeline",
+                                                "Factory \u0026 Manufacturing"
+                                            ],
+                       "related_knowledge":  [
+                                                 "SCADA",
+                                                 "Remote IO",
+                                                 "RTU",
+                                                 "Modbus"
+                                             ],
+                       "content_status":  "not_started",
+                       "page_type":  "product_solution_page",
+                       "notes":  "Good bridge page between Remote IO and SCADA-focused solution searches."
+                   },
+                   {
+                       "id":  "rtu-io-module",
+                       "title":  "RTU IO Module",
+                       "slug":  "rtu-io-module",
+                       "category":  "IO Module",
+                       "parent":  "Industrial RTU",
+                       "priority":  "P2",
+                       "search_intent":  "product/commercial",
+                       "modifiers":  [
+                                         "RTU IO",
+                                         "telemetry IO",
+                                         "remote telemetry"
+                                     ],
+                       "protocols":  [
+                                         "Modbus RTU",
+                                         "Modbus TCP",
+                                         "MQTT",
+                                         "RS485"
+                                     ],
+                       "interfaces":  [
+                                          "DI",
+                                          "DO",
+                                          "AI",
+                                          "AO",
+                                          "Relay",
+                                          "RS485"
+                                      ],
+                       "target_solutions":  [
+                                                "Water \u0026 Wastewater",
+                                                "Oil, Gas \u0026 Pipeline",
+                                                "Environmental Monitoring",
+                                                "Telecom \u0026 Remote Sites"
+                                            ],
+                       "related_knowledge":  [
+                                                 "RTU",
+                                                 "Remote IO",
+                                                 "SCADA",
+                                                 "Modbus"
+                                             ],
+                       "content_status":  "not_started",
+                       "page_type":  "product_page",
+                       "notes":  "Useful page for RTU plus IO expansion and telemetry modules."
+                   },
+                   {
+                       "id":  "rtu-for-pump-station-monitoring",
+                       "title":  "RTU for Pump Station Monitoring",
+                       "slug":  "rtu-for-pump-station-monitoring",
+                       "category":  "Application-Specific Product",
+                       "parent":  "Industrial RTU",
+                       "priority":  "P1",
+                       "search_intent":  "product-solution/commercial",
+                       "modifiers":  [
+                                         "pump station",
+                                         "RTU",
+                                         "water"
+                                     ],
+                       "protocols":  [
+                                         "Modbus RTU",
+                                         "RS485",
+                                         "4-20mA",
+                                         "MQTT",
+                                         "4G LTE"
+                                     ],
+                       "interfaces":  [
+                                          "DI",
+                                          "DO",
+                                          "AI",
+                                          "Relay",
+                                          "RS485"
+                                      ],
+                       "target_solutions":  [
+                                                "Pump Station Monitoring",
+                                                "Water Monitoring",
+                                                "Wastewater Treatment Monitoring"
+                                            ],
+                       "related_knowledge":  [
+                                                 "RTU",
+                                                 "Pump Monitoring",
+                                                 "SCADA",
+                                                 "Modbus"
+                                             ],
+                       "content_status":  "not_started",
+                       "page_type":  "product_solution_page",
+                       "notes":  "High-conversion product-solution page for water infrastructure buyers."
+                   },
+                   {
+                       "id":  "mqtt-gateway-for-energy-meter-monitoring",
+                       "title":  "MQTT Gateway for Energy Meter Monitoring",
+                       "slug":  "mqtt-gateway-for-energy-meter-monitoring",
+                       "category":  "Application-Specific Product",
+                       "parent":  "MQTT Gateway",
+                       "priority":  "P1",
+                       "search_intent":  "product-solution/commercial",
+                       "modifiers":  [
+                                         "energy meter",
+                                         "MQTT gateway",
+                                         "Modbus meter"
+                                     ],
+                       "protocols":  [
+                                         "Modbus RTU",
+                                         "Modbus TCP",
+                                         "RS485",
+                                         "MQTT",
+                                         "Ethernet"
+                                     ],
+                       "interfaces":  [
+                                          "RS485",
+                                          "Ethernet"
+                                      ],
+                       "target_solutions":  [
+                                                "Energy Monitoring",
+                                                "Power Meter Monitoring",
+                                                "Factory Energy Monitoring"
+                                            ],
+                       "related_knowledge":  [
+                                                 "Energy Meter",
+                                                 "Modbus",
+                                                 "MQTT",
+                                                 "RS485"
+                                             ],
+                       "content_status":  "not_started",
+                       "page_type":  "product_solution_page",
+                       "notes":  "One of the first product-solution pages to generate."
+                   },
+                   {
+                       "id":  "modbus-gateway-for-solar-inverter-monitoring",
+                       "title":  "Modbus Gateway for Solar Inverter Monitoring",
+                       "slug":  "modbus-gateway-for-solar-inverter-monitoring",
+                       "category":  "Application-Specific Product",
+                       "parent":  "Modbus Gateway",
+                       "priority":  "P1",
+                       "search_intent":  "product-solution/commercial",
+                       "modifiers":  [
+                                         "solar inverter",
+                                         "Modbus gateway",
+                                         "PV monitoring"
+                                     ],
+                       "protocols":  [
+                                         "Modbus RTU",
+                                         "Modbus TCP",
+                                         "RS485",
+                                         "MQTT",
+                                         "Ethernet"
+                                     ],
+                       "interfaces":  [
+                                          "RS485",
+                                          "Ethernet"
+                                      ],
+                       "target_solutions":  [
+                                                "Solar Inverter Monitoring",
+                                                "Solar Monitoring",
+                                                "PV Plant Monitoring"
+                                            ],
+                       "related_knowledge":  [
+                                                 "Solar Inverter",
+                                                 "Modbus",
+                                                 "MQTT",
+                                                 "RS485"
+                                             ],
+                       "content_status":  "not_started",
+                       "page_type":  "product_solution_page",
+                       "notes":  "High-value solar product page for inverter data acquisition."
+                   },
+                   {
+                       "id":  "lora-gateway-for-agriculture-monitoring",
+                       "title":  "LoRa Gateway for Agriculture Monitoring",
+                       "slug":  "lora-gateway-for-agriculture-monitoring",
+                       "category":  "Application-Specific Product",
+                       "parent":  "LoRa Gateway",
+                       "priority":  "P1",
+                       "search_intent":  "product-solution/commercial",
+                       "modifiers":  [
+                                         "agriculture",
+                                         "LoRa gateway",
+                                         "farm monitoring"
+                                     ],
+                       "protocols":  [
+                                         "LoRaWAN",
+                                         "LoRa",
+                                         "MQTT"
+                                     ],
+                       "interfaces":  [
+                                          "LoRa",
+                                          "Ethernet"
+                                      ],
+                       "target_solutions":  [
+                                                "Smart Agriculture",
+                                                "Greenhouse Monitoring",
+                                                "Soil Moisture Monitoring",
+                                                "Smart Irrigation Monitoring"
+                                            ],
+                       "related_knowledge":  [
+                                                 "LoRaWAN",
+                                                 "LoRa",
+                                                 "Smart Agriculture",
+                                                 "MQTT"
+                                             ],
+                       "content_status":  "not_started",
+                       "page_type":  "product_solution_page",
+                       "notes":  "Strong agriculture entry page linking LoRa products and farming solutions."
+                   },
+                   {
+                       "id":  "remote-io-for-factory-automation",
+                       "title":  "Remote IO for Factory Automation",
+                       "slug":  "remote-io-for-factory-automation",
+                       "category":  "Application-Specific Product",
+                       "parent":  "Remote IO Module",
+                       "priority":  "P1",
+                       "search_intent":  "product-solution/commercial",
+                       "modifiers":  [
+                                         "factory automation",
+                                         "remote IO",
+                                         "machine IO"
+                                     ],
+                       "protocols":  [
+                                         "Modbus RTU",
+                                         "Modbus TCP",
+                                         "RS485",
+                                         "Ethernet"
+                                     ],
+                       "interfaces":  [
+                                          "DI",
+                                          "DO",
+                                          "AI",
+                                          "AO",
+                                          "Relay",
+                                          "RS485"
+                                      ],
+                       "target_solutions":  [
+                                                "Factory Monitoring",
+                                                "Machine Monitoring",
+                                                "Production Line Monitoring",
+                                                "Equipment Runtime Monitoring"
+                                            ],
+                       "related_knowledge":  [
+                                                 "Remote IO",
+                                                 "Factory Automation",
+                                                 "Modbus",
+                                                 "PLC"
+                                             ],
+                       "content_status":  "not_started",
+                       "page_type":  "product_solution_page",
+                       "notes":  "High-conversion factory automation page."
+                   },
+                   {
+                       "id":  "edge-controller-for-machine-monitoring",
+                       "title":  "Edge Controller for Machine Monitoring",
+                       "slug":  "edge-controller-for-machine-monitoring",
+                       "category":  "Application-Specific Product",
+                       "parent":  "Edge Controller",
+                       "priority":  "P1",
+                       "search_intent":  "product-solution/commercial",
+                       "modifiers":  [
+                                         "machine monitoring",
+                                         "edge controller",
+                                         "equipment data"
+                                     ],
+                       "protocols":  [
+                                         "MQTT",
+                                         "Modbus RTU",
+                                         "Modbus TCP",
+                                         "OPC UA",
+                                         "Ethernet"
+                                     ],
+                       "interfaces":  [
+                                          "RS485",
+                                          "Ethernet",
+                                          "DI",
+                                          "AI"
+                                      ],
+                       "target_solutions":  [
+                                                "Machine Monitoring",
+                                                "Production Line Monitoring",
+                                                "OEE Data Collection",
+                                                "Predictive Maintenance Monitoring"
+                                            ],
+                       "related_knowledge":  [
+                                                 "Edge Controller",
+                                                 "Machine Monitoring",
+                                                 "MQTT",
+                                                 "PLC"
+                                             ],
+                       "content_status":  "not_started",
+                       "page_type":  "product_solution_page",
+                       "notes":  "Important page for OEMs and factories collecting equipment data."
+                   },
+                   {
+                       "id":  "4g-gateway-for-remote-equipment-monitoring",
+                       "title":  "4G Gateway for Remote Equipment Monitoring",
+                       "slug":  "4g-gateway-for-remote-equipment-monitoring",
+                       "category":  "Application-Specific Product",
+                       "parent":  "Cellular IoT Gateway",
+                       "priority":  "P1",
+                       "search_intent":  "product-solution/commercial",
+                       "modifiers":  [
+                                         "4G gateway",
+                                         "remote equipment",
+                                         "cellular monitoring"
+                                     ],
+                       "protocols":  [
+                                         "4G LTE",
+                                         "MQTT",
+                                         "Modbus RTU",
+                                         "RS485"
+                                     ],
+                       "interfaces":  [
+                                          "Cellular",
+                                          "RS485",
+                                          "DI",
+                                          "AI",
+                                          "Ethernet"
+                                      ],
+                       "target_solutions":  [
+                                                "Remote Site Security Monitoring",
+                                                "Telecom Tower Monitoring",
+                                                "Pump Station Monitoring",
+                                                "Remote Renewable Energy Site Monitoring"
+                                            ],
+                       "related_knowledge":  [
+                                                 "4G LTE",
+                                                 "Remote Monitoring",
+                                                 "MQTT",
+                                                 "RTU"
+                                             ],
+                       "content_status":  "not_started",
+                       "page_type":  "product_solution_page",
+                       "notes":  "A strong commercial page for remote monitoring buyers across industries."
+                   },
+                   {
+                       "id":  "rtu-for-tank-level-monitoring",
+                       "title":  "RTU for Tank Level Monitoring",
+                       "slug":  "rtu-for-tank-level-monitoring",
+                       "category":  "Application-Specific Product",
+                       "parent":  "Industrial RTU",
+                       "priority":  "P1",
+                       "search_intent":  "product-solution/commercial",
+                       "modifiers":  [
+                                         "tank level",
+                                         "RTU",
+                                         "level monitoring"
+                                     ],
+                       "protocols":  [
+                                         "4-20mA",
+                                         "Modbus RTU",
+                                         "RS485",
+                                         "MQTT",
+                                         "4G LTE"
+                                     ],
+                       "interfaces":  [
+                                          "AI",
+                                          "RS485",
+                                          "DI",
+                                          "Relay"
+                                      ],
+                       "target_solutions":  [
+                                                "Tank Level Monitoring",
+                                                "Oil Tank Monitoring",
+                                                "Fuel Tank Monitoring",
+                                                "Water Monitoring"
+                                            ],
+                       "related_knowledge":  [
+                                                 "Level Sensor",
+                                                 "RTU",
+                                                 "Analog Input",
+                                                 "4-20mA"
+                                             ],
+                       "content_status":  "not_started",
+                       "page_type":  "product_solution_page",
+                       "notes":  "High-intent page for water, fuel, chemical, and oil tank monitoring."
+                   },
+                   {
+                       "id":  "mqtt-gateway-for-plc-data-collection",
+                       "title":  "MQTT Gateway for PLC Data Collection",
+                       "slug":  "mqtt-gateway-for-plc-data-collection",
+                       "category":  "Application-Specific Product",
+                       "parent":  "MQTT Gateway",
+                       "priority":  "P2",
+                       "search_intent":  "product-solution/commercial",
+                       "modifiers":  [
+                                         "PLC data",
+                                         "MQTT gateway",
+                                         "factory cloud"
+                                     ],
+                       "protocols":  [
+                                         "MQTT",
+                                         "Modbus TCP",
+                                         "Modbus RTU",
+                                         "OPC UA",
+                                         "Ethernet"
+                                     ],
+                       "interfaces":  [
+                                          "Ethernet",
+                                          "RS485"
+                                      ],
+                       "target_solutions":  [
+                                                "Factory Monitoring",
+                                                "Machine Monitoring",
+                                                "OEE Data Collection",
+                                                "OEM Remote Monitoring"
+                                            ],
+                       "related_knowledge":  [
+                                                 "PLC",
+                                                 "MQTT",
+                                                 "OPC UA",
+                                                 "Modbus"
+                                             ],
+                       "content_status":  "not_started",
+                       "page_type":  "product_solution_page",
+                       "notes":  "Good page once PLC protocol support boundaries are clear."
+                   },
+                   {
+                       "id":  "lora-gateway-for-environmental-monitoring",
+                       "title":  "LoRa Gateway for Environmental Monitoring",
+                       "slug":  "lora-gateway-for-environmental-monitoring",
+                       "category":  "Application-Specific Product",
+                       "parent":  "LoRa Gateway",
+                       "priority":  "P2",
+                       "search_intent":  "product-solution/commercial",
+                       "modifiers":  [
+                                         "LoRa gateway",
+                                         "environmental monitoring",
+                                         "wireless sensors"
+                                     ],
+                       "protocols":  [
+                                         "LoRaWAN",
+                                         "LoRa",
+                                         "MQTT"
+                                     ],
+                       "interfaces":  [
+                                          "LoRa",
+                                          "Ethernet"
+                                      ],
+                       "target_solutions":  [
+                                                "Environmental Monitoring",
+                                                "Air Quality Monitoring",
+                                                "Weather Monitoring",
+                                                "Flood Monitoring"
+                                            ],
+                       "related_knowledge":  [
+                                                 "LoRaWAN",
+                                                 "Environmental Sensor",
+                                                 "MQTT",
+                                                 "Wireless Monitoring"
+                                             ],
+                       "content_status":  "not_started",
+                       "page_type":  "product_solution_page",
+                       "notes":  "Good bridge between LoRa gateway and environmental solution clusters."
+                   }
+               ]
+}

@@ -1,0 +1,554 @@
+{
+  "meta": {
+    "project": "IoTEdges",
+    "database": "first-product-prototype-test-report-templates",
+    "version": "0.1.0",
+    "last_updated": "2026-06-09",
+    "status": "draft_test_templates",
+    "purpose": "Reusable prototype test report templates for validating first-generation IoTEdges products before exact specifications are published in SEO product pages.",
+    "important_note": "These templates define what should be tested and recorded. They do not prove capability by themselves. Capability status should be updated only after real prototype test records, component evidence and engineering approval exist."
+  },
+  "common_report_fields": {
+    "report_id": "",
+    "test_date": "",
+    "tested_by": "",
+    "reviewed_by": "",
+    "model_code": "",
+    "prototype_revision": "",
+    "hardware_revision": "",
+    "firmware_version": "",
+    "register_map_version": "",
+    "test_location": "",
+    "ambient_temperature": "",
+    "power_input_voltage": "",
+    "test_equipment": [],
+    "sample_size": "",
+    "result": "not_started",
+    "notes": ""
+  },
+  "result_values": {
+    "not_started": "Test has not been run.",
+    "pass": "Test passed and can be used as evidence.",
+    "conditional_pass": "Test passed with limitation or follow-up required.",
+    "fail": "Test failed and the related claim must not be published.",
+    "blocked": "Test could not be completed because hardware, firmware or equipment was unavailable."
+  },
+  "claim_release_rule": {
+    "planning_claim": "Can use designed for, planned, target or under validation wording.",
+    "validated_claim": "Can publish exact specification only after the matching template result is pass and reviewed_by is filled.",
+    "failed_claim": "If result is fail or blocked, do not publish exact specification."
+  },
+  "templates": [
+    {
+      "template_id": "PTR-DI-001",
+      "title": "Digital Input Prototype Test Report",
+      "applicable_models": ["IEIO-100-DI8", "IEIO-100-MD44", "IER-100", "IER-120", "IER-140"],
+      "capability_area": "DI",
+      "purpose": "Validate digital input state detection, dry/wet contact behavior, debounce behavior and optional pulse input behavior.",
+      "required_equipment": [
+        "adjustable DC power supply",
+        "dry contact switch or relay simulator",
+        "signal generator if pulse mode is implemented",
+        "Modbus master test tool or local web UI",
+        "multimeter"
+      ],
+      "preconditions": [
+        "DI circuit schematic is available.",
+        "Firmware can read DI status.",
+        "Test register map or UI point mapping is documented."
+      ],
+      "test_steps": [
+        "Record model code, hardware revision and firmware version.",
+        "Connect each DI channel as dry contact and toggle open/closed state.",
+        "Record reported DI state for each channel.",
+        "If wet contact is implemented, apply low, nominal and high input voltage within target range.",
+        "Record threshold behavior and any unstable state.",
+        "If debounce is implemented, simulate contact bounce and record filtered state behavior.",
+        "If pulse mode is implemented, apply pulse signals at planned frequencies and record counter accuracy.",
+        "Power cycle the device and confirm DI configuration and state reporting recover correctly."
+      ],
+      "record_fields": [
+        "channel_number",
+        "input_mode",
+        "applied_voltage",
+        "physical_state",
+        "reported_state",
+        "response_time_ms",
+        "pulse_frequency_hz",
+        "pulse_count_expected",
+        "pulse_count_reported",
+        "pass_fail",
+        "notes"
+      ],
+      "acceptance_criteria": [
+        "Every implemented DI channel reports correct open/closed state.",
+        "No unstable state appears at nominal input condition.",
+        "Wet contact thresholds are documented if wet input is supported.",
+        "Pulse mode meets the recorded test frequency if pulse mode is published.",
+        "Configuration survives power cycle if configurable modes are implemented."
+      ],
+      "seo_claims_unlocked_after_pass": [
+        "confirmed DI channel count",
+        "dry contact support if tested",
+        "wet contact support if tested",
+        "pulse input support only if pulse test passes"
+      ],
+      "claims_still_blocked_without_extra_tests": [
+        "input isolation voltage",
+        "surge/ESD level",
+        "temperature-wide DI behavior"
+      ]
+    },
+    {
+      "template_id": "PTR-RELAY-001",
+      "title": "Relay Output Prototype Test Report",
+      "applicable_models": ["IEIO-100-DO8", "IEIO-100-MD44", "IER-100", "IER-120", "IER-140"],
+      "capability_area": "DO/relay",
+      "purpose": "Validate relay output switching, readback, failsafe behavior, startup state and load behavior.",
+      "required_equipment": [
+        "adjustable DC power supply",
+        "rated test load after relay component is selected",
+        "multimeter",
+        "temperature probe or thermal camera",
+        "Modbus master test tool or local web UI"
+      ],
+      "preconditions": [
+        "Relay or output component is selected.",
+        "PCB clearance and terminal design are reviewed.",
+        "Firmware supports output write and readback.",
+        "Safe test load is prepared."
+      ],
+      "test_steps": [
+        "Record relay component part number and rating from datasheet.",
+        "Switch each output on and off with no load and record readback.",
+        "Switch each output with planned test load and record behavior.",
+        "Run repeated switching sample test for the selected load class.",
+        "Measure terminal or relay area temperature rise under sustained load.",
+        "Test startup output state after power cycle.",
+        "Test failsafe output state after communication timeout.",
+        "Record any contact sticking, delayed switching or unstable behavior."
+      ],
+      "record_fields": [
+        "channel_number",
+        "load_type",
+        "load_voltage",
+        "load_current",
+        "commanded_state",
+        "measured_state",
+        "readback_state",
+        "switch_count",
+        "temperature_rise_c",
+        "startup_state",
+        "failsafe_state",
+        "pass_fail",
+        "notes"
+      ],
+      "acceptance_criteria": [
+        "Every implemented output follows command and readback behavior.",
+        "No unsafe temperature rise is observed under validated load.",
+        "Startup and failsafe behavior match firmware specification.",
+        "Output rating claim is supported by component datasheet and prototype test evidence."
+      ],
+      "seo_claims_unlocked_after_pass": [
+        "confirmed relay/output channel count",
+        "relay output wording",
+        "exact relay rating only if component, PCB and load test evidence all pass",
+        "failsafe output behavior if tested"
+      ],
+      "claims_still_blocked_without_extra_tests": [
+        "motor direct-control claim",
+        "safety control claim",
+        "inductive load endurance claim",
+        "certified load category"
+      ]
+    },
+    {
+      "template_id": "PTR-AI-001",
+      "title": "Analog Input Prototype Test Report",
+      "applicable_models": ["IEIO-100-AI4", "IEIO-100-MA44", "IER-100", "IER-120", "IER-140"],
+      "capability_area": "AI",
+      "purpose": "Validate analog input mode, raw value mapping, scaling, accuracy, stability and fault detection.",
+      "required_equipment": [
+        "calibrated current source",
+        "calibrated voltage source if voltage mode is implemented",
+        "precision multimeter",
+        "Modbus master test tool or local web UI",
+        "temperature chamber if temperature-range accuracy will be claimed"
+      ],
+      "preconditions": [
+        "Analog front-end circuit is selected.",
+        "Calibration method is defined.",
+        "Firmware raw unit and scaling formula are documented.",
+        "Register map or UI point mapping is documented."
+      ],
+      "test_steps": [
+        "Record analog circuit component part numbers.",
+        "Apply 4mA, 12mA and 20mA to each current input channel.",
+        "Record raw value, scaled value and measurement error.",
+        "If voltage mode is implemented, apply 0V, 5V and 10V to each voltage input channel.",
+        "Record raw value, scaled value and measurement error.",
+        "Run stability test at a fixed input value for a defined duration.",
+        "Test under-range, over-range and open-circuit behavior if supported.",
+        "Run temperature drift test only if temperature-wide accuracy will be published."
+      ],
+      "record_fields": [
+        "channel_number",
+        "input_mode",
+        "applied_value",
+        "unit",
+        "raw_value",
+        "scaled_value",
+        "expected_value",
+        "absolute_error",
+        "percent_full_scale_error",
+        "noise_peak_to_peak",
+        "fault_status",
+        "pass_fail",
+        "notes"
+      ],
+      "acceptance_criteria": [
+        "Each implemented AI channel reports expected raw and scaled values.",
+        "Measured error is within accepted engineering target.",
+        "Input value remains stable under steady input.",
+        "Fault status works if fault detection is claimed.",
+        "Calibration method is documented if accuracy is published."
+      ],
+      "seo_claims_unlocked_after_pass": [
+        "confirmed AI channel count",
+        "4-20mA support if tested",
+        "0-10V support if tested",
+        "analog accuracy only if measured and approved",
+        "under/over-range detection if tested"
+      ],
+      "claims_still_blocked_without_extra_tests": [
+        "accuracy across full temperature range",
+        "per-channel isolation",
+        "high-speed sampling claim",
+        "certified measurement accuracy"
+      ]
+    },
+    {
+      "template_id": "PTR-AO-001",
+      "title": "Analog Output Prototype Test Report",
+      "applicable_models": ["IEIO-100-AO4", "IEIO-100-MA44"],
+      "capability_area": "AO",
+      "purpose": "Validate analog output setpoint behavior, output accuracy, load capability, startup value and failsafe value.",
+      "required_equipment": [
+        "precision multimeter",
+        "current loop load resistor or calibrated loop meter",
+        "voltage load if voltage mode is implemented",
+        "Modbus master test tool or local web UI"
+      ],
+      "preconditions": [
+        "DAC/output driver component is selected.",
+        "Output mode and load target are defined.",
+        "Firmware supports AO setpoint write and readback.",
+        "Failsafe behavior is documented."
+      ],
+      "test_steps": [
+        "Record output driver component part numbers.",
+        "Write 0%, 50% and 100% setpoints for voltage output if implemented.",
+        "Measure physical voltage output and record error.",
+        "Write 4mA, 12mA and 20mA setpoints for current output if implemented.",
+        "Measure physical current output and record error.",
+        "Test output under planned load condition.",
+        "Power cycle device and record startup output state.",
+        "Trigger communication timeout and record failsafe output value."
+      ],
+      "record_fields": [
+        "channel_number",
+        "output_mode",
+        "setpoint",
+        "measured_output",
+        "load_condition",
+        "absolute_error",
+        "percent_full_scale_error",
+        "startup_output",
+        "failsafe_output",
+        "pass_fail",
+        "notes"
+      ],
+      "acceptance_criteria": [
+        "Each implemented AO channel follows commanded setpoint.",
+        "Measured output error is within accepted engineering target.",
+        "Output remains stable under planned load.",
+        "Startup and failsafe values match firmware specification."
+      ],
+      "seo_claims_unlocked_after_pass": [
+        "confirmed AO channel count",
+        "0-10V output support if tested",
+        "4-20mA output support if tested",
+        "AO accuracy only if measured and approved",
+        "failsafe output value if tested"
+      ],
+      "claims_still_blocked_without_extra_tests": [
+        "closed-loop control suitability",
+        "load capability beyond tested range",
+        "temperature-wide output accuracy"
+      ]
+    },
+    {
+      "template_id": "PTR-RS485-001",
+      "title": "RS485 Modbus Prototype Test Report",
+      "applicable_models": ["IEG-100", "IER-100", "IER-120", "IER-140", "IEIO-100"],
+      "capability_area": "RS485",
+      "purpose": "Validate RS485 Modbus communication, baud rate options, multi-drop behavior, retry behavior and isolation/protection evidence.",
+      "required_equipment": [
+        "Modbus RTU master or slave simulator",
+        "at least three RS485 nodes for multi-drop test",
+        "RS485 USB adapter",
+        "oscilloscope if signal integrity is reviewed",
+        "isolation/protection test equipment if exact rating will be claimed"
+      ],
+      "preconditions": [
+        "RS485 transceiver and isolation design are selected.",
+        "Firmware Modbus role is documented.",
+        "Termination and bias strategy is documented."
+      ],
+      "test_steps": [
+        "Record RS485 transceiver and isolator part numbers.",
+        "Test Modbus communication at each supported baud rate.",
+        "Test parity options if configurable.",
+        "Run multi-drop communication with at least three nodes.",
+        "Test timeout, retry and recovery behavior.",
+        "Test termination/bias settings according to design.",
+        "Run isolation, ESD or surge test only with proper equipment and safety procedure.",
+        "Record communication error counters during sustained polling."
+      ],
+      "record_fields": [
+        "baud_rate",
+        "parity",
+        "node_count",
+        "cable_length_or_setup",
+        "termination_setting",
+        "requests_sent",
+        "successful_responses",
+        "crc_errors",
+        "timeouts",
+        "recovery_time_s",
+        "isolation_test_result",
+        "esd_surge_test_result",
+        "pass_fail",
+        "notes"
+      ],
+      "acceptance_criteria": [
+        "Supported baud rates communicate reliably under test conditions.",
+        "Multi-drop test remains stable under sustained polling.",
+        "Timeout and retry behavior matches firmware specification.",
+        "Exact isolation or surge claim is published only after matching test evidence exists."
+      ],
+      "seo_claims_unlocked_after_pass": [
+        "RS485 Modbus RTU support",
+        "supported baud rates",
+        "multi-drop wording if tested",
+        "isolation rating only if isolation test passes"
+      ],
+      "claims_still_blocked_without_extra_tests": [
+        "maximum cable length",
+        "maximum RS485 node count",
+        "surge/ESD level",
+        "isolation voltage"
+      ]
+    },
+    {
+      "template_id": "PTR-ETH-001",
+      "title": "Ethernet Prototype Test Report",
+      "applicable_models": ["IEG-100", "IER-100", "IEIO-100 Ethernet variant"],
+      "capability_area": "Ethernet",
+      "purpose": "Validate Ethernet connectivity, DHCP/static IP, Modbus TCP, MQTT, local web UI and network recovery behavior.",
+      "required_equipment": [
+        "Ethernet switch",
+        "DHCP router",
+        "Modbus TCP server/client simulator",
+        "MQTT broker",
+        "MQTT Explorer or equivalent",
+        "Wireshark"
+      ],
+      "preconditions": [
+        "Ethernet hardware is assembled.",
+        "Network firmware is available.",
+        "MQTT and Modbus TCP firmware features are enabled where applicable."
+      ],
+      "test_steps": [
+        "Test DHCP address acquisition.",
+        "Test static IP configuration.",
+        "Run Modbus TCP communication test if model supports Modbus TCP.",
+        "Run MQTT connection and publish test if model supports MQTT.",
+        "Access local web UI if implemented.",
+        "Disconnect and reconnect Ethernet cable and record recovery behavior.",
+        "Run sustained network communication for a defined duration."
+      ],
+      "record_fields": [
+        "network_mode",
+        "ip_address",
+        "modbus_tcp_result",
+        "mqtt_connection_result",
+        "mqtt_publish_count",
+        "mqtt_publish_failures",
+        "web_ui_result",
+        "disconnect_duration_s",
+        "recovery_time_s",
+        "packet_loss_or_errors",
+        "pass_fail",
+        "notes"
+      ],
+      "acceptance_criteria": [
+        "DHCP and static IP work as specified.",
+        "Modbus TCP works if claimed.",
+        "MQTT publish works if claimed.",
+        "Network reconnect recovers without manual power cycle.",
+        "Local web UI is reachable if claimed."
+      ],
+      "seo_claims_unlocked_after_pass": [
+        "Ethernet connectivity",
+        "Modbus TCP support if tested",
+        "MQTT publishing if tested",
+        "local web UI if tested"
+      ],
+      "claims_still_blocked_without_extra_tests": [
+        "PoE support",
+        "cybersecurity certification",
+        "industrial Ethernet protocol support beyond Modbus TCP"
+      ]
+    },
+    {
+      "template_id": "PTR-PWR-001",
+      "title": "Power Input Prototype Test Report",
+      "applicable_models": ["IEG-100", "IER-100", "IER-120", "IER-140", "IEIO-100"],
+      "capability_area": "power input",
+      "purpose": "Validate DC power input range, startup behavior, brownout recovery, reverse polarity protection and burn-in stability.",
+      "required_equipment": [
+        "adjustable DC power supply",
+        "electronic load if needed",
+        "multimeter",
+        "temperature probe",
+        "event logger or firmware diagnostic log"
+      ],
+      "preconditions": [
+        "Power input circuit is assembled.",
+        "Protection components are selected.",
+        "Firmware watchdog/recovery behavior is enabled."
+      ],
+      "test_steps": [
+        "Power up device at minimum target voltage.",
+        "Power up device at nominal voltage.",
+        "Power up device at maximum target voltage.",
+        "Run communication and IO sanity test at each voltage.",
+        "Perform short power interruption and brownout recovery test.",
+        "Perform reverse polarity protection test according to safe lab procedure.",
+        "Run 24-hour burn-in at nominal voltage and record resets or faults."
+      ],
+      "record_fields": [
+        "input_voltage",
+        "startup_result",
+        "current_consumption",
+        "communication_result",
+        "io_result",
+        "brownout_recovery_result",
+        "reverse_polarity_result",
+        "burn_in_duration_h",
+        "unexpected_resets",
+        "temperature_rise_c",
+        "pass_fail",
+        "notes"
+      ],
+      "acceptance_criteria": [
+        "Device starts and operates across validated voltage range.",
+        "Device recovers from short power interruption.",
+        "Reverse polarity protection works according to design.",
+        "No unexpected reset or unsafe temperature rise during burn-in."
+      ],
+      "seo_claims_unlocked_after_pass": [
+        "validated DC input range",
+        "reverse polarity protection if tested",
+        "watchdog or recovery wording if tested"
+      ],
+      "claims_still_blocked_without_extra_tests": [
+        "surge rating",
+        "wide temperature power behavior",
+        "certified power safety"
+      ]
+    },
+    {
+      "template_id": "PTR-GW-MQTT-001",
+      "title": "IEG-100 Modbus to MQTT Prototype Test Report",
+      "applicable_models": ["IEG-100", "IEG-120", "IEG-140"],
+      "capability_area": "Modbus polling and MQTT publishing",
+      "purpose": "Validate gateway Modbus RTU/TCP polling, MQTT connection, telemetry payload schema, reconnect behavior and configured capacity targets.",
+      "required_equipment": [
+        "Modbus RTU slave simulator",
+        "Modbus TCP slave simulator",
+        "MQTT broker",
+        "MQTT Explorer or equivalent",
+        "network switch/router",
+        "24-hour stability test script"
+      ],
+      "preconditions": [
+        "Gateway firmware supports Modbus polling.",
+        "MQTT client configuration is available.",
+        "Telemetry payload format is documented.",
+        "Test point configuration is prepared."
+      ],
+      "test_steps": [
+        "Configure one Modbus RTU slave and verify polling.",
+        "Configure one Modbus TCP slave and verify polling.",
+        "Configure MQTT broker and verify connection.",
+        "Verify telemetry topic and payload fields.",
+        "Test broker disconnect and reconnect behavior.",
+        "Test offline buffering if local cache is implemented.",
+        "Run configured point-count and device-count stability test.",
+        "Record sequence numbers, point quality and device status behavior."
+      ],
+      "record_fields": [
+        "configured_devices",
+        "configured_points",
+        "poll_interval_s",
+        "mqtt_qos",
+        "messages_published",
+        "publish_failures",
+        "reconnect_count",
+        "cache_records_sent",
+        "payload_schema_result",
+        "offline_device_behavior",
+        "test_duration_h",
+        "pass_fail",
+        "notes"
+      ],
+      "acceptance_criteria": [
+        "Gateway reads configured Modbus RTU and TCP points.",
+        "Gateway publishes MQTT telemetry with required fields.",
+        "Gateway reconnects after broker/network interruption.",
+        "Point quality reflects offline or invalid point behavior.",
+        "Published capacity claims match tested device and point count."
+      ],
+      "seo_claims_unlocked_after_pass": [
+        "Modbus RTU/TCP to MQTT gateway behavior",
+        "MQTT JSON payload wording",
+        "validated device count",
+        "validated data point count",
+        "store-and-forward only if cache test passes"
+      ],
+      "claims_still_blocked_without_extra_tests": [
+        "OPC UA support",
+        "BACnet support",
+        "CAN support",
+        "guaranteed cloud-platform compatibility",
+        "remote write/control unless command safety test passes"
+      ]
+    }
+  ],
+  "evidence_update_workflow": [
+    "Run the matching prototype test template on real hardware.",
+    "Save completed report as a dated engineering record.",
+    "Attach or reference component datasheets where electrical ratings are involved.",
+    "Have an engineering reviewer approve the result.",
+    "Update first-product-capability-validation-checklist.json evidence_available with the completed report filename.",
+    "Move the related check from blocked or conditional to pass only when all required evidence exists.",
+    "Update public product page briefs only after claim status is pass or safe conditional wording is defined."
+  ],
+  "next_actions": [
+    "Create a completed-report folder convention when real prototype tests begin.",
+    "Turn PTR-DI-001, PTR-RELAY-001, PTR-AI-001, PTR-RS485-001 and PTR-GW-MQTT-001 into spreadsheet forms if the engineering team prefers tabular testing.",
+    "Use these templates before drafting exact specifications for IEIO-100, IER-100 and IEG-100 product pages."
+  ]
+}

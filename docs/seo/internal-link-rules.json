@@ -1,0 +1,314 @@
+{
+  "meta": {
+    "project": "IoTEdges",
+    "database": "internal-link-rules",
+    "version": "0.1.0",
+    "last_updated": "2026-06-08",
+    "status": "drafted",
+    "purpose": "Machine-readable internal linking rules for IoTEdges SEO content across products, solutions, knowledge base, case studies, and blog articles."
+  },
+  "field_definitions": {
+    "rule_id": "Stable machine-readable rule identifier.",
+    "source_page_type": "Page type where the link rule applies.",
+    "required_targets": "Minimum target page types to link from the source page.",
+    "minimum_links": "Minimum number of contextual internal links required.",
+    "anchor_text_policy": "Guidance for natural anchor text.",
+    "placement_policy": "Where links should appear within the page.",
+    "avoid": "Internal linking mistakes to avoid.",
+    "validation": "Machine-checkable validation hints."
+  },
+  "global_rules": [
+    {
+      "rule_id": "no-orphan-commercial-pages",
+      "description": "Every product and solution page must have inbound support from at least one knowledge page, one article, or one case study once those pages exist.",
+      "applies_to": ["product", "solution"],
+      "validation": {
+        "required_inbound_link_types": ["knowledge_base", "blog_article", "case_study"],
+        "minimum_inbound_links_after_publication": 2
+      }
+    },
+    {
+      "rule_id": "pillar-to-cluster",
+      "description": "Pillar pages must link down to relevant cluster pages and cluster pages must link back to the pillar.",
+      "applies_to": ["product", "solution", "knowledge_base"],
+      "validation": {
+        "pillar_minimum_outbound_cluster_links": 3,
+        "cluster_requires_parent_link": true
+      }
+    },
+    {
+      "rule_id": "contextual-links-over-link-lists",
+      "description": "Important links should appear inside useful explanatory sections, not only in footer-style related link lists.",
+      "applies_to": ["all"],
+      "validation": {
+        "minimum_contextual_links": 3,
+        "related_links_section_allowed": true
+      }
+    },
+    {
+      "rule_id": "avoid-exact-match-spam",
+      "description": "Use natural anchor text variations instead of repeating the exact same keyword in every internal link.",
+      "applies_to": ["all"],
+      "validation": {
+        "anchor_text_variation_required": true
+      }
+    }
+  ],
+  "page_type_rules": [
+    {
+      "rule_id": "product-page-linking",
+      "source_page_type": "product",
+      "required_targets": {
+        "product": 2,
+        "solution": 3,
+        "knowledge_base": 2,
+        "case_study": 1,
+        "blog_article": 1
+      },
+      "minimum_links": 8,
+      "anchor_text_policy": [
+        "Use product category names for product links.",
+        "Use application names for solution links.",
+        "Use protocol or concept names for knowledge links.",
+        "Use result-oriented wording for case links."
+      ],
+      "placement_policy": [
+        "Link to parent or sibling products in the product overview section.",
+        "Link to solutions in the use cases section.",
+        "Link to knowledge base pages in protocol/interface sections.",
+        "Link to case studies near proof or deployment examples.",
+        "Link to buyer/how-to articles near selection guidance."
+      ],
+      "avoid": [
+        "Do not link every product page to every other product page.",
+        "Do not use identical anchor text repeatedly.",
+        "Do not link to unsupported candidate product pages as if they are live."
+      ],
+      "validation": {
+        "requires_solution_links": true,
+        "requires_knowledge_links": true,
+        "requires_case_or_article_link": true
+      }
+    },
+    {
+      "rule_id": "solution-page-linking",
+      "source_page_type": "solution",
+      "required_targets": {
+        "product": 2,
+        "knowledge_base": 2,
+        "case_study": 1,
+        "solution": 2,
+        "blog_article": 1
+      },
+      "minimum_links": 8,
+      "anchor_text_policy": [
+        "Use product names where product fit is discussed.",
+        "Use protocol names where architecture is discussed.",
+        "Use related solution names where a narrower or adjacent application is mentioned.",
+        "Use case titles or natural proof-oriented text for case links."
+      ],
+      "placement_policy": [
+        "Link products in recommended architecture and product fit sections.",
+        "Link knowledge base in protocol and communication sections.",
+        "Link case studies in proof/example deployment sections.",
+        "Link adjacent solutions in use case expansion sections."
+      ],
+      "avoid": [
+        "Do not make solution pages pure sales pages without technical support links.",
+        "Do not link to case studies that cannot support the same industry or architecture.",
+        "Do not overuse generic anchors such as learn more."
+      ],
+      "validation": {
+        "requires_product_links": true,
+        "requires_protocol_links": true,
+        "requires_case_link": true
+      }
+    },
+    {
+      "rule_id": "knowledge-base-linking",
+      "source_page_type": "knowledge_base",
+      "required_targets": {
+        "product": 2,
+        "solution": 2,
+        "knowledge_base": 3,
+        "blog_article": 1
+      },
+      "minimum_links": 8,
+      "anchor_text_policy": [
+        "Use exact technical term anchors when defining concepts.",
+        "Use practical application anchors when linking to solutions.",
+        "Use product names only where product fit is genuinely relevant."
+      ],
+      "placement_policy": [
+        "Link related knowledge pages in definitions and comparison sections.",
+        "Link products in practical application or gateway selection sections.",
+        "Link solutions where the technology is used.",
+        "Link how-to or troubleshooting articles after explaining common mistakes."
+      ],
+      "avoid": [
+        "Do not turn knowledge pages into product pages.",
+        "Do not link to products before explaining the technical concept.",
+        "Do not include unverified product capabilities as technical facts."
+      ],
+      "validation": {
+        "requires_related_knowledge_links": true,
+        "requires_commercial_support_links": true
+      }
+    },
+    {
+      "rule_id": "blog-article-linking",
+      "source_page_type": "blog_article",
+      "required_targets": {
+        "product": 2,
+        "solution": 1,
+        "knowledge_base": 2,
+        "case_study": 1
+      },
+      "minimum_links": 6,
+      "anchor_text_policy": [
+        "Use natural anchors that match the sentence context.",
+        "Use the exact product name once, then vary anchors naturally.",
+        "Use problem/solution anchors for commercial links."
+      ],
+      "placement_policy": [
+        "Link knowledge pages near definitions.",
+        "Link products near implementation recommendations.",
+        "Link solutions near application examples.",
+        "Link cases near proof or architecture examples."
+      ],
+      "avoid": [
+        "Do not stuff product links into every section.",
+        "Do not link to pages that are less relevant than the article's main intent.",
+        "Do not use blog articles as thin doorway pages."
+      ],
+      "validation": {
+        "requires_product_links": true,
+        "requires_knowledge_links": true
+      }
+    },
+    {
+      "rule_id": "case-study-linking",
+      "source_page_type": "case_study",
+      "required_targets": {
+        "product": 2,
+        "solution": 2,
+        "knowledge_base": 2,
+        "case_study": 1
+      },
+      "minimum_links": 7,
+      "anchor_text_policy": [
+        "Use products used as anchor text in architecture sections.",
+        "Use solution page names in challenge and result sections.",
+        "Use protocol names in devices/protocol sections.",
+        "Use similar-case anchors at the end of the article."
+      ],
+      "placement_policy": [
+        "Link products in project snapshot and architecture sections.",
+        "Link solutions in challenge and outcome sections.",
+        "Link knowledge base in protocol sections.",
+        "Link similar cases in the final related cases section."
+      ],
+      "avoid": [
+        "Do not publish as a real case without proof.",
+        "Do not link to unrelated industries just to increase link count.",
+        "Do not invent metrics or customer names."
+      ],
+      "validation": {
+        "requires_product_links": true,
+        "requires_solution_links": true,
+        "requires_knowledge_links": true
+      }
+    }
+  ],
+  "topic_cluster_rules": [
+    {
+      "cluster": "Modbus to MQTT",
+      "pillar_pages": ["/products/modbus-to-mqtt-gateway", "/knowledge-base/modbus-to-mqtt"],
+      "supporting_pages": [
+        "/products/mqtt-gateway",
+        "/products/modbus-gateway",
+        "/knowledge-base/mqtt",
+        "/knowledge-base/modbus",
+        "/blog/connect-modbus-energy-meter-to-mqtt",
+        "/case-studies/factory-energy-meter-modbus-mqtt"
+      ],
+      "required_bidirectional_links": true,
+      "notes": "This is one of the highest commercial-intent clusters and should be tightly linked."
+    },
+    {
+      "cluster": "Remote Pump Station Monitoring",
+      "pillar_pages": ["/solutions/pump-station-monitoring", "/products/rtu-for-pump-station-monitoring"],
+      "supporting_pages": [
+        "/products/industrial-rtu",
+        "/products/4g-rtu",
+        "/knowledge-base/rtu",
+        "/knowledge-base/scada-remote-monitoring",
+        "/blog/choose-rtu-for-pump-station-monitoring",
+        "/case-studies/remote-pump-station-monitoring-4g-rtu"
+      ],
+      "required_bidirectional_links": true,
+      "notes": "High-conversion water infrastructure cluster."
+    },
+    {
+      "cluster": "LoRa Agriculture Monitoring",
+      "pillar_pages": ["/solutions/smart-agriculture", "/products/lora-gateway"],
+      "supporting_pages": [
+        "/products/lorawan-gateway",
+        "/products/lora-gateway-for-agriculture-monitoring",
+        "/knowledge-base/lorawan",
+        "/knowledge-base/lora-vs-wifi-iot-monitoring",
+        "/blog/choose-lora-gateway-smart-agriculture",
+        "/case-studies/greenhouse-monitoring-lora-iot-gateway"
+      ],
+      "required_bidirectional_links": true,
+      "notes": "Use careful LoRa range language and link to LoRaWAN factual card."
+    },
+    {
+      "cluster": "Energy Meter Monitoring",
+      "pillar_pages": ["/solutions/energy-monitoring", "/products/mqtt-gateway-for-energy-meter-monitoring"],
+      "supporting_pages": [
+        "/products/mqtt-gateway",
+        "/products/modbus-to-mqtt-gateway",
+        "/knowledge-base/modbus",
+        "/knowledge-base/mqtt",
+        "/blog/connect-modbus-energy-meter-to-mqtt",
+        "/case-studies/factory-energy-meter-modbus-mqtt"
+      ],
+      "required_bidirectional_links": true,
+      "notes": "Connect factory, building, power meter, Modbus, and MQTT content."
+    },
+    {
+      "cluster": "Remote Tank Level Monitoring",
+      "pillar_pages": ["/solutions/tank-level-monitoring", "/products/rtu-for-tank-level-monitoring"],
+      "supporting_pages": [
+        "/products/4g-rtu",
+        "/products/industrial-rtu",
+        "/knowledge-base/4-20ma-signal",
+        "/knowledge-base/rtu",
+        "/blog/remote-tank-level-monitoring-architecture",
+        "/case-studies/oil-tank-level-monitoring-4g-rtu"
+      ],
+      "required_bidirectional_links": true,
+      "notes": "Useful across water, fuel, oil, and remote site content."
+    }
+  ],
+  "first_30_page_link_requirements": {
+    "source": "first-30-pages-priority-plan.json",
+    "rule": "Each page in the first 30 plan must include all entries from its required_internal_links field unless the target page is not yet created. If a target page is not created, add it to the publishing dependency list."
+  },
+  "publishing_dependency_policy": {
+    "before_publishing_product_page": [
+      "At least one related solution page should exist or be scheduled.",
+      "At least one related knowledge base page should exist or be scheduled."
+    ],
+    "before_publishing_solution_page": [
+      "At least two product pages should exist or be scheduled.",
+      "At least one protocol or technology knowledge page should exist or be scheduled."
+    ],
+    "before_publishing_case_study": [
+      "Product pages used in the case should exist or be scheduled.",
+      "The related solution page should exist or be scheduled.",
+      "Any metrics must be real, anonymized, or clearly conservative."
+    ]
+  }
+}

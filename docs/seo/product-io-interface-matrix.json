@@ -1,0 +1,258 @@
+{
+  "meta": {
+    "project": "IoTEdges",
+    "database": "product-io-interface-matrix",
+    "version": "0.1.0",
+    "last_updated": "2026-06-09",
+    "status": "planning_baseline",
+    "purpose": "Recommended port, interface and IO baseline for IoTEdges self-developed product models.",
+    "important_note": "Channel counts and signal ratings are planning targets. Final values must be validated by schematic design, PCB layout, component selection, enclosure constraints, firmware and prototype testing."
+  },
+  "io_terms": {
+    "DI": "Digital input for dry contact, wet contact or pulse/status signals depending on circuit design.",
+    "DO": "Digital output, usually transistor output or relay-controlled output depending on model.",
+    "AI": "Analog input, commonly 4-20mA and/or 0-10V for sensors such as pressure, level, flow and temperature transmitters.",
+    "AO": "Analog output, commonly 0-10V or 4-20mA for setpoint/control output; useful but not necessary on every first-generation model.",
+    "Relay": "Mechanical relay output for alarm, switching or control signals; ratings must be validated before publication.",
+    "RS485": "Industrial serial interface commonly used for Modbus RTU meters, sensors, VFDs, inverters and controllers.",
+    "Ethernet": "Wired uplink/configuration interface; can support Modbus TCP, MQTT and web UI depending on firmware."
+  },
+  "global_design_rules": [
+    "Gateway models should prioritize RS485, Ethernet and protocol conversion; built-in IO should be light or optional.",
+    "RTU models should prioritize DI, DO/relay, AI and RS485 because IO is the main buying criterion.",
+    "Remote IO models should start with separate IO-type variants rather than one overloaded SKU.",
+    "AO is useful for control applications but should be a selected Remote IO or advanced RTU variant, not a baseline requirement for every product.",
+    "LoRa Remote IO should use fewer IO channels than wired Remote IO because power budget, enclosure size and wireless payload size matter.",
+    "Publish exact channel counts only after hardware validation."
+  ],
+  "model_io_baseline": [
+    {
+      "model_code": "IEG-100",
+      "model_name": "Ethernet Industrial IoT Gateway",
+      "product_line": "Gateway",
+      "recommended_interfaces": {
+        "uplink": ["1x Ethernet"],
+        "serial": ["1x isolated RS485"],
+        "configuration": ["Web UI over Ethernet"],
+        "optional": ["RS232", "second RS485"]
+      },
+      "recommended_io": {
+        "baseline": [],
+        "optional": ["2x DI", "1x AI"],
+        "not_recommended": ["AO", "relay output as core feature"]
+      },
+      "positioning_note": "Keep this as a protocol gateway. Do not make IO the main selling point."
+    },
+    {
+      "model_code": "IEG-120",
+      "model_name": "WiFi Industrial IoT Gateway",
+      "product_line": "Gateway",
+      "recommended_interfaces": {
+        "uplink": ["1x WiFi", "1x Ethernet for setup/local network"],
+        "serial": ["1x isolated RS485"],
+        "configuration": ["Web UI over Ethernet or WiFi setup mode"],
+        "optional": ["RS232"]
+      },
+      "recommended_io": {
+        "baseline": [],
+        "optional": ["2x DI", "1x AI"],
+        "not_recommended": ["AO", "relay output as core feature"]
+      },
+      "positioning_note": "WiFi version of the baseline Modbus/MQTT gateway for indoor LAN environments."
+    },
+    {
+      "model_code": "IEG-140",
+      "model_name": "4G Industrial IoT Gateway",
+      "product_line": "Gateway",
+      "recommended_interfaces": {
+        "uplink": ["1x 4G LTE", "1x Ethernet for setup/local network"],
+        "serial": ["1x isolated RS485"],
+        "cellular": ["SIM slot", "external antenna connector"],
+        "configuration": ["Web UI over Ethernet"],
+        "optional": ["RS232", "second SIM on higher variant"]
+      },
+      "recommended_io": {
+        "baseline": [],
+        "optional": ["2x DI", "1x AI"],
+        "not_recommended": ["AO", "relay output as core feature"]
+      },
+      "positioning_note": "Remote protocol gateway. Keep IO light so it does not overlap too much with 4G RTU."
+    },
+    {
+      "model_code": "IEG-E200",
+      "model_name": "Advanced Edge IoT Gateway",
+      "product_line": "Edge Gateway",
+      "recommended_interfaces": {
+        "uplink": ["1x Ethernet baseline", "separate wireless-uplink variant only"],
+        "serial": ["2x isolated RS485"],
+        "configuration": ["Web UI", "advanced diagnostics"],
+        "optional": ["RS232", "CAN", "USB service port"]
+      },
+      "recommended_io": {
+        "baseline": ["2x DI", "2x DO"],
+        "optional": ["2x AI", "relay output variant"],
+        "not_recommended": ["large IO count as baseline"]
+      },
+      "positioning_note": "Edge gateway may include light IO for machine status and local rules, but heavy IO should remain RTU/Remote IO territory."
+    },
+    {
+      "model_code": "IER-100",
+      "model_name": "Ethernet Industrial RTU",
+      "product_line": "RTU",
+      "recommended_interfaces": {
+        "uplink": ["1x Ethernet"],
+        "serial": ["1x isolated RS485"],
+        "configuration": ["Web UI over Ethernet"],
+        "optional": ["second RS485"]
+      },
+      "recommended_io": {
+        "baseline": ["4x DI", "2x DO/relay", "2x AI"],
+        "optional": ["4x DI + 4x DO + 4x AI variant", "AO variant"],
+        "signal_targets": ["DI dry/wet contact target", "AI 4-20mA and/or 0-10V target"]
+      },
+      "positioning_note": "Wired RTU for LAN/SCADA cabinets and local industrial telemetry."
+    },
+    {
+      "model_code": "IER-120",
+      "model_name": "WiFi Remote Monitoring RTU",
+      "product_line": "RTU",
+      "recommended_interfaces": {
+        "uplink": ["1x WiFi", "optional Ethernet for setup/local network"],
+        "serial": ["1x isolated RS485"],
+        "configuration": ["Web UI over WiFi setup mode or Ethernet"],
+        "optional": ["external WiFi antenna depending on enclosure"]
+      },
+      "recommended_io": {
+        "baseline": ["4x DI", "2x DO/relay", "2x AI"],
+        "optional": ["4x DI + 4x DO + 4x AI variant"],
+        "signal_targets": ["AI 4-20mA and/or 0-10V target"]
+      },
+      "positioning_note": "WiFi RTU for indoor facilities where wireless LAN is available."
+    },
+    {
+      "model_code": "IER-140",
+      "model_name": "4G Remote Monitoring RTU",
+      "product_line": "RTU",
+      "recommended_interfaces": {
+        "uplink": ["1x 4G LTE", "optional Ethernet for setup/local network"],
+        "serial": ["1x isolated RS485"],
+        "cellular": ["SIM slot", "external antenna connector"],
+        "configuration": ["Web UI over Ethernet", "remote configuration after platform support"]
+      },
+      "recommended_io": {
+        "baseline": ["4x DI", "2x DO/relay", "2x AI"],
+        "optional": ["8x DI + 4x DO + 4x AI variant", "battery backup input"],
+        "signal_targets": ["DI alarm/status/pulse target", "AI 4-20mA and/or 0-10V target"]
+      },
+      "positioning_note": "Main remote telemetry RTU for pump, tank, pipeline, generator and telecom cabinet monitoring."
+    },
+    {
+      "model_code": "IER-160",
+      "model_name": "High-IO Industrial RTU",
+      "product_line": "RTU",
+      "recommended_interfaces": {
+        "uplink": ["1x Ethernet baseline", "separate wireless-uplink variant only"],
+        "serial": ["2x isolated RS485"],
+        "configuration": ["Web UI", "local diagnostics"],
+        "optional": ["RS232"]
+      },
+      "recommended_io": {
+        "baseline": ["8x DI", "4x relay/DO", "4x AI"],
+        "optional": ["16x DI variant", "8x AI variant", "2x AO variant"],
+        "signal_targets": ["AI 4-20mA and/or 0-10V target", "AO 0-10V or 4-20mA only after validation"]
+      },
+      "positioning_note": "Higher-channel RTU for wastewater, substations, utility cabinets and multi-sensor field sites."
+    },
+    {
+      "model_code": "IEIO-100",
+      "model_name": "Modbus Remote IO Module",
+      "product_line": "Remote IO",
+      "recommended_interfaces": {
+        "uplink": ["RS485 Modbus RTU baseline", "Ethernet Modbus TCP variant optional"],
+        "serial": ["1x isolated RS485"],
+        "configuration": ["DIP switch/address setting or software configuration"],
+        "optional": ["Ethernet port on IEIO-100E variant"]
+      },
+      "recommended_io": {
+        "first_generation_variants": [
+          "IEIO-100-DI8: 8DI",
+          "IEIO-100-DO8: 8DO/relay",
+          "IEIO-100-AI4: 4AI",
+          "IEIO-100-AO4: 4AO"
+        ],
+        "second_wave_variants": [
+          "IEIO-100-MD44: 4DI + 4DO",
+          "IEIO-100-MA44: 4AI + 4AO"
+        ],
+        "optional_variants": ["16DI", "16DO", "8AI", "temperature input variant"],
+        "signal_targets": ["DI dry/wet contact target", "AI 4-20mA/0-10V variant", "AO 0-10V/4-20mA variant"]
+      },
+      "positioning_note": "Remote IO should be modular by IO type; this supports many SEO pages around DI module, relay output module and analog input module."
+    },
+    {
+      "model_code": "IEG-L100",
+      "model_name": "Industrial LoRaWAN Gateway",
+      "product_line": "LoRa Gateway",
+      "recommended_interfaces": {
+        "uplink": ["LoRaWAN wireless side", "Ethernet backhaul"],
+        "wireless": ["LoRa antenna connector"],
+        "configuration": ["Web UI over Ethernet"],
+        "optional": ["PoE", "GPS"]
+      },
+      "recommended_io": {
+        "baseline": [],
+        "optional": [],
+        "not_recommended": ["DI/DO/AI/AO on gateway baseline"]
+      },
+      "positioning_note": "Keep gateway focused on LoRaWAN network/application integration. Field IO belongs to LoRa nodes."
+    },
+    {
+      "model_code": "IEIO-L100",
+      "model_name": "LoRa Remote IO Node",
+      "product_line": "LoRa Remote IO",
+      "recommended_interfaces": {
+        "uplink": ["LoRa/LoRaWAN"],
+        "wireless": ["LoRa antenna connector or embedded antenna depending on enclosure"],
+        "power": ["DC input baseline", "battery/solar variant only after power budget validation"]
+      },
+      "recommended_io": {
+        "baseline": ["2x DI", "1x AI"],
+        "optional": ["1x relay/DO", "2x AI variant", "temperature/humidity sensor variant"],
+        "not_recommended": ["large IO count", "AO baseline"]
+      },
+      "positioning_note": "Low-channel wireless IO node for distributed sensors and alarms."
+    }
+  ],
+  "seo_page_mapping": {
+    "digital_input_module": ["IEIO-100", "IER-100", "IER-140", "IER-160"],
+    "digital_output_module": ["IEIO-100", "IER-100", "IER-140", "IER-160"],
+    "analog_input_module": ["IEIO-100", "IER-100", "IER-140", "IER-160", "IEIO-L100"],
+    "analog_output_module": ["IEIO-100", "IER-160"],
+    "relay_output_module": ["IEIO-100", "IER-100", "IER-140", "IER-160"],
+    "rs485_remote_io": ["IEIO-100"],
+    "ethernet_remote_io": ["IEIO-100 Ethernet variant"],
+    "rtu_io_module": ["IER-100", "IER-120", "IER-140", "IER-160"]
+  },
+  "claim_rules": {
+    "safe_to_say_now": [
+      "IoTEdges is planning RTU and Remote IO models around DI, DO, AI, AO, relay output, RS485 and Ethernet use cases.",
+      "Gateway models should be positioned mainly around RS485, Ethernet, Modbus and MQTT rather than heavy built-in IO.",
+      "IEIO-100 will start with separate IO-type variants: DI8, DO8, AI4 and AO4."
+    ],
+    "do_not_say_until_validated": [
+      "Exact channel counts",
+      "Relay contact ratings",
+      "Input isolation voltage",
+      "Analog input accuracy",
+      "Sampling rate",
+      "Pulse counter frequency",
+      "AO resolution or load capability",
+      "Surge/ESD protection levels"
+    ]
+  },
+  "next_actions": [
+    "Use this matrix to create engineering requirement documents for IER-100, IER-140 and IEIO-100 first.",
+    "Use IEIO-100-DI8, IEIO-100-DO8, IEIO-100-AI4 and IEIO-100-AO4 as first-generation Remote IO variants.",
+    "Use the SEO page mapping to prioritize Remote IO and RTU IO product pages."
+  ]
+}

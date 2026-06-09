@@ -1,0 +1,344 @@
+{
+  "meta": {
+    "project": "IoTEdges",
+    "database": "first-product-electrical-validation-targets",
+    "version": "0.1.0",
+    "last_updated": "2026-06-09",
+    "status": "draft_validation_targets",
+    "purpose": "Draft mainstream electrical validation targets for first-generation IoTEdges products, especially IEIO-100, IER-100 and IEG-100.",
+    "important_note": "These are engineering targets, not confirmed datasheet specifications. Do not publish exact relay rating, analog accuracy, isolation voltage, surge/ESD level, temperature range or certification claims until schematic, component selection, PCB layout and prototype test reports confirm them."
+  },
+  "scope": {
+    "primary_models": ["IEIO-100", "IER-100", "IEG-100"],
+    "secondary_models": ["IER-120", "IER-140", "IEG-120", "IEG-140", "IEIO-L100"],
+    "interfaces_covered": ["power input", "DI", "DO/relay", "AI", "AO", "RS485", "Ethernet", "enclosure and environment"],
+    "planning_basis": "Mainstream industrial cabinet-mounted IoT gateway, RTU and Remote IO configurations."
+  },
+  "global_electrical_targets": {
+    "power_input": {
+      "target_range": "9-36VDC",
+      "preferred_nominal": "12/24VDC",
+      "protection_targets": [
+        "reverse polarity protection",
+        "over-voltage protection",
+        "surge protection suitable for industrial DC input",
+        "brownout recovery",
+        "watchdog recovery after unstable power"
+      ],
+      "validation_methods": [
+        "power-up test at minimum, nominal and maximum input voltage",
+        "reverse polarity protection test",
+        "short power interruption recovery test",
+        "24-hour burn-in at nominal voltage"
+      ],
+      "seo_claim_policy": "Before validation, say only that DC industrial power input is planned. Do not publish exact input range."
+    },
+    "temperature": {
+      "planning_target": "-20C to +70C",
+      "validation_methods": [
+        "low-temperature startup test",
+        "high-temperature operating soak",
+        "thermal rise check in enclosure",
+        "communication and IO stability test during temperature soak"
+      ],
+      "seo_claim_policy": "Do not publish operating temperature range until chamber or equivalent test evidence exists."
+    },
+    "mounting": {
+      "target": "DIN rail cabinet mounting",
+      "validation_methods": [
+        "DIN rail clip mechanical fit check",
+        "terminal block accessibility check",
+        "enclosure heat dissipation review"
+      ],
+      "seo_claim_policy": "DIN rail mounting can be described after mechanical design is locked."
+    }
+  },
+  "digital_input_targets": {
+    "applicable_models": ["IEIO-100-DI8", "IEIO-100-MD44", "IER-100", "IER-120", "IER-140"],
+    "mainstream_target": {
+      "channel_modes": ["dry contact", "wet contact 12/24VDC target"],
+      "status_detection": "on/off state",
+      "optional_features": ["pulse counting", "input debounce", "polarity inversion"],
+      "isolation_target": "channel-group isolation target; exact voltage TBD by circuit design"
+    },
+    "recommended_design_decisions": [
+      "Decide whether dry and wet contact are supported on the same hardware or separated by SKU/jumper/software setting.",
+      "Keep pulse counting optional until firmware timing and input circuit are validated.",
+      "Expose input debounce setting in firmware if alarm/contact bounce is a target use case."
+    ],
+    "validation_methods": [
+      "dry contact open/close state test",
+      "wet contact threshold test at low/nominal/high voltage",
+      "debounce test with mechanical contact simulation",
+      "pulse input frequency test if pulse mode is implemented",
+      "input fault and wiring mistake sanity test"
+    ],
+    "acceptance_evidence": [
+      "schematic input circuit decision",
+      "prototype DI state test report",
+      "firmware debounce or pulse mode test report if implemented"
+    ],
+    "seo_claim_policy": {
+      "allowed_before_validation": "Planned DI channels for status, alarm and contact input applications.",
+      "not_allowed_before_validation": [
+        "exact input voltage threshold",
+        "pulse counter frequency",
+        "wet/dry contact support as confirmed",
+        "input isolation voltage"
+      ]
+    }
+  },
+  "digital_output_relay_targets": {
+    "applicable_models": ["IEIO-100-DO8", "IEIO-100-MD44", "IER-100", "IER-120", "IER-140"],
+    "mainstream_target": {
+      "preferred_first_generation_choice": "relay output for general industrial alarm/control; transistor output can be a later or separate variant",
+      "relay_rating_planning_target": "5A at 250VAC or 30VDC class relay target, subject to component and PCB validation",
+      "control_modes": ["manual write", "failsafe state", "hold last state"],
+      "protection_targets": [
+        "contact protection guidance in user manual",
+        "clear warning that inductive loads require external suppression",
+        "output state recovery after reboot"
+      ]
+    },
+    "recommended_design_decisions": [
+      "Decide whether DO8 means relay output, transistor output or two separate SKUs.",
+      "For SEO simplicity, use relay output as the first public positioning only after relay component and PCB clearance are validated.",
+      "Keep remote write/control disabled by default on gateway/RTU firmware until safety behavior is validated."
+    ],
+    "validation_methods": [
+      "relay on/off functional test",
+      "rated load switching test after component selection",
+      "endurance sample test for expected load class",
+      "reboot startup state test",
+      "failsafe behavior test after communication timeout",
+      "terminal temperature rise check under load"
+    ],
+    "acceptance_evidence": [
+      "relay component datasheet",
+      "PCB creepage/clearance review",
+      "prototype relay switching test report",
+      "failsafe firmware test report"
+    ],
+    "seo_claim_policy": {
+      "allowed_before_validation": "Planned DO/relay output variants for alarm and control applications.",
+      "not_allowed_before_validation": [
+        "exact relay current or voltage rating",
+        "motor or pump direct-control claim",
+        "load category claim",
+        "safety control claim"
+      ]
+    }
+  },
+  "analog_input_targets": {
+    "applicable_models": ["IEIO-100-AI4", "IEIO-100-MA44", "IER-100", "IER-120", "IER-140"],
+    "mainstream_target": {
+      "signal_modes": ["4-20mA", "0-10V"],
+      "resolution_target": "16-bit ADC class target",
+      "accuracy_planning_target": "0.2% FS to 0.5% FS class target after calibration, subject to BOM and layout",
+      "sampling_target": "1 sample/second per channel baseline; faster rates optional after validation",
+      "features": ["scaling", "offset", "engineering unit", "over-range detection", "under-range detection"]
+    },
+    "recommended_design_decisions": [
+      "Decide whether 4-20mA and 0-10V are selectable per channel, jumper-selected or separate SKUs.",
+      "Use 4-20mA as the most important first-generation AI mode because it is common in water, energy, tank and industrial sensors.",
+      "Keep temperature input such as PT100/thermocouple as a later specialized variant."
+    ],
+    "validation_methods": [
+      "calibrated 4mA, 12mA and 20mA input test",
+      "calibrated 0V, 5V and 10V input test if voltage mode is implemented",
+      "linearity test across multiple points",
+      "noise and stability test at steady input",
+      "temperature drift test before publishing accuracy across temperature",
+      "open-circuit or out-of-range detection test"
+    ],
+    "acceptance_evidence": [
+      "analog front-end component selection",
+      "calibration procedure",
+      "prototype analog accuracy test report",
+      "firmware scaling test report"
+    ],
+    "seo_claim_policy": {
+      "allowed_before_validation": "Planned AI channels for 4-20mA and/or 0-10V industrial sensor signals.",
+      "not_allowed_before_validation": [
+        "exact accuracy",
+        "exact resolution",
+        "sampling rate",
+        "temperature drift",
+        "per-channel isolation"
+      ]
+    }
+  },
+  "analog_output_targets": {
+    "applicable_models": ["IEIO-100-AO4", "IEIO-100-MA44", "IER-160 future variant"],
+    "mainstream_target": {
+      "signal_modes": ["0-10V", "4-20mA"],
+      "resolution_target": "12-bit to 16-bit DAC class target",
+      "accuracy_planning_target": "0.5% FS class target after calibration, subject to BOM and output load",
+      "features": ["setpoint write", "failsafe output value", "startup output value"]
+    },
+    "recommended_design_decisions": [
+      "Treat AO as a more specialized first-generation Remote IO variant, not a required RTU baseline feature.",
+      "Decide whether voltage and current output are selectable or separate SKUs.",
+      "Validate load capability before public claims."
+    ],
+    "validation_methods": [
+      "0-10V output measurement at 0%, 50% and 100%",
+      "4-20mA output measurement at 4mA, 12mA and 20mA",
+      "load capability test",
+      "output stability test",
+      "failsafe output behavior test",
+      "power cycle startup output test"
+    ],
+    "acceptance_evidence": [
+      "DAC/output driver component selection",
+      "prototype AO accuracy and load test report",
+      "firmware failsafe setpoint test report"
+    ],
+    "seo_claim_policy": {
+      "allowed_before_validation": "Planned AO Remote IO variant for analog setpoint output applications.",
+      "not_allowed_before_validation": [
+        "exact output accuracy",
+        "exact DAC resolution",
+        "load resistance",
+        "guaranteed control-loop suitability"
+      ]
+    }
+  },
+  "rs485_targets": {
+    "applicable_models": ["IEG-100", "IER-100", "IER-120", "IER-140", "IEIO-100"],
+    "mainstream_target": {
+      "protocol": "Modbus RTU",
+      "role_by_product": {
+        "gateway": "master",
+        "rtu": "slave and/or master depending on firmware mode",
+        "remote_io": "slave"
+      },
+      "baud_rates": [9600, 19200, 38400, 57600, 115200],
+      "parity_options": ["None", "Even", "Odd"],
+      "isolation_planning_target": "1.5kV to 2.5kV class isolated RS485 target, subject to isolator and power design",
+      "protection_targets": ["ESD protection", "surge protection", "bias/termination strategy"]
+    },
+    "recommended_design_decisions": [
+      "Use isolated RS485 as a strong product target for industrial credibility.",
+      "Decide whether termination resistor is fixed, DIP-switch selectable or software/documentation guided.",
+      "Keep exact isolation voltage unpublished until tested."
+    ],
+    "validation_methods": [
+      "Modbus communication test at each supported baud rate",
+      "multi-drop bus test with at least 3 devices",
+      "long-cable simulation or representative cable test",
+      "termination and bias behavior test",
+      "ESD/surge pre-compliance test before publishing protection levels",
+      "isolation test before publishing isolation voltage"
+    ],
+    "acceptance_evidence": [
+      "RS485 transceiver and digital isolator component selection",
+      "schematic isolation review",
+      "prototype multi-drop Modbus test report",
+      "ESD/surge/isolation test evidence"
+    ],
+    "seo_claim_policy": {
+      "allowed_before_validation": "Planned RS485 Modbus RTU interface for industrial field devices.",
+      "not_allowed_before_validation": [
+        "exact isolation voltage",
+        "exact surge or ESD level",
+        "maximum cable distance",
+        "maximum number of RS485 nodes"
+      ]
+    }
+  },
+  "ethernet_targets": {
+    "applicable_models": ["IEG-100", "IER-100", "IEIO-100 Ethernet variant"],
+    "mainstream_target": {
+      "port_speed": "10/100Mbps Ethernet target",
+      "protocols": ["Modbus TCP", "MQTT", "local web UI where implemented"],
+      "protection_targets": ["magnetic isolation through Ethernet transformer", "ESD protection"],
+      "optional_features": ["static IP", "DHCP", "DNS", "NTP", "firmware update over web UI"]
+    },
+    "validation_methods": [
+      "DHCP and static IP test",
+      "Modbus TCP communication test",
+      "MQTT publish test",
+      "local web UI access test if implemented",
+      "network reconnect test",
+      "ESD pre-compliance test before publishing protection level"
+    ],
+    "acceptance_evidence": [
+      "Ethernet PHY/module component selection",
+      "network firmware test report",
+      "MQTT and Modbus TCP validation report"
+    ],
+    "seo_claim_policy": {
+      "allowed_before_validation": "Ethernet connectivity is planned for wired gateway, RTU and optional Remote IO variants.",
+      "not_allowed_before_validation": [
+        "PoE support",
+        "gigabit Ethernet",
+        "exact ESD level",
+        "cybersecurity certification"
+      ]
+    }
+  },
+  "model_specific_validation_mapping": [
+    {
+      "model_code": "IEIO-100",
+      "highest_priority_checks": [
+        "RS485 Modbus RTU communication",
+        "DI8 dry/wet input behavior",
+        "DO8 relay output decision and rating test",
+        "AI4 4-20mA/0-10V accuracy test",
+        "AO4 output accuracy and load test",
+        "failsafe output behavior"
+      ]
+    },
+    {
+      "model_code": "IER-100",
+      "highest_priority_checks": [
+        "4DI + 2DO/relay + 2AI functional test",
+        "Ethernet Modbus TCP test",
+        "RS485 Modbus RTU test",
+        "relay output safety behavior",
+        "AI accuracy test",
+        "power interruption recovery"
+      ]
+    },
+    {
+      "model_code": "IEG-100",
+      "highest_priority_checks": [
+        "isolated RS485 hardware validation",
+        "Ethernet stability test",
+        "Modbus RTU/TCP communication test",
+        "MQTT publish/reconnect test",
+        "optional light DI/AI only if included in final hardware"
+      ]
+    }
+  ],
+  "seo_claim_release_gates": [
+    {
+      "gate": "planning",
+      "allowed_wording": "planned, designed for, target, under validation",
+      "example": "Designed for Modbus RTU over RS485 and industrial IO monitoring applications."
+    },
+    {
+      "gate": "schematic_locked",
+      "allowed_wording": "interface and channel count can be described internally; public exact ratings still withheld",
+      "example": "Internal brief may mention selected relay component, but public page should not publish relay rating yet."
+    },
+    {
+      "gate": "prototype_tested",
+      "allowed_wording": "validated channel counts and measured electrical targets can be used in product drafts",
+      "example": "Publish exact AI accuracy only after measured data is accepted."
+    },
+    {
+      "gate": "certification_complete",
+      "allowed_wording": "certification marks and compliance claims can be used only after documents exist",
+      "example": "CE/FCC/UL/ATEX/IECEx claims require actual certificates."
+    }
+  ],
+  "next_actions": [
+    "Review relay output strategy: relay-only first generation, transistor output variant, or both.",
+    "Decide whether AI and AO 4-20mA/0-10V modes are selectable per channel or separated by SKU.",
+    "Confirm whether isolated RS485 is mandatory for all first-generation models.",
+    "Create prototype test report templates for DI, relay, AI, AO, RS485 and Ethernet.",
+    "Update first-product-capability-validation-checklist.json after component selection or prototype evidence is available."
+  ]
+}

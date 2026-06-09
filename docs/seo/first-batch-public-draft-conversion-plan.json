@@ -1,0 +1,345 @@
+{
+  "meta": {
+    "project": "IoTEdges",
+    "database": "first-batch-public-draft-conversion-plan",
+    "version": "0.1.0",
+    "last_updated": "2026-06-09",
+    "status": "draft_conversion_plan",
+    "purpose": "Decide which first-batch model-specific safe-scope briefs can be converted into public website draft pages using only safe or conditional wording, and which pages should remain internal until prototype validation.",
+    "important_note": "This plan allows early SEO draft pages only when exact specifications are withheld. It does not approve final datasheet-style pages."
+  },
+  "conversion_status_values": {
+    "public_safe_draft_candidate": "Can become a public draft page if all blocked and forbidden claims are removed and wording stays conditional.",
+    "internal_only_until_validation": "Should remain internal because the page depends too heavily on unvalidated hardware, RF, cellular or electrical claims.",
+    "wait_for_prototype": "Should wait for prototype or module validation before public drafting.",
+    "not_ready": "Insufficient structure or claim control."
+  },
+  "public_draft_rules": [
+    "Use planned, designed for, target, intended for and under validation wording.",
+    "Do not show exact relay rating, analog accuracy, operating temperature, IP rating, isolation voltage, LTE bands, WiFi range, LoRa range or certifications.",
+    "Do not publish full register maps or payload schemas as final API specifications until firmware is validated.",
+    "Do not add comparison tables that imply unavailable features are supported.",
+    "Do not add datasheet-style spec tables unless every value is marked planned or validation-gated.",
+    "Every public draft must include a short validation-status note.",
+    "Every public draft must link to relevant product, solution and knowledge pages."
+  ],
+  "recommended_public_draft_batch": [
+    {
+      "priority": 1,
+      "model_code": "IEG-100",
+      "reason": "Lowest risk among gateway pages because Ethernet-only positioning avoids unvalidated wireless module, band and RF claims."
+    },
+    {
+      "priority": 2,
+      "model_code": "IEIO-100",
+      "reason": "Strong SEO value for Remote IO, but exact electrical specs and register map must stay validation-gated."
+    },
+    {
+      "priority": 3,
+      "model_code": "IER-100",
+      "reason": "Lower-risk wired RTU page; IO baseline is confirmed but electrical ratings remain blocked."
+    }
+  ],
+  "pages": [
+    {
+      "model_code": "IEG-100",
+      "page_title": "Ethernet Industrial IoT Gateway",
+      "brief_file": "docs/seo/product-page-markdown-briefs/ieg-100-ethernet-industrial-iot-gateway.md",
+      "route": "/products/ethernet-industrial-iot-gateway",
+      "conversion_status": "public_safe_draft_created",
+      "conversion_priority": 1,
+      "public_draft_file": "src/content/products/ieg-100-ethernet-industrial-iot-gateway.md",
+      "minimum_public_page_scope": [
+        "product role and Ethernet-only positioning",
+        "Modbus RTU/TCP to MQTT architecture described as planned/under validation",
+        "typical applications",
+        "model comparison with IEG-120 and IEG-140 using uplink only",
+        "FAQ with clear exclusions",
+        "validation-status note"
+      ],
+      "must_remove_or_hide": [
+        "exact device count",
+        "exact data point count",
+        "guaranteed polling interval",
+        "TLS as confirmed",
+        "offline buffering as confirmed",
+        "remote write/control as confirmed",
+        "OPC UA/BACnet/CAN claims"
+      ],
+      "required_before_public_draft": [
+        "editorial review against first-batch-product-page-capability-review-matrix.json",
+        "internal link check",
+        "metadata review"
+      ],
+      "required_before_final_specs": [
+        "completed PTR-GW-MQTT-001 report",
+        "completed PTR-RS485-001 report",
+        "completed PTR-ETH-001 report"
+      ]
+    },
+    {
+      "model_code": "IEIO-100",
+      "page_title": "Modbus Remote IO Module",
+      "brief_file": "docs/seo/product-page-markdown-briefs/ieio-100-modbus-remote-io-module.md",
+      "route": "/products/modbus-remote-io-module",
+      "conversion_status": "public_safe_draft_created",
+      "conversion_priority": 2,
+      "public_draft_file": "src/content/products/ieio-100-modbus-remote-io-module.md",
+      "minimum_public_page_scope": [
+        "Remote IO family positioning",
+        "planned DI8, DO8/relay, AI4 and AO4 variants",
+        "Modbus RTU over RS485 as target protocol",
+        "selection guidance for DI/DO/AI/AO needs",
+        "typical applications",
+        "FAQ with clear MQTT/cloud gateway exclusion",
+        "validation-status note"
+      ],
+      "must_remove_or_hide": [
+        "full register map as final",
+        "relay rating",
+        "analog accuracy",
+        "AO load capability",
+        "RS485 isolation voltage",
+        "surge/ESD level",
+        "direct motor/pump control wording"
+      ],
+      "required_before_public_draft": [
+        "editorial review against first-batch-product-page-capability-review-matrix.json",
+        "check that every IO value is described as planned",
+        "internal link check"
+      ],
+      "required_before_final_specs": [
+        "completed PTR-DI-001 report",
+        "completed PTR-RELAY-001 report",
+        "completed PTR-AI-001 report",
+        "completed PTR-AO-001 report if AO is included",
+        "completed PTR-RS485-001 report"
+      ]
+    },
+    {
+      "model_code": "IER-100",
+      "page_title": "Ethernet Industrial RTU",
+      "brief_file": "docs/seo/product-page-markdown-briefs/ier-100-ethernet-industrial-rtu.md",
+      "route": "/products/ethernet-industrial-rtu",
+      "conversion_status": "public_safe_draft_created",
+      "conversion_priority": 3,
+      "public_draft_file": "src/content/products/ier-100-ethernet-industrial-rtu.md",
+      "minimum_public_page_scope": [
+        "Ethernet-only RTU positioning",
+        "planned 4DI + 2DO/relay + 2AI baseline",
+        "wired SCADA/LAN architecture",
+        "typical applications",
+        "RTU vs gateway vs Remote IO comparison",
+        "FAQ with clear protocol exclusions",
+        "validation-status note"
+      ],
+      "must_remove_or_hide": [
+        "relay rating",
+        "analog accuracy",
+        "RS485 isolation voltage",
+        "temperature range",
+        "IP rating",
+        "DNP3/IEC protocol claims",
+        "safety controller wording"
+      ],
+      "required_before_public_draft": [
+        "editorial review against first-batch-product-page-capability-review-matrix.json",
+        "confirm IO baseline wording uses planned or target language",
+        "internal link check"
+      ],
+      "required_before_final_specs": [
+        "completed PTR-DI-001 report",
+        "completed PTR-RELAY-001 report",
+        "completed PTR-AI-001 report",
+        "completed PTR-RS485-001 report",
+        "completed PTR-ETH-001 report"
+      ]
+    },
+    {
+      "model_code": "IER-140",
+      "page_title": "4G Remote Monitoring RTU",
+      "brief_file": "docs/seo/product-page-markdown-briefs/ier-140-4g-remote-monitoring-rtu.md",
+      "route": "/products/4g-remote-monitoring-rtu",
+      "conversion_status": "wait_for_prototype",
+      "conversion_priority": 4,
+      "reason_to_wait": "The page's commercial value depends heavily on LTE module, band, SIM/APN and MQTT reconnect behavior, which are not validated yet.",
+      "minimum_public_page_scope_if_drafted_early": [
+        "4G RTU concept and application fit",
+        "4G/WiFi/LoRa separation",
+        "planned IO baseline",
+        "cellular deployment checklist without band claims",
+        "validation-status note"
+      ],
+      "must_remove_or_hide": [
+        "LTE bands",
+        "country or carrier compatibility",
+        "VPN",
+        "dual SIM",
+        "GNSS",
+        "battery runtime",
+        "global coverage",
+        "relay rating and analog accuracy"
+      ],
+      "required_before_public_draft": [
+        "LTE module shortlist or decision",
+        "band policy draft",
+        "editorial review against claim matrix"
+      ],
+      "required_before_final_specs": [
+        "SIM/APN connection test",
+        "MQTT publish/reconnect test",
+        "completed DI/relay/AI/RS485 prototype tests"
+      ]
+    },
+    {
+      "model_code": "IEG-140",
+      "page_title": "4G Industrial IoT Gateway",
+      "brief_file": "docs/seo/product-page-markdown-briefs/ieg-140-4g-industrial-iot-gateway.md",
+      "route": "/products/4g-industrial-iot-gateway",
+      "conversion_status": "wait_for_prototype",
+      "conversion_priority": 5,
+      "reason_to_wait": "The page requires cellular module and gateway firmware validation before commercial claims become strong enough.",
+      "minimum_public_page_scope_if_drafted_early": [
+        "4G gateway concept",
+        "remote Modbus-to-MQTT architecture",
+        "cellular deployment checklist without band claims",
+        "clear comparison with IEG-100 and IEG-120",
+        "validation-status note"
+      ],
+      "must_remove_or_hide": [
+        "LTE bands",
+        "global or country compatibility",
+        "carrier compatibility",
+        "VPN",
+        "dual SIM",
+        "GNSS",
+        "TLS as confirmed",
+        "offline buffering as confirmed",
+        "OPC UA/BACnet/CAN claims"
+      ],
+      "required_before_public_draft": [
+        "LTE module shortlist or decision",
+        "band policy draft",
+        "editorial review against claim matrix"
+      ],
+      "required_before_final_specs": [
+        "SIM/APN connection test",
+        "completed PTR-GW-MQTT-001 report",
+        "completed PTR-RS485-001 report"
+      ]
+    },
+    {
+      "model_code": "IEG-120",
+      "page_title": "WiFi Industrial IoT Gateway",
+      "brief_file": "docs/seo/product-page-markdown-briefs/ieg-120-wifi-industrial-iot-gateway.md",
+      "route": "/products/wifi-industrial-iot-gateway",
+      "conversion_status": "public_safe_draft_candidate",
+      "conversion_priority": 6,
+      "minimum_public_page_scope": [
+        "indoor WiFi gateway positioning",
+        "WiFi as the only wireless uplink",
+        "Modbus-to-MQTT architecture as planned",
+        "good-fit and poor-fit deployment guidance",
+        "model comparison",
+        "validation-status note"
+      ],
+      "must_remove_or_hide": [
+        "WiFi range",
+        "WiFi certification",
+        "antenna performance",
+        "outdoor long-range positioning",
+        "exact polling limits",
+        "TLS/offline buffering as confirmed",
+        "OPC UA/BACnet/CAN claims"
+      ],
+      "required_before_public_draft": [
+        "editorial review against claim matrix",
+        "confirm all WiFi claims are conditional",
+        "internal link check"
+      ],
+      "required_before_final_specs": [
+        "WiFi module and antenna decision",
+        "WiFi setup/reconnect test",
+        "completed PTR-GW-MQTT-001 report"
+      ]
+    },
+    {
+      "model_code": "IER-120",
+      "page_title": "WiFi Remote Monitoring RTU",
+      "brief_file": "docs/seo/product-page-markdown-briefs/ier-120-wifi-remote-monitoring-rtu.md",
+      "route": "/products/wifi-remote-monitoring-rtu",
+      "conversion_status": "public_safe_draft_candidate",
+      "conversion_priority": 7,
+      "minimum_public_page_scope": [
+        "indoor WiFi RTU positioning",
+        "WiFi as the only wireless uplink",
+        "planned 4DI + 2DO/relay + 2AI baseline",
+        "good-fit and poor-fit deployment guidance",
+        "model comparison",
+        "validation-status note"
+      ],
+      "must_remove_or_hide": [
+        "WiFi range",
+        "WiFi certification",
+        "antenna performance",
+        "relay rating",
+        "analog accuracy",
+        "RS485 isolation",
+        "outdoor long-range positioning"
+      ],
+      "required_before_public_draft": [
+        "editorial review against claim matrix",
+        "confirm all WiFi and IO claims are conditional",
+        "internal link check"
+      ],
+      "required_before_final_specs": [
+        "WiFi module and antenna decision",
+        "WiFi setup/reconnect test",
+        "completed DI/relay/AI/RS485 prototype tests"
+      ]
+    },
+    {
+      "model_code": "IEG-L100",
+      "page_title": "Industrial LoRaWAN Gateway",
+      "brief_file": "docs/seo/product-page-markdown-briefs/ieg-l100-industrial-lorawan-gateway.md",
+      "route": "/products/industrial-lorawan-gateway",
+      "conversion_status": "wait_for_prototype",
+      "conversion_priority": 8,
+      "reason_to_wait": "LoRaWAN pages are highly sensitive to regional frequency, RF, range, antenna and enclosure claims.",
+      "minimum_public_page_scope_if_drafted_early": [
+        "LoRaWAN gateway architecture",
+        "gateway vs node role explanation",
+        "frequency planning checklist without exact bands",
+        "application examples",
+        "validation-status note"
+      ],
+      "must_remove_or_hide": [
+        "fixed LoRa range",
+        "exact frequency bands",
+        "outdoor IP rating",
+        "PoE",
+        "GPS",
+        "built-in network server",
+        "antenna gain",
+        "coverage guarantee"
+      ],
+      "required_before_public_draft": [
+        "LoRaWAN module shortlist or decision",
+        "regional frequency policy draft",
+        "editorial review against claim matrix"
+      ],
+      "required_before_final_specs": [
+        "RF and antenna validation",
+        "Ethernet backhaul test",
+        "MQTT/application integration test if claimed",
+        "outdoor enclosure evidence if outdoor claims are used"
+      ]
+    }
+  ],
+  "next_actions": [
+    "Review public-safe drafts for IEG-100, IEIO-100 and IER-100 in src/content/products/.",
+    "Keep IER-140, IEG-140 and IEG-L100 internal until module or RF decisions are clearer.",
+    "Use IEG-120 and IER-120 as lower-priority public-safe drafts after wired pages.",
+    "Run frontend build/prerender checks before deployment."
+  ]
+}

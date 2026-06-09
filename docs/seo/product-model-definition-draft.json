@@ -1,0 +1,347 @@
+﻿{
+  "meta": {
+    "project": "IoTEdges",
+    "database": "product-model-definition-draft",
+    "version": "0.1.0",
+    "last_updated": "2026-06-09",
+    "status": "self_developed_planning_definition",
+    "purpose": "First draft of IoTEdges self-developed product model tiers derived from mainstream industrial IoT product configurations and the IoTEdges first-generation product strategy.",
+    "important_note": "Model names and specs are engineering planning targets, not final datasheets. Certifications, LTE bands, IO counts, enclosure ratings, protocol support and software features must be validated through product design, prototype testing and documentation before publishing as final website claims."
+  },
+  "naming_policy": {
+    "brand": "IoTEdges",
+    "gateway_prefix": "IEG",
+    "rtu_prefix": "IER",
+    "remote_io_prefix": "IEIO",
+    "lora_gateway_prefix": "IEG-L",
+    "edge_gateway_prefix": "IEG-E",
+    "prefix_meaning": {
+      "IEG": "IoTEdges Gateway",
+      "IER": "IoTEdges RTU",
+      "IEIO": "IoTEdges IO",
+      "IEG-L": "IoTEdges LoRa Gateway",
+      "IEG-E": "IoTEdges Edge Gateway"
+    },
+    "connectivity_code_rule": {
+      "100": "Ethernet-only wired baseline variant",
+      "120": "WiFi variant",
+      "140": "4G LTE variant",
+      "L-series": "LoRa/LoRaWAN variant",
+      "note": "A device can have only one wireless uplink method. 4G LTE, WiFi and LoRa/LoRaWAN must be separate device variants, not combined in the same device. Ethernet can still be used as a wired uplink or configuration port."
+    },
+    "note": "Model codes are planning names. Final SKU names can be changed after engineering definition and product validation."
+  },
+  "product_families": [
+    {
+      "family_id": "industrial-iot-gateway-family",
+      "family_name": "Industrial IoT Gateway Family",
+      "positioning": "Industrial gateways for Modbus, MQTT, Ethernet, RS485 and cloud/SCADA-style remote monitoring.",
+      "target_pages": ["industrial-iot-gateway", "mqtt-gateway", "modbus-to-mqtt-gateway", "industrial-iot-gateway"],
+      "models": [
+        {
+          "model_code": "IEG-100",
+          "model_name": "Ethernet Industrial IoT Gateway",
+          "model_status": "planned_self_developed",
+          "seo_role": "Ethernet-only base product for Industrial IoT Gateway, MQTT Gateway, Modbus Gateway and Ethernet Industrial Gateway pages.",
+          "target_buyer": ["system integrator", "energy monitoring provider", "factory automation engineer"],
+          "recommended_baseline_specs": {
+            "network": ["1x Ethernet WAN/LAN"],
+            "serial": ["1x RS485", "optional RS232 if product design includes it"],
+            "protocols": ["Modbus RTU client/master", "Modbus TCP client", "MQTT publish"],
+            "data": ["configurable register map", "JSON payload target", "configurable MQTT topic target"],
+            "mounting": ["DIN rail"],
+            "power": ["target 9-30VDC or 12-24VDC class"]
+          },
+          "optional_specs": ["TLS for MQTT", "local data buffer", "extra RS485 port", "basic DI/AI"],
+          "not_in_baseline": ["4G LTE", "5G", "OPC UA", "AI analytics", "hazardous-area certification"],
+          "primary_use_cases": ["Energy meter monitoring", "Factory data collection", "Solar inverter monitoring", "Building energy monitoring", "PLC/SCADA LAN data collection"],
+          "claim_policy": "Can be marketed as the default wired industrial IoT gateway after Modbus/MQTT/Ethernet/RS485 behavior is implemented and validated."
+        },
+        {
+          "model_code": "IEG-140",
+          "model_name": "4G Industrial IoT Gateway",
+          "model_status": "planned_self_developed",
+          "seo_role": "Cellular gateway for 4G MQTT Gateway, Cellular IoT Gateway and remote equipment monitoring pages.",
+          "target_buyer": ["remote site operator", "solar monitoring provider", "water utility integrator", "telecom infrastructure provider"],
+          "recommended_baseline_specs": {
+            "network": ["4G LTE cellular", "1x Ethernet"],
+            "cellular": ["SIM support", "APN configuration", "external antenna connector"],
+            "serial": ["1x RS485"],
+            "protocols": ["Modbus RTU client/master", "Modbus TCP client", "MQTT publish"],
+            "data": ["JSON payload target", "configurable MQTT broker target"],
+            "mounting": ["DIN rail"],
+            "power": ["target 9-30VDC or 12-24VDC class"]
+          },
+          "optional_specs": ["TLS for MQTT", "VPN", "dual SIM", "GNSS", "local buffer"],
+          "not_in_baseline": ["5G", "LTE-M/NB-IoT", "global LTE band guarantee"],
+          "primary_use_cases": ["Remote solar inverter monitoring", "Remote pump station monitoring", "Fuel tank monitoring", "Environmental monitoring station"],
+          "claim_policy": "Do not publish LTE band, country coverage, VPN or dual-SIM claims until module selection, firmware and prototype tests confirm them."
+        },
+        {
+          "model_code": "IEG-120",
+          "model_name": "WiFi Industrial IoT Gateway",
+          "model_status": "planned_self_developed",
+          "seo_role": "WiFi gateway model for WiFi MQTT Gateway and indoor industrial IoT gateway pages.",
+          "target_buyer": ["factory facility engineer", "building energy monitoring provider", "system integrator"],
+          "recommended_baseline_specs": {
+            "network": ["2.4GHz WiFi", "1x Ethernet"],
+            "wifi": ["WiFi client mode", "optional AP mode for setup"],
+            "serial": ["1x RS485"],
+            "protocols": ["Modbus RTU client/master", "Modbus TCP client", "MQTT publish"],
+            "data": ["JSON payload target", "configurable MQTT broker target"],
+            "mounting": ["DIN rail"],
+            "power": ["target 9-30VDC or 12-24VDC class"]
+          },
+          "optional_specs": ["TLS for MQTT", "local buffer", "extra RS485 port"],
+          "not_in_baseline": ["4G LTE", "5G", "global WiFi certification guarantee"],
+          "primary_use_cases": ["Factory utility monitoring", "Building energy monitoring", "Indoor equipment data collection", "WiFi MQTT data collection"],
+          "claim_policy": "Do not publish WiFi certification, antenna or deployment range claims until module selection, firmware and RF tests confirm them."
+        },
+        {
+          "model_code": "IEG-E200",
+          "model_name": "Advanced Edge IoT Gateway",
+          "model_status": "planned_phase_2",
+          "seo_role": "Higher-tier model for Edge Controller, MQTT Edge Gateway, IIoT Edge Gateway and OEM remote monitoring pages.",
+          "target_buyer": ["OEM machine builder", "factory digitalization team", "machine monitoring integrator"],
+          "recommended_baseline_specs": {
+            "network": ["1x Ethernet"],
+            "serial": ["1x or 2x RS485"],
+            "protocols": ["Modbus RTU", "Modbus TCP", "MQTT"],
+            "edge_features": ["local rules target", "data filtering target", "offline buffer target"],
+            "data": ["configurable topic and payload target"],
+            "mounting": ["DIN rail"],
+            "power": ["target 9-30VDC or 12-24VDC class"]
+          },
+          "optional_specs": ["separate wireless-uplink variant", "OPC UA client", "Docker/app runtime", "CAN", "BACnet", "TLS certificate management"],
+          "not_in_baseline": ["AI predictive maintenance", "safety PLC behavior", "unverified cloud certifications"],
+          "primary_use_cases": ["OEM remote diagnostics", "Machine monitoring", "PLC to cloud", "Factory edge data filtering"],
+          "claim_policy": "Keep this model as a phase-2 product until edge software capability is genuinely defined and tested."
+        }
+      ]
+    },
+    {
+      "family_id": "industrial-rtu-family",
+      "family_name": "Industrial RTU Family",
+      "positioning": "RTU devices for field IO, Modbus data, alarms and remote telemetry across water, energy, oil and gas, telecom and environmental monitoring.",
+      "target_pages": ["industrial-rtu", "4g-rtu", "rtu-for-pump-station-monitoring", "rtu-for-tank-level-monitoring"],
+      "models": [
+        {
+          "model_code": "IER-100",
+          "model_name": "Ethernet Industrial RTU",
+          "model_status": "planned_self_developed",
+          "seo_role": "Ethernet-only base RTU model for Industrial RTU, Ethernet RTU, Remote IO for SCADA and local cabinet monitoring pages.",
+          "target_buyer": ["water utility engineer", "factory facility engineer", "system integrator"],
+          "recommended_baseline_specs": {
+            "io": ["4x DI", "2x DO/relay", "2x AI for 4-20mA and/or 0-10V target"],
+            "serial": ["1x RS485"],
+            "protocols": ["Modbus RTU", "Modbus TCP or Ethernet data uplink if supported"],
+            "network": ["Ethernet target"],
+            "mounting": ["DIN rail or wall mount"],
+            "power": ["target 9-30VDC or 12-24VDC class"]
+          },
+          "optional_specs": ["local alarm rules", "data logging", "extra IO channels", "temperature input"],
+          "not_in_baseline": ["DNP3", "IEC 60870", "IEC 61850", "hazardous-area certification"],
+          "primary_use_cases": ["Pump station monitoring", "Tank level monitoring", "Building equipment alarms", "Factory utility monitoring", "Local SCADA cabinet monitoring"],
+          "claim_policy": "Publish IO channel counts only after schematic design and prototype validation."
+        },
+        {
+          "model_code": "IER-140",
+          "model_name": "4G Remote Monitoring RTU",
+          "model_status": "planned_self_developed",
+          "seo_role": "Main 4G RTU model for remote pump, tank, pipeline, telecom, generator and environmental monitoring pages.",
+          "target_buyer": ["water utility operator", "telecom operator", "oil and gas operator", "environmental monitoring integrator"],
+          "recommended_baseline_specs": {
+            "network": ["4G LTE cellular", "optional local Ethernet"],
+            "cellular": ["SIM support", "APN configuration", "external antenna connector"],
+            "io": ["4x DI", "2x DO/relay", "2x AI for 4-20mA and/or 0-10V target"],
+            "serial": ["1x RS485"],
+            "protocols": ["Modbus RTU", "MQTT publish target"],
+            "mounting": ["DIN rail or wall mount"],
+            "power": ["target 9-30VDC or 12-24VDC class"]
+          },
+          "optional_specs": ["local alarm rules", "data logging", "VPN", "dual SIM", "battery backup input"],
+          "not_in_baseline": ["5G", "global LTE band guarantee", "hazardous-area certification", "certified safety control"],
+          "primary_use_cases": ["Remote pump station monitoring", "Fuel tank monitoring", "Pipeline pressure monitoring", "Telecom tower monitoring", "Flood monitoring"],
+          "claim_policy": "Do not publish LTE band or regional compatibility until module selection, firmware and prototype tests confirm them."
+        },
+        {
+          "model_code": "IER-120",
+          "model_name": "WiFi Remote Monitoring RTU",
+          "model_status": "planned_self_developed",
+          "seo_role": "WiFi RTU model for indoor facility monitoring, factory utility monitoring and building equipment alarm pages.",
+          "target_buyer": ["factory facility engineer", "building automation integrator", "system integrator"],
+          "recommended_baseline_specs": {
+            "network": ["2.4GHz WiFi", "optional local Ethernet"],
+            "wifi": ["WiFi client mode", "optional AP mode for setup"],
+            "io": ["4x DI", "2x DO/relay", "2x AI for 4-20mA and/or 0-10V target"],
+            "serial": ["1x RS485"],
+            "protocols": ["Modbus RTU", "MQTT publish target"],
+            "mounting": ["DIN rail or wall mount"],
+            "power": ["target 9-30VDC or 12-24VDC class"]
+          },
+          "optional_specs": ["local alarm rules", "data logging", "battery backup input"],
+          "not_in_baseline": ["4G LTE", "5G", "global WiFi certification guarantee", "hazardous-area certification", "certified safety control"],
+          "primary_use_cases": ["Factory utility monitoring", "Building equipment alarms", "Indoor cabinet monitoring", "WiFi sensor data collection"],
+          "claim_policy": "Do not publish WiFi certification, antenna or deployment range claims until module selection, firmware and RF tests confirm them."
+        },
+        {
+          "model_code": "IER-160",
+          "model_name": "High-IO Industrial RTU",
+          "model_status": "planned_phase_2",
+          "seo_role": "Higher channel-count RTU for wastewater treatment, substation cabinet, factory utility and multi-sensor sites.",
+          "target_buyer": ["utility engineer", "process monitoring integrator", "facility automation team"],
+          "recommended_baseline_specs": {
+            "io": ["higher DI count target", "higher relay/DO count target", "multiple analog inputs target"],
+            "serial": ["1x or 2x RS485"],
+            "network": ["Ethernet"],
+            "protocols": ["Modbus RTU", "Modbus TCP", "MQTT target"],
+            "mounting": ["DIN rail"],
+            "power": ["target 9-30VDC or 12-24VDC class"]
+          },
+          "optional_specs": ["separate wireless-uplink variant", "data logging", "local logic", "temperature inputs", "isolation"],
+          "not_in_baseline": ["protection relay behavior", "substation automation protocols unless confirmed"],
+          "primary_use_cases": ["Wastewater treatment monitoring", "Substation remote monitoring", "Factory environmental monitoring", "Data center facility monitoring"],
+          "claim_policy": "Use as an expansion model after the base and 4G RTU are defined."
+        }
+      ]
+    },
+    {
+      "family_id": "remote-io-family",
+      "family_name": "Remote IO Family",
+      "positioning": "Distributed IO modules for collecting and controlling digital, analog and relay signals through Modbus/RS485 or Ethernet.",
+      "target_pages": ["remote-io-module", "modbus-remote-io", "rs485-remote-io", "remote-io-for-scada"],
+      "models": [
+        {
+          "model_code": "IEIO-100",
+          "model_name": "Modbus Remote IO Module Family",
+          "model_status": "planned_self_developed",
+          "seo_role": "Core wired Remote IO model for DI/DO/AI/AO collection, Modbus Remote IO, RS485 Remote IO and Ethernet Remote IO product pages.",
+          "target_buyer": ["factory automation engineer", "SCADA integrator", "facility monitoring engineer"],
+          "recommended_baseline_specs": {
+            "io": ["IEIO-100-DI8: 8DI", "IEIO-100-DO8: 8DO/relay", "IEIO-100-AI4: 4AI", "IEIO-100-AO4: 4AO"],
+            "serial": ["RS485"],
+            "protocols": ["Modbus RTU baseline", "Modbus TCP optional if Ethernet variant exists"],
+            "mounting": ["DIN rail"],
+            "power": ["target 9-30VDC or 12-24VDC class"]
+          },
+          "optional_specs": ["IEIO-100-MD44: 4DI + 4DO", "IEIO-100-MA44: 4AI + 4AO", "Ethernet version", "isolation", "temperature input version"],
+          "not_in_baseline": ["independent RTU/cellular telemetry unless paired with gateway"],
+          "primary_use_cases": ["Machine runtime monitoring", "Pump status monitoring", "Industrial alarm monitoring", "Data center environmental monitoring"],
+          "claim_policy": "Keep Remote IO claims focused on signal collection/control and Modbus integration."
+        },
+        {
+          "model_code": "IEIO-L100",
+          "model_name": "LoRa Remote IO Node",
+          "model_status": "planned_phase_2",
+          "seo_role": "Wireless IO node for LoRa Remote IO, agriculture monitoring, environmental monitoring, street light monitoring and distributed sensor pages.",
+          "target_buyer": ["smart agriculture integrator", "environmental monitoring provider", "smart city integrator", "SCADA integrator"],
+          "recommended_baseline_specs": {
+            "wireless": ["LoRa/LoRaWAN uplink target", "regional frequency variants required"],
+            "io": ["digital inputs", "analog inputs target", "relay or digital output optional"],
+            "power": ["DC input baseline", "battery/solar option only after power budget validation"],
+            "protocols": ["LoRaWAN application payload target"],
+            "installation": ["field enclosure variant if outdoor use is required"]
+          },
+          "optional_specs": ["battery power", "solar charging", "IP-rated enclosure", "temperature/humidity sensor variant"],
+          "not_in_baseline": ["fixed range guarantee", "high-speed data transmission", "real-time control"],
+          "primary_use_cases": ["Soil moisture monitoring", "Tank level monitoring", "Street light status monitoring", "Air quality station IO", "Distributed alarm monitoring"],
+          "claim_policy": "Use as a phase-2 product until power budget, RF performance and enclosure design are validated."
+        }
+      ]
+    },
+    {
+      "family_id": "lora-gateway-family",
+      "family_name": "LoRa Gateway Family",
+      "positioning": "LoRa/LoRaWAN gateways for long-range wireless monitoring in agriculture, environmental, water, cold chain and smart city applications.",
+      "target_pages": ["lora-gateway", "lorawan-gateway", "industrial-lora-gateway", "outdoor-lora-gateway"],
+      "models": [
+        {
+          "model_code": "IEG-L100",
+          "model_name": "Industrial LoRaWAN Gateway",
+          "model_status": "planned_self_developed",
+          "seo_role": "Core LoRa gateway model for agriculture, environmental and cold-chain wireless monitoring pages.",
+          "target_buyer": ["smart agriculture integrator", "environmental monitoring provider", "smart city integrator"],
+          "recommended_baseline_specs": {
+            "wireless": ["LoRaWAN gateway target", "regional frequency variants required"],
+            "network": ["Ethernet backhaul"],
+            "protocols": ["MQTT/application integration target"],
+            "installation": ["indoor DIN rail/base variant", "outdoor enclosure variant if sourced"],
+            "power": ["DC input target"]
+          },
+          "optional_specs": ["outdoor IP-rated enclosure", "PoE", "GPS", "built-in network server", "cloud platform connector"],
+          "not_in_baseline": ["fixed range guarantee", "high-bandwidth control applications"],
+          "primary_use_cases": ["Greenhouse monitoring", "Soil moisture monitoring", "Air quality monitoring", "Cold storage temperature monitoring", "Flood monitoring"],
+          "claim_policy": "Do not publish range, frequency or outdoor rating claims until RF design, module choice and field tests confirm them."
+        }
+      ]
+    }
+  ],
+  "recommended_first_product_lineup": [
+    {
+      "priority": 1,
+      "model_code": "IEG-100",
+      "reason": "Lowest-risk core gateway for Modbus, MQTT, RS485 and Ethernet SEO pages."
+    },
+    {
+      "priority": 2,
+      "model_code": "IER-140",
+      "reason": "High commercial value for 4G RTU, water, telecom, oil/gas and remote monitoring pages."
+    },
+    {
+      "priority": 3,
+      "model_code": "IEIO-100",
+      "reason": "Supports Remote IO, Modbus IO, factory, water, building and SCADA content."
+    },
+    {
+      "priority": 4,
+      "model_code": "IEG-140",
+      "reason": "Useful 4G gateway variant for remote Modbus/MQTT sites."
+    },
+    {
+      "priority": 5,
+      "model_code": "IEG-120",
+      "reason": "Supports WiFi MQTT Gateway and indoor industrial gateway SEO pages without mixing WiFi into 4G hardware."
+    },
+    {
+      "priority": 6,
+      "model_code": "IER-120",
+      "reason": "Supports WiFi RTU pages for indoor facilities, buildings and factory utility monitoring."
+    },
+    {
+      "priority": 7,
+      "model_code": "IEG-L100",
+      "reason": "Expands agriculture, environmental, cold chain and smart city solution coverage."
+    },
+    {
+      "priority": 8,
+      "model_code": "IEIO-L100",
+      "reason": "Supports LoRa Remote IO and distributed wireless sensor solution pages after the core LoRa gateway is defined."
+    }
+  ],
+  "website_claim_policy": {
+    "safe_to_say_now": [
+      "IoTEdges is defining self-developed product families for industrial gateways, RTUs, Remote IO and LoRa gateways.",
+      "Product pages should describe use cases and target architectures at a category level until model specs are validated.",
+      "Planned model tiers include Ethernet-only 100-series wired baseline models, separate 4G variants, separate WiFi variants, separate LoRa/LoRaWAN variants and advanced/edge variants.",
+      "4G LTE, WiFi and LoRa/LoRaWAN are planned as separate wireless uplink variants, not combined in the same device.",
+      "5G products are not part of the first-generation IoTEdges roadmap."
+    ],
+    "do_not_say_until_confirmed": [
+      "Exact IO channel counts",
+      "Exact LTE bands or country compatibility",
+      "Exact operating temperature range",
+      "Exact enclosure IP rating",
+      "Certifications such as CE, FCC, ATEX, IECEx or UL",
+      "OPC UA, BACnet, CAN, VPN, TLS or data logging unless confirmed",
+      "Specific cloud platform certification or compatibility",
+      "Guaranteed range, uptime, latency or data retention"
+    ]
+  },
+  "next_actions": [
+    "Use self-developed-product-spec-baseline.json as the source baseline for first-generation product requirements.",
+    "Convert selected models into engineering requirement documents before hardware and firmware development.",
+    "Replace planned fields with validated specs in this file and capability-check-matrix.json after prototype testing.",
+    "Only then start drafting final product Markdown pages."
+  ]
+}
+
