@@ -34,6 +34,20 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Verify prerendered product pages
+        run: |
+          test -f dist/products/index.html
+          test -f dist/products/ieg-100-ethernet-industrial-iot-gateway/index.html
+          test -f dist/products/ieio-100-modbus-remote-io-module/index.html
+          test -f dist/products/ier-100-ethernet-industrial-rtu/index.html
+          test -f dist/products/ieg-120-wifi-industrial-iot-gateway/index.html
+          test -f dist/products/ier-120-wifi-remote-monitoring-rtu/index.html
+          grep -q "IEG-100 Ethernet Industrial IoT Gateway" dist/products/ieg-100-ethernet-industrial-iot-gateway/index.html
+          grep -q "IEIO-100 Modbus Remote IO Module" dist/products/ieio-100-modbus-remote-io-module/index.html
+          grep -q "IER-100 Ethernet Industrial RTU" dist/products/ier-100-ethernet-industrial-rtu/index.html
+          grep -q "IEG-120 WiFi Industrial IoT Gateway" dist/products/ieg-120-wifi-industrial-iot-gateway/index.html
+          grep -q "IER-120 WiFi Remote Monitoring RTU" dist/products/ier-120-wifi-remote-monitoring-rtu/index.html
+
       - name: Package release
         run: |
           mkdir release

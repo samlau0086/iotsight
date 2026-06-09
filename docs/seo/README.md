@@ -33,6 +33,7 @@ This folder contains structured planning databases for IoTEdges SEO content prod
 | `product-page-markdown-briefs/` | Safe-scope Markdown briefs for first model-specific product pages. These are not final public pages and must pass capability validation before publishing. | Draft briefs |
 | `first-batch-product-page-capability-review-matrix.json` | Claim review matrix for the first-batch model-specific page briefs, separating safe, conditional, blocked and forbidden claims before public drafting. | Draft review matrix |
 | `first-batch-public-draft-conversion-plan.json` | Public draft conversion plan that prioritizes which safe-scope briefs can become public website drafts and which should wait for prototype or module validation. | Draft conversion plan |
+| `product-public-draft-frontend-verification-checklist.json` | Frontend verification checklist for product Markdown routes, SSR prerender outputs, SEO meta and claim-safety checks before deployment. | Draft verification checklist |
 | `supplier-datasheet-request-checklist.json` | Optional sourcing/OEM reference checklist if external modules, enclosures, manufacturing or certificates need to be evaluated. | Optional reference |
 | `supplier-response-evaluation-matrix.json` | Optional matrix for evaluating sourcing/OEM responses; not the main source of IoTEdges product definition. | Optional reference |
 | `supplier-outreach-email-templates.json` | Chinese supplier outreach templates for optional module, enclosure, certification, sample or OEM/ODM communication. | Optional reference |
@@ -62,8 +63,9 @@ This folder contains structured planning databases for IoTEdges SEO content prod
 12. Use `product-page-markdown-briefs/` for safe-scope model page structure review before public product pages are drafted.
 13. Use `first-batch-product-page-capability-review-matrix.json` to check safe, conditional, blocked and forbidden claims before converting briefs into public pages.
 14. Use `first-batch-public-draft-conversion-plan.json` to decide which safe-scope briefs can become public drafts and which should wait for prototype validation.
-15. Validate product capabilities before publishing final product specifications; use `capability-check-matrix.json` as the planning baseline, not as confirmed specs.
-16. Add factual source cards before generating technical articles.
-17. Generate public Markdown content only after topic priority, product fit, capability checks, and internal links are confirmed.
-18. Follow `content-production-workflow.json` for brief, fact-check, review, and publishing gates.
-19. Update `docs/seo-roadmap.md` whenever database or publishing progress changes.
+15. Use `product-public-draft-frontend-verification-checklist.json` before deployment to verify product routes, prerendered HTML, SEO meta and claim safety.
+16. Validate product capabilities before publishing final product specifications; use `capability-check-matrix.json` as the planning baseline, not as confirmed specs.
+17. Add factual source cards before generating technical articles.
+18. Generate public Markdown content only after topic priority, product fit, capability checks, and internal links are confirmed.
+19. Follow `content-production-workflow.json` for brief, fact-check, review, and publishing gates.
+20. Update `docs/seo-roadmap.md` whenever database or publishing progress changes.

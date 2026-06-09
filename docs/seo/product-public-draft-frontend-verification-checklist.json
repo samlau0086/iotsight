@@ -1,0 +1,146 @@
+{
+  "meta": {
+    "project": "IoTEdges",
+    "database": "product-public-draft-frontend-verification-checklist",
+    "version": "0.1.0",
+    "last_updated": "2026-06-09",
+    "status": "draft_verification_checklist",
+    "purpose": "Frontend verification checklist for public-safe product draft pages before deployment.",
+    "current_blocker": "The current Codex execution environment has Node.js but no npm, pnpm, yarn, corepack or local node_modules. Full TypeScript, Vite and prerender verification requires installing project dependencies first."
+  },
+  "dependency_prerequisites": {
+    "required_commands": ["npm install", "npm run lint", "npm run build"],
+    "expected_package_manager": "npm",
+    "dependency_lock_file": "package-lock.json",
+    "blocked_in_current_environment": true,
+    "blocker_details": [
+      "npm command was not found in PATH.",
+      "node_modules directory is not present.",
+      "bundled Codex Node runtime does not include npm, TypeScript or Vite."
+    ]
+  },
+  "routes_to_verify": [
+    {
+      "route": "/products",
+      "source": "src/pages/ProductList.tsx",
+      "expected_behavior": "Lists all Markdown product pages from src/content/products/*.md."
+    },
+    {
+      "route": "/products/ieg-100-ethernet-industrial-iot-gateway",
+      "source": "src/content/products/ieg-100-ethernet-industrial-iot-gateway.md",
+      "expected_behavior": "Renders IEG-100 public-safe product draft."
+    },
+    {
+      "route": "/products/ieio-100-modbus-remote-io-module",
+      "source": "src/content/products/ieio-100-modbus-remote-io-module.md",
+      "expected_behavior": "Renders IEIO-100 public-safe product draft."
+    },
+    {
+      "route": "/products/ier-100-ethernet-industrial-rtu",
+      "source": "src/content/products/ier-100-ethernet-industrial-rtu.md",
+      "expected_behavior": "Renders IER-100 public-safe product draft."
+    },
+    {
+      "route": "/products/ieg-120-wifi-industrial-iot-gateway",
+      "source": "src/content/products/ieg-120-wifi-industrial-iot-gateway.md",
+      "expected_behavior": "Renders IEG-120 public-safe product draft."
+    },
+    {
+      "route": "/products/ier-120-wifi-remote-monitoring-rtu",
+      "source": "src/content/products/ier-120-wifi-remote-monitoring-rtu.md",
+      "expected_behavior": "Renders IER-120 public-safe product draft."
+    }
+  ],
+  "static_code_checks_completed": [
+    {
+      "check": "Product data glob exists",
+      "status": "pass",
+      "evidence": "src/data/products.ts uses import.meta.glob('../content/products/*.md')."
+    },
+    {
+      "check": "Product list and detail routes are registered",
+      "status": "pass",
+      "evidence": "src/App.tsx includes /products and /products/:id routes."
+    },
+    {
+      "check": "SSR prerender route list includes products",
+      "status": "pass",
+      "evidence": "src/entry-server.tsx maps productPages to /products/{id}."
+    },
+    {
+      "check": "SEO meta supports product pages",
+      "status": "pass",
+      "evidence": "src/entry-server.tsx returns product title and description for /products/:id."
+    },
+    {
+      "check": "Navigation includes Products",
+      "status": "pass",
+      "evidence": "src/components/Navbar.tsx includes /products."
+    },
+    {
+      "check": "Footer links to first public-safe product drafts",
+      "status": "pass",
+      "evidence": "src/components/Footer.tsx links to IEG-100, IEIO-100 and IER-100."
+    }
+  ],
+  "build_checks_to_run_after_dependencies": [
+    {
+      "check_id": "FE-001",
+      "command": "npm install",
+      "purpose": "Install dependencies from package-lock.json."
+    },
+    {
+      "check_id": "FE-002",
+      "command": "npm run lint",
+      "purpose": "Run TypeScript checks."
+    },
+    {
+      "check_id": "FE-003",
+      "command": "npm run build",
+      "purpose": "Build client, SSR bundle, prerender static routes and server bundle."
+    },
+    {
+      "check_id": "FE-003A",
+      "command": "GitHub Actions step: Verify prerendered product pages",
+      "purpose": "Fail deployment if product list/detail HTML files are missing from dist."
+    },
+    {
+      "check_id": "FE-004",
+      "command": "npm run dev",
+      "purpose": "Start local server for browser verification."
+    }
+  ],
+  "prerender_outputs_to_check_after_build": [
+    "dist/products/index.html",
+    "dist/products/ieg-100-ethernet-industrial-iot-gateway/index.html",
+    "dist/products/ieio-100-modbus-remote-io-module/index.html",
+    "dist/products/ier-100-ethernet-industrial-rtu/index.html",
+    "dist/products/ieg-120-wifi-industrial-iot-gateway/index.html",
+    "dist/products/ier-120-wifi-remote-monitoring-rtu/index.html"
+  ],
+  "manual_browser_checks": [
+    "Open /products and confirm all 5 public-safe drafts appear.",
+    "Open each product detail page and confirm Markdown tables render correctly.",
+    "Confirm validation warning appears on every product detail page.",
+    "Confirm navigation active state works for /products and /products/:id.",
+    "Confirm footer product links work.",
+    "View page source or built HTML and confirm product titles and meta descriptions are present after prerender."
+  ],
+  "claim_safety_checks": [
+    "No 5G claims.",
+    "No combined 4G + WiFi + LoRa wireless uplink claims.",
+    "No exact relay rating.",
+    "No exact analog accuracy.",
+    "No WiFi range or certification claim.",
+    "No LTE band or carrier claim.",
+    "No LoRa range or exact frequency claim.",
+    "No OPC UA, BACnet or CAN claim on baseline gateway pages."
+  ],
+  "next_actions": [
+    "Let GitHub Actions run npm ci, npm run lint and npm run build.",
+    "Use the deploy workflow's Verify prerendered product pages step to block bad releases.",
+    "Verify generated product prerender outputs in the GitHub Actions logs.",
+    "Use browser verification on /products and each product detail route.",
+    "Only after verification, deploy through the existing GitHub Actions workflow."
+  ]
+}

@@ -26,7 +26,8 @@ Primary SEO goals:
 | Safe-scope model page Markdown briefs | Done | Created internal Markdown briefs for all first-batch model-specific pages under `docs/seo/product-page-markdown-briefs/`. |
 | First-batch product claim review | Done | Created safe/conditional/blocked/forbidden claim matrix at `docs/seo/first-batch-product-page-capability-review-matrix.json`. |
 | Public draft conversion plan | Done | Created first-batch public draft conversion plan at `docs/seo/first-batch-public-draft-conversion-plan.json`. |
-| Public-safe product draft pages | In progress | Added product Markdown pipeline and public-safe drafts for IEG-100, IEIO-100 and IER-100 under `src/content/products/`. |
+| Public-safe product draft pages | In progress | Added product Markdown pipeline and public-safe drafts for IEG-100, IEIO-100, IER-100, IEG-120 and IER-120 under `src/content/products/`. |
+| Product frontend verification | In progress | GitHub Actions runs lint/build and now checks prerendered product pages before VPS deployment. Local verification remains blocked until npm dependencies are available. |
 | Expanded product taxonomy | Done | Converted into structured topic database at `docs/seo/products-topic-database.json`; still needs keyword validation before publishing pages. |
 | Topic authority database | Drafted | Solutions, products, knowledge base, initial case studies, and long-tail article databases drafted under `docs/seo/`. |
 | Knowledge fact database | In progress | Knowledge topics drafted and first factual source cards created at `docs/seo/factual-source-cards.json`; add more source cards before large-scale article generation. |
@@ -668,7 +669,7 @@ Do not generate pages yet. Recommended next steps:
 7. Use `docs/seo/confirmed-first-product-publishing-plan.json` to validate model-specific pages in priority order.
 8. Run capability validation first for `IEIO-100`, `IER-100`, and `IEG-100`.
 9. Use `docs/seo/first-product-capability-validation-checklist.json` to record pass/conditional/fail/blocked validation status before drafting Markdown.
-10. Review public-safe product drafts under `src/content/products/`; next run frontend checks and consider lower-priority public-safe drafts for IEG-120 and IER-120.
+10. Review GitHub Actions after the next push; the workflow now verifies prerendered product pages before uploading the release to the VPS.
 11. Keep 4G LTE, WiFi and LoRa/LoRaWAN as separate wireless uplink variants; do not combine them into the same SKU.
 12. Keep 5G product topics out of navigation, product pages and first-year content production.
 13. After prototype validation, update `docs/seo/product-model-definition-draft.json` and `docs/seo/capability-check-matrix.json` with validated specifications.

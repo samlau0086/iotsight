@@ -233,8 +233,9 @@
       "page_title": "WiFi Industrial IoT Gateway",
       "brief_file": "docs/seo/product-page-markdown-briefs/ieg-120-wifi-industrial-iot-gateway.md",
       "route": "/products/wifi-industrial-iot-gateway",
-      "conversion_status": "public_safe_draft_candidate",
+      "conversion_status": "public_safe_draft_created",
       "conversion_priority": 6,
+      "public_draft_file": "src/content/products/ieg-120-wifi-industrial-iot-gateway.md",
       "minimum_public_page_scope": [
         "indoor WiFi gateway positioning",
         "WiFi as the only wireless uplink",
@@ -268,8 +269,9 @@
       "page_title": "WiFi Remote Monitoring RTU",
       "brief_file": "docs/seo/product-page-markdown-briefs/ier-120-wifi-remote-monitoring-rtu.md",
       "route": "/products/wifi-remote-monitoring-rtu",
-      "conversion_status": "public_safe_draft_candidate",
+      "conversion_status": "public_safe_draft_created",
       "conversion_priority": 7,
+      "public_draft_file": "src/content/products/ier-120-wifi-remote-monitoring-rtu.md",
       "minimum_public_page_scope": [
         "indoor WiFi RTU positioning",
         "WiFi as the only wireless uplink",
@@ -337,9 +339,9 @@
     }
   ],
   "next_actions": [
-    "Review public-safe drafts for IEG-100, IEIO-100 and IER-100 in src/content/products/.",
+    "Review public-safe drafts for IEG-100, IEIO-100, IER-100, IEG-120 and IER-120 in src/content/products/.",
     "Keep IER-140, IEG-140 and IEG-L100 internal until module or RF decisions are clearer.",
-    "Use IEG-120 and IER-120 as lower-priority public-safe drafts after wired pages.",
+    "Do not create public drafts for IER-140, IEG-140 or IEG-L100 until module, band or RF decisions are clearer.",
     "Run frontend build/prerender checks before deployment."
   ]
 }
