@@ -6,12 +6,12 @@ English | 中文
 
 IoTEdges is a React and Express website for industrial IoT solution marketing, product education, technical SEO content, and live chat lead capture.
 
-The site focuses on industrial IoT gateways, RTUs, Remote IO modules, Modbus, MQTT, RS485, and remote monitoring solutions for factory energy, solar, water, agriculture, and building automation.
+The site focuses on industrial IoT gateways, RTUs, Remote IO modules, remote access controllers, Modbus, MQTT, RS485, and remote monitoring solutions for factory energy, solar, water, agriculture, building automation, and gate access control.
 
 ### Features
 
-- Industrial IoT solution pages and solution detail pages
-- Product pages for IoTEdges gateways, RTUs, and Remote IO modules
+- Industrial IoT solution pages and solution detail pages, including gate access control
+- Product pages for IoTEdges gateways, RTUs, Remote IO modules, and remote access controllers
 - Markdown-based Blog, Knowledge Base, and public-safe product draft content
 - SEO-friendly build-time prerendering for marketing, solution, product, knowledge, and blog routes
 - Automatic canonical tags, Open Graph URLs, JSON-LD structured data, `sitemap.xml`, and `robots.txt`
@@ -248,12 +248,12 @@ pm2 restart iotedges
 
 IoTEdges 是一个基于 React 和 Express 的工业物联网官网项目，用于展示解决方案、介绍产品能力、发布技术 SEO 内容，并通过网站 Live Chat 收集潜在客户线索。
 
-网站重点围绕工业 IoT Gateway、RTU、Remote IO、Modbus、MQTT、RS485，以及工厂能源监控、光伏监控、水务监控、智慧农业和楼宇自动化等远程监控场景展开。
+网站重点围绕工业 IoT Gateway、RTU、Remote IO、Remote Access Controller、Modbus、MQTT、RS485，以及工厂能源监控、光伏监控、水务监控、智慧农业、楼宇自动化和门禁远程控制等场景展开。
 
 ### 功能
 
-- 工业物联网解决方案列表页和详情页
-- IoTEdges Gateway、RTU、Remote IO 产品页
+- 工业物联网解决方案列表页和详情页，包括门禁远程控制场景
+- IoTEdges Gateway、RTU、Remote IO、Remote Access Controller 产品页
 - 使用 Markdown 管理 Blog、Knowledge Base 和 public-safe 产品草稿内容
 - 构建时预渲染营销页、解决方案页、产品页、知识库页和 Blog，提高 SEO 友好度
 - 构建时自动生成 canonical、Open Graph URL、`sitemap.xml` 和 `robots.txt`

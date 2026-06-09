@@ -21,6 +21,7 @@ export default function Footer() {
             <li><Link to="/factory-energy" className="hover:text-white transition-colors">Factory Energy</Link></li>
             <li><Link to="/solutions/solar-energy" className="hover:text-white transition-colors">Solar & Renewable</Link></li>
             <li><Link to="/solutions/smart-agriculture" className="hover:text-white transition-colors">Smart Agriculture</Link></li>
+            <li><Link to="/solutions/gate-access-control" className="hover:text-white transition-colors">Gate Access Control</Link></li>
             <li><Link to="/products" className="hover:text-white transition-colors">Products</Link></li>
           </ul>
         </div>
@@ -32,6 +33,7 @@ export default function Footer() {
             <li><Link to="/products/ieio-100-modbus-remote-io-module" className="hover:text-white transition-colors">IEIO-100 Remote IO</Link></li>
             <li><Link to="/products/ier-100-ethernet-industrial-rtu" className="hover:text-white transition-colors">IER-100 RTU</Link></li>
             <li><Link to="/products/ieg-120-wifi-industrial-iot-gateway" className="hover:text-white transition-colors">IEG-120 WiFi Gateway</Link></li>
+            <li><Link to="/products/ieac-140-4g-gsm-gate-opener" className="hover:text-white transition-colors">IEAC-140 Gate Opener</Link></li>
           </ul>
         </div>
 
@@ -42,6 +44,7 @@ export default function Footer() {
               <Link to="/knowledge/modbus" className="text-xs font-semibold text-slate-300 hover:text-white transition-colors">Modbus Guide</Link>
               <Link to="/knowledge/mqtt" className="text-xs font-semibold text-slate-300 hover:text-white transition-colors">MQTT Guide</Link>
               <Link to="/knowledge/rs485" className="text-xs font-semibold text-slate-300 hover:text-white transition-colors">RS485 Guide</Link>
+              <Link to="/knowledge/4g-gsm-gate-opener-europe" className="text-xs font-semibold text-slate-300 hover:text-white transition-colors">4G Gate Opener Guide</Link>
               <Link to="/about" className="text-xs font-semibold text-slate-300 hover:text-white transition-colors">About Us</Link>
               <Link to="/blog" className="text-xs font-semibold text-slate-300 hover:text-white transition-colors">Blog</Link>
               <Link to="/contact" className="text-xs font-semibold text-slate-300 hover:text-white transition-colors">Contact</Link>

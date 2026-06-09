@@ -1,4 +1,4 @@
-import { Zap, Sun, Droplets, ThermometerSnowflake, Sprout } from 'lucide-react';
+import { Zap, Sun, Droplets, ThermometerSnowflake, Sprout, ShieldCheck } from 'lucide-react';
 
 export const solutions = [
   {
@@ -155,5 +155,36 @@ export const solutions = [
       { title: 'IEIO-100 Modbus Remote IO Module', href: '/products/ieio-100-modbus-remote-io-module' }
     ],
     architectureImage: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1200'
+  },
+  {
+    id: 'gate-access-control',
+    title: 'Gate Access Control',
+    description: 'Remote gate, door, barrier and access cabinet control for European installers using a validation-aware 4G-first controller path.',
+    detailedContent: [
+      'Gate access control projects often need a simple way to trigger a relay, authorize users, read door or gate status, and manage remote sites without running new network cables. In Europe, this search demand is often expressed as GSM gate opener, 4G gate opener, 4G intercom, remote access controller or RTU door controller.',
+      'A practical architecture should start from 4G LTE rather than assuming long-term GSM availability. Country-level network support, SIM behavior, LTE bands, antenna performance and regulatory requirements must be checked before publishing final compatibility claims.',
+      'IoTEdges positions this solution around a 4G-first remote access controller path, with GSM/2G described only as a possible legacy fallback after module and regional validation.'
+    ],
+    icon: ShieldCheck,
+    link: '/solutions/gate-access-control',
+    image: 'https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&q=80&w=800',
+    hardware: [
+      'IEAC-140 4G GSM Gate Opener for Europe-focused access projects',
+      'Gate, door, barrier or lock relay interface after rating validation',
+      'Door contact, gate status or alarm digital input path',
+      'External antenna path for cabinets or remote entrances',
+      'Local SIM and carrier validation for target European countries'
+    ],
+    software: [
+      'Authorized access workflow planning',
+      'Remote relay trigger and status monitoring concept',
+      'Access event logging after firmware validation',
+      'Installer setup workflow after product definition',
+      'Optional dashboard, SMS, app or API workflow after validation'
+    ],
+    relatedProducts: [
+      { title: 'IEAC-140 4G GSM Gate Opener', href: '/products/ieac-140-4g-gsm-gate-opener' }
+    ],
+    architectureImage: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&q=80&w=1200'
   }
 ];

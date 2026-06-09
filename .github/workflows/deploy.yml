@@ -42,11 +42,18 @@ jobs:
           test -f dist/products/ier-100-ethernet-industrial-rtu/index.html
           test -f dist/products/ieg-120-wifi-industrial-iot-gateway/index.html
           test -f dist/products/ier-120-wifi-remote-monitoring-rtu/index.html
+          test -f dist/products/ieac-140-4g-gsm-gate-opener/index.html
           grep -q "IEG-100 Ethernet Industrial IoT Gateway" dist/products/ieg-100-ethernet-industrial-iot-gateway/index.html
           grep -q "IEIO-100 Modbus Remote IO Module" dist/products/ieio-100-modbus-remote-io-module/index.html
           grep -q "IER-100 Ethernet Industrial RTU" dist/products/ier-100-ethernet-industrial-rtu/index.html
           grep -q "IEG-120 WiFi Industrial IoT Gateway" dist/products/ieg-120-wifi-industrial-iot-gateway/index.html
           grep -q "IER-120 WiFi Remote Monitoring RTU" dist/products/ier-120-wifi-remote-monitoring-rtu/index.html
+          grep -q "IEAC-140 4G GSM Gate Opener" dist/products/ieac-140-4g-gsm-gate-opener/index.html
+
+      - name: Verify prerendered solution pages
+        run: |
+          test -f dist/solutions/gate-access-control/index.html
+          grep -q "Gate Access Control" dist/solutions/gate-access-control/index.html
 
       - name: Verify prerendered knowledge pages
         run: |
@@ -54,16 +61,20 @@ jobs:
           test -f dist/knowledge/modbus/index.html
           test -f dist/knowledge/mqtt/index.html
           test -f dist/knowledge/rs485/index.html
+          test -f dist/knowledge/4g-gsm-gate-opener-europe/index.html
           grep -q "Modbus for Industrial IoT Gateways and RTUs" dist/knowledge/modbus/index.html
           grep -q "MQTT in Industrial IoT Monitoring" dist/knowledge/mqtt/index.html
           grep -q "RS485 Wiring for Modbus RTU Devices" dist/knowledge/rs485/index.html
+          grep -q "GSM vs 4G Gate Opener for Europe" dist/knowledge/4g-gsm-gate-opener-europe/index.html
 
       - name: Verify SEO discovery files
         run: |
           test -f dist/sitemap.xml
           test -f dist/robots.txt
           grep -q "https://iotedges.com/products/ieg-100-ethernet-industrial-iot-gateway" dist/sitemap.xml
+          grep -q "https://iotedges.com/products/ieac-140-4g-gsm-gate-opener" dist/sitemap.xml
           grep -q "https://iotedges.com/knowledge/modbus" dist/sitemap.xml
+          grep -q "https://iotedges.com/knowledge/4g-gsm-gate-opener-europe" dist/sitemap.xml
           grep -q "Sitemap: https://iotedges.com/sitemap.xml" dist/robots.txt
           grep -q "application/ld+json" dist/products/ieg-100-ethernet-industrial-iot-gateway/index.html
           grep -q "application/ld+json" dist/knowledge/modbus/index.html
