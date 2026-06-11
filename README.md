@@ -222,6 +222,8 @@ The prerender step also writes:
 
 If `VITE_GTM_ID` or `VITE_GA_MEASUREMENT_ID` is configured during build, the prerender step also injects Google Tag Manager and/or Google Analytics 4 tags into the generated HTML.
 
+Google tracking tags are not written into the source `index.html`. They appear only in generated files under `dist` after `npm run build`, such as `dist/index.html` and prerendered route HTML files. The GitHub Actions deployment now fails if neither `VITE_GTM_ID` nor `VITE_GA_MEASUREMENT_ID` is configured.
+
 Generated static files are written under `dist`, for example:
 
 - `dist/products/ieg-100-ethernet-industrial-iot-gateway/index.html`
@@ -490,6 +492,8 @@ order: 1
 - `dist/robots.txt`
 
 如果构建时配置了 `VITE_GTM_ID` 或 `VITE_GA_MEASUREMENT_ID`，预渲染脚本还会把 Google Tag Manager 和/或 Google Analytics 4 标签注入生成的 HTML。
+
+Google tracking 标签不会写入源码 `index.html`，只会在 `npm run build` 后出现在 `dist` 目录的生成文件中，例如 `dist/index.html` 和各个预渲染路由 HTML。现在 GitHub Actions 会在 `VITE_GTM_ID` 和 `VITE_GA_MEASUREMENT_ID` 都未配置时直接失败，避免无追踪代码的版本被部署。
 
 生成的静态文件会写入 `dist`，例如：
 
