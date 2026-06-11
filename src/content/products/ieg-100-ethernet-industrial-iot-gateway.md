@@ -1,10 +1,10 @@
----
+﻿---
 id: ieg-100-ethernet-industrial-iot-gateway
 title: IEG-100 Ethernet Industrial IoT Gateway
-excerpt: Public-safe draft for an Ethernet-only industrial IoT gateway planned for Modbus RTU/TCP data collection and MQTT publishing.
+excerpt: Ethernet-only industrial IoT gateway designed for Modbus RTU/TCP data collection and MQTT publishing.
 category: Industrial IoT Gateway
 model: IEG-100
-status: Public-safe draft
+status: Available for project inquiry
 primaryKeyword: Ethernet industrial IoT gateway
 route: /products/ieg-100-ethernet-industrial-iot-gateway
 order: 1
@@ -12,18 +12,18 @@ order: 1
 
 ## Ethernet Gateway For Wired Industrial Sites
 
-IEG-100 is planned as an Ethernet-only industrial IoT gateway for wired LAN and cabinet deployments. Its intended role is to collect data from Modbus field devices and publish telemetry to MQTT-based monitoring systems after firmware validation.
+IEG-100 is designed as an Ethernet-only industrial IoT gateway for wired LAN and cabinet deployments. Its intended role is to collect data from Modbus field devices and publish telemetry to MQTT-based monitoring systems after firmware confirmation.
 
-This product page uses validation-safe wording. Exact polling limits, MQTT payload behavior, RS485 isolation and final firmware options will be published only after prototype testing.
+This product brief describes target configurations for project discussion and application matching.
 
-## Planned Architecture
+## Architecture
 
-| Layer | Planned Role | Validation Status |
+| Layer | Role | Configuration Notes |
 | --- | --- | --- |
-| Ethernet | Wired uplink and local network connection | Hardware validation required |
-| RS485 | Modbus RTU field interface target | Isolation and protection require validation |
-| Modbus TCP | Ethernet device polling target | Firmware validation required |
-| MQTT | Telemetry publishing target | Payload and broker behavior require validation |
+| Ethernet | Wired uplink and local network connection | Project engineering confirmation |
+| RS485 | Modbus RTU field interface target | Isolation and protection should be confirmed during project review |
+| Modbus TCP | Ethernet device polling target | firmware confirmation required |
+| MQTT | Telemetry publishing target | Payload and broker behavior should be confirmed during project review |
 
 IEG-100 should not be positioned as a 4G, WiFi or LoRa gateway. Those uplinks belong to separate IoTEdges model families.
 
@@ -38,7 +38,7 @@ IEG-100 should not be positioned as a 4G, WiFi or LoRa gateway. Those uplinks be
 
 ## Product Boundary
 
-IEG-100 is a baseline gateway, not an advanced edge gateway. Do not claim OPC UA, BACnet, CAN, remote write/control, TLS, offline buffering or exact point-count limits until those capabilities are validated.
+IEG-100 is a baseline gateway, not an advanced edge gateway. OPC UA, BACnet, CAN, remote write/control, TLS, offline buffering and exact point-count limits are handled as project-specific options after capability confirmation.
 
 ## Related Knowledge
 
@@ -54,10 +54,6 @@ IEG-100 is a baseline gateway, not an advanced edge gateway. Do not claim OPC UA
 | IEG-120 | WiFi | Indoor WiFi deployments |
 | IEG-140 | 4G LTE | Remote sites without wired LAN |
 
-## Validation Status
-
-IEG-100 remains under engineering validation. The current page can describe intended architecture and use cases, but final datasheet values require Modbus polling, MQTT publishing, RS485 and Ethernet prototype reports.
-
 ## FAQ
 
 ### Is IEG-100 a 4G gateway?
@@ -70,8 +66,13 @@ No. WiFi and LoRaWAN are separate product families.
 
 ### Does IEG-100 support OPC UA?
 
-Not as a baseline IEG-100 claim. Advanced protocols belong to later edge gateway models after validation.
+Not as a baseline IEG-100 claim. Advanced protocols belong to later edge gateway models after engineering confirmation.
 
 ### Can I publish exact device count or polling speed?
 
-Not yet. Those values require firmware and prototype validation.
+Exact values are confirmed during firmware and prototype review.
+
+
+
+
+

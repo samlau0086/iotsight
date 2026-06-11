@@ -13,7 +13,7 @@ export default function ProductList() {
               Industrial IoT gateways, RTUs and Remote IO modules
             </h1>
             <p className="text-lg text-slate-400 leading-relaxed">
-              First-generation IoTEdges product pages are drafted with validation-aware wording while hardware, firmware and test evidence are being finalized.
+              Explore IoTEdges gateways, RTUs, remote relay controllers and Remote IO modules for industrial monitoring, control and data acquisition projects.
             </p>
           </div>
         </div>
@@ -24,7 +24,7 @@ export default function ProductList() {
           {[
             { icon: Network, title: 'Separate uplinks', text: 'Ethernet, WiFi, 4G and LoRaWAN are treated as separate model families.' },
             { icon: Cpu, title: 'Protocol boundaries', text: 'Baseline gateways focus on Modbus RTU/TCP and MQTT, with advanced protocols kept out of first pages.' },
-            { icon: ShieldCheck, title: 'Validation gated', text: 'Electrical ratings, RF behavior and exact limits stay under validation until test evidence exists.' },
+            { icon: ShieldCheck, title: 'Project ready', text: 'Model pages describe target configurations, application fit and engineering discussion points for real projects.' },
           ].map((item) => (
             <div key={item.title} className="border border-slate-800 bg-slate-900 p-6 rounded-lg">
               <item.icon className="w-6 h-6 text-blue-400 mb-4" />
@@ -48,7 +48,7 @@ export default function ProductList() {
               </h2>
               <p className="text-slate-400 text-sm leading-relaxed mb-8 flex-1">{product.excerpt}</p>
               <Link to={`/products/${product.id}`} className="inline-flex items-center gap-2 text-xs uppercase tracking-widest font-bold text-blue-400 hover:text-blue-300">
-                View product draft <ArrowRight className="w-4 h-4" />
+                View product <ArrowRight className="w-4 h-4" />
               </Link>
             </article>
           ))}

@@ -54,7 +54,7 @@ export default function About() {
         {/* Global Footprint or Stats Section */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-24">
           {[
-            { label: 'Product Families Planned', value: '4' },
+            { label: 'Product Families', value: '4' },
             { label: 'Core Protocol Focus', value: 'Modbus' },
             { label: 'Primary Cloud Protocol', value: 'MQTT' },
             { label: 'Wireless Uplink Strategy', value: 'Separate' }
@@ -75,8 +75,8 @@ export default function About() {
               <p className="text-slate-400 leading-relaxed">We plan hardware, dashboard, and alert workflows together so the <strong>industrial IoT gateway</strong>, RTU, or Remote IO module fits the monitoring architecture instead of becoming an isolated box.</p>
             </div>
             <div>
-              <h4 className="text-xl font-bold text-white mb-4">Validation-Driven Hardware</h4>
-              <p className="text-slate-400 leading-relaxed">Our product pages separate planned architecture from final specifications. Mounting, power input, interface behavior, wireless performance, and environmental ratings should be published only after engineering validation.</p>
+              <h4 className="text-xl font-bold text-white mb-4">Engineering-Led Hardware</h4>
+              <p className="text-slate-400 leading-relaxed">Our product pages focus on practical configurations, field interfaces, communication options and application fit, with final project specifications confirmed through engineering review.</p>
             </div>
             <div>
               <h4 className="text-xl font-bold text-white mb-4">Partner-Friendly Roadmap</h4>

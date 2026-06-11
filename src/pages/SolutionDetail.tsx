@@ -181,7 +181,7 @@ export default function SolutionDetail() {
                   <div className="w-10 h-10 rounded bg-blue-900/30 border border-blue-500/30 flex items-center justify-center font-bold text-blue-400 shrink-0">2</div>
                   <div>
                     <h4 className="font-bold text-white mb-1">IoTEdges Gateway</h4>
-                    <p className="text-sm text-slate-400">Select an Ethernet, WiFi, or validation-gated cellular gateway path based on field protocol, uplink, and deployment environment.</p>
+                    <p className="text-sm text-slate-400">Select an Ethernet, WiFi, or cellular gateway path based on field protocol, uplink, and deployment environment.</p>
                     <Link to="/products" className="inline-flex items-center gap-1 text-xs font-bold text-blue-400 hover:text-blue-300 mt-3">
                       View product options <ArrowRight className="w-3 h-3" />
                     </Link>

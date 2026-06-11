@@ -1,6 +1,6 @@
 import { Link, useParams } from 'react-router-dom';
 import Markdown from 'react-markdown';
-import { ArrowLeft, CheckCircle2, AlertTriangle } from 'lucide-react';
+import { ArrowLeft, CheckCircle2 } from 'lucide-react';
 import { productPages } from '../data/products';
 
 export default function ProductDetail() {
@@ -42,13 +42,6 @@ export default function ProductDetail() {
           </header>
 
           <div className="p-8 sm:p-12">
-            <div className="mb-10 flex items-start gap-3 rounded-lg border border-amber-500/30 bg-amber-500/10 p-4 text-sm text-amber-100">
-              <AlertTriangle className="w-5 h-5 shrink-0 text-amber-300 mt-0.5" />
-              <p>
-                This is a public-safe product draft. Exact ratings, certifications, wireless coverage, protocol limits and final datasheet values remain validation-gated.
-              </p>
-            </div>
-
             <div className="prose prose-invert prose-blue max-w-none prose-headings:font-display prose-h2:text-2xl prose-h2:text-white prose-h2:mt-10 prose-h2:mb-4 prose-h3:text-xl prose-h3:text-slate-100 prose-p:text-slate-300 prose-p:leading-relaxed prose-li:text-slate-300 prose-strong:text-white prose-table:text-sm prose-th:text-white prose-td:text-slate-300 prose-a:text-blue-400">
               <Markdown>{product.content}</Markdown>
             </div>

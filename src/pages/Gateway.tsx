@@ -7,21 +7,21 @@ const gatewayLinks = [
     model: 'IEG-100',
     href: '/products/ieg-100-ethernet-industrial-iot-gateway',
     icon: Server,
-    text: 'Public-safe draft for a planned Ethernet-only gateway for Modbus RTU/TCP data collection and MQTT telemetry.',
+    text: 'Ethernet-only gateway for Modbus RTU/TCP data collection and MQTT telemetry.',
   },
   {
     title: 'IEG-120 WiFi Industrial IoT Gateway',
     model: 'IEG-120',
     href: '/products/ieg-120-wifi-industrial-iot-gateway',
     icon: Wifi,
-    text: 'Public-safe draft for a planned indoor WiFi gateway. WiFi range and certification remain validation-gated.',
+    text: 'Indoor WiFi gateway for Modbus data collection and MQTT telemetry where a reliable wireless LAN is available.',
   },
   {
     title: 'IEG-140 4G Industrial IoT Gateway',
     model: 'IEG-140',
     href: '/products',
     icon: RadioTower,
-    text: 'Planned 4G gateway family. Public page is waiting for LTE module, band, and SIM/APN validation.',
+    text: '4G gateway family for remote sites where wired LAN is not available.',
   },
 ];
 
@@ -33,7 +33,7 @@ export default function Gateway() {
           <p className="text-xs font-bold uppercase tracking-[0.24em] text-blue-400 mb-5">IoTEdges Gateway Family</p>
           <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight text-white mb-6">Industrial IoT Gateways</h1>
           <p className="text-lg text-slate-400 font-medium leading-relaxed">
-            Start from validation-aware product drafts for Ethernet and WiFi gateway models. Cellular and LoRaWAN pages remain internal until module, band, RF, and field evidence are clearer.
+            Start from practical Ethernet, WiFi and cellular gateway models, then match the uplink, field protocol and dashboard requirements to the project.
           </p>
         </div>
       </section>
@@ -63,8 +63,8 @@ export default function Gateway() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
               { icon: Network, title: 'Separate uplink models', text: 'Ethernet, WiFi, 4G LTE, and LoRaWAN are kept as separate model families.' },
-              { icon: ShieldCheck, title: 'Validation-gated specs', text: 'Exact ratings, wireless coverage, certifications, and protocol limits wait for engineering evidence.' },
-              { icon: Server, title: 'Modbus and MQTT baseline', text: 'Baseline gateways focus on Modbus RTU/TCP collection and MQTT telemetry after firmware validation.' },
+              { icon: ShieldCheck, title: 'Project specifications', text: 'Ratings, wireless coverage, certifications, and protocol limits are confirmed during project engineering review.' },
+              { icon: Server, title: 'Modbus and MQTT baseline', text: 'Baseline gateways focus on Modbus RTU/TCP collection and MQTT telemetry for industrial data projects.' },
             ].map((item) => (
               <div key={item.title} className="border border-slate-800 bg-slate-950 p-6 rounded-lg">
                 <item.icon className="w-6 h-6 text-blue-400 mb-4" />
