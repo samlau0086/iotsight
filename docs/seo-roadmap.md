@@ -23,7 +23,7 @@ Primary SEO goals:
 | Bilingual README cleanup | Done | Rebuilt README with clean English and Chinese sections covering current architecture, Markdown content, SEO prerendering, live chat, and GitHub Actions deployment. |
 | Markdown blog pipeline | Done | Blog posts load from `src/content/blog/*.md`. |
 | Blog SEO prerendering | Done | Build creates static HTML for blog and selected solution routes. |
-| Knowledge Base Markdown pipeline | In progress | Added `/knowledge` and `/knowledge/:id` routes with Markdown content under `src/content/knowledge/`; first pages cover Modbus, MQTT and RS485. |
+| Knowledge Base Markdown pipeline | In progress | Added `/knowledge` and `/knowledge/:id` routes with Markdown content under `src/content/knowledge/`; pages now cover Modbus, MQTT, RS485, LTE Cat1, Digital IO, Relay Output, Analog Input, RTU vs Gateway vs Remote IO, MQTT Downlink Control, and 4G/GSM gate opener topics. |
 | Initial solutions taxonomy | Done | Converted into structured topic database at `docs/seo/solutions-topic-database.json`. |
 | Safe-scope model page Markdown briefs | Done | Created internal Markdown briefs for all first-batch model-specific pages under `docs/seo/product-page-markdown-briefs/`. |
 | First-batch product claim review | Done | Created safe/conditional/blocked/forbidden claim matrix at `docs/seo/first-batch-product-page-capability-review-matrix.json`. |
@@ -41,7 +41,7 @@ Primary SEO goals:
 | Solution-to-product mapping | In progress | Solution data now uses validation-aware product references and each solution detail page can render related product links. Factory energy, solar, water, agriculture, and building automation are mapped to current public or validation-gated model paths. |
 | Expanded product taxonomy | Done | Converted into structured topic database at `docs/seo/products-topic-database.json`; still needs keyword validation before publishing pages. |
 | Topic authority database | Drafted | Solutions, products, knowledge base, initial case studies, and long-tail article databases drafted under `docs/seo/`. |
-| Knowledge fact database | In progress | Knowledge topics drafted and first factual source cards created at `docs/seo/factual-source-cards.json`; first public-safe knowledge pages are live in Markdown, but add more source cards before large-scale article generation. |
+| Knowledge fact database | In progress | Knowledge topics drafted and first factual source cards created at `docs/seo/factual-source-cards.json`; first public knowledge pages are live in Markdown, with the latest expansion focused on IO, cellular RTU, relay control and MQTT downlink topics. |
 | Case library | Drafted | First 30 reusable case records created at `docs/seo/case-study-topic-database.json`; target remains 100+ cases. |
 | Article templates | Not started | Need templates for product, solution, knowledge base, comparison, how-to, troubleshooting, case study. |
 | Internal link map | In progress | Machine-readable rules exist; first implementation pass now connects homepage, gateway page, solution pages, blog articles, knowledge pages and product pages into a bidirectional topic network. |

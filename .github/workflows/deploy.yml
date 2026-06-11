@@ -82,10 +82,22 @@ jobs:
           test -f dist/knowledge/mqtt/index.html
           test -f dist/knowledge/rs485/index.html
           test -f dist/knowledge/4g-gsm-gate-opener-europe/index.html
+          test -f dist/knowledge/4g-lte-cat1/index.html
+          test -f dist/knowledge/digital-io/index.html
+          test -f dist/knowledge/relay-output-control/index.html
+          test -f dist/knowledge/analog-input/index.html
+          test -f dist/knowledge/rtu-vs-gateway-vs-remote-io/index.html
+          test -f dist/knowledge/mqtt-downlink-control/index.html
           grep -q "Modbus for Industrial IoT Gateways and RTUs" dist/knowledge/modbus/index.html
           grep -q "MQTT in Industrial IoT Monitoring" dist/knowledge/mqtt/index.html
           grep -q "RS485 Wiring for Modbus RTU Devices" dist/knowledge/rs485/index.html
           grep -q "GSM vs 4G Gate Opener for Europe" dist/knowledge/4g-gsm-gate-opener-europe/index.html
+          grep -q "4G LTE Cat1 for Industrial IoT RTUs" dist/knowledge/4g-lte-cat1/index.html
+          grep -q "Digital Input and Digital Output" dist/knowledge/digital-io/index.html
+          grep -q "Relay Output Control" dist/knowledge/relay-output-control/index.html
+          grep -q "Analog Input for 4-20mA" dist/knowledge/analog-input/index.html
+          grep -q "RTU vs Gateway vs Remote IO" dist/knowledge/rtu-vs-gateway-vs-remote-io/index.html
+          grep -q "MQTT Downlink Control" dist/knowledge/mqtt-downlink-control/index.html
 
       - name: Verify prerendered blog pages
         run: |
@@ -105,6 +117,10 @@ jobs:
           grep -q "https://iotedges.com/products/ier-141-4g-pump-valve-rtu" dist/sitemap.xml
           grep -q "https://iotedges.com/products/ier-142-4g-power-cabinet-rtu" dist/sitemap.xml
           grep -q "https://iotedges.com/knowledge/modbus" dist/sitemap.xml
+          grep -q "https://iotedges.com/knowledge/4g-lte-cat1" dist/sitemap.xml
+          grep -q "https://iotedges.com/knowledge/digital-io" dist/sitemap.xml
+          grep -q "https://iotedges.com/knowledge/relay-output-control" dist/sitemap.xml
+          grep -q "https://iotedges.com/knowledge/rtu-vs-gateway-vs-remote-io" dist/sitemap.xml
           grep -q "https://iotedges.com/knowledge/4g-gsm-gate-opener-europe" dist/sitemap.xml
           grep -q "https://iotedges.com/blog/how-to-choose-4g-gate-opener-europe" dist/sitemap.xml
           grep -q "Sitemap: https://iotedges.com/sitemap.xml" dist/robots.txt

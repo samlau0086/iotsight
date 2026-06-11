@@ -1,7 +1,7 @@
----
+﻿---
 id: mqtt
 title: MQTT in Industrial IoT Monitoring
-excerpt: Learn how MQTT fits industrial IoT gateways, telemetry publishing, topic design, payload structure, and validation-aware product claims.
+excerpt: Learn how MQTT fits industrial IoT gateways, telemetry publishing, topic design, payload structure, and project-specific product claims.
 category: Protocol Guide
 primaryKeyword: MQTT
 relatedProducts: ieg-100-ethernet-industrial-iot-gateway,ieg-120-wifi-industrial-iot-gateway
@@ -21,9 +21,9 @@ MQTT is useful for remote monitoring because:
 - Gateways can publish telemetry without every dashboard directly polling field devices.
 - Topic structure can separate sites, devices, measurement types, and events.
 - Payloads can be designed for dashboards, alarms, and data storage.
-- Reconnect behavior can be handled at the gateway and broker layer after firmware validation.
+- Reconnect behavior can be handled at the gateway and broker layer after firmware confirmation.
 
-For first-generation IoTEdges planning, baseline gateway pages should focus on Modbus collection and MQTT telemetry. Advanced claims such as certificate workflows, offline buffering, or exact throughput should stay validation-gated.
+For first-generation IoTEdges planning, baseline gateway pages should focus on Modbus collection and MQTT telemetry. Advanced claims such as certificate workflows, offline buffering, or exact throughput should stay confirmed during project engineering review.
 
 ## MQTT Topic Planning
 
@@ -40,12 +40,13 @@ The exact topic format should be defined together with the dashboard and firmwar
 
 ## Ethernet and WiFi Gateway Paths
 
-The [IEG-100 Ethernet Industrial IoT Gateway](/products/ieg-100-ethernet-industrial-iot-gateway) is the safest public draft for wired LAN deployments.
+The [IEG-100 Ethernet Industrial IoT Gateway](/products/ieg-100-ethernet-industrial-iot-gateway) is the safest product reference for wired LAN deployments.
 
-The [IEG-120 WiFi Industrial IoT Gateway](/products/ieg-120-wifi-industrial-iot-gateway) is the planned WiFi model for indoor wireless LAN deployments. WiFi range, RF behavior, certification, and reconnect behavior should remain validation-gated.
+The [IEG-120 WiFi Industrial IoT Gateway](/products/ieg-120-wifi-industrial-iot-gateway) is the WiFi model for indoor wireless LAN deployments. WiFi range, RF behavior, certification, and reconnect behavior should remain confirmed during project engineering review.
 
 ## MQTT and Security
 
 MQTT security depends on the full deployment workflow, not just the protocol name. Device identity, broker authentication, credential rotation, TLS configuration, firewall rules, and network segmentation must be implemented and tested as a system.
 
 Public product pages should describe security capabilities only after firmware, broker onboarding, and operating procedures are validated.
+

@@ -1,4 +1,4 @@
----
+﻿---
 id: modbus
 title: Modbus for Industrial IoT Gateways and RTUs
 excerpt: A practical explanation of Modbus RTU, Modbus TCP, RS485 wiring, polling, register maps, and how Modbus data connects to IoT gateways.
@@ -30,20 +30,21 @@ Before selecting a Modbus gateway, define:
 - Polling interval: how often each value needs to be read.
 - Data destination: local dashboard, MQTT broker, cloud platform, or SCADA system.
 
-The [IEG-100 Ethernet Industrial IoT Gateway](/products/ieg-100-ethernet-industrial-iot-gateway) is the current IoTEdges public draft for wired Modbus data collection and MQTT telemetry.
+The [IEG-100 Ethernet Industrial IoT Gateway](/products/ieg-100-ethernet-industrial-iot-gateway) is the current IoTEdges product reference for wired Modbus data collection and MQTT telemetry.
 
 ## Modbus and Remote IO
 
 Remote IO modules often expose digital inputs, digital outputs, analog inputs, or analog outputs through Modbus registers. This makes them useful when a project needs to expand signals without replacing the main controller.
 
-The [IEIO-100 Modbus Remote IO Module](/products/ieio-100-modbus-remote-io-module) is planned as a wired Modbus Remote IO product family. Its register map remains validation-gated until firmware and prototype tests are complete.
+The [IEIO-100 Modbus Remote IO Module](/products/ieio-100-modbus-remote-io-module) is designed as a wired Modbus Remote IO product family. Its register map is confirmed during firmware and project review.
 
 ## Modbus and RTUs
 
 An RTU usually combines local IO with communication capability. It can read local DI/DO/AI signals, communicate with Modbus devices, and support remote monitoring architectures.
 
-The [IER-100 Ethernet Industrial RTU](/products/ier-100-ethernet-industrial-rtu) is the current IoTEdges public draft for an Ethernet RTU path with local IO and Modbus connectivity targets.
+The [IER-100 Ethernet Industrial RTU](/products/ier-100-ethernet-industrial-rtu) is the current IoTEdges product reference for an Ethernet RTU path with local IO and Modbus connectivity targets.
 
-## Validation Notes
+## Project Notes
 
-Do not publish exact device counts, polling limits, register maps, isolation ratings, or environmental ratings until the product has passed engineering validation. Modbus pages should explain the architecture and selection logic first, then link to product pages with validation-aware specifications.
+Exact device counts, polling limits, register maps, isolation ratings, or environmental ratings are confirmed during product and project engineering review. Modbus pages should explain the architecture and selection logic first, then link to product pages with project-specific specifications.
+
