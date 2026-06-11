@@ -104,6 +104,7 @@ jobs:
           grep -R -Fq "lead_form_submit" dist/assets
           grep -R -Fq "live_chat_message_send" dist/assets
           grep -R -Fq "cta_click" dist/assets
+          grep -R -Fq "crms.geekmt.com/api/public/customer-forms/form_1780670393030_531/submit" dist/assets
           if [ -n "$VITE_GTM_ID" ]; then
             grep -Fq "www.googletagmanager.com/gtm.js?id=" dist/index.html
             grep -Fq "$VITE_GTM_ID" dist/index.html
