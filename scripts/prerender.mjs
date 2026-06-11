@@ -8,6 +8,20 @@ const distDir = path.join(rootDir, 'dist');
 const template = await fs.readFile(path.join(distDir, 'index.html'), 'utf8');
 const { render, getPrerenderRoutes, getSeoMeta } = await import('../dist-ssr/entry-server.js');
 const siteUrl = (process.env.APP_URL || 'https://iotedges.com').replace(/\/+$/, '');
+const gaMeasurementId = normalizeTrackingId(process.env.VITE_GA_MEASUREMENT_ID, /^G-[A-Z0-9]+$/i, 'VITE_GA_MEASUREMENT_ID');
+const gtmId = normalizeTrackingId(process.env.VITE_GTM_ID, /^GTM-[A-Z0-9]+$/i, 'VITE_GTM_ID');
+
+function normalizeTrackingId(value, pattern, name) {
+  const id = String(value || '').trim();
+  if (!id) return '';
+
+  if (!pattern.test(id)) {
+    console.warn(`${name} is configured but does not match the expected format. Skipping tracking injection.`);
+    return '';
+  }
+
+  return id;
+}
 
 function escapeHtml(value = '') {
   return String(value)
@@ -46,10 +60,44 @@ function applySeo(html, url) {
 
   const structuredData = escapeJsonForHtml(JSON.stringify(createStructuredData(url, meta, absoluteUrl)));
 
-  return nextHtml.replace(
+  nextHtml = nextHtml.replace(
     '</head>',
-    `    <link rel="canonical" href="${escapeHtml(absoluteUrl)}" />\n    ${openGraph}\n    <script type="application/ld+json">${structuredData}</script>\n  </head>`
+    `    <link rel="canonical" href="${escapeHtml(absoluteUrl)}" />\n    ${openGraph}\n    <script type="application/ld+json">${structuredData}</script>\n    ${trackingHeadTags()}\n  </head>`
   );
+
+  return nextHtml.replace('<body>', `<body>${trackingBodyTags()}`);
+}
+
+function trackingHeadTags() {
+  const tags = [];
+
+  if (gtmId) {
+    tags.push([
+      '<script>',
+      `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${gtmId}');`,
+      '</script>',
+    ].join(''));
+  }
+
+  if (gaMeasurementId) {
+    tags.push([
+      `<script async src="https://www.googletagmanager.com/gtag/js?id=${gaMeasurementId}"></script>`,
+      '<script>',
+      "window.dataLayer=window.dataLayer||[];",
+      'function gtag(){dataLayer.push(arguments);}',
+      "gtag('js',new Date());",
+      `gtag('config','${gaMeasurementId}');`,
+      '</script>',
+    ].join('\n    '));
+  }
+
+  return tags.filter(Boolean).join('\n    ');
+}
+
+function trackingBodyTags() {
+  if (!gtmId) return '';
+
+  return `<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=${gtmId}" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>`;
 }
 
 function routeType(url, meta) {
