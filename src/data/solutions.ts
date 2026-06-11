@@ -95,6 +95,7 @@ export const solutions = [
       'Maintenance history and event review'
     ],
     relatedProducts: [
+      { title: 'IER-140 4G Remote Relay RTU', href: '/products/ier-140-4g-remote-relay-rtu' },
       { title: 'IER-100 Ethernet Industrial RTU', href: '/products/ier-100-ethernet-industrial-rtu' },
       { title: 'IEIO-100 Modbus Remote IO Module', href: '/products/ieio-100-modbus-remote-io-module' }
     ],
@@ -126,6 +127,7 @@ export const solutions = [
       'Historical sensor trend reporting'
     ],
     relatedProducts: [
+      { title: 'IER-140 4G Remote Relay RTU', href: '/products/ier-140-4g-remote-relay-rtu' },
       { title: 'IEIO-100 Modbus Remote IO Module', href: '/products/ieio-100-modbus-remote-io-module' }
     ],
     architectureImage: 'https://images.unsplash.com/photo-1588180892313-09b674843cc1?auto=format&fit=crop&q=80&w=1200'
@@ -188,6 +190,7 @@ export const solutions = [
       'Optional dashboard, SMS, app or API workflow after validation'
     ],
     relatedProducts: [
+      { title: 'IER-140 4G Remote Relay RTU', href: '/products/ier-140-4g-remote-relay-rtu' },
       { title: 'IEAC-140 4G GSM Gate Opener', href: '/products/ieac-140-4g-gsm-gate-opener' }
     ],
     relatedResources: [

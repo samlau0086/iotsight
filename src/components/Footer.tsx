@@ -33,6 +33,7 @@ export default function Footer() {
             <li><Link to="/products/ieio-100-modbus-remote-io-module" className="hover:text-white transition-colors">IEIO-100 Remote IO</Link></li>
             <li><Link to="/products/ier-100-ethernet-industrial-rtu" className="hover:text-white transition-colors">IER-100 RTU</Link></li>
             <li><Link to="/products/ieg-120-wifi-industrial-iot-gateway" className="hover:text-white transition-colors">IEG-120 WiFi Gateway</Link></li>
+            <li><Link to="/products/ier-140-4g-remote-relay-rtu" className="hover:text-white transition-colors">IER-140 4G Relay RTU</Link></li>
             <li><Link to="/products/ieac-140-4g-gsm-gate-opener" className="hover:text-white transition-colors">IEAC-140 Gate Opener</Link></li>
           </ul>
         </div>

@@ -56,12 +56,14 @@ jobs:
           test -f dist/products/ieg-120-wifi-industrial-iot-gateway/index.html
           test -f dist/products/ier-120-wifi-remote-monitoring-rtu/index.html
           test -f dist/products/ieac-140-4g-gsm-gate-opener/index.html
+          test -f dist/products/ier-140-4g-remote-relay-rtu/index.html
           grep -q "IEG-100 Ethernet Industrial IoT Gateway" dist/products/ieg-100-ethernet-industrial-iot-gateway/index.html
           grep -q "IEIO-100 Modbus Remote IO Module" dist/products/ieio-100-modbus-remote-io-module/index.html
           grep -q "IER-100 Ethernet Industrial RTU" dist/products/ier-100-ethernet-industrial-rtu/index.html
           grep -q "IEG-120 WiFi Industrial IoT Gateway" dist/products/ieg-120-wifi-industrial-iot-gateway/index.html
           grep -q "IER-120 WiFi Remote Monitoring RTU" dist/products/ier-120-wifi-remote-monitoring-rtu/index.html
           grep -q "IEAC-140 4G GSM Gate Opener" dist/products/ieac-140-4g-gsm-gate-opener/index.html
+          grep -q "IER-140 4G Remote Relay RTU" dist/products/ier-140-4g-remote-relay-rtu/index.html
 
       - name: Verify prerendered solution pages
         run: |
@@ -94,6 +96,7 @@ jobs:
           test -f dist/robots.txt
           grep -q "https://iotedges.com/products/ieg-100-ethernet-industrial-iot-gateway" dist/sitemap.xml
           grep -q "https://iotedges.com/products/ieac-140-4g-gsm-gate-opener" dist/sitemap.xml
+          grep -q "https://iotedges.com/products/ier-140-4g-remote-relay-rtu" dist/sitemap.xml
           grep -q "https://iotedges.com/knowledge/modbus" dist/sitemap.xml
           grep -q "https://iotedges.com/knowledge/4g-gsm-gate-opener-europe" dist/sitemap.xml
           grep -q "https://iotedges.com/blog/how-to-choose-4g-gate-opener-europe" dist/sitemap.xml
