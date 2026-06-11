@@ -7,12 +7,13 @@ const markdownModules = import.meta.glob('../content/knowledge/*.md', {
 }) as Record<string, string>;
 
 function parseFrontmatter(markdown: string) {
-  const frontmatterMatch = markdown.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?([\s\S]*)$/);
+  const normalizedMarkdown = markdown.replace(/^\uFEFF/, '');
+  const frontmatterMatch = normalizedMarkdown.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?([\s\S]*)$/);
 
   if (!frontmatterMatch) {
     return {
       metadata: {} as Record<string, string>,
-      content: markdown.trim(),
+      content: normalizedMarkdown.trim(),
     };
   }
 

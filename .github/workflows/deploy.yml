@@ -68,6 +68,7 @@ jobs:
           grep -q "IER-140 4G Remote Relay RTU" dist/products/ier-140-4g-remote-relay-rtu/index.html
           grep -q "IER-141 4G Pump" dist/products/ier-141-4g-pump-valve-rtu/index.html
           grep -q "IER-142 4G Power Cabinet RTU" dist/products/ier-142-4g-power-cabinet-rtu/index.html
+          ! grep -R -q "Untitled Product" dist/products
 
       - name: Verify prerendered solution pages
         run: |
