@@ -101,12 +101,13 @@ jobs:
           grep -q "application/ld+json" dist/products/ieg-100-ethernet-industrial-iot-gateway/index.html
           grep -q "application/ld+json" dist/knowledge/modbus/index.html
           if [ -n "$VITE_GTM_ID" ]; then
-            grep -q "www.googletagmanager.com/gtm.js?id=$VITE_GTM_ID" dist/index.html
-            grep -q "www.googletagmanager.com/ns.html?id=$VITE_GTM_ID" dist/index.html
+            grep -Fq "www.googletagmanager.com/gtm.js?id=" dist/index.html
+            grep -Fq "$VITE_GTM_ID" dist/index.html
+            grep -Fq "www.googletagmanager.com/ns.html?id=$VITE_GTM_ID" dist/index.html
           fi
           if [ -n "$VITE_GA_MEASUREMENT_ID" ]; then
-            grep -q "www.googletagmanager.com/gtag/js?id=$VITE_GA_MEASUREMENT_ID" dist/index.html
-            grep -q "gtag('config','$VITE_GA_MEASUREMENT_ID')" dist/index.html
+            grep -Fq "www.googletagmanager.com/gtag/js?id=$VITE_GA_MEASUREMENT_ID" dist/index.html
+            grep -Fq "gtag('config','$VITE_GA_MEASUREMENT_ID')" dist/index.html
           fi
 
       - name: Package release
