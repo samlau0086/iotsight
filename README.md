@@ -236,7 +236,7 @@ Key conversion events currently pushed to `dataLayer` are:
 - `live_chat_message_send`: visitor message sent in live chat
 - `live_chat_close`: live chat widget closed
 
-The Request Quote form submits directly to the CRM public form endpoint at `https://crms.geekmt.com/api/public/customer-forms/form_1780670393030_531/submit`. The payload fields are `name`, `company`, `email`, `whatsapp`, `country`, `application_type`, `message`, `_formStartedAt`, and the hidden honeypot field `website_url`. The form validates email and WhatsApp format in the browser, uses a searchable country dropdown, blocks very fast submissions, and does not send the honeypot submission to the CRM when `website_url` has a value.
+The Request Quote form submits to the same-origin `/api/quote-request` endpoint, and the server proxies valid submissions to the CRM public form endpoint at `https://crms.geekmt.com/api/public/customer-forms/form_1780670393030_531/submit`. The payload fields are `name`, `company`, `email`, `whatsapp`, `country`, `application_type`, `message`, `_formStartedAt`, and the hidden honeypot field `website_url`. The form validates email and WhatsApp format in the browser, uses a searchable country dropdown, blocks very fast submissions, and does not send the honeypot submission to the CRM when `website_url` has a value. The server proxy logs CRM response time and uses `QUOTE_REQUEST_TIMEOUT_MS`, default `15000`, to avoid long browser waits.
 
 Generated static files are written under `dist`, for example:
 
@@ -521,7 +521,7 @@ Google tracking 标签不会写入源码 `index.html`，只会在 `npm run build
 - `live_chat_message_send`：访客发送 Live Chat 消息
 - `live_chat_close`：关闭 Live Chat
 
-Request Quote 表单会直接提交到 CRM public form endpoint：`https://crms.geekmt.com/api/public/customer-forms/form_1780670393030_531/submit`。提交字段包括 `name`、`company`、`email`、`whatsapp`、`country`、`application_type`、`message`、`_formStartedAt` 和隐藏蜜罐字段 `website_url`。前端会校验 email 和 WhatsApp 格式，国家字段使用可搜索下拉，过快提交会被拦截；如果 `website_url` 有值，则视为机器人提交，不会发送到 CRM。
+Request Quote 表单会先提交到同源的 `/api/quote-request`，再由服务端代理转发到 CRM public form endpoint：`https://crms.geekmt.com/api/public/customer-forms/form_1780670393030_531/submit`。提交字段包括 `name`、`company`、`email`、`whatsapp`、`country`、`application_type`、`message`、`_formStartedAt` 和隐藏蜜罐字段 `website_url`。前端会校验 email 和 WhatsApp 格式，国家字段使用可搜索下拉，过快提交会被拦截；如果 `website_url` 有值，则视为机器人提交，不会发送到 CRM。服务端代理会记录 CRM 响应耗时，并通过 `QUOTE_REQUEST_TIMEOUT_MS` 控制超时时间，默认 `15000` 毫秒，避免浏览器长时间等待。
 
 生成的静态文件会写入 `dist`，例如：
 

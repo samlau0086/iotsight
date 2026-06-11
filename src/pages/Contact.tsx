@@ -2,7 +2,7 @@ import { useMemo, useState, type FormEvent } from 'react';
 import { Mail, Phone, MapPin, Send } from 'lucide-react';
 import { trackEvent } from '../lib/analytics';
 
-const CRM_FORM_ENDPOINT = 'https://crms.geekmt.com/api/public/customer-forms/form_1780670393030_531/submit';
+const QUOTE_REQUEST_ENDPOINT = '/api/quote-request';
 const MIN_SUBMIT_TIME_MS = 3000;
 
 const countries = [
@@ -105,7 +105,7 @@ export default function Contact() {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch(CRM_FORM_ENDPOINT, {
+      const response = await fetch(QUOTE_REQUEST_ENDPOINT, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

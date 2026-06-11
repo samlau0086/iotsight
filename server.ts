@@ -10,6 +10,9 @@ import http from "http";
 async function startServer() {
   const app = express();
   const PORT = Number(process.env.PORT || 3005);
+  const quoteFormEndpoint = "https://crms.geekmt.com/api/public/customer-forms/form_1780670393030_531/submit";
+  const quoteRequestTimeoutMs = Number(process.env.QUOTE_REQUEST_TIMEOUT_MS || 15000);
+  const quoteMinimumSubmitTimeMs = 3000;
   const liveChatApiToken = process.env.LIVE_CHAT_API_TOKEN;
   const liveChatApiBaseUrl = process.env.LIVE_CHAT_API_BASE_URL?.replace(/\/+$/, "");
 
@@ -34,6 +37,77 @@ async function startServer() {
 
   app.post("/api/chat", (req, res) => {
     res.status(410).json({ error: "This chat endpoint has been replaced by live chat." });
+  });
+
+  app.post("/api/quote-request", async (req, res) => {
+    const startedAt = Date.now();
+    const {
+      name,
+      company,
+      email,
+      whatsapp,
+      country,
+      message,
+      application_type: applicationType,
+      _formStartedAt: formStartedAt,
+      website_url: websiteUrl,
+    } = req.body || {};
+
+    if (String(websiteUrl || "").trim()) {
+      res.json({ ok: true });
+      return;
+    }
+
+    const normalizedFormStartedAt = Number(formStartedAt);
+    if (!Number.isFinite(normalizedFormStartedAt) || Date.now() - normalizedFormStartedAt < quoteMinimumSubmitTimeMs) {
+      res.status(400).json({ error: "Form submitted too quickly" });
+      return;
+    }
+
+    if (!name || !company || !email || !whatsapp || !country || !message || !applicationType) {
+      res.status(400).json({ error: "Missing required quote request fields" });
+      return;
+    }
+
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), quoteRequestTimeoutMs);
+
+    try {
+      const upstream = await fetch(quoteFormEndpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name,
+          company,
+          email,
+          whatsapp,
+          country,
+          message,
+          application_type: applicationType,
+          _formStartedAt: normalizedFormStartedAt,
+          website_url: "",
+        }),
+        signal: controller.signal,
+      });
+
+      const text = await upstream.text();
+      const durationMs = Date.now() - startedAt;
+
+      console.log(`Quote request CRM response: ${upstream.status} in ${durationMs}ms`);
+      res.status(upstream.status);
+      res.type(upstream.headers.get("content-type") || "application/json");
+      res.send(text || JSON.stringify({ ok: upstream.ok }));
+    } catch (error) {
+      const durationMs = Date.now() - startedAt;
+      const isTimeout = error instanceof Error && error.name === "AbortError";
+
+      console.error(`Quote request CRM ${isTimeout ? "timeout" : "failure"} after ${durationMs}ms:`, error);
+      res.status(isTimeout ? 504 : 502).json({
+        error: isTimeout ? "Quote request service timed out" : "Quote request service is unavailable",
+      });
+    } finally {
+      clearTimeout(timeout);
+    }
   });
 
   const requireLiveChatConfig = (res: express.Response) => {
