@@ -100,6 +100,10 @@ jobs:
           grep -q "Sitemap: https://iotedges.com/sitemap.xml" dist/robots.txt
           grep -q "application/ld+json" dist/products/ieg-100-ethernet-industrial-iot-gateway/index.html
           grep -q "application/ld+json" dist/knowledge/modbus/index.html
+          grep -R -Fq "virtual_page_view" dist/assets
+          grep -R -Fq "lead_form_submit" dist/assets
+          grep -R -Fq "live_chat_message_send" dist/assets
+          grep -R -Fq "cta_click" dist/assets
           if [ -n "$VITE_GTM_ID" ]; then
             grep -Fq "www.googletagmanager.com/gtm.js?id=" dist/index.html
             grep -Fq "$VITE_GTM_ID" dist/index.html

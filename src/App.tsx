@@ -16,12 +16,14 @@ import KnowledgeDetail from './pages/KnowledgeDetail';
 import SolutionsList from './pages/SolutionsList';
 import SolutionDetail from './pages/SolutionDetail';
 import ScrollToTop from './components/ScrollToTop';
+import AnalyticsPageView from './components/AnalyticsPageView';
 import { AIChatWidget } from './components/AIChatWidget';
 
 export function AppLayout() {
   return (
     <>
       <ScrollToTop />
+      <AnalyticsPageView />
       <div className="flex flex-col min-h-screen">
         <Navbar />
         <main className="flex-grow">

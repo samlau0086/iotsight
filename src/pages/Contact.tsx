@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Mail, Phone, MapPin, Send } from 'lucide-react';
+import { trackEvent } from '../lib/analytics';
 
 export default function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -7,11 +8,20 @@ export default function Contact() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    const formData = new FormData(e.currentTarget as HTMLFormElement);
     setIsSubmitting(true);
     // Simulate API call
     setTimeout(() => {
       setIsSubmitting(false);
       setSubmitted(true);
+      trackEvent('lead_form_submit', {
+        event_category: 'lead',
+        form_name: 'contact_quote',
+        application_type: String(formData.get('applicationType') || ''),
+        country: String(formData.get('country') || ''),
+        cloud_dashboard: formData.get('cloud') === 'on',
+        oem_white_label: formData.get('oem') === 'on',
+      });
     }, 1000);
   };
 
@@ -96,39 +106,39 @@ export default function Contact() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <label className="block text-sm font-medium text-slate-300 mb-1">Name *</label>
-                    <input required type="text" className="w-full rounded-md border border-slate-600 bg-slate-900 px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder-slate-500" />
+                    <input required name="name" type="text" className="w-full rounded-md border border-slate-600 bg-slate-900 px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder-slate-500" />
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-slate-300 mb-1">Company *</label>
-                    <input required type="text" className="w-full rounded-md border border-slate-600 bg-slate-900 px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder-slate-500" />
+                    <input required name="company" type="text" className="w-full rounded-md border border-slate-600 bg-slate-900 px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder-slate-500" />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <label className="block text-sm font-medium text-slate-300 mb-1">Email *</label>
-                    <input required type="email" className="w-full rounded-md border border-slate-600 bg-slate-900 px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder-slate-500" />
+                    <input required name="email" type="email" className="w-full rounded-md border border-slate-600 bg-slate-900 px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder-slate-500" />
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-slate-300 mb-1">WhatsApp / Phone</label>
-                    <input type="text" className="w-full rounded-md border border-slate-600 bg-slate-900 px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder-slate-500" />
+                    <input name="phone" type="text" className="w-full rounded-md border border-slate-600 bg-slate-900 px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder-slate-500" />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <label className="block text-sm font-medium text-slate-300 mb-1">Country</label>
-                    <input type="text" className="w-full rounded-md border border-slate-600 bg-slate-900 px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder-slate-500" />
+                    <input name="country" type="text" className="w-full rounded-md border border-slate-600 bg-slate-900 px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder-slate-500" />
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-slate-300 mb-1">Gateway Quantity</label>
-                    <input type="text" placeholder="e.g. 10 units" className="w-full rounded-md border border-slate-600 bg-slate-900 px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder-slate-500" />
+                    <input name="quantity" type="text" placeholder="e.g. 10 units" className="w-full rounded-md border border-slate-600 bg-slate-900 px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder-slate-500" />
                   </div>
                 </div>
 
                 <div>
                   <label className="block text-sm font-medium text-slate-300 mb-1">Application Type *</label>
-                  <select required className="w-full rounded-md border border-slate-600 bg-slate-900 px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent appearance-none">
+                  <select required name="applicationType" className="w-full rounded-md border border-slate-600 bg-slate-900 px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent appearance-none">
                     <option value="">Select target application...</option>
                     <option value="Factory Energy Monitoring">Factory Energy Monitoring System</option>
                     <option value="Solar Monitoring">Solar / Renewables Monitoring</option>
@@ -141,18 +151,18 @@ export default function Contact() {
 
                 <div className="flex flex-col sm:flex-row gap-6 bg-slate-900/50 p-4 rounded-md border border-slate-700">
                   <div className="flex items-center gap-2">
-                    <input type="checkbox" id="cloud" className="w-4 h-4 text-blue-500 bg-slate-900 border-slate-600 rounded focus:ring-blue-500 focus:ring-offset-slate-800" />
+                    <input type="checkbox" id="cloud" name="cloud" className="w-4 h-4 text-blue-500 bg-slate-900 border-slate-600 rounded focus:ring-blue-500 focus:ring-offset-slate-800" />
                     <label htmlFor="cloud" className="text-sm font-medium text-slate-300">Need Cloud Dashboard?</label>
                   </div>
                   <div className="flex items-center gap-2">
-                    <input type="checkbox" id="oem" className="w-4 h-4 text-blue-500 bg-slate-900 border-slate-600 rounded focus:ring-blue-500 focus:ring-offset-slate-800" />
+                    <input type="checkbox" id="oem" name="oem" className="w-4 h-4 text-blue-500 bg-slate-900 border-slate-600 rounded focus:ring-blue-500 focus:ring-offset-slate-800" />
                     <label htmlFor="oem" className="text-sm font-medium text-slate-300">Need OEM / White-label?</label>
                   </div>
                 </div>
 
                 <div>
                   <label className="block text-sm font-medium text-slate-300 mb-1">Project Details *</label>
-                  <textarea required rows={4} className="w-full rounded-md border border-slate-600 bg-slate-900 px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder-slate-500" placeholder="Tell us about your equipment (e.g. Modbus RTU meters, PLCs), networking needs (4G LTE, WiFi, Ethernet), and goals..."></textarea>
+                  <textarea required name="projectDetails" rows={4} className="w-full rounded-md border border-slate-600 bg-slate-900 px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder-slate-500" placeholder="Tell us about your equipment (e.g. Modbus RTU meters, PLCs), networking needs (4G LTE, WiFi, Ethernet), and goals..."></textarea>
                 </div>
 
                 <button 

@@ -62,6 +62,10 @@ export default function Navbar() {
             </nav>
             <Link
               to="/contact"
+              data-analytics-event="cta_click"
+              data-analytics-category="navigation"
+              data-analytics-label="Request Quote"
+              data-analytics-destination="/contact"
               className="px-5 py-2 bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold uppercase tracking-widest rounded transition-all"
             >
               Request Quote
@@ -100,6 +104,10 @@ export default function Navbar() {
             <Link
               to="/contact"
               onClick={() => setIsOpen(false)}
+              data-analytics-event="cta_click"
+              data-analytics-category="mobile_navigation"
+              data-analytics-label="Request Quote"
+              data-analytics-destination="/contact"
               className="block px-3 py-2 rounded-md text-base font-medium uppercase tracking-widest text-blue-400 hover:bg-slate-900"
             >
               Request Quote

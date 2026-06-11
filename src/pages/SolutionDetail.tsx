@@ -45,7 +45,7 @@ export default function SolutionDetail() {
             <p className="text-lg md:text-xl text-slate-300 mb-8 max-w-3xl leading-relaxed font-medium">
               {solution.description}
             </p>
-            <Link to="/contact" className="inline-flex items-center gap-2 px-8 py-4 bg-blue-600 text-white text-xs font-bold uppercase tracking-widest rounded transition-all hover:bg-blue-500">
+            <Link to="/contact" data-analytics-event="cta_click" data-analytics-category="solution" data-analytics-label={`Request Demo - ${solution.title}`} data-analytics-destination="/contact" className="inline-flex items-center gap-2 px-8 py-4 bg-blue-600 text-white text-xs font-bold uppercase tracking-widest rounded transition-all hover:bg-blue-500">
               Request a Demo <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
@@ -208,7 +208,7 @@ export default function SolutionDetail() {
           <h2 className="text-3xl font-extrabold text-white mb-6 tracking-tight" style={{ fontFamily: 'var(--font-display)' }}>Ready to upgrade your infrastructure?</h2>
           <p className="mb-10 text-slate-400 font-medium">Contact our technical team to discuss how we can adapt this architecture for your specific integration needs.</p>
           <div className="flex justify-center flex-wrap gap-4">
-            <Link to="/contact" className="bg-blue-600 text-white px-8 py-4 font-bold text-xs uppercase tracking-widest rounded hover:bg-blue-500 transition-all shadow-lg shadow-blue-500/20">Talk to Sales</Link>
+            <Link to="/contact" data-analytics-event="cta_click" data-analytics-category="solution" data-analytics-label={`Talk to Sales - ${solution.title}`} data-analytics-destination="/contact" className="bg-blue-600 text-white px-8 py-4 font-bold text-xs uppercase tracking-widest rounded hover:bg-blue-500 transition-all shadow-lg shadow-blue-500/20">Talk to Sales</Link>
           </div>
         </div>
       </section>

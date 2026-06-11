@@ -24,10 +24,10 @@ export default function Home() {
             Monitor energy usage, machines, solar farms, and remote equipment in real time with industrial gateways, AI-powered dashboards, and smart alerts.
           </p>
           <div className="flex flex-wrap gap-4 pt-4">
-            <Link to="/demo" className="px-8 py-4 bg-white text-slate-950 font-bold rounded shadow-lg shadow-white/5 hover:bg-slate-200 transition-all uppercase tracking-widest text-xs flex items-center justify-center">
+            <Link to="/demo" data-analytics-event="cta_click" data-analytics-category="hero" data-analytics-label="View Live Demo" data-analytics-destination="/demo" className="px-8 py-4 bg-white text-slate-950 font-bold rounded shadow-lg shadow-white/5 hover:bg-slate-200 transition-all uppercase tracking-widest text-xs flex items-center justify-center">
               View Live Demo
             </Link>
-            <Link to="/products" className="px-8 py-4 border border-slate-700 font-bold rounded hover:bg-slate-900 transition-all uppercase tracking-widest text-xs flex items-center justify-center text-white">
+            <Link to="/products" data-analytics-event="cta_click" data-analytics-category="hero" data-analytics-label="View Products" data-analytics-destination="/products" className="px-8 py-4 border border-slate-700 font-bold rounded hover:bg-slate-900 transition-all uppercase tracking-widest text-xs flex items-center justify-center text-white">
               View Products
             </Link>
           </div>
@@ -240,10 +240,10 @@ export default function Home() {
             Tell us your monitoring project. Get a customized solution proposal within 24 hours.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <Link to="/contact" className="px-8 py-4 bg-white text-blue-600 font-bold rounded hover:bg-slate-100 transition-all uppercase tracking-widest text-xs flex justify-center items-center shadow-lg">
+            <Link to="/contact" data-analytics-event="cta_click" data-analytics-category="bottom_cta" data-analytics-label="Start Your Project" data-analytics-destination="/contact" className="px-8 py-4 bg-white text-blue-600 font-bold rounded hover:bg-slate-100 transition-all uppercase tracking-widest text-xs flex justify-center items-center shadow-lg">
               Start Your Project
             </Link>
-            <Link to="/demo" className="px-8 py-4 border border-blue-400 text-white font-bold rounded hover:bg-blue-700 transition-all uppercase tracking-widest text-xs flex justify-center items-center">
+            <Link to="/demo" data-analytics-event="cta_click" data-analytics-category="bottom_cta" data-analytics-label="Try Dashboard Demo" data-analytics-destination="/demo" className="px-8 py-4 border border-blue-400 text-white font-bold rounded hover:bg-blue-700 transition-all uppercase tracking-widest text-xs flex justify-center items-center">
               Try Dashboard Demo
             </Link>
           </div>

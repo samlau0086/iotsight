@@ -11,7 +11,7 @@ export default function Demo() {
             <p className="text-slate-400">Read-only demo of the cloud monitoring platform.</p>
           </div>
           <div className="flex gap-4">
-            <Link to="/contact" className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded text-sm font-medium transition">
+            <Link to="/contact" data-analytics-event="cta_click" data-analytics-category="demo" data-analytics-label="Request Demo Access" data-analytics-destination="/contact" className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded text-sm font-medium transition">
               Request Demo Access
             </Link>
           </div>

@@ -224,6 +224,18 @@ If `VITE_GTM_ID` or `VITE_GA_MEASUREMENT_ID` is configured during build, the pre
 
 Google tracking tags are not written into the source `index.html`. They appear only in generated files under `dist` after `npm run build`, such as `dist/index.html` and prerendered route HTML files. The GitHub Actions deployment now fails if neither `VITE_GTM_ID` nor `VITE_GA_MEASUREMENT_ID` is configured.
 
+Because the site uses client-side routing, internal page changes do not reload the HTML document. `src/components/AnalyticsPageView.tsx` listens for route changes and sends a `virtual_page_view` event to `dataLayer`. If direct GA4 is configured with `VITE_GA_MEASUREMENT_ID`, it also sends a GA4 `config` update with the new `page_path`, `page_location`, and `page_title`. When using GTM, create a Custom Event trigger for `virtual_page_view` if your GA4 tag is managed inside GTM.
+
+Key conversion events currently pushed to `dataLayer` are:
+
+- `virtual_page_view`: client-side route change
+- `cta_click`: marked CTA clicks, including hero, navigation, demo, and solution CTAs
+- `lead_form_submit`: contact quote form submission
+- `live_chat_open`: live chat widget opened
+- `live_chat_lead_submit`: live chat pre-chat form submitted
+- `live_chat_message_send`: visitor message sent in live chat
+- `live_chat_close`: live chat widget closed
+
 Generated static files are written under `dist`, for example:
 
 - `dist/products/ieg-100-ethernet-industrial-iot-gateway/index.html`
@@ -494,6 +506,18 @@ order: 1
 如果构建时配置了 `VITE_GTM_ID` 或 `VITE_GA_MEASUREMENT_ID`，预渲染脚本还会把 Google Tag Manager 和/或 Google Analytics 4 标签注入生成的 HTML。
 
 Google tracking 标签不会写入源码 `index.html`，只会在 `npm run build` 后出现在 `dist` 目录的生成文件中，例如 `dist/index.html` 和各个预渲染路由 HTML。现在 GitHub Actions 会在 `VITE_GTM_ID` 和 `VITE_GA_MEASUREMENT_ID` 都未配置时直接失败，避免无追踪代码的版本被部署。
+
+由于网站使用前端路由，站内页面切换不会重新加载 HTML 文档。`src/components/AnalyticsPageView.tsx` 会监听路由变化，并向 `dataLayer` 发送 `virtual_page_view` 事件。如果通过 `VITE_GA_MEASUREMENT_ID` 直接配置 GA4，它也会同步发送带有新 `page_path`、`page_location` 和 `page_title` 的 GA4 `config` 更新。若 GA4 是通过 GTM 管理，请在 GTM 中为 `virtual_page_view` 创建 Custom Event 触发器。
+
+当前会推送到 `dataLayer` 的关键转化事件包括：
+
+- `virtual_page_view`：前端路由页面切换
+- `cta_click`：已标记的 CTA 点击，包括首页、导航、Demo 和 Solution CTA
+- `lead_form_submit`：联系页询盘表单提交
+- `live_chat_open`：打开 Live Chat
+- `live_chat_lead_submit`：Live Chat 访客信息表单提交
+- `live_chat_message_send`：访客发送 Live Chat 消息
+- `live_chat_close`：关闭 Live Chat
 
 生成的静态文件会写入 `dist`，例如：
 

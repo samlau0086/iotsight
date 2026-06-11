@@ -3,6 +3,7 @@ import { MessageCircle, X, Send, Bot, User } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
 import { io, Socket } from 'socket.io-client';
+import { trackEvent } from '../lib/analytics';
 
 interface LiveChatMessage {
   id: string;
@@ -180,6 +181,11 @@ export function AIChatWidget() {
       setSessionInfo(newSessionInfo);
       localStorage.setItem('iotEdgesChatSession', JSON.stringify(newSessionInfo));
       setIsFormSubmitted(true);
+      trackEvent('live_chat_lead_submit', {
+        event_category: 'live_chat',
+        has_company: Boolean(formData.company),
+        page_path: window.location.pathname,
+      });
       
     } catch (error) {
       console.error('Error starting chat session:', error);
@@ -217,6 +223,11 @@ export function AIChatWidget() {
         if (response?.message) {
           setMessages(prev => {
             return mergeLiveChatMessage(prev, response.message, optimisticMsg.id);
+          });
+          trackEvent('live_chat_message_send', {
+            event_category: 'live_chat',
+            transport: 'socket',
+            page_path: window.location.pathname,
           });
         }
         if (response?.agentMessage) {
@@ -256,6 +267,11 @@ export function AIChatWidget() {
           }
           return newMsgs;
         });
+        trackEvent('live_chat_message_send', {
+          event_category: 'live_chat',
+          transport: 'rest',
+          page_path: window.location.pathname,
+        });
         
       } catch (error) {
         console.error('Error sending message:', error);
@@ -273,7 +289,13 @@ export function AIChatWidget() {
       {/* Floating Action Button */}
       <div className="fixed bottom-6 right-6 z-50">
         <button
-          onClick={() => setIsOpen(true)}
+          onClick={() => {
+            setIsOpen(true);
+            trackEvent('live_chat_open', {
+              event_category: 'live_chat',
+              page_path: window.location.pathname,
+            });
+          }}
           className={`w-14 h-14 bg-blue-600 hover:bg-blue-500 text-white rounded-full flex items-center justify-center shadow-2xl transition transform hover:scale-105 border border-blue-400/30 ${isOpen ? 'hidden' : 'block'}`}
           aria-label="Open AI Chat"
         >
@@ -306,7 +328,13 @@ export function AIChatWidget() {
                 </div>
               </div>
               <button 
-                onClick={() => setIsOpen(false)}
+                onClick={() => {
+                  setIsOpen(false);
+                  trackEvent('live_chat_close', {
+                    event_category: 'live_chat',
+                    page_path: window.location.pathname,
+                  });
+                }}
                 className="text-slate-400 hover:text-white p-1 rounded-md hover:bg-slate-700 transition"
               >
                 <X className="w-5 h-5" />
