@@ -34,6 +34,8 @@ export default function Footer() {
             <li><Link to="/products/ier-100-ethernet-industrial-rtu" className="hover:text-white transition-colors">IER-100 RTU</Link></li>
             <li><Link to="/products/ieg-120-wifi-industrial-iot-gateway" className="hover:text-white transition-colors">IEG-120 WiFi Gateway</Link></li>
             <li><Link to="/products/ier-140-4g-remote-relay-rtu" className="hover:text-white transition-colors">IER-140 4G Relay RTU</Link></li>
+            <li><Link to="/products/ier-141-4g-pump-valve-rtu" className="hover:text-white transition-colors">IER-141 Pump RTU</Link></li>
+            <li><Link to="/products/ier-142-4g-power-cabinet-rtu" className="hover:text-white transition-colors">IER-142 Cabinet RTU</Link></li>
             <li><Link to="/products/ieac-140-4g-gsm-gate-opener" className="hover:text-white transition-colors">IEAC-140 Gate Opener</Link></li>
           </ul>
         </div>

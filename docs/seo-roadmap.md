@@ -1,6 +1,6 @@
 # IoTEdges SEO Content Roadmap
 
-Last updated: 2026-06-09
+Last updated: 2026-06-11
 
 This roadmap is the working source of truth for IoTEdges SEO content planning. When topic research, page creation, content generation, internal linking, or publishing progresses, update this file.
 
@@ -28,11 +28,12 @@ Primary SEO goals:
 | Safe-scope model page Markdown briefs | Done | Created internal Markdown briefs for all first-batch model-specific pages under `docs/seo/product-page-markdown-briefs/`. |
 | First-batch product claim review | Done | Created safe/conditional/blocked/forbidden claim matrix at `docs/seo/first-batch-product-page-capability-review-matrix.json`. |
 | Public draft conversion plan | Done | Created first-batch public draft conversion plan at `docs/seo/first-batch-public-draft-conversion-plan.json`. |
-| Public-safe product draft pages | In progress | Added product Markdown pipeline and public-safe drafts for IEG-100, IEIO-100, IER-100, IEG-120, IER-120 and IEAC-140 under `src/content/products/`. |
+| Public-safe product draft pages | In progress | Added product Markdown pipeline and public-safe drafts for IEG-100, IEIO-100, IER-100, IEG-120, IER-120, IEAC-140, IER-140, IER-141 and IER-142 under `src/content/products/`. |
+| Remote Relay RTU product line | In progress | Added market-inspired product line definition at `docs/seo/remote-relay-rtu-product-line-definition.md`; IER-140, IER-141 and IER-142 are now public-safe drafts, while IER-143 through IER-145 remain planning candidates. |
 | Access control product cluster | In progress | Added IEAC-140 4G GSM Gate Opener for Europe-focused gate access, intercom access, remote access controller and RTU door controller search intent; added supporting Knowledge Base page, Gate Access Control solution page and 4G gate opener buyer guide. |
 | Solution resource links | In progress | Solution detail pages now support Related Resources; Gate Access Control links to the 4G gate opener buyer guide and GSM vs 4G knowledge page, while Factory Energy links to energy and Modbus resources. |
 | Blog related links | In progress | Blog frontmatter now supports relatedProducts and relatedResources; blog detail pages render related product and resource cards to strengthen cluster links. |
-| Homepage product links | In progress | Homepage product cards now link to IEG-100, IEIO-100, IER-100, IEG-120 and IEAC-140; hero proof points were adjusted to avoid unvalidated performance claims. |
+| Homepage product links | In progress | Homepage product cards now link to IEG-100, IEIO-100, IER-100, IEG-120, IEAC-140, IER-140, IER-141 and IER-142; hero proof points were adjusted to avoid unvalidated performance claims. |
 | Product frontend verification | In progress | GitHub Actions runs lint/build and now checks prerendered product pages before VPS deployment. Local verification remains blocked until npm dependencies are available. |
 | SEO discovery files | In progress | Prerender now generates canonical tags, absolute Open Graph URLs, JSON-LD structured data, `sitemap.xml`, and `robots.txt` using `https://iotedges.com` as the default canonical host. GitHub Actions verifies these files before deployment. |
 | Analytics and tag manager | In progress | Prerender can inject Google Tag Manager and Google Analytics 4 when `VITE_GTM_ID` and/or `VITE_GA_MEASUREMENT_ID` are configured in GitHub Actions Variables or Secrets. |

@@ -28,6 +28,7 @@ export const solutions = [
     ],
     relatedProducts: [
       { title: 'IEG-100 Ethernet Industrial IoT Gateway', href: '/products/ieg-100-ethernet-industrial-iot-gateway' },
+      { title: 'IER-142 4G Power Cabinet RTU', href: '/products/ier-142-4g-power-cabinet-rtu' },
       { title: 'IER-100 Ethernet Industrial RTU', href: '/products/ier-100-ethernet-industrial-rtu' },
       { title: 'IEIO-100 Modbus Remote IO Module', href: '/products/ieio-100-modbus-remote-io-module' }
     ],
@@ -95,6 +96,7 @@ export const solutions = [
       'Maintenance history and event review'
     ],
     relatedProducts: [
+      { title: 'IER-141 4G Pump & Valve RTU', href: '/products/ier-141-4g-pump-valve-rtu' },
       { title: 'IER-140 4G Remote Relay RTU', href: '/products/ier-140-4g-remote-relay-rtu' },
       { title: 'IER-100 Ethernet Industrial RTU', href: '/products/ier-100-ethernet-industrial-rtu' },
       { title: 'IEIO-100 Modbus Remote IO Module', href: '/products/ieio-100-modbus-remote-io-module' }
@@ -127,6 +129,7 @@ export const solutions = [
       'Historical sensor trend reporting'
     ],
     relatedProducts: [
+      { title: 'IER-141 4G Pump & Valve RTU', href: '/products/ier-141-4g-pump-valve-rtu' },
       { title: 'IER-140 4G Remote Relay RTU', href: '/products/ier-140-4g-remote-relay-rtu' },
       { title: 'IEIO-100 Modbus Remote IO Module', href: '/products/ieio-100-modbus-remote-io-module' }
     ],
@@ -159,6 +162,7 @@ export const solutions = [
     ],
     relatedProducts: [
       { title: 'IEG-100 Ethernet Industrial IoT Gateway', href: '/products/ieg-100-ethernet-industrial-iot-gateway' },
+      { title: 'IER-142 4G Power Cabinet RTU', href: '/products/ier-142-4g-power-cabinet-rtu' },
       { title: 'IEIO-100 Modbus Remote IO Module', href: '/products/ieio-100-modbus-remote-io-module' }
     ],
     architectureImage: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1200'

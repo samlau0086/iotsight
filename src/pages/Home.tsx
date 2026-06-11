@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight, Activity, Zap, Server, Bell, BarChart3, Cloud, ShieldCheck, RadioTower } from 'lucide-react';
+import { ArrowRight, Activity, Zap, Server, Bell, BarChart3, Cloud, ShieldCheck, RadioTower, Droplets } from 'lucide-react';
 import { motion } from 'motion/react';
 
 export default function Home() {
@@ -33,7 +33,7 @@ export default function Home() {
           </div>
           <div className="grid grid-cols-3 gap-6 pt-8 border-t border-slate-800 mt-4">
             <div className="flex flex-col">
-              <span className="text-2xl font-bold text-white">7</span>
+              <span className="text-2xl font-bold text-white">9</span>
               <span className="text-[10px] text-slate-500 uppercase tracking-widest font-bold">Product Drafts</span>
             </div>
             <div className="flex flex-col">
@@ -221,7 +221,9 @@ export default function Home() {
               { title: "IER-100 Ethernet RTU", desc: "Planned wired RTU with local IO and Modbus connectivity targets.", icon: Zap, href: "/products/ier-100-ethernet-industrial-rtu" },
               { title: "IEG-120 WiFi Gateway", desc: "Planned indoor WiFi gateway for Modbus-to-MQTT applications.", icon: Cloud, href: "/products/ieg-120-wifi-industrial-iot-gateway" },
               { title: "IEAC-140 Gate Opener", desc: "Planned 4G-first remote access controller for European gate and door projects.", icon: ShieldCheck, href: "/products/ieac-140-4g-gsm-gate-opener" },
-              { title: "IER-140 4G Relay RTU", desc: "Planned 4G LTE Cat1 remote relay RTU with 2DI, 2DO, RS485 and MQTT control.", icon: RadioTower, href: "/products/ier-140-4g-remote-relay-rtu" }
+              { title: "IER-140 4G Relay RTU", desc: "Planned 4G LTE Cat1 remote relay RTU with 2DI, 2DO, RS485 and MQTT control.", icon: RadioTower, href: "/products/ier-140-4g-remote-relay-rtu" },
+              { title: "IER-141 Pump & Valve RTU", desc: "Planned 4G RTU for pump, valve and irrigation cabinets with 4DI, 4DO and 2AI.", icon: Droplets, href: "/products/ier-141-4g-pump-valve-rtu" },
+              { title: "IER-142 Power Cabinet RTU", desc: "Planned 4G cabinet RTU for dry-contact alarms, generator rooms and power panels.", icon: Activity, href: "/products/ier-142-4g-power-cabinet-rtu" }
             ].map((item, i) => (
               <Link key={i} to={item.href} className="bg-slate-900 border border-slate-800 rounded-xl p-6 hover:border-blue-500/50 transition block">
                 <item.icon className="w-8 h-8 text-blue-400 mb-6" />
