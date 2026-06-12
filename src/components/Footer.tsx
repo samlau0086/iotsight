@@ -29,6 +29,7 @@ export default function Footer() {
         <div>
           <span className="text-[10px] text-slate-500 font-bold uppercase tracking-[0.2em] mb-4 block">Products</span>
           <ul className="space-y-3 text-xs font-semibold text-slate-300">
+            <li><Link to="/products/ai-iot-dashboard-industrial-operations-platform" className="hover:text-white transition-colors">AI IoT Dashboard</Link></li>
             <li><Link to="/products/ieg-100-ethernet-industrial-iot-gateway" className="hover:text-white transition-colors">IEG-100 Gateway</Link></li>
             <li><Link to="/products/ieio-100-modbus-remote-io-module" className="hover:text-white transition-colors">IEIO-100 Remote IO</Link></li>
             <li><Link to="/products/ier-100-ethernet-industrial-rtu" className="hover:text-white transition-colors">IER-100 RTU</Link></li>

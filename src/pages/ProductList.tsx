@@ -10,10 +10,10 @@ export default function ProductList() {
           <div className="max-w-3xl">
             <p className="text-xs font-bold uppercase tracking-[0.24em] text-blue-400 mb-5">IoTEdges Products</p>
             <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight text-white mb-6" style={{ fontFamily: 'var(--font-display)' }}>
-              Industrial IoT gateways, RTUs and Remote IO modules
+              Industrial IoT gateways, RTUs, Remote IO modules and dashboard software
             </h1>
             <p className="text-lg text-slate-400 leading-relaxed">
-              Explore IoTEdges gateways, RTUs, remote relay controllers and Remote IO modules for industrial monitoring, control and data acquisition projects.
+              Explore IoTEdges gateways, RTUs, remote relay controllers, Remote IO modules and AI dashboard software for industrial monitoring, control and data acquisition projects.
             </p>
           </div>
         </div>
@@ -24,7 +24,7 @@ export default function ProductList() {
           {[
             { icon: Network, title: 'Separate uplinks', text: 'Ethernet, WiFi, 4G and LoRaWAN are treated as separate model families.' },
             { icon: Cpu, title: 'Protocol boundaries', text: 'Baseline gateways focus on Modbus RTU/TCP and MQTT, with advanced protocols kept out of first pages.' },
-            { icon: ShieldCheck, title: 'Project ready', text: 'Model pages describe target configurations, application fit and engineering discussion points for real projects.' },
+            { icon: ShieldCheck, title: 'Project ready', text: 'Model pages describe target configurations, dashboard fit and engineering discussion points for real projects.' },
           ].map((item) => (
             <div key={item.title} className="border border-slate-800 bg-slate-900 p-6 rounded-lg">
               <item.icon className="w-6 h-6 text-blue-400 mb-4" />

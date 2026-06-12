@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight, Activity, Zap, Server, Bell, BarChart3, Cloud, ShieldCheck, RadioTower, Droplets } from 'lucide-react';
+import { ArrowRight, Activity, Zap, Server, Bell, BarChart3, Cloud, ShieldCheck, RadioTower, Droplets, Bot } from 'lucide-react';
 import { motion } from 'motion/react';
 
 export default function Home() {
@@ -33,7 +33,7 @@ export default function Home() {
           </div>
           <div className="grid grid-cols-3 gap-6 pt-8 border-t border-slate-800 mt-4">
             <div className="flex flex-col">
-              <span className="text-2xl font-bold text-white">9</span>
+              <span className="text-2xl font-bold text-white">10</span>
               <span className="text-[10px] text-slate-500 uppercase tracking-widest font-bold">Product Models</span>
             </div>
             <div className="flex flex-col">
@@ -206,8 +206,8 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-12 gap-6">
             <div>
-              <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-4 tracking-tight">Core Hardwares & Kits</h2>
-              <p className="text-lg text-slate-400 font-medium">Industrial gateways, RTUs, Remote IO modules, remote relay controllers, and access controllers.</p>
+              <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-4 tracking-tight">Core Hardware & Software</h2>
+              <p className="text-lg text-slate-400 font-medium">Industrial gateways, RTUs, Remote IO modules, remote relay controllers, access controllers, and AI dashboard software.</p>
             </div>
             <Link to="/products" className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-blue-400 hover:text-blue-300">
               View all products <ArrowRight className="w-4 h-4" />
@@ -216,6 +216,7 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
+              { title: "AI IoT Dashboard", desc: "Industrial operations dashboard for telemetry, SCADA, workflows, remote control and AI Copilot.", icon: Bot, href: "/products/ai-iot-dashboard-industrial-operations-platform" },
               { title: "IEG-100 Ethernet Gateway", desc: "Ethernet gateway for Modbus data collection and MQTT telemetry.", icon: Server, href: "/products/ieg-100-ethernet-industrial-iot-gateway" },
               { title: "IEIO-100 Remote IO", desc: "Modbus Remote IO family for DI, DO/relay, AI, and AO expansion.", icon: Activity, href: "/products/ieio-100-modbus-remote-io-module" },
               { title: "IER-100 Ethernet RTU", desc: "Wired RTU with local IO and Modbus connectivity targets.", icon: Zap, href: "/products/ier-100-ethernet-industrial-rtu" },
