@@ -39,7 +39,7 @@ export default function BlogPostPage() {
 
   return (
     <div className="bg-slate-900 min-h-screen pt-24 pb-20 text-slate-300">
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <Link to="/blog" className="inline-flex items-center gap-2 text-slate-400 hover:text-white mb-8 transition-colors">
           <ArrowLeft className="w-4 h-4" /> Back to Blog
         </Link>
