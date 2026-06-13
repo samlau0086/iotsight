@@ -69,45 +69,52 @@ async function startServer() {
       return;
     }
 
-    const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), quoteRequestTimeoutMs);
+    const payload = {
+      name,
+      company,
+      email,
+      whatsapp,
+      country,
+      message,
+      application_type: applicationType,
+      _formStartedAt: normalizedFormStartedAt,
+      website_url: "",
+    };
 
-    try {
-      const upstream = await fetch(quoteFormEndpoint, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name,
-          company,
-          email,
-          whatsapp,
-          country,
-          message,
-          application_type: applicationType,
-          _formStartedAt: normalizedFormStartedAt,
-          website_url: "",
-        }),
-        signal: controller.signal,
-      });
+    res.status(202).json({ ok: true, queued: true });
 
-      const text = await upstream.text();
-      const durationMs = Date.now() - startedAt;
+    const forwardQuoteRequest = async () => {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), quoteRequestTimeoutMs);
 
-      console.log(`Quote request CRM response: ${upstream.status} in ${durationMs}ms`);
-      res.status(upstream.status);
-      res.type(upstream.headers.get("content-type") || "application/json");
-      res.send(text || JSON.stringify({ ok: upstream.ok }));
-    } catch (error) {
-      const durationMs = Date.now() - startedAt;
-      const isTimeout = error instanceof Error && error.name === "AbortError";
+      try {
+        const upstream = await fetch(quoteFormEndpoint, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+          signal: controller.signal,
+        });
 
-      console.error(`Quote request CRM ${isTimeout ? "timeout" : "failure"} after ${durationMs}ms:`, error);
-      res.status(isTimeout ? 504 : 502).json({
-        error: isTimeout ? "Quote request service timed out" : "Quote request service is unavailable",
-      });
-    } finally {
-      clearTimeout(timeout);
-    }
+        const text = await upstream.text();
+        const durationMs = Date.now() - startedAt;
+
+        if (!upstream.ok) {
+          console.error(`Quote request CRM rejected: ${upstream.status} in ${durationMs}ms: ${text.slice(0, 500)}`);
+          return;
+        }
+
+        console.log(`Quote request CRM accepted: ${upstream.status} in ${durationMs}ms`);
+      } catch (error) {
+        const durationMs = Date.now() - startedAt;
+        const isTimeout = error instanceof Error && error.name === "AbortError";
+
+        console.error(`Quote request CRM ${isTimeout ? "timeout" : "failure"} after ${durationMs}ms:`, error);
+      } finally {
+        clearTimeout(timeout);
+      }
+    };
+
+    void forwardQuoteRequest();
   });
 
   const requireLiveChatConfig = (res: express.Response) => {
