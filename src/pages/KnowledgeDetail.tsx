@@ -1,9 +1,9 @@
 import { Link, useParams } from 'react-router-dom';
-import Markdown from 'react-markdown';
 import { ArrowLeft, ArrowRight, BookOpen } from 'lucide-react';
 import { knowledgePages } from '../data/knowledge';
 import { productPages } from '../data/products';
 import { ProductPage } from '../types';
+import MarkdownContent from '../components/MarkdownContent';
 
 export default function KnowledgeDetail() {
   const { id } = useParams<{ id: string }>();
@@ -44,7 +44,7 @@ export default function KnowledgeDetail() {
 
           <div className="p-8 sm:p-12">
             <div className="prose prose-invert prose-blue max-w-none prose-headings:font-display prose-h2:text-2xl prose-h2:text-white prose-h2:mt-10 prose-h2:mb-4 prose-h3:text-xl prose-h3:text-slate-100 prose-p:text-slate-300 prose-p:leading-relaxed prose-li:text-slate-300 prose-strong:text-white prose-table:text-sm prose-th:text-white prose-td:text-slate-300 prose-a:text-blue-400">
-              <Markdown>{page.content}</Markdown>
+              <MarkdownContent>{page.content}</MarkdownContent>
             </div>
 
             {relatedProducts.length > 0 && (

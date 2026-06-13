@@ -1,10 +1,10 @@
 import { useParams, Link } from 'react-router-dom';
-import Markdown from 'react-markdown';
 import { blogPosts } from '../data/blog';
 import { knowledgePages } from '../data/knowledge';
 import { productPages } from '../data/products';
 import { ProductPage } from '../types';
 import { Calendar, User, Tag, ArrowLeft, ArrowRight } from 'lucide-react';
+import MarkdownContent from '../components/MarkdownContent';
 
 export default function BlogPostPage() {
   const { id } = useParams<{ id: string }>();
@@ -72,7 +72,7 @@ export default function BlogPostPage() {
           </div>
 
           <div className="prose prose-invert prose-blue max-w-none prose-headings:font-display prose-h1:text-3xl prose-h1:text-white prose-h2:text-2xl prose-h2:text-slate-100 prose-h2:mt-8 prose-h2:mb-4 prose-p:text-slate-300 prose-p:leading-relaxed prose-p:mb-6 prose-li:text-slate-300 prose-li:mb-2 prose-ul:list-disc prose-ul:pl-5 prose-ul:mb-6 prose-strong:text-white">
-            <Markdown>{post.content}</Markdown>
+            <MarkdownContent>{post.content}</MarkdownContent>
           </div>
 
           {(relatedProducts.length > 0 || relatedResources.length > 0) && (
