@@ -56,4 +56,4 @@ For applications that also need local digital and analog IO, compare the gateway
 
 ## The IoTEdges Product Path
 
-IoTEdges is building a practical industrial IoT product family around gateways, RTUs, remote IO modules, and software dashboards. Start with the [public product family](/products) to compare Ethernet gateway, WiFi gateway, RTU, and Modbus remote IO drafts, then map each project requirement to a validated product page before publishing final specifications.
+IoTEdges is building a practical industrial IoT product family around gateways, RTUs, remote IO modules, and software dashboards. Start with the [public product family](/products) to compare Ethernet gateway, WiFi gateway, RTU, Modbus remote IO and dashboard options, then map each project requirement to the right product page before publishing final specifications.

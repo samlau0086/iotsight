@@ -25,7 +25,7 @@ You cannot manage what you cannot measure. Traditionally, energy audits relied o
 
 ### Granular Visibility
 
-By installing Modbus-enabled power meters on individual machines or production lines and connecting them through an IoT gateway, facility managers gain granular visibility. You can see exactly which processes are consuming the most power and when. For Ethernet-based cabinet deployments, the [IEG-100 Ethernet Industrial IoT Gateway](/products/ieg-100-ethernet-industrial-iot-gateway) is the relevant IoTEdges product draft to review first.
+By installing Modbus-enabled power meters on individual machines or production lines and connecting them through an IoT gateway, facility managers gain granular visibility. You can see exactly which processes are consuming the most power and when. For Ethernet-based cabinet deployments, the [IEG-100 Ethernet Industrial IoT Gateway](/products/ieg-100-ethernet-industrial-iot-gateway) is the relevant IoTEdges gateway model to review first.
 
 ### Identifying Hidden Waste
 

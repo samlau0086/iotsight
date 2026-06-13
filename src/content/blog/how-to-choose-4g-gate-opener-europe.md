@@ -62,7 +62,7 @@ Gate and door projects depend on simple but important IO behavior. Confirm:
 - wiring limits for gate controllers, locks and barriers
 - surge, ESD and grounding requirements
 
-The [IEAC-140 4G GSM Gate Opener](/products/ieac-140-4g-gsm-gate-opener) is currently a public-safe product draft, so relay rating, input mode and enclosure details remain validation-gated.
+The [IEAC-140 4G GSM Gate Opener](/products/ieac-140-4g-gsm-gate-opener) is the IoTEdges 4G-first access controller reference for this product direction, while relay rating, input mode and enclosure details remain project-confirmed items.
 
 ## 5. Separate Gate Opener From Intercom Claims
 
