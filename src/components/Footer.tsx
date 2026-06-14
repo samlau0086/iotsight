@@ -49,6 +49,7 @@ export default function Footer() {
               <Link to="/knowledge/mqtt" className="text-xs font-semibold text-slate-300 hover:text-white transition-colors">MQTT Guide</Link>
               <Link to="/knowledge/rs485" className="text-xs font-semibold text-slate-300 hover:text-white transition-colors">RS485 Guide</Link>
               <Link to="/knowledge/4g-gsm-gate-opener-europe" className="text-xs font-semibold text-slate-300 hover:text-white transition-colors">4G Gate Opener Guide</Link>
+              <Link to="/accessories" className="text-xs font-semibold text-slate-300 hover:text-white transition-colors">Project Accessories</Link>
               <Link to="/about" className="text-xs font-semibold text-slate-300 hover:text-white transition-colors">About Us</Link>
               <Link to="/blog" className="text-xs font-semibold text-slate-300 hover:text-white transition-colors">Blog</Link>
               <Link to="/contact" className="text-xs font-semibold text-slate-300 hover:text-white transition-colors">Contact</Link>

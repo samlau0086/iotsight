@@ -50,6 +50,7 @@ jobs:
       - name: Verify prerendered product pages
         run: |
           test -f dist/products/index.html
+          test -f dist/accessories/index.html
           test -f dist/products/ieg-100-ethernet-industrial-iot-gateway/index.html
           test -f dist/products/ieio-100-modbus-remote-io-module/index.html
           test -f dist/products/ier-100-ethernet-industrial-rtu/index.html
@@ -68,6 +69,7 @@ jobs:
           grep -q "IER-140 4G Remote Relay RTU" dist/products/ier-140-4g-remote-relay-rtu/index.html
           grep -q "IER-141 4G Pump" dist/products/ier-141-4g-pump-valve-rtu/index.html
           grep -q "IER-142 4G Power Cabinet RTU" dist/products/ier-142-4g-power-cabinet-rtu/index.html
+          grep -q "Industrial IoT accessories" dist/accessories/index.html
           ! grep -R -q "Untitled Product" dist/products
 
       - name: Verify prerendered solution pages
@@ -114,6 +116,7 @@ jobs:
           grep -q "https://iotedges.com/products/ieg-100-ethernet-industrial-iot-gateway" dist/sitemap.xml
           grep -q "https://iotedges.com/products/ieac-140-4g-gsm-gate-opener" dist/sitemap.xml
           grep -q "https://iotedges.com/products/ier-140-4g-remote-relay-rtu" dist/sitemap.xml
+          grep -q "https://iotedges.com/accessories" dist/sitemap.xml
           grep -q "https://iotedges.com/products/ier-141-4g-pump-valve-rtu" dist/sitemap.xml
           grep -q "https://iotedges.com/products/ier-142-4g-power-cabinet-rtu" dist/sitemap.xml
           grep -q "https://iotedges.com/knowledge/modbus" dist/sitemap.xml

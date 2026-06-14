@@ -11,6 +11,7 @@ import BlogList from './pages/BlogList';
 import BlogPostPage from './pages/BlogPostPage';
 import ProductList from './pages/ProductList';
 import ProductDetail from './pages/ProductDetail';
+import Accessories from './pages/Accessories';
 import KnowledgeList from './pages/KnowledgeList';
 import KnowledgeDetail from './pages/KnowledgeDetail';
 import SolutionsList from './pages/SolutionsList';
@@ -34,6 +35,7 @@ export function AppLayout() {
             <Route path="/solutions/:id" element={<SolutionDetail />} />
             <Route path="/products" element={<ProductList />} />
             <Route path="/products/:id" element={<ProductDetail />} />
+            <Route path="/accessories" element={<Accessories />} />
             <Route path="/knowledge" element={<KnowledgeList />} />
             <Route path="/knowledge/:id" element={<KnowledgeDetail />} />
             <Route path="/gateway" element={<Gateway />} />

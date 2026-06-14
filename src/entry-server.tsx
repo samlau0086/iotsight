@@ -27,6 +27,7 @@ export function getPrerenderRoutes() {
     '/about',
     '/contact',
     '/products',
+    '/accessories',
     ...productPages.map(product => `/products/${product.id}`),
     '/knowledge',
     ...knowledgePages.map(page => `/knowledge/${page.id}`),
@@ -103,6 +104,14 @@ export function getSeoMeta(url: string) {
     return {
       title: 'Industrial IoT Products | IoTEdges',
       description: 'Explore IoTEdges industrial IoT gateways, RTUs and Remote IO modules with validation-aware product drafts for Modbus, MQTT, Ethernet and RS485 applications.',
+      type: 'website',
+    };
+  }
+
+  if (url === '/accessories') {
+    return {
+      title: 'Industrial IoT Accessories for RTU, Gateway and Remote IO Projects | IoTEdges',
+      description: 'Recommended project accessories for IoTEdges industrial IoT deployments, including 4G antennas, SIM/APN setup, RS485 wiring, DIN rail power supplies, relay interfaces, sensors and meters.',
       type: 'website',
     };
   }

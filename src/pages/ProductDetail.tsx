@@ -1,5 +1,5 @@
 import { Link, useParams } from 'react-router-dom';
-import { ArrowLeft, CheckCircle2 } from 'lucide-react';
+import { ArrowLeft, ArrowRight, CheckCircle2 } from 'lucide-react';
 import { productPages } from '../data/products';
 import MarkdownContent from '../components/MarkdownContent';
 
@@ -45,6 +45,17 @@ export default function ProductDetail() {
             <div className="prose prose-invert prose-blue max-w-none prose-headings:font-display prose-h2:text-2xl prose-h2:text-white prose-h2:mt-10 prose-h2:mb-4 prose-h3:text-xl prose-h3:text-slate-100 prose-p:text-slate-300 prose-p:leading-relaxed prose-li:text-slate-300 prose-strong:text-white prose-table:text-sm prose-th:text-white prose-td:text-slate-300 prose-a:text-blue-400">
               <MarkdownContent>{product.content}</MarkdownContent>
             </div>
+            <section className="mt-12 border-t border-slate-800 pt-8">
+              <div className="rounded-lg border border-blue-500/20 bg-blue-500/10 p-5">
+                <h2 className="mb-2 text-xl font-bold text-white" style={{ fontFamily: 'var(--font-display)' }}>Need project accessories?</h2>
+                <p className="mb-4 text-sm leading-relaxed text-slate-300">
+                  Review recommended antennas, SIM/APN notes, RS485 wiring, DIN rail power supplies, relay interfaces, sensors and cabinet accessories for IoTEdges deployments.
+                </p>
+                <Link to="/accessories" className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-blue-300 hover:text-blue-200">
+                  View compatible accessories <ArrowRight className="h-4 w-4" />
+                </Link>
+              </div>
+            </section>
           </div>
         </article>
       </div>

@@ -101,7 +101,7 @@ function trackingBodyTags() {
 }
 
 function routeType(url, meta) {
-  if (url === '/' || url === '/products' || url === '/solutions' || url === '/knowledge' || url === '/blog') {
+  if (url === '/' || url === '/products' || url === '/accessories' || url === '/solutions' || url === '/knowledge' || url === '/blog') {
     return 'CollectionPage';
   }
 
@@ -150,7 +150,7 @@ function createStructuredData(url, meta, absoluteUrl) {
 
 function sitemapPriority(route) {
   if (route === '/') return '1.0';
-  if (route === '/products' || route === '/solutions' || route === '/knowledge') return '0.9';
+  if (route === '/products' || route === '/accessories' || route === '/solutions' || route === '/knowledge') return '0.9';
   if (route.startsWith('/products/')) return '0.8';
   if (route.startsWith('/solutions/')) return '0.7';
   if (route.startsWith('/knowledge/')) return '0.7';
