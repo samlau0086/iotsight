@@ -66,6 +66,18 @@ IER-142 should not be described as a certified protection relay, arc-fault prote
 
 Exact relay rating, DI voltage range, isolation voltage, surge level, LTE bands, IP rating, operating temperature, power input range, SIM compatibility, MQTT security profile or OTA recovery behavior should be confirmed during project engineering review.
 
+## Compatible Accessories
+
+| Accessory | Project Use |
+| --- | --- |
+| 4G LTE external antenna | Cabinet, generator room, telecom and utility site connectivity |
+| DIN rail power supply | Stable RTU and auxiliary sensor power |
+| Dry-contact alarm wiring kit | Breaker, ATS, SPD, door and generator alarm inputs |
+| Interposing relay | Horn, lamp, reset or auxiliary output interface |
+| Shielded RS485 cable | Connect power meters, generator controllers or ATS controllers |
+
+See [Industrial IoT Accessories](/accessories), [4G Antenna Guide](/knowledge/4g-antenna-industrial-rtu), and [RS485 Cable and Shielding Guide](/knowledge/rs485-cable-shielding-guide) for power cabinet accessory planning.
+
 ## Related Products
 
 - [IER-140 4G Remote Relay RTU](/products/ier-140-4g-remote-relay-rtu)

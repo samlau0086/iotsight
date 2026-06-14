@@ -56,6 +56,18 @@ IER-120 should not be positioned as a 4G RTU, LoRa RTU or outdoor long-range wir
 
 Confirm 4G, LoRa, 5G, outdoor long-range wireless behavior, hazardous-area certification, relay rating, analog accuracy, RS485 isolation or WiFi certification until those capabilities are validated.
 
+## Compatible Accessories
+
+| Accessory | Project Use |
+| --- | --- |
+| WiFi antenna | Improve indoor cabinet or equipment-room wireless placement |
+| DIN rail power supply | Stable RTU and sensor power |
+| Door contact, alarm contact or float switch | Typical digital input sources |
+| Interposing relay | Safer output interface for alarm lamps, horns or auxiliary control |
+| 4-20mA pressure or level sensor | Typical analog input accessory for indoor monitoring panels |
+
+See [Industrial IoT Accessories](/accessories), [DIN Rail Power Supply Guide](/knowledge/din-rail-power-supply-industrial-iot), and [4-20mA Pressure Sensor Wiring](/knowledge/4-20ma-pressure-sensor-rtu-wiring) for accessory notes.
+
 ## Related Knowledge
 
 - [Modbus for Industrial IoT Gateways and RTUs](/knowledge/modbus)

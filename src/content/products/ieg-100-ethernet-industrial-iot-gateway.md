@@ -40,6 +40,18 @@ IEG-100 should not be positioned as a 4G, WiFi or LoRa gateway. Those uplinks be
 
 IEG-100 is a baseline gateway, not an advanced edge gateway. OPC UA, BACnet, CAN, remote write/control, TLS, offline buffering and exact point-count limits are handled as project-specific options after capability confirmation.
 
+## Compatible Accessories
+
+| Accessory | Project Use |
+| --- | --- |
+| Shielded RS485 cable | Connect Modbus RTU meters, inverters, instruments or Remote IO modules |
+| Pluggable terminal blocks | Faster cabinet wiring and service replacement |
+| DIN rail power supply | Stable 12V or 24V DC supply for cabinet installations |
+| RS485 surge or isolation module | Recommended for noisy, long-cable or outdoor-connected fieldbus projects |
+| Modbus energy meter or instrument | Common data source for energy, solar and equipment monitoring |
+
+See [Industrial IoT Accessories](/accessories), [RS485 Cable and Shielding Guide](/knowledge/rs485-cable-shielding-guide), and [DIN Rail Power Supply Guide](/knowledge/din-rail-power-supply-industrial-iot) for project accessory planning.
+
 ## Related Knowledge
 
 - [Modbus for Industrial IoT Gateways and RTUs](/knowledge/modbus)

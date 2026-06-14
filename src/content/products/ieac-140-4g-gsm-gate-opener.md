@@ -149,6 +149,18 @@ Recommended market positioning:
 - **Application terms:** apartment gate opener, farm gate opener, garage door opener, barrier controller, gate access control
 - **Careful terms:** 4G intercom, VoLTE intercom, SIP intercom, emergency access, safety controller, certified fire access
 
+## Compatible Accessories
+
+| Accessory | Project Use |
+| --- | --- |
+| 4G LTE external antenna | Gate pillar, roadside cabinet or weak-signal installation |
+| IoT SIM / M2M SIM | Cellular connectivity, APN setup and roaming planning |
+| Gate status contact | Read open/closed gate or door status |
+| Exit button | Local manual trigger or access workflow input |
+| Weatherproof enclosure and cable glands | Outdoor or gate-side installation protection |
+
+See [Industrial IoT Accessories](/accessories), [4G Antenna Guide](/knowledge/4g-antenna-industrial-rtu), and [Dry Contact Relay Wiring Guide](/knowledge/dry-contact-relay-wiring-gate-opener) for gate opener accessory planning.
+
 ## Related Products
 
 - [AI IoT Dashboard for Industrial Operations](/products/ai-iot-dashboard-industrial-operations-platform)

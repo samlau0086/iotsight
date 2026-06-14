@@ -49,6 +49,18 @@ IEG-120 should not be positioned as a 4G gateway, LoRa gateway or outdoor long-r
 
 IEG-120 is a baseline WiFi gateway. Confirm OPC UA, BACnet, CAN, TLS, offline buffering, exact polling limits, WiFi range or WiFi certification until those capabilities are validated.
 
+## Compatible Accessories
+
+| Accessory | Project Use |
+| --- | --- |
+| WiFi antenna | Indoor cabinet or equipment-room wireless connection planning |
+| Shielded RS485 cable | Modbus RTU wiring for meters, instruments or Remote IO modules |
+| DIN rail power supply | Stable cabinet power for the gateway and related field devices |
+| Terminal blocks and labels | Cleaner installation and service handover |
+| Modbus meter or instrument | Typical data source for factory, building and OEM monitoring |
+
+See [Industrial IoT Accessories](/accessories), [RS485 Cable and Shielding Guide](/knowledge/rs485-cable-shielding-guide), and [DIN Rail Power Supply Guide](/knowledge/din-rail-power-supply-industrial-iot) for accessory selection notes.
+
 ## Related Knowledge
 
 - [Modbus for Industrial IoT Gateways and RTUs](/knowledge/modbus)

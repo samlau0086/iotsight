@@ -53,6 +53,18 @@ RS485 Modbus RTU is the baseline protocol target for IEIO-100. A register map is
 
 IEIO-100 should not be described as an MQTT gateway, 4G telemetry device, WiFi device or LoRaWAN device. MQTT and cloud publishing belong to gateway products such as IEG-100.
 
+## Compatible Accessories
+
+| Accessory | Project Use |
+| --- | --- |
+| Shielded RS485 cable | Connect Remote IO modules to a Modbus master, RTU or gateway |
+| Pluggable terminal blocks | Speed up DI, DO, AI and AO wiring |
+| DIN rail enclosure or cabinet kit | Mount Remote IO close to field signals |
+| Interposing relay or contactor interface | Interface DO/relay outputs with field loads |
+| 4-20mA sensors | Connect pressure, level, flow or process transmitters to analog input variants |
+
+See [Industrial IoT Accessories](/accessories), [RS485 Cable and Shielding Guide](/knowledge/rs485-cable-shielding-guide), and [4-20mA Pressure Sensor Wiring](/knowledge/4-20ma-pressure-sensor-rtu-wiring) for wiring guidance.
+
 ## Related Knowledge
 
 - [Modbus for Industrial IoT Gateways and RTUs](/knowledge/modbus)

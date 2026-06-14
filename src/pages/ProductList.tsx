@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight, Cpu, Network, ShieldCheck } from 'lucide-react';
+import { ArrowRight, Cable, Cpu, Network, ShieldCheck } from 'lucide-react';
 import { productPages } from '../data/products';
 
 export default function ProductList() {
@@ -20,11 +20,12 @@ export default function ProductList() {
       </section>
 
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
           {[
             { icon: Network, title: 'Separate uplinks', text: 'Ethernet, WiFi, 4G and LoRaWAN are treated as separate model families.' },
             { icon: Cpu, title: 'Protocol boundaries', text: 'Baseline gateways focus on Modbus RTU/TCP and MQTT, with advanced protocols kept out of first pages.' },
             { icon: ShieldCheck, title: 'Project ready', text: 'Model pages describe target configurations, dashboard fit and engineering discussion points for real projects.' },
+            { icon: Cable, title: 'Accessory planning', text: 'Recommended antennas, RS485 wiring, power supplies, relay interfaces and sensors help customers prepare a complete project BOM.' },
           ].map((item) => (
             <div key={item.title} className="border border-slate-800 bg-slate-900 p-6 rounded-lg">
               <item.icon className="w-6 h-6 text-blue-400 mb-4" />

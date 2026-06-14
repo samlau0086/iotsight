@@ -70,6 +70,18 @@ IER-141 should not be described as a safety controller, certified pump protectio
 
 Exact relay rating, analog accuracy, LTE bands, IP rating, operating temperature, power input range, SIM compatibility, MQTT security profile or OTA recovery behavior should be confirmed during project engineering review.
 
+## Compatible Accessories
+
+| Accessory | Project Use |
+| --- | --- |
+| 4G LTE external antenna | Remote pump stations, irrigation cabinets and rural sites |
+| 4-20mA pressure or level transmitter | Analog monitoring for pressure, tank level or flow-related signals |
+| Float switch or pump fault contact | Digital input feedback for pump and tank status |
+| Interposing relay or contactor interface | Pump start/stop, valve open/close or alarm output interface |
+| Shielded RS485 cable | Connect VFD, flow meter, energy meter or Modbus IO modules |
+
+See [Industrial IoT Accessories](/accessories), [4G Antenna Guide](/knowledge/4g-antenna-industrial-rtu), and [4-20mA Pressure Sensor Wiring](/knowledge/4-20ma-pressure-sensor-rtu-wiring) for pump and valve accessory planning.
+
 ## Related Products
 
 - [IER-140 4G Remote Relay RTU](/products/ier-140-4g-remote-relay-rtu)

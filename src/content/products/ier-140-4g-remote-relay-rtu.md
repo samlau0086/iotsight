@@ -75,6 +75,18 @@ IER-140 should not be described as a safety PLC, emergency shutdown controller, 
 
 Exact LTE bands, relay contact rating, isolation voltage, surge level, IP rating, operating temperature, power input range, SIM compatibility, MQTT security profile or OTA recovery behavior should be confirmed during project engineering review.
 
+## Compatible Accessories
+
+| Accessory | Project Use |
+| --- | --- |
+| 4G LTE external antenna | Improve cabinet, rural or weak-signal installations |
+| IoT SIM / M2M SIM | Cellular connectivity and APN setup |
+| DIN rail power supply | Stable RTU and relay control power |
+| Interposing relay or contactor interface | Pump, valve, light or generator auxiliary control |
+| Shielded RS485 cable | Connect Modbus meters, instruments or Remote IO modules |
+
+See [Industrial IoT Accessories](/accessories), [4G Antenna Guide](/knowledge/4g-antenna-industrial-rtu), and [DIN Rail Power Supply Guide](/knowledge/din-rail-power-supply-industrial-iot) for project accessory planning.
+
 ## Related Products
 
 - [IER-100 Ethernet Industrial RTU](/products/ier-100-ethernet-industrial-rtu)

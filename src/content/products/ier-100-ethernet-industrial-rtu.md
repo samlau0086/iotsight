@@ -55,6 +55,18 @@ Confirm DNP3, IEC 60870, IEC 61850 or safety controller behavior for IER-100.
 | IEG-100 Gateway | Modbus data collection and MQTT publishing |
 | IEIO-100 Remote IO | Distributed IO expansion over Modbus |
 
+## Compatible Accessories
+
+| Accessory | Project Use |
+| --- | --- |
+| DIN rail power supply | Cabinet power for RTU, sensors and auxiliary devices |
+| Shielded RS485 cable | Connect Modbus field devices to the RTU |
+| Door contact, float switch or alarm contact | Typical digital input sources |
+| Interposing relay or contactor interface | Protect RTU output when controlling field loads |
+| 4-20mA pressure, level or flow transmitter | Typical analog input source for pump, tank and utility monitoring |
+
+See [Industrial IoT Accessories](/accessories), [DIN Rail Power Supply Guide](/knowledge/din-rail-power-supply-industrial-iot), and [4-20mA Pressure Sensor Wiring](/knowledge/4-20ma-pressure-sensor-rtu-wiring) for project accessory planning.
+
 ## Related Knowledge
 
 - [Modbus for Industrial IoT Gateways and RTUs](/knowledge/modbus)
