@@ -90,6 +90,11 @@ jobs:
           test -f dist/knowledge/analog-input/index.html
           test -f dist/knowledge/rtu-vs-gateway-vs-remote-io/index.html
           test -f dist/knowledge/mqtt-downlink-control/index.html
+          test -f dist/knowledge/4g-antenna-industrial-rtu/index.html
+          test -f dist/knowledge/rs485-cable-shielding-guide/index.html
+          test -f dist/knowledge/din-rail-power-supply-industrial-iot/index.html
+          test -f dist/knowledge/dry-contact-relay-wiring-gate-opener/index.html
+          test -f dist/knowledge/4-20ma-pressure-sensor-rtu-wiring/index.html
           grep -q "Modbus for Industrial IoT Gateways and RTUs" dist/knowledge/modbus/index.html
           grep -q "MQTT in Industrial IoT Monitoring" dist/knowledge/mqtt/index.html
           grep -q "RS485 Wiring for Modbus RTU Devices" dist/knowledge/rs485/index.html
@@ -100,6 +105,11 @@ jobs:
           grep -q "Analog Input for 4-20mA" dist/knowledge/analog-input/index.html
           grep -q "RTU vs Gateway vs Remote IO" dist/knowledge/rtu-vs-gateway-vs-remote-io/index.html
           grep -q "MQTT Downlink Control" dist/knowledge/mqtt-downlink-control/index.html
+          grep -q "4G Antenna" dist/knowledge/4g-antenna-industrial-rtu/index.html
+          grep -q "RS485 Cable and Shielding Guide" dist/knowledge/rs485-cable-shielding-guide/index.html
+          grep -q "DIN Rail Power Supply Guide" dist/knowledge/din-rail-power-supply-industrial-iot/index.html
+          grep -q "Dry Contact Relay Wiring" dist/knowledge/dry-contact-relay-wiring-gate-opener/index.html
+          grep -q "4-20mA Pressure Sensor Wiring" dist/knowledge/4-20ma-pressure-sensor-rtu-wiring/index.html
 
       - name: Verify prerendered blog pages
         run: |
@@ -125,6 +135,11 @@ jobs:
           grep -q "https://iotedges.com/knowledge/relay-output-control" dist/sitemap.xml
           grep -q "https://iotedges.com/knowledge/rtu-vs-gateway-vs-remote-io" dist/sitemap.xml
           grep -q "https://iotedges.com/knowledge/4g-gsm-gate-opener-europe" dist/sitemap.xml
+          grep -q "https://iotedges.com/knowledge/4g-antenna-industrial-rtu" dist/sitemap.xml
+          grep -q "https://iotedges.com/knowledge/rs485-cable-shielding-guide" dist/sitemap.xml
+          grep -q "https://iotedges.com/knowledge/din-rail-power-supply-industrial-iot" dist/sitemap.xml
+          grep -q "https://iotedges.com/knowledge/dry-contact-relay-wiring-gate-opener" dist/sitemap.xml
+          grep -q "https://iotedges.com/knowledge/4-20ma-pressure-sensor-rtu-wiring" dist/sitemap.xml
           grep -q "https://iotedges.com/blog/how-to-choose-4g-gate-opener-europe" dist/sitemap.xml
           grep -q "Sitemap: https://iotedges.com/sitemap.xml" dist/robots.txt
           grep -q "application/ld+json" dist/products/ieg-100-ethernet-industrial-iot-gateway/index.html

@@ -145,6 +145,34 @@ const projectKits = [
   },
 ];
 
+const selectionGuides = [
+  {
+    title: 'How to Choose a 4G Antenna for Industrial RTU and Gate Opener Projects',
+    href: '/knowledge/4g-antenna-industrial-rtu',
+    summary: 'LTE antenna, SIM, APN, cabinet mounting and weak-signal site notes for 4G products.',
+  },
+  {
+    title: 'RS485 Cable and Shielding Guide for Modbus RTU Installations',
+    href: '/knowledge/rs485-cable-shielding-guide',
+    summary: 'Cable, shielding, grounding, termination and surge protection notes for RS485 projects.',
+  },
+  {
+    title: 'DIN Rail Power Supply Guide for Industrial IoT Gateways and RTUs',
+    href: '/knowledge/din-rail-power-supply-industrial-iot',
+    summary: '12V/24V DC power, cabinet terminals, fuses and backup power planning.',
+  },
+  {
+    title: 'Dry Contact Relay Wiring for 4G Gate Openers and Remote Access Controllers',
+    href: '/knowledge/dry-contact-relay-wiring-gate-opener',
+    summary: 'Relay COM/NO wiring, gate status contacts, exit buttons and safe integration boundaries.',
+  },
+  {
+    title: '4-20mA Pressure Sensor Wiring for RTU and Remote IO Projects',
+    href: '/knowledge/4-20ma-pressure-sensor-rtu-wiring',
+    summary: 'Pressure transmitter wiring and scaling notes for pump, water and irrigation monitoring.',
+  },
+];
+
 export default function Accessories() {
   return (
     <div className="min-h-screen bg-slate-950 pt-24 pb-20 text-slate-300">
@@ -192,6 +220,26 @@ export default function Accessories() {
                 ))}
               </ul>
             </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
+        <div className="mb-10 max-w-3xl">
+          <h2 className="mb-4 text-3xl font-extrabold text-white" style={{ fontFamily: 'var(--font-display)' }}>Accessory selection guides</h2>
+          <p className="text-slate-400">
+            Use these guides to prepare cleaner quotations, installation notes and project BOMs for overseas customers.
+          </p>
+        </div>
+        <div className="grid gap-4 md:grid-cols-2">
+          {selectionGuides.map((guide) => (
+            <Link key={guide.href} to={guide.href} className="rounded-lg border border-slate-800 bg-slate-900 p-5 transition hover:border-blue-500/50">
+              <h3 className="mb-2 text-lg font-bold text-white">{guide.title}</h3>
+              <p className="mb-4 text-sm leading-relaxed text-slate-400">{guide.summary}</p>
+              <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-blue-400">
+                Read guide <ArrowRight className="h-4 w-4" />
+              </span>
+            </Link>
           ))}
         </div>
       </section>

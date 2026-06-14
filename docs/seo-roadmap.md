@@ -1,6 +1,6 @@
 # IoTEdges SEO Content Roadmap
 
-Last updated: 2026-06-11
+Last updated: 2026-06-14
 
 This roadmap is the working source of truth for IoTEdges SEO content planning. When topic research, page creation, content generation, internal linking, or publishing progresses, update this file.
 
@@ -24,6 +24,7 @@ Primary SEO goals:
 | Markdown blog pipeline | Done | Blog posts load from `src/content/blog/*.md`. |
 | Blog SEO prerendering | Done | Build creates static HTML for blog and selected solution routes. |
 | Knowledge Base Markdown pipeline | In progress | Added `/knowledge` and `/knowledge/:id` routes with Markdown content under `src/content/knowledge/`; pages now cover Modbus, MQTT, RS485, LTE Cat1, Digital IO, Relay Output, Analog Input, RTU vs Gateway vs Remote IO, MQTT Downlink Control, and 4G/GSM gate opener topics. |
+| Project accessories content | In progress | Added `/accessories` page covering recommended accessories for 4G antenna, SIM/APN, RS485 wiring, DIN rail power supplies, relay interfaces, sensors, meters and gate opener installations; added five accessory-focused Knowledge Base guides. |
 | Initial solutions taxonomy | Done | Converted into structured topic database at `docs/seo/solutions-topic-database.json`. |
 | Safe-scope model page Markdown briefs | Done | Created internal Markdown briefs for all first-batch model-specific pages under `docs/seo/product-page-markdown-briefs/`. |
 | First-batch product claim review | Done | Created safe/conditional/blocked/forbidden claim matrix at `docs/seo/first-batch-product-page-capability-review-matrix.json`. |
