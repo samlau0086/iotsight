@@ -5,41 +5,46 @@ import { Calendar, User, Tag, ArrowRight } from 'lucide-react';
 export default function BlogList() {
   return (
     <div className="bg-slate-900 min-h-screen pt-24 pb-20 text-slate-300">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h1 className="text-4xl font-bold text-white mb-6" style={{ fontFamily: 'var(--font-display)' }}>Industrial IoT Blog</h1>
-          <p className="text-lg text-slate-400 leading-relaxed max-w-2xl mx-auto">
-            Insights, guides, and trends on factory energy monitoring, remote equipment tracking, and industrial networking.
-          </p>
+      <section className="border-b border-slate-800 bg-slate-900/70">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <div className="max-w-3xl">
+            <p className="text-xs font-bold uppercase tracking-[0.24em] text-blue-400 mb-5">IoTEdges Blog</p>
+            <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight text-white mb-6" style={{ fontFamily: 'var(--font-display)' }}>Industrial IoT Blog</h1>
+            <p className="text-lg text-slate-400 leading-relaxed">
+              Insights, guides, and trends on factory energy monitoring, remote equipment tracking, industrial networking, RTUs, gateways, Remote IO and project accessories.
+            </p>
+          </div>
         </div>
+      </section>
 
-        <div className="space-y-12">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {blogPosts.map((post) => (
-            <article key={post.id} className="bg-slate-800 border border-slate-700 rounded-xl overflow-hidden shadow-xl hover:border-blue-500/50 transition-colors flex flex-col md:flex-row">
+            <article key={post.id} className="bg-slate-800 border border-slate-700 rounded-xl overflow-hidden shadow-xl hover:border-blue-500/50 transition-colors flex flex-col">
               {post.imageUrl && (
-                <div className="md:w-1/3 shrink-0">
+                <div className="h-56 shrink-0">
                   <Link to={`/blog/${post.id}`} className="block h-full">
                     <img 
                       src={post.imageUrl} 
                       alt={post.title} 
-                      className="w-full h-48 md:h-full object-cover"
+                      className="w-full h-full object-cover"
                       referrerPolicy="no-referrer"
                     />
                   </Link>
                 </div>
               )}
-              <div className={`p-8 flex-1 flex flex-col justify-center`}>
-                <div className="flex flex-wrap items-center gap-4 text-sm text-slate-400 mb-4">
+              <div className="p-7 flex-1 flex flex-col">
+                <div className="flex flex-wrap items-center gap-3 text-xs text-slate-400 mb-4">
                   <span className="flex items-center gap-1">
-                    <Tag className="w-4 h-4 text-blue-400" />
+                    <Tag className="w-3.5 h-3.5 text-blue-400" />
                     {post.category}
                   </span>
                   <span className="flex items-center gap-1">
-                    <Calendar className="w-4 h-4 text-blue-400" />
+                    <Calendar className="w-3.5 h-3.5 text-blue-400" />
                     {post.date}
                   </span>
                   <span className="flex items-center gap-1">
-                    <User className="w-4 h-4 text-blue-400" />
+                    <User className="w-3.5 h-3.5 text-blue-400" />
                     {post.author}
                   </span>
                 </div>
@@ -63,7 +68,7 @@ export default function BlogList() {
             </article>
           ))}
         </div>
-      </div>
+      </section>
     </div>
   );
 }
