@@ -220,6 +220,22 @@ The prerender step also writes:
 - `dist/sitemap.xml`
 - `dist/robots.txt`
 
+### Search Console Sitemap
+
+After deployment, submit this sitemap URL in Google Search Console:
+
+```text
+https://iotedges.com/sitemap.xml
+```
+
+Google can also discover the sitemap from:
+
+```text
+https://iotedges.com/robots.txt
+```
+
+The sitemap is generated automatically by `npm run build` from the prerender route list in `src/entry-server.tsx`. It includes the home page, main collection pages, product pages, solution pages, knowledge pages, and blog posts. If the production domain changes, set `APP_URL` during build/deployment so canonical URLs, Open Graph URLs, `robots.txt`, and `sitemap.xml` use the correct domain.
+
 If `VITE_GTM_ID` or `VITE_GA_MEASUREMENT_ID` is configured during build, the prerender step also injects Google Tag Manager and/or Google Analytics 4 tags into the generated HTML.
 
 Google tracking tags are not written into the source `index.html`. They appear only in generated files under `dist` after `npm run build`, such as `dist/index.html` and prerendered route HTML files. The GitHub Actions deployment now fails if neither `VITE_GTM_ID` nor `VITE_GA_MEASUREMENT_ID` is configured.
@@ -504,6 +520,22 @@ order: 1
 
 - `dist/sitemap.xml`
 - `dist/robots.txt`
+
+### Search Console Sitemap
+
+部署完成后，在 Google Search Console 里提交这个 sitemap 地址：
+
+```text
+https://iotedges.com/sitemap.xml
+```
+
+Google 也可以通过 robots 文件发现 sitemap：
+
+```text
+https://iotedges.com/robots.txt
+```
+
+sitemap 会由 `npm run build` 根据 `src/entry-server.tsx` 中的预渲染路由列表自动生成，包含首页、主要栏目页、产品页、解决方案页、知识库页和 Blog 文章页。如果以后生产域名变化，需要在构建/部署环境里设置 `APP_URL`，确保 canonical URL、Open Graph URL、`robots.txt` 和 `sitemap.xml` 都使用正确域名。
 
 如果构建时配置了 `VITE_GTM_ID` 或 `VITE_GA_MEASUREMENT_ID`，预渲染脚本还会把 Google Tag Manager 和/或 Google Analytics 4 标签注入生成的 HTML。
 

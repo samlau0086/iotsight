@@ -123,6 +123,13 @@ jobs:
         run: |
           test -f dist/sitemap.xml
           test -f dist/robots.txt
+          grep -q "<loc>https://iotedges.com</loc>" dist/sitemap.xml
+          grep -q "<loc>https://iotedges.com/products</loc>" dist/sitemap.xml
+          grep -q "<loc>https://iotedges.com/accessories</loc>" dist/sitemap.xml
+          grep -q "<loc>https://iotedges.com/solutions</loc>" dist/sitemap.xml
+          grep -q "<loc>https://iotedges.com/knowledge</loc>" dist/sitemap.xml
+          grep -q "<loc>https://iotedges.com/blog</loc>" dist/sitemap.xml
+          grep -q "<loc>https://iotedges.com/contact</loc>" dist/sitemap.xml
           grep -q "https://iotedges.com/products/ieg-100-ethernet-industrial-iot-gateway" dist/sitemap.xml
           grep -q "https://iotedges.com/products/ieac-140-4g-gsm-gate-opener" dist/sitemap.xml
           grep -q "https://iotedges.com/products/ier-140-4g-remote-relay-rtu" dist/sitemap.xml
