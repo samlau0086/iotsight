@@ -80,6 +80,16 @@ export default function ProductList() {
                 </Link>
               </h2>
               <p className="text-slate-400 text-sm leading-relaxed mb-8 flex-1">{product.excerpt}</p>
+              {product.specs.length > 0 && (
+                <div className="mb-6 grid grid-cols-1 gap-2">
+                  {product.specs.slice(0, 3).map((spec) => (
+                    <div key={`${product.id}-${spec.label}`} className="rounded-md border border-slate-800 bg-slate-950 px-3 py-2">
+                      <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500">{spec.label}</div>
+                      <div className="mt-1 text-xs leading-relaxed text-slate-300">{spec.value}</div>
+                    </div>
+                  ))}
+                </div>
+              )}
               <Link to={`/products/${product.id}`} className="inline-flex items-center gap-2 text-xs uppercase tracking-widest font-bold text-blue-400 hover:text-blue-300">
                 View product <ArrowRight className="w-4 h-4" />
               </Link>

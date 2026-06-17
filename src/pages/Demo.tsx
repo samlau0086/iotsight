@@ -81,12 +81,12 @@ export default function Demo() {
             to="/contact"
             data-analytics-event="cta_click"
             data-analytics-category="demo"
-            data-analytics-label="Request AI Dashboard Demo"
+            data-analytics-label="Request AI Dashboard Consultation"
             data-analytics-destination="/contact"
             className="inline-flex items-center justify-center gap-2 rounded bg-orange-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-orange-600"
           >
             <Bot className="h-4 w-4" />
-            Request Demo Access
+            Request Dashboard Consultation
           </Link>
         </div>
 

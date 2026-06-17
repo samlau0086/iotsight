@@ -6,6 +6,7 @@ const gatewayLinks = [
     title: 'IEG-100 Ethernet Industrial IoT Gateway',
     model: 'IEG-100',
     href: '/products/ieg-100-ethernet-industrial-iot-gateway',
+    ctaLabel: 'View model details',
     icon: Server,
     text: 'Ethernet-only gateway for Modbus RTU/TCP data collection and MQTT telemetry.',
   },
@@ -13,6 +14,7 @@ const gatewayLinks = [
     title: 'IEG-120 WiFi Industrial IoT Gateway',
     model: 'IEG-120',
     href: '/products/ieg-120-wifi-industrial-iot-gateway',
+    ctaLabel: 'View model details',
     icon: Wifi,
     text: 'Indoor WiFi gateway for Modbus data collection and MQTT telemetry where a reliable wireless LAN is available.',
   },
@@ -20,6 +22,7 @@ const gatewayLinks = [
     title: 'IEG-140 4G Industrial IoT Gateway',
     model: 'IEG-140',
     href: '/products',
+    ctaLabel: 'Browse gateway options',
     icon: RadioTower,
     text: '4G gateway family for remote sites where wired LAN is not available.',
   },
@@ -50,7 +53,7 @@ export default function Gateway() {
                 <h2 className="text-2xl font-bold text-white mb-4" style={{ fontFamily: 'var(--font-display)' }}>{item.title}</h2>
                 <p className="text-slate-400 text-sm leading-relaxed mb-8 flex-1">{item.text}</p>
                 <Link to={item.href} className="inline-flex items-center gap-2 text-xs uppercase tracking-widest font-bold text-blue-400 hover:text-blue-300">
-                  View product path <ArrowRight className="w-4 h-4" />
+                  {item.ctaLabel} <ArrowRight className="w-4 h-4" />
                 </Link>
               </article>
             ))}
@@ -82,7 +85,7 @@ export default function Gateway() {
           <p className="text-slate-400 text-lg mb-10">
             Tell us your field devices, protocol, uplink method, and deployment environment. We will map your project to the right gateway or RTU path.
           </p>
-          <Link to="/contact" className="inline-block px-8 py-4 bg-white text-slate-950 text-xs font-bold uppercase tracking-widest rounded transition-all hover:bg-slate-200">Talk to Engineering</Link>
+          <Link to="/contact" className="inline-block px-8 py-4 bg-white text-slate-950 text-xs font-bold uppercase tracking-widest rounded transition-all hover:bg-slate-200">Request Gateway Quote</Link>
         </div>
       </section>
     </div>

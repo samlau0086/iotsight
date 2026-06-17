@@ -11,6 +11,11 @@ export interface BlogPost {
   relatedResources: string[];
 }
 
+export interface ProductSpec {
+  label: string;
+  value: string;
+}
+
 export interface ProductPage {
   id: string;
   title: string;
@@ -22,6 +27,7 @@ export interface ProductPage {
   primaryKeyword: string;
   route: string;
   order: number;
+  specs: ProductSpec[];
 }
 
 export interface KnowledgePage {

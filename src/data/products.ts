@@ -1,4 +1,5 @@
 import { ProductPage } from '../types';
+import { productSpecsById } from './productSpecs';
 
 const markdownModules = import.meta.glob('../content/products/*.md', {
   eager: true,
@@ -54,6 +55,7 @@ function createProductPage(path: string, markdown: string): ProductPage {
     primaryKeyword: metadata.primaryKeyword || '',
     route: metadata.route || `/products/${metadata.id || fallbackId}`,
     order: Number(metadata.order || 0),
+    specs: productSpecsById[metadata.id || fallbackId] || [],
   };
 }
 

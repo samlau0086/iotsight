@@ -244,11 +244,11 @@ export default function Home() {
             Tell us your monitoring project. Get a customized solution proposal within 24 hours.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <Link to="/contact" data-analytics-event="cta_click" data-analytics-category="bottom_cta" data-analytics-label="Start Your Project" data-analytics-destination="/contact" className="px-8 py-4 bg-white text-blue-600 font-bold rounded hover:bg-slate-100 transition-all uppercase tracking-widest text-xs flex justify-center items-center shadow-lg">
-              Start Your Project
+            <Link to="/contact" data-analytics-event="cta_click" data-analytics-category="bottom_cta" data-analytics-label="Request Quote" data-analytics-destination="/contact" className="px-8 py-4 bg-white text-blue-600 font-bold rounded hover:bg-slate-100 transition-all uppercase tracking-widest text-xs flex justify-center items-center shadow-lg">
+              Request Quote
             </Link>
-            <Link to="/demo" data-analytics-event="cta_click" data-analytics-category="bottom_cta" data-analytics-label="Try Dashboard Demo" data-analytics-destination="/demo" className="px-8 py-4 border border-blue-400 text-white font-bold rounded hover:bg-blue-700 transition-all uppercase tracking-widest text-xs flex justify-center items-center">
-              Try Dashboard Demo
+            <Link to="/demo" data-analytics-event="cta_click" data-analytics-category="bottom_cta" data-analytics-label="View Dashboard Preview" data-analytics-destination="/demo" className="px-8 py-4 border border-blue-400 text-white font-bold rounded hover:bg-blue-700 transition-all uppercase tracking-widest text-xs flex justify-center items-center">
+              View Dashboard Preview
             </Link>
           </div>
         </div>

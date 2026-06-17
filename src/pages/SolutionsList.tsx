@@ -37,7 +37,7 @@ export default function SolutionsList() {
                 { href: '/solutions/water-management', label: 'Water Management' },
                 { href: '/solutions/solar-energy', label: 'Solar and Renewable Energy' },
                 { href: '/solutions/gate-access-control', label: 'Gate Access Control' },
-                { href: '/products', label: 'Compare product models' },
+                { href: '/products', label: 'Browse product families' },
               ].map((item) => (
                 <Link key={item.href} to={item.href} className="flex items-center justify-between gap-4 rounded-lg border border-slate-700 bg-slate-900 px-4 py-3 text-sm font-bold text-slate-200 hover:border-blue-500/50 hover:text-blue-300 transition-colors">
                   {item.label}

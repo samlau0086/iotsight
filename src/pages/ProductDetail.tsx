@@ -68,12 +68,35 @@ export default function ProductDetail() {
                 to="/products"
                 className="inline-flex items-center gap-2 rounded border border-slate-700 px-6 py-3 text-xs font-bold uppercase tracking-widest text-slate-200 transition-all hover:bg-slate-800"
               >
-                Compare Models
+                View All Products
               </Link>
             </div>
           </header>
 
           <div className="p-8 sm:p-12">
+            {product.specs.length > 0 && (
+              <section className="mb-10">
+                <div className="mb-5 flex flex-col gap-2">
+                  <p className="text-xs font-bold uppercase tracking-[0.24em] text-blue-300">Key Specs</p>
+                  <h2 className="text-2xl font-bold text-white" style={{ fontFamily: 'var(--font-display)' }}>
+                    Procurement-ready product snapshot
+                  </h2>
+                  <p className="max-w-3xl text-sm leading-relaxed text-slate-400">
+                    Buyers usually check the core I/O, field interface, uplink method, and protocol scope first. These baseline specs make that comparison faster before the full datasheet review.
+                  </p>
+                </div>
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
+                  {product.specs.map((spec) => (
+                    <div key={`${product.id}-${spec.label}`} className="rounded-lg border border-slate-800 bg-slate-950/60 p-4">
+                      <div className="mb-2 text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500">
+                        {spec.label}
+                      </div>
+                      <div className="text-sm font-medium leading-relaxed text-slate-200">{spec.value}</div>
+                    </div>
+                  ))}
+                </div>
+              </section>
+            )}
             <div className="prose prose-invert prose-blue max-w-none prose-headings:font-display prose-h2:text-2xl prose-h2:text-white prose-h2:mt-10 prose-h2:mb-4 prose-h3:text-xl prose-h3:text-slate-100 prose-p:text-slate-300 prose-p:leading-relaxed prose-li:text-slate-300 prose-strong:text-white prose-table:text-sm prose-th:text-white prose-td:text-slate-300 prose-a:text-blue-400">
               <MarkdownContent>{product.content}</MarkdownContent>
             </div>
