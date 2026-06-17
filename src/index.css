@@ -14,18 +14,18 @@ body {
 
 :root {
   color-scheme: light;
-  --light-paper: #f6f1e7;
-  --light-paper-strong: #eee7d8;
-  --light-paper-soft: #e5dccd;
-  --light-ink: #17130f;
-  --light-ink-soft: #342d26;
-  --light-muted: #6f675e;
-  --light-muted-2: #968d82;
-  --light-line: #d7ccbb;
-  --light-line-strong: #cdbfa9;
-  --light-accent: #786957;
-  --light-accent-soft: #ebe1d0;
-  --light-accent-strong: #2a221b;
+  --light-paper: #ffffff;
+  --light-paper-strong: #fbfaf7;
+  --light-paper-soft: #f4f1eb;
+  --light-ink: #121212;
+  --light-ink-soft: #24211d;
+  --light-muted: #5f5a53;
+  --light-muted-2: #8b847b;
+  --light-line: #e1dbd0;
+  --light-line-strong: #d4cbbd;
+  --light-accent: #7d705f;
+  --light-accent-soft: #efe8dc;
+  --light-accent-strong: #191713;
 }
 
 html[data-theme="dark"] {
@@ -56,7 +56,7 @@ html[data-theme="light"] .bg-slate-950 {
 }
 
 html[data-theme="light"] .bg-slate-950\/50 {
-  background-color: rgba(246, 241, 231, 0.88) !important;
+  background-color: rgba(255, 255, 255, 0.88) !important;
 }
 
 html[data-theme="light"] .bg-slate-900,
@@ -73,11 +73,11 @@ html[data-theme="light"] .bg-slate-800\/50 {
 }
 
 html[data-theme="light"] .bg-slate-700 {
-  background-color: #ddd3c2 !important;
+  background-color: #ece7de !important;
 }
 
 html[data-theme="light"] .bg-slate-600 {
-  background-color: #d1c6b6 !important;
+  background-color: #e2dbd0 !important;
 }
 
 html[data-theme="light"] .border-slate-800,
@@ -93,6 +93,10 @@ html[data-theme="light"] .text-white,
 html[data-theme="light"] .text-slate-200,
 html[data-theme="light"] .text-slate-300 {
   color: var(--light-ink-soft) !important;
+}
+
+html[data-theme="light"] .text-slate-100 {
+  color: var(--light-ink) !important;
 }
 
 html[data-theme="light"] .text-slate-400 {
@@ -114,7 +118,10 @@ html[data-theme="light"] .text-blue-300 {
 }
 
 html[data-theme="light"] .bg-blue-600,
-html[data-theme="light"] .bg-blue-500,
+html[data-theme="light"] .bg-blue-500 {
+  background-color: var(--light-accent-strong) !important;
+}
+
 html[data-theme="light"] .bg-blue-900\/30,
 html[data-theme="light"] .bg-blue-600\/20,
 html[data-theme="light"] .bg-blue-500\/10 {
@@ -138,12 +145,29 @@ html[data-theme="light"] .bg-white.text-slate-950 {
   color: #f9f4eb !important;
 }
 
+html[data-theme="light"] .bg-blue-600 .text-white,
+html[data-theme="light"] .bg-blue-500 .text-white,
+html[data-theme="light"] .bg-white .text-slate-950 {
+  color: #f9f4eb !important;
+}
+
 html[data-theme="light"] .hover\:bg-blue-500:hover,
 html[data-theme="light"] .hover\:bg-blue-600:hover,
 html[data-theme="light"] .hover\:bg-slate-800:hover,
 html[data-theme="light"] .hover\:bg-slate-900:hover,
-html[data-theme="light"] .hover\:bg-slate-200:hover {
-  background-color: #ded3c2 !important;
+html[data-theme="light"] .hover\:bg-slate-200:hover,
+html[data-theme="light"] .hover\:bg-slate-100:hover {
+  background-color: #ece5d8 !important;
+}
+
+html[data-theme="light"] .bg-blue-600.hover\:bg-blue-500:hover,
+html[data-theme="light"] .bg-blue-500.hover\:bg-blue-500:hover,
+html[data-theme="light"] .bg-blue-600.hover\:bg-blue-600:hover {
+  background-color: #2a261f !important;
+}
+
+html[data-theme="light"] .bg-white.hover\:bg-slate-200:hover {
+  background-color: #2a261f !important;
 }
 
 html[data-theme="light"] .hover\:text-white:hover,
@@ -154,12 +178,24 @@ html[data-theme="light"] .hover\:text-slate-300:hover {
   color: var(--light-ink) !important;
 }
 
+html[data-theme="light"] .bg-blue-600.hover\:bg-blue-500:hover.text-white,
+html[data-theme="light"] .bg-blue-500.hover\:bg-blue-500:hover.text-white,
+html[data-theme="light"] .bg-white.hover\:bg-slate-200:hover.text-slate-950 {
+  color: #f9f4eb !important;
+}
+
 html[data-theme="light"] .hover\:border-blue-500\/50:hover {
   border-color: rgba(120, 105, 87, 0.5) !important;
 }
 
 html[data-theme="light"] .shadow-blue-500\/20 {
   box-shadow: 0 12px 30px rgba(42, 34, 27, 0.08) !important;
+}
+
+html[data-theme="light"] .shadow-2xl,
+html[data-theme="light"] .shadow-xl,
+html[data-theme="light"] .shadow-lg {
+  box-shadow: 0 18px 36px rgba(24, 20, 15, 0.06) !important;
 }
 
 html[data-theme="light"] .prose-invert {
