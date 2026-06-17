@@ -1,10 +1,13 @@
+import { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { ArrowLeft, ArrowRight, CheckCircle2 } from 'lucide-react';
 import { productPages } from '../data/products';
 import MarkdownContent from '../components/MarkdownContent';
+import QuoteRequestModal from '../components/QuoteRequestModal';
 
 export default function ProductDetail() {
   const { id } = useParams<{ id: string }>();
+  const [isInquiryOpen, setIsInquiryOpen] = useState(false);
   const product = productPages.find((item) => item.id === id);
 
   if (!product) {
@@ -18,10 +21,18 @@ export default function ProductDetail() {
     );
   }
 
-  const inquiryHref = `/contact?type=${encodeURIComponent('Product Inquiry')}&subject=${encodeURIComponent(`${product.model} - ${product.title}`)}&source=${encodeURIComponent(`/products/${product.id}`)}`;
-
   return (
     <div className="bg-slate-950 min-h-screen pt-24 pb-20 text-slate-300">
+      <QuoteRequestModal
+        isOpen={isInquiryOpen}
+        onClose={() => setIsInquiryOpen(false)}
+        title={`Inquire ${product.model}`}
+        description={`Send a quote request for ${product.title} without leaving this page. The inquiry will stay linked to the current product.`}
+        lockedInquiryType="Product Inquiry"
+        lockedInquirySubject={`${product.model} - ${product.title}`}
+        lockedInquirySource={`/products/${product.id}`}
+        analyticsFormName="product_inquiry_modal"
+      />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <Link to="/products" className="inline-flex items-center gap-2 text-slate-400 hover:text-white mb-8 transition-colors">
           <ArrowLeft className="w-4 h-4" /> Back to Products
@@ -42,16 +53,17 @@ export default function ProductDetail() {
             </h1>
             <p className="text-lg text-slate-400 leading-relaxed">{product.excerpt}</p>
             <div className="mt-8 flex flex-wrap gap-4">
-              <Link
-                to={inquiryHref}
+              <button
+                type="button"
+                onClick={() => setIsInquiryOpen(true)}
                 data-analytics-event="cta_click"
                 data-analytics-category="product"
                 data-analytics-label={`Product Inquiry - ${product.title}`}
-                data-analytics-destination={inquiryHref}
+                data-analytics-destination="product_inquiry_modal"
                 className="inline-flex items-center gap-2 rounded bg-blue-600 px-6 py-3 text-xs font-bold uppercase tracking-widest text-white transition-all hover:bg-blue-500"
               >
                 Request Quote <ArrowRight className="h-4 w-4" />
-              </Link>
+              </button>
               <Link
                 to="/products"
                 className="inline-flex items-center gap-2 rounded border border-slate-700 px-6 py-3 text-xs font-bold uppercase tracking-widest text-slate-200 transition-all hover:bg-slate-800"
@@ -74,16 +86,17 @@ export default function ProductDetail() {
                       Start an inquiry for <strong>{product.model}</strong>. The quote form will be prefilled with this product and locked to the current item.
                     </p>
                   </div>
-                  <Link
-                    to={inquiryHref}
+                  <button
+                    type="button"
+                    onClick={() => setIsInquiryOpen(true)}
                     data-analytics-event="cta_click"
                     data-analytics-category="product"
                     data-analytics-label={`Bottom Inquiry - ${product.title}`}
-                    data-analytics-destination={inquiryHref}
+                    data-analytics-destination="product_inquiry_modal"
                     className="inline-flex items-center gap-2 rounded bg-white px-5 py-3 text-xs font-bold uppercase tracking-widest text-slate-950 transition-all hover:bg-slate-200"
                   >
                     Inquire This Product <ArrowRight className="h-4 w-4" />
-                  </Link>
+                  </button>
                 </div>
                 <h2 className="mb-2 text-xl font-bold text-white" style={{ fontFamily: 'var(--font-display)' }}>Need project accessories?</h2>
                 <p className="mb-4 text-sm leading-relaxed text-slate-300">

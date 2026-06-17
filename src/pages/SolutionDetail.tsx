@@ -1,9 +1,12 @@
+import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft, ArrowRight, CheckCircle2, Server, Monitor } from 'lucide-react';
 import { solutions } from '../data/solutions';
+import QuoteRequestModal from '../components/QuoteRequestModal';
 
 export default function SolutionDetail() {
   const { id } = useParams<{ id: string }>();
+  const [isInquiryOpen, setIsInquiryOpen] = useState(false);
   const solution = solutions.find(s => s.id === id);
 
   if (!solution) {
@@ -18,10 +21,19 @@ export default function SolutionDetail() {
   }
 
   const Icon = solution.icon;
-  const inquiryHref = `/contact?type=${encodeURIComponent('Solution Inquiry')}&subject=${encodeURIComponent(solution.title)}&source=${encodeURIComponent(solution.link)}`;
 
   return (
     <div className="bg-slate-950 text-slate-200">
+      <QuoteRequestModal
+        isOpen={isInquiryOpen}
+        onClose={() => setIsInquiryOpen(false)}
+        title={`Inquire ${solution.title}`}
+        description={`Start a solution inquiry for ${solution.title} without leaving this page. The inquiry will stay linked to the current solution.`}
+        lockedInquiryType="Solution Inquiry"
+        lockedInquirySubject={solution.title}
+        lockedInquirySource={solution.link}
+        analyticsFormName="solution_inquiry_modal"
+      />
       {/* Hero */}
       <section className="relative w-full h-[50vh] min-h-[400px]">
         <img 
@@ -47,9 +59,9 @@ export default function SolutionDetail() {
               {solution.description}
             </p>
             <div className="flex flex-wrap gap-4">
-              <Link to={inquiryHref} data-analytics-event="cta_click" data-analytics-category="solution" data-analytics-label={`Solution Inquiry - ${solution.title}`} data-analytics-destination={inquiryHref} className="inline-flex items-center gap-2 px-8 py-4 bg-blue-600 text-white text-xs font-bold uppercase tracking-widest rounded transition-all hover:bg-blue-500">
+              <button type="button" onClick={() => setIsInquiryOpen(true)} data-analytics-event="cta_click" data-analytics-category="solution" data-analytics-label={`Solution Inquiry - ${solution.title}`} data-analytics-destination="solution_inquiry_modal" className="inline-flex items-center gap-2 px-8 py-4 bg-blue-600 text-white text-xs font-bold uppercase tracking-widest rounded transition-all hover:bg-blue-500">
                 Request Quote <ArrowRight className="w-4 h-4" />
-              </Link>
+              </button>
               <Link to="/products" data-analytics-event="cta_click" data-analytics-category="solution" data-analytics-label={`View Products - ${solution.title}`} data-analytics-destination="/products" className="inline-flex items-center gap-2 px-8 py-4 border border-slate-700 text-white text-xs font-bold uppercase tracking-widest rounded transition-all hover:bg-slate-900">
                 View Products
               </Link>
@@ -214,7 +226,7 @@ export default function SolutionDetail() {
           <h2 className="text-3xl font-extrabold text-white mb-6 tracking-tight" style={{ fontFamily: 'var(--font-display)' }}>Ready to upgrade your infrastructure?</h2>
           <p className="mb-10 text-slate-400 font-medium">Contact our technical team to discuss how we can adapt this architecture for your specific integration needs.</p>
           <div className="flex justify-center flex-wrap gap-4">
-            <Link to={inquiryHref} data-analytics-event="cta_click" data-analytics-category="solution" data-analytics-label={`Bottom Inquiry - ${solution.title}`} data-analytics-destination={inquiryHref} className="bg-blue-600 text-white px-8 py-4 font-bold text-xs uppercase tracking-widest rounded hover:bg-blue-500 transition-all shadow-lg shadow-blue-500/20">Inquire This Solution</Link>
+            <button type="button" onClick={() => setIsInquiryOpen(true)} data-analytics-event="cta_click" data-analytics-category="solution" data-analytics-label={`Bottom Inquiry - ${solution.title}`} data-analytics-destination="solution_inquiry_modal" className="bg-blue-600 text-white px-8 py-4 font-bold text-xs uppercase tracking-widest rounded hover:bg-blue-500 transition-all shadow-lg shadow-blue-500/20">Inquire This Solution</button>
             <Link to="/products" data-analytics-event="cta_click" data-analytics-category="solution" data-analytics-label={`Bottom Products - ${solution.title}`} data-analytics-destination="/products" className="border border-slate-700 text-white px-8 py-4 font-bold text-xs uppercase tracking-widest rounded hover:bg-slate-800 transition-all">View Related Products</Link>
           </div>
         </div>
