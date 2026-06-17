@@ -63,7 +63,7 @@ export default function Gateway() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
               { icon: Network, title: 'Separate uplink models', text: 'Ethernet, WiFi, 4G LTE, and LoRaWAN are kept as separate model families.' },
-              { icon: ShieldCheck, title: 'Project specifications', text: 'Ratings, wireless coverage, certifications, and protocol limits are confirmed during project engineering review.' },
+              { icon: ShieldCheck, title: 'Specification discipline', text: 'Public product pages stay aligned with the released hardware scope, protocol fit, and deployment environment.' },
               { icon: Server, title: 'Modbus and MQTT baseline', text: 'Baseline gateways focus on Modbus RTU/TCP collection and MQTT telemetry for industrial data projects.' },
             ].map((item) => (
               <div key={item.title} className="border border-slate-800 bg-slate-950 p-6 rounded-lg">

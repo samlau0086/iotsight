@@ -12,19 +12,19 @@ order: 4
 
 ## WiFi Gateway For Indoor Industrial Sites
 
-IEG-120 is designed as a WiFi industrial IoT gateway for indoor deployments where a reliable wireless LAN is available. Its intended role is to collect Modbus data from industrial devices and publish telemetry to MQTT-based monitoring systems after firmware and WiFi confirmation.
+IEG-120 is a WiFi industrial IoT gateway for indoor deployments where a reliable wireless LAN is available. It is built to collect Modbus data from industrial devices and publish telemetry to MQTT-based monitoring systems in building, factory and OEM monitoring projects.
 
-This product brief describes target configurations for project discussion and application matching.
+This page describes the standard application fit, architecture and product boundary for buyers comparing indoor WiFi gateway options.
 
 ## Architecture
 
 | Layer | Role | Configuration Notes |
 | --- | --- | --- |
-| WiFi | Indoor wireless uplink target | Module and RF confirmation |
-| Ethernet | Setup or local network interface if included | Final Project engineering confirmation |
-| RS485 | Modbus RTU field interface target | Project engineering confirmation |
-| Modbus TCP | Network device polling target | firmware confirmation required |
-| MQTT | Telemetry publishing target | Payload and reconnect behavior should be confirmed during project review |
+| WiFi | Indoor wireless uplink target | Best fit for sites with stable local WiFi coverage |
+| Ethernet | Setup or local network interface if included | Useful for setup, maintenance or hybrid cabinet networking |
+| RS485 | Modbus RTU field interface target | Standard fieldbus path for meters, instruments and Remote IO |
+| Modbus TCP | Network device polling target | Suitable for LAN-connected industrial devices |
+| MQTT | Telemetry publishing target | Suitable for dashboard, broker and cloud telemetry workflows |
 
 IEG-120 should not be positioned as a 4G gateway, LoRa gateway or outdoor long-range wireless device.
 
@@ -47,7 +47,7 @@ IEG-120 should not be positioned as a 4G gateway, LoRa gateway or outdoor long-r
 
 ## Product Boundary
 
-IEG-120 is a baseline WiFi gateway. Confirm OPC UA, BACnet, CAN, TLS, offline buffering, exact polling limits, WiFi range or WiFi certification until those capabilities are validated.
+IEG-120 is a baseline WiFi gateway. Buyers that need OPC UA, BACnet, CAN, advanced edge logic, larger protocol scope or specialized wireless certification should evaluate a higher-tier platform path.
 
 ## Compatible Accessories
 
@@ -66,6 +66,7 @@ See [Industrial IoT Accessories](/accessories), [RS485 Cable and Shielding Guide
 - [Modbus for Industrial IoT Gateways and RTUs](/knowledge/modbus)
 - [MQTT in Industrial IoT Monitoring](/knowledge/mqtt)
 - [RS485 Wiring for Modbus RTU Devices](/knowledge/rs485)
+- [WiFi Industrial IoT Gateway: When to Use WiFi Instead of Ethernet or 4G](/knowledge/wifi-industrial-iot-gateway)
 
 ## Model Comparison
 
@@ -91,7 +92,7 @@ Do not position it that way. IEG-120 is best framed as an indoor WiFi gateway.
 
 ### Does it support MQTT?
 
-MQTT publishing is designed, but payload and reconnect behavior should be confirmed during project review.
+Yes. IEG-120 is positioned for MQTT telemetry publishing in indoor industrial monitoring deployments.
 
 
 

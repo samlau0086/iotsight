@@ -103,7 +103,7 @@ export function getSeoMeta(url: string) {
   if (url === '/products') {
     return {
       title: 'Industrial IoT Products | IoTEdges',
-      description: 'Explore IoTEdges industrial IoT gateways, RTUs and Remote IO modules with validation-aware product drafts for Modbus, MQTT, Ethernet and RS485 applications.',
+      description: 'Explore IoTEdges industrial IoT gateways, RTUs, remote relay controllers, Remote IO modules and dashboard software for Modbus, MQTT, Ethernet, WiFi and 4G applications.',
       type: 'website',
     };
   }

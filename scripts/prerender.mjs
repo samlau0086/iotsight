@@ -112,9 +112,66 @@ function routeType(url, meta) {
   return 'WebPage';
 }
 
+function capitalizeSegment(segment = '') {
+  return segment
+    .split('-')
+    .filter(Boolean)
+    .map(part => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(' ');
+}
+
+function breadcrumbName(url) {
+  if (url === '/') return 'Home';
+  if (url === '/products') return 'Products';
+  if (url === '/solutions') return 'Solutions';
+  if (url === '/knowledge') return 'Knowledge Base';
+  if (url === '/blog') return 'Blog';
+  if (url === '/accessories') return 'Accessories';
+  if (url === '/contact') return 'Contact';
+  if (url === '/about') return 'About';
+  if (url === '/demo') return 'Demo';
+
+  const meta = getSeoMeta(url);
+  return meta.title
+    .replace(' | IoTEdges Products', '')
+    .replace(' | IoTEdges Knowledge Base', '')
+    .replace(' | IoTEdges Blog', '')
+    .replace(' | IoTEdges Solutions', '')
+    .replace(' | IoTEdges', '')
+    .trim() || capitalizeSegment(url.split('/').filter(Boolean).slice(-1)[0] || '');
+}
+
+function createBreadcrumbList(url) {
+  const segments = url.split('/').filter(Boolean);
+  const items = [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Home',
+      item: siteUrl,
+    },
+  ];
+
+  let currentPath = '';
+
+  segments.forEach((segment, index) => {
+    currentPath += `/${segment}`;
+    items.push({
+      '@type': 'ListItem',
+      position: index + 2,
+      name: breadcrumbName(currentPath),
+      item: `${siteUrl}${currentPath}`,
+    });
+  });
+
+  return {
+    '@type': 'BreadcrumbList',
+    itemListElement: items,
+  };
+}
+
 function createStructuredData(url, meta, absoluteUrl) {
   const page = {
-    '@context': 'https://schema.org',
     '@type': routeType(url, meta),
     name: meta.title,
     description: meta.description,
@@ -131,21 +188,76 @@ function createStructuredData(url, meta, absoluteUrl) {
     },
   };
 
-  if (url.startsWith('/products/')) {
-    return {
-      ...page,
-      about: {
-        '@type': 'Product',
-        name: meta.title.replace(' | IoTEdges Products', ''),
-        brand: {
-          '@type': 'Brand',
-          name: 'IoTEdges',
-        },
-      },
-    };
+  const graph = [page];
+
+  if (url !== '/') {
+    graph.push(createBreadcrumbList(url));
   }
 
-  return page;
+  if (url.startsWith('/products/')) {
+    graph.push({
+      '@type': 'Product',
+      name: meta.title.replace(' | IoTEdges Products', ''),
+      description: meta.description,
+      category: 'Industrial IoT Product',
+      model: meta.title.replace(' | IoTEdges Products', ''),
+      url: absoluteUrl,
+      brand: {
+        '@type': 'Brand',
+        name: 'IoTEdges',
+      },
+    });
+  }
+
+  if (url.startsWith('/knowledge/')) {
+    graph.push({
+      '@type': 'TechArticle',
+      headline: meta.title.replace(' | IoTEdges Knowledge Base', ''),
+      description: meta.description,
+      url: absoluteUrl,
+      mainEntityOfPage: absoluteUrl,
+      publisher: {
+        '@type': 'Organization',
+        name: 'IoTEdges',
+        url: siteUrl,
+      },
+    });
+  }
+
+  if (url.startsWith('/blog/')) {
+    graph.push({
+      '@type': 'BlogPosting',
+      headline: meta.title.replace(' | IoTEdges Blog', ''),
+      description: meta.description,
+      url: absoluteUrl,
+      mainEntityOfPage: absoluteUrl,
+      publisher: {
+        '@type': 'Organization',
+        name: 'IoTEdges',
+        url: siteUrl,
+      },
+    });
+  }
+
+  if (url.startsWith('/solutions/')) {
+    graph.push({
+      '@type': 'Article',
+      headline: meta.title.replace(' | IoTEdges Solutions', ''),
+      description: meta.description,
+      url: absoluteUrl,
+      mainEntityOfPage: absoluteUrl,
+      publisher: {
+        '@type': 'Organization',
+        name: 'IoTEdges',
+        url: siteUrl,
+      },
+    });
+  }
+
+  return {
+    '@context': 'https://schema.org',
+    '@graph': graph,
+  };
 }
 
 function sitemapPriority(route) {

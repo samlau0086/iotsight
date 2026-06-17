@@ -12,17 +12,17 @@ order: 3
 
 ## Ethernet RTU For Wired Monitoring
 
-IER-100 is designed as an Ethernet-only industrial RTU for wired cabinet, LAN and SCADA-style monitoring applications. Its intended role is to collect local digital and analog signals, communicate with Modbus field devices and connect to local industrial networks.
+IER-100 is an Ethernet-only industrial RTU for wired cabinet, LAN and SCADA-style monitoring applications. It combines local digital and analog IO with Modbus communications for pump stations, utility cabinets, building equipment rooms and factory telemetry points.
 
-This product brief describes target configurations for project discussion and application matching.
+This page describes the standard IO baseline, communication scope and typical applications for projects that need an RTU rather than a pure gateway.
 
 ## IO Baseline
 
 | IO Type | Target Count | Configuration Notes |
 | --- | --- | --- |
-| Digital input | 4 | Input mode and pulse behavior should be confirmed during project review |
-| Digital output or relay | 2 | Output type and rating should be confirmed during project review |
-| Analog input | 2 | 4-20mA and/or 0-10V behavior should be confirmed during project review |
+| Digital input | 4 | Suitable for door contact, float switch, alarm and status signals |
+| Digital output or relay | 2 | Suitable for relay-style control and auxiliary outputs |
+| Analog input | 2 | Suitable for 4-20mA or 0-10V process signals |
 
 ## Wired RTU Architecture
 
@@ -32,11 +32,11 @@ Field contacts and sensors connect to local RTU IO. RS485 can connect Modbus fie
 
 | Protocol | Role | Configuration Notes |
 | --- | --- | --- |
-| Modbus RTU | RS485 communication target | Firmware and RS485 engineering confirmation |
-| Modbus TCP | Ethernet communication target | firmware confirmation required |
-| MQTT | Optional telemetry target | Publish behavior should be confirmed during project review |
+| Modbus RTU | RS485 communication target | Standard fieldbus path for downstream devices |
+| Modbus TCP | Ethernet communication target | Suitable for LAN-based industrial integration |
+| MQTT | Optional telemetry target | Suitable when RTU data needs dashboard or broker visibility |
 
-Confirm DNP3, IEC 60870, IEC 61850 or safety controller behavior for IER-100.
+DNP3, IEC 60870, IEC 61850 and safety-controller functions are outside the baseline IER-100 positioning.
 
 ## Suitable Applications
 
@@ -89,7 +89,7 @@ The planning baseline is 4DI + 2DO/relay + 2AI.
 
 ### Can exact relay and analog specifications be published now?
 
-Those items require component selection and prototype test evidence.
+Those values should follow the released datasheet of the selected hardware version.
 
 
 

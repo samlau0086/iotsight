@@ -12,26 +12,26 @@ order: 8
 
 ## 4G RTU For Pumps, Valves And Irrigation Cabinets
 
-IER-141 is designed as a 4G LTE Cat1 pump and valve RTU for remote water, utility and agriculture sites that need more local signals than a basic 2DI/2DO relay controller. Its intended role is to monitor dry contacts, read analog transmitters, control relay outputs, communicate with RS485 Modbus equipment and connect to MQTT or the IoTEdges web dashboard.
+IER-141 is a 4G LTE Cat1 pump and valve RTU for remote water, utility and agriculture sites that need more local signals than a basic 2DI/2DO relay controller. It combines dry-contact monitoring, analog transmitter inputs, relay outputs, RS485 Modbus integration and cloud connectivity for field control cabinets.
 
-This product brief describes target configurations for project discussion and application matching.
+This page describes the standard product role, IO baseline and deployment fit for projects built around pumps, valves, pressure and level signals.
 
 ## Product Role
 
 | Function Area | Role | Configuration Notes |
 | --- | --- | --- |
-| 4G LTE Cat1 | Primary wireless uplink for remote pump and valve sites | Module, band and carrier confirmation |
-| MQTT | Telemetry publishing and command workflow target | Topic, QoS, retry and security behavior should be confirmed during project review |
-| Web dashboard | Remote status, control, alarms and schedule configuration target | Dashboard workflow and permission model should be confirmed during project review |
-| Digital input | 4DI for pump feedback, valve status, float switch or alarm contact | Input mode and pulse behavior should be confirmed during project review |
-| Digital output | 4DO or relay outputs for pump, valve, alarm or auxiliary control | Output type and contact rating should be confirmed during project review |
-| Analog input | 2AI for pressure, level, flow or current transmitter | Input range and accuracy should be confirmed during project review |
-| RS485 | Local fieldbus interface for VFD, meter or controller data | Isolation, surge and wiring behavior should be confirmed during project review |
-| Modbus Master | Poll downstream Modbus RTU devices over RS485 | Register mapping and polling limits should be confirmed during project review |
-| Modbus Slave | Expose selected status and control registers to local systems | Addressing and register map should be confirmed during project review |
-| Scheduled control | Time-based pump or valve control target | Time sync, timezone and fail-safe behavior should be confirmed during project review |
-| Alarm push | Event notification target for abnormal status and thresholds | Channel and escalation behavior should be confirmed during project review |
-| OTA upgrade | Remote firmware upgrade target | Rollback, security and recovery flow should be confirmed during project review |
+| 4G LTE Cat1 | Primary wireless uplink for remote pump and valve sites | Single-uplink cellular architecture for distributed assets |
+| MQTT | Telemetry publishing and command workflow target | Suitable for broker, dashboard and cloud telemetry workflows |
+| Web dashboard | Remote status, control, alarms and schedule configuration target | Suitable for operator visibility and remote management |
+| Digital input | 4DI for pump feedback, valve status, float switch or alarm contact | Typical use: run, fault, position and local status signals |
+| Digital output | 4DO or relay outputs for pump, valve, alarm or auxiliary control | Typical use: relay-style start, stop and open-close control |
+| Analog input | 2AI for pressure, level, flow or current transmitter | Typical use: process monitoring and threshold alarm logic |
+| RS485 | Local fieldbus interface for VFD, meter or controller data | Standard Modbus RTU integration path |
+| Modbus Master | Poll downstream Modbus RTU devices over RS485 | Suitable for local telemetry expansion |
+| Modbus Slave | Expose selected status and control registers to local systems | Suitable for local supervisory integration |
+| Scheduled control | Time-based pump or valve control target | Suitable for routine control and irrigation workflows |
+| Alarm push | Event notification target for abnormal status and thresholds | Suitable for exception and maintenance response |
+| OTA upgrade | Remote firmware upgrade target | Suitable for remote lifecycle management |
 
 ## IO Baseline
 
@@ -59,16 +59,16 @@ This product brief describes target configurations for project discussion and ap
 | Pump status | DI-based run/fault/local-auto status collection |
 | Valve status | DI-based open/close or position feedback target |
 | Pressure/level | AI-based transmitter input target |
-| VFD integration | RS485 Modbus polling target after register confirmation |
-| Remote command | Dashboard or MQTT command target after permission and acknowledgement confirmation |
-| Schedule | Time-based pump/valve operation target after fail-safe testing |
+| VFD integration | RS485 Modbus polling target for local drive telemetry |
+| Remote command | Dashboard or MQTT command target with controlled permissions |
+| Schedule | Time-based pump or valve operation target |
 | Alarm push | Pump fault, level alarm, pressure threshold and offline notification target |
 
 ## Product Boundary
 
 IER-141 should not be described as a safety controller, certified pump protection relay, emergency shutdown system, fire pump controller or grid protection device. Local safety circuits, motor protection and site fail-safe logic should remain independent and confirmed by the project engineer.
 
-Exact relay rating, analog accuracy, LTE bands, IP rating, operating temperature, power input range, SIM compatibility, MQTT security profile or OTA recovery behavior should be confirmed during project engineering review.
+Exact relay rating, analog accuracy, LTE bands, IP rating, operating temperature, power input range, SIM compatibility and MQTT security profile should follow the released hardware version and deployment scope.
 
 ## Compatible Accessories
 
@@ -93,6 +93,7 @@ See [Industrial IoT Accessories](/accessories), [4G Antenna Guide](/knowledge/4g
 - [MQTT in Industrial IoT Monitoring](/knowledge/mqtt)
 - [Modbus for Industrial IoT Gateways and RTUs](/knowledge/modbus)
 - [RS485 Wiring for Modbus RTU Devices](/knowledge/rs485)
+- [Pump Control RTU: Signals, Relays, Pressure Inputs and Remote Monitoring](/knowledge/pump-control-rtu)
 
 ## FAQ
 
@@ -102,11 +103,11 @@ IER-140 is the entry 2DI/2DO remote relay RTU. IER-141 is the pump and valve mod
 
 ### Does IER-141 support MQTT downlink control?
 
-The target direction includes confirmed MQTT command downlink for relay control, schedule updates and configuration. Topic format, command acknowledgement and security behavior are confirmed during firmware and project review.
+Yes. IER-141 is positioned for MQTT command downlink covering relay control, schedule updates and remote configuration workflows.
 
 ### Can it control a pump directly?
 
-It is designed for relay-style pump control through an external contactor or control circuit. Final wiring, relay rating, motor protection and fail-safe design should be confirmed during project engineering review.
+It is designed for relay-style pump control through the correct contactor or control circuit, not as a direct motor-power switch.
 
 ### Does it include WiFi or LoRa?
 

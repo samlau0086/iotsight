@@ -35,6 +35,38 @@ export default function ProductList() {
           ))}
         </div>
 
+        <div className="grid grid-cols-1 lg:grid-cols-[1.35fr_0.85fr] gap-6 mb-12">
+          <section className="border border-slate-800 bg-slate-900 rounded-lg p-7">
+            <h2 className="text-2xl font-bold text-white mb-4" style={{ fontFamily: 'var(--font-display)' }}>
+              Compare product families before choosing a model
+            </h2>
+            <p className="text-sm leading-relaxed text-slate-400 mb-4">
+              IoTEdges product pages are organized around real buying decisions: which uplink to use, whether local IO is required, whether the project needs pure data acquisition or relay control, and what accessories are needed to complete the cabinet.
+            </p>
+            <p className="text-sm leading-relaxed text-slate-400">
+              Start with wired Ethernet models for factory cabinets and LAN-connected infrastructure. Move to WiFi or 4G only when the site actually requires wireless uplink. For projects that need direct field signals, compare RTUs and Remote IO modules rather than choosing a gateway by default.
+            </p>
+          </section>
+
+          <section className="border border-slate-800 bg-slate-900 rounded-lg p-7">
+            <h2 className="text-lg font-bold text-white mb-4">Start with these pages</h2>
+            <div className="grid grid-cols-1 gap-3">
+              {[
+                { href: '/products/ieg-100-ethernet-industrial-iot-gateway', label: 'IEG-100 Ethernet Industrial IoT Gateway' },
+                { href: '/products/ier-100-ethernet-industrial-rtu', label: 'IER-100 Ethernet Industrial RTU' },
+                { href: '/products/ier-140-4g-remote-relay-rtu', label: 'IER-140 4G Remote Relay RTU' },
+                { href: '/products/ieio-100-modbus-remote-io-module', label: 'IEIO-100 Modbus Remote IO Module' },
+                { href: '/knowledge/modbus', label: 'Modbus buying guide' },
+              ].map((item) => (
+                <Link key={item.href} to={item.href} className="flex items-center justify-between gap-4 rounded-lg border border-slate-800 bg-slate-950 px-4 py-3 text-sm font-bold text-slate-200 hover:border-blue-500/50 hover:text-blue-300 transition-colors">
+                  {item.label}
+                  <ArrowRight className="h-4 w-4 shrink-0" />
+                </Link>
+              ))}
+            </div>
+          </section>
+        </div>
+
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {productPages.map((product) => (
             <article key={product.id} className="bg-slate-900 border border-slate-800 rounded-lg p-7 flex flex-col hover:border-blue-500/50 transition-colors">

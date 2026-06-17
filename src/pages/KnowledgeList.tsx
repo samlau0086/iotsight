@@ -34,6 +34,38 @@ export default function KnowledgeList() {
           ))}
         </div>
 
+        <div className="grid grid-cols-1 lg:grid-cols-[1.35fr_0.85fr] gap-6 mb-12">
+          <section className="border border-slate-800 bg-slate-900 rounded-lg p-7">
+            <h2 className="text-2xl font-bold text-white mb-4" style={{ fontFamily: 'var(--font-display)' }}>
+              Technical guides built for industrial buyers and integrators
+            </h2>
+            <p className="text-sm leading-relaxed text-slate-400 mb-4">
+              The knowledge base explains how Modbus, MQTT, RS485, digital IO, analog inputs and field accessories fit into real industrial IoT deployments. These pages are written to answer specification, wiring and product-selection questions before a buyer requests a quotation.
+            </p>
+            <p className="text-sm leading-relaxed text-slate-400">
+              Use these guides to move from protocol understanding into hardware selection. Most readers start with Modbus, then compare gateway versus RTU versus Remote IO, and finally check wiring, antenna and power-supply guidance for the final installation.
+            </p>
+          </section>
+
+          <section className="border border-slate-800 bg-slate-900 rounded-lg p-7">
+            <h2 className="text-lg font-bold text-white mb-4">Most useful guides</h2>
+            <div className="grid grid-cols-1 gap-3">
+              {[
+                { href: '/knowledge/modbus', label: 'Modbus for Industrial IoT Gateways and RTUs' },
+                { href: '/knowledge/mqtt', label: 'MQTT in Industrial IoT Monitoring' },
+                { href: '/knowledge/rs485', label: 'RS485 Wiring for Modbus RTU Devices' },
+                { href: '/knowledge/rtu-vs-gateway-vs-remote-io', label: 'RTU vs Gateway vs Remote IO' },
+                { href: '/knowledge/4g-antenna-industrial-rtu', label: '4G Antenna Guide for RTUs' },
+              ].map((item) => (
+                <Link key={item.href} to={item.href} className="flex items-center justify-between gap-4 rounded-lg border border-slate-800 bg-slate-950 px-4 py-3 text-sm font-bold text-slate-200 hover:border-blue-500/50 hover:text-blue-300 transition-colors">
+                  {item.label}
+                  <ArrowRight className="h-4 w-4 shrink-0" />
+                </Link>
+              ))}
+            </div>
+          </section>
+        </div>
+
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {knowledgePages.map((page) => (
             <article key={page.id} className="bg-slate-900 border border-slate-800 rounded-lg p-7 flex flex-col hover:border-blue-500/50 transition-colors">

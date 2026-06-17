@@ -12,24 +12,24 @@ order: 9
 
 ## 4G RTU For Power Cabinets, Generator Rooms And Dry-Contact Alarms
 
-IER-142 is designed as a 4G LTE Cat1 power cabinet RTU for electrical cabinets, generator rooms, ATS cabinets and industrial alarm panels that need many dry-contact status inputs plus a smaller number of relay outputs. Its intended role is to collect cabinet alarms, breaker status, door contacts, generator alarms and RS485 Modbus data, then publish events to MQTT or the IoTEdges web dashboard.
+IER-142 is a 4G LTE Cat1 power cabinet RTU for electrical cabinets, generator rooms, ATS cabinets and industrial alarm panels that need many dry-contact status inputs plus a smaller number of relay outputs. It combines cabinet alarm collection, breaker status, door contacts, generator alarms and RS485 Modbus data in one remote telemetry platform.
 
-This product brief describes target configurations for project discussion and application matching.
+This page describes the standard product role, IO baseline and deployment fit for power-cabinet and alarm-panel monitoring projects.
 
 ## Product Role
 
 | Function Area | Role | Configuration Notes |
 | --- | --- | --- |
-| 4G LTE Cat1 | Primary wireless uplink for cabinets without wired internet | Module, band and carrier confirmation |
-| MQTT | Event, status and heartbeat telemetry target | Topic, QoS, retry and security behavior should be confirmed during project review |
-| Web dashboard | Cabinet status, event log, alarm and remote configuration target | Dashboard workflow and permission model should be confirmed during project review |
-| Digital input | 8DI for dry-contact status and alarm signals | Wet/dry mode and threshold behavior should be confirmed during project review |
-| Digital output | 4DO or relay outputs for reset, horn, lamp or auxiliary control | Output type and contact rating should be confirmed during project review |
-| RS485 | Local fieldbus interface for meters, generator controllers or ATS controllers | Isolation, surge and wiring behavior should be confirmed during project review |
-| Modbus Master | Poll cabinet meters or controllers over RS485 | Register mapping and polling limits should be confirmed during project review |
-| Modbus Slave | Expose cabinet status to local master systems | Addressing and register map should be confirmed during project review |
-| Event alarms | Push changes for DI status, offline status and Modbus exceptions | Alarm rules and notification channels should be confirmed during project review |
-| OTA upgrade | Remote firmware upgrade target | Rollback, security and recovery flow should be confirmed during project review |
+| 4G LTE Cat1 | Primary wireless uplink for cabinets without wired internet | Single-uplink cellular architecture for distributed cabinets |
+| MQTT | Event, status and heartbeat telemetry target | Suitable for broker, dashboard and cloud event workflows |
+| Web dashboard | Cabinet status, event log, alarm and remote configuration target | Suitable for alarm visibility and service review |
+| Digital input | 8DI for dry-contact status and alarm signals | Typical use: breaker, ATS, door, alarm and generator status |
+| Digital output | 4DO or relay outputs for reset, horn, lamp or auxiliary control | Typical use: reset, annunciation and auxiliary relay control |
+| RS485 | Local fieldbus interface for meters, generator controllers or ATS controllers | Standard Modbus RTU integration path |
+| Modbus Master | Poll cabinet meters or controllers over RS485 | Suitable for power and equipment telemetry expansion |
+| Modbus Slave | Expose cabinet status to local master systems | Suitable for local supervisory integration |
+| Event alarms | Push changes for DI status, offline status and Modbus exceptions | Suitable for event-driven monitoring and alerting |
+| OTA upgrade | Remote firmware upgrade target | Suitable for remote lifecycle management |
 
 ## IO Baseline
 
@@ -54,17 +54,17 @@ This product brief describes target configurations for project discussion and ap
 | Capability | Configuration Direction |
 | --- | --- |
 | DI event capture | Detect breaker, door, ATS, SPD, generator and alarm contact changes |
-| Event log | Store and publish alarm events after firmware confirmation |
+| Event log | Store and publish alarm events for review and maintenance |
 | Modbus polling | Read power meters, generator controllers or ATS controllers over RS485 |
-| Remote output | Trigger reset, horn, lamp or auxiliary relay after permission review |
+| Remote output | Trigger reset, horn, lamp or auxiliary relay with controlled permissions |
 | MQTT telemetry | Publish status, events, heartbeat and Modbus values |
-| Dashboard alarm | Display active alarms and historical events after platform review |
+| Dashboard alarm | Display active alarms and historical events |
 
 ## Product Boundary
 
 IER-142 should not be described as a certified protection relay, arc-fault protection device, emergency shutdown controller, generator safety controller, fire alarm controller or grid protection system. Critical electrical protection should be handled by certified local protection equipment.
 
-Exact relay rating, DI voltage range, isolation voltage, surge level, LTE bands, IP rating, operating temperature, power input range, SIM compatibility, MQTT security profile or OTA recovery behavior should be confirmed during project engineering review.
+Exact relay rating, DI voltage range, isolation voltage, surge level, LTE bands, IP rating, operating temperature, power input range, SIM compatibility and MQTT security profile should follow the released hardware version and deployment scope.
 
 ## Compatible Accessories
 
@@ -90,6 +90,7 @@ See [Industrial IoT Accessories](/accessories), [4G Antenna Guide](/knowledge/4g
 - [MQTT in Industrial IoT Monitoring](/knowledge/mqtt)
 - [Modbus for Industrial IoT Gateways and RTUs](/knowledge/modbus)
 - [RS485 Wiring for Modbus RTU Devices](/knowledge/rs485)
+- [How to Choose a Power Cabinet Monitoring RTU](/blog/how-to-choose-power-cabinet-monitoring-rtu)
 
 ## FAQ
 
@@ -99,7 +100,7 @@ IER-141 is optimized for pump and valve control with target analog inputs. IER-1
 
 ### Can IER-142 read power meters?
 
-The target direction includes RS485 Modbus Master polling for power meters or cabinet controllers. Final register mapping and polling limits should be confirmed during project review.
+Yes. IER-142 is positioned to read power meters, generator controllers and ATS controllers over RS485 Modbus.
 
 ### Can it control a generator?
 

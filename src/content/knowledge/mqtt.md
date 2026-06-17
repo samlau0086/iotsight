@@ -21,9 +21,9 @@ MQTT is useful for remote monitoring because:
 - Gateways can publish telemetry without every dashboard directly polling field devices.
 - Topic structure can separate sites, devices, measurement types, and events.
 - Payloads can be designed for dashboards, alarms, and data storage.
-- Reconnect behavior can be handled at the gateway and broker layer after firmware confirmation.
+- Reconnect behavior can be handled at the gateway and broker layer to improve system resilience.
 
-For first-generation IoTEdges planning, baseline gateway pages should focus on Modbus collection and MQTT telemetry. Advanced claims such as certificate workflows, offline buffering, or exact throughput should stay confirmed during project engineering review.
+For baseline IoTEdges gateway positioning, product pages should focus on Modbus collection and MQTT telemetry. Advanced claims such as certificate workflows, offline buffering, or exact throughput should be tied to the final datasheet and deployment scope.
 
 ## MQTT Topic Planning
 
@@ -36,17 +36,17 @@ A practical topic structure should be predictable and easy to maintain. Example 
 | Data Type | `telemetry` |
 | Event Type | `alarm` |
 
-The exact topic format should be defined together with the dashboard and firmware implementation. Avoid publishing fixed topic promises before the firmware interface is confirmed.
+The exact topic format should be defined together with the dashboard and firmware implementation. Avoid publishing fixed topic promises before the interface is finalized.
 
 ## Ethernet and WiFi Gateway Paths
 
 The [IEG-100 Ethernet Industrial IoT Gateway](/products/ieg-100-ethernet-industrial-iot-gateway) is the safest product reference for wired LAN deployments.
 
-The [IEG-120 WiFi Industrial IoT Gateway](/products/ieg-120-wifi-industrial-iot-gateway) is the WiFi model for indoor wireless LAN deployments. WiFi range, RF behavior, certification, and reconnect behavior should remain confirmed during project engineering review.
+The [IEG-120 WiFi Industrial IoT Gateway](/products/ieg-120-wifi-industrial-iot-gateway) is the WiFi model for indoor wireless LAN deployments.
 
 ## MQTT and Security
 
 MQTT security depends on the full deployment workflow, not just the protocol name. Device identity, broker authentication, credential rotation, TLS configuration, firewall rules, and network segmentation must be implemented and tested as a system.
 
-Public product pages should describe security capabilities only after firmware, broker onboarding, and operating procedures are validated.
+Public product pages should describe security capabilities according to the released firmware behavior, broker onboarding flow and operating procedures.
 

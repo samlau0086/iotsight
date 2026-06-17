@@ -14,22 +14,22 @@ order: 2
 
 IEIO-100 is designed as a wired Modbus Remote IO module family for distributed industrial signal collection and control. The first-generation product direction separates IO types into focused variants instead of forcing every signal type into one overloaded SKU.
 
-Exact register behavior, relay rating, analog accuracy, output load capability and RS485 protection levels are confirmed during project engineering review.
+The IEIO-100 family is intended for projects that need clean Modbus-based IO expansion close to field devices, cabinets and machine signals.
 
 ## First-Generation Variants
 
 | Variant | Target IO Profile | Configuration Notes |
 | --- | --- | --- |
-| IEIO-100-DI8 | 8 digital inputs | Input mode and threshold engineering confirmation |
-| IEIO-100-DO8 | 8 digital outputs or relay outputs | Output type and rating engineering confirmation |
-| IEIO-100-AI4 | 4 analog inputs | Signal mode and accuracy engineering confirmation |
-| IEIO-100-AO4 | 4 analog outputs | Output range, load and accuracy engineering confirmation |
+| IEIO-100-DI8 | 8 digital inputs | Best fit for contact, alarm and status monitoring |
+| IEIO-100-DO8 | 8 digital outputs or relay outputs | Best fit for output signaling and relay interfacing |
+| IEIO-100-AI4 | 4 analog inputs | Best fit for process transmitters and analog sensors |
+| IEIO-100-AO4 | 4 analog outputs | Best fit for analog setpoint and control output use |
 
 Second-wave variants may include mixed digital IO and mixed analog IO modules after the first-generation direction is validated.
 
 ## Modbus Integration
 
-RS485 Modbus RTU is the baseline protocol target for IEIO-100. A register map is handled through firmware and project review before final integration.
+RS485 Modbus RTU is the baseline protocol for IEIO-100, making it suitable for RTUs, gateways, PLCs and SCADA masters that already use Modbus networks.
 
 ## Where IEIO-100 Fits
 
@@ -78,15 +78,15 @@ No. IEIO-100 is designed as a Modbus Remote IO module. MQTT publishing belongs t
 
 ### Is the register map final?
 
-Register details depend on firmware and project review.
+Register details should follow the released register map for the selected variant.
 
 ### Which variant is designed for 4-20mA sensors?
 
-IEIO-100-AI4 is the target analog input variant. Exact signal modes and accuracy are confirmed during project engineering review.
+IEIO-100-AI4 is the analog input variant for 4-20mA and similar process signals.
 
 ### Can IEIO-100 control motors directly?
 
-IEIO-100 is intended for signal output and interposing relays, not direct motor power control. Output ratings and application limits should be confirmed during project review.
+IEIO-100 is intended for signal output and interposing relays, not direct motor power control.
 
 
 

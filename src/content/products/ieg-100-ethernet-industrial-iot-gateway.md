@@ -12,18 +12,18 @@ order: 1
 
 ## Ethernet Gateway For Wired Industrial Sites
 
-IEG-100 is designed as an Ethernet-only industrial IoT gateway for wired LAN and cabinet deployments. Its intended role is to collect data from Modbus field devices and publish telemetry to MQTT-based monitoring systems after firmware confirmation.
+IEG-100 is an Ethernet-only industrial IoT gateway for wired LAN and cabinet deployments. It is built to collect data from Modbus field devices and publish telemetry to MQTT-based monitoring systems in factory, energy and utility-monitoring projects.
 
-This product brief describes target configurations for project discussion and application matching.
+The page below describes the standard application fit, architecture and selection logic for buyers comparing Ethernet gateway options.
 
 ## Architecture
 
 | Layer | Role | Configuration Notes |
 | --- | --- | --- |
-| Ethernet | Wired uplink and local network connection | Project engineering confirmation |
-| RS485 | Modbus RTU field interface target | Isolation and protection should be confirmed during project review |
-| Modbus TCP | Ethernet device polling target | firmware confirmation required |
-| MQTT | Telemetry publishing target | Payload and broker behavior should be confirmed during project review |
+| Ethernet | Wired uplink and local network connection | Best fit for control cabinets, local LANs and equipment rooms |
+| RS485 | Modbus RTU field interface target | Standard fieldbus path for meters, inverters and instruments |
+| Modbus TCP | Ethernet device polling target | Suitable for PLCs, meters and networked controllers |
+| MQTT | Telemetry publishing target | Suitable for dashboard, broker and cloud telemetry workflows |
 
 IEG-100 should not be positioned as a 4G, WiFi or LoRa gateway. Those uplinks belong to separate IoTEdges model families.
 
@@ -38,7 +38,7 @@ IEG-100 should not be positioned as a 4G, WiFi or LoRa gateway. Those uplinks be
 
 ## Product Boundary
 
-IEG-100 is a baseline gateway, not an advanced edge gateway. OPC UA, BACnet, CAN, remote write/control, TLS, offline buffering and exact point-count limits are handled as project-specific options after capability confirmation.
+IEG-100 is a baseline gateway, not an advanced multi-protocol edge computer. Buyers that need OPC UA, BACnet, CAN, remote write/control, advanced edge logic or larger protocol scope should evaluate a higher-tier edge gateway path.
 
 ## Compatible Accessories
 
@@ -78,11 +78,11 @@ No. WiFi and LoRaWAN are separate product families.
 
 ### Does IEG-100 support OPC UA?
 
-Not as a baseline IEG-100 claim. Advanced protocols belong to later edge gateway models after engineering confirmation.
+Not in the baseline IEG-100 scope. Advanced protocols belong to higher-tier edge gateway models.
 
 ### Can I publish exact device count or polling speed?
 
-Exact values are confirmed during firmware and prototype review.
+Exact values should follow the final datasheet and test results for the selected project version.
 
 
 

@@ -12,25 +12,25 @@ order: 7
 
 ## 4G Remote Relay RTU For Field Control
 
-IER-140 is designed as a 4G LTE Cat1 remote relay RTU for sites that need simple remote monitoring and control without wired internet. Its intended role is to collect digital input status, control relay outputs, communicate with RS485 Modbus devices and publish data to MQTT or an IoTEdges web dashboard.
+IER-140 is a 4G LTE Cat1 remote relay RTU for sites that need remote monitoring and relay-style control without wired internet. It combines digital inputs, relay outputs, RS485 Modbus integration and cloud connectivity for pumps, valves, cabinets, generators, alarms and remote equipment.
 
-This product brief describes target configurations for project discussion and application matching.
+This page describes the standard product role, IO baseline and deployment fit for industrial buyers comparing 4G relay RTUs.
 
 ## Product Role
 
 | Function Area | Role | Configuration Notes |
 | --- | --- | --- |
-| 4G LTE Cat1 | Primary wireless uplink for remote sites | Module, band and carrier confirmation |
-| MQTT | Telemetry publishing and command workflow target | Topic, QoS, retry and security behavior should be confirmed during project review |
-| Web dashboard | Remote status, control and configuration target | Dashboard workflow and permission model should be confirmed during project review |
-| Digital input | 2DI for status, alarm or dry-contact signals | Input type and pulse behavior should be confirmed during project review |
-| Digital output | 2DO or relay outputs for remote control | Output type and contact rating should be confirmed during project review |
-| RS485 | Local fieldbus interface | Isolation, surge and wiring behavior should be confirmed during project review |
-| Modbus Master | Poll meters, IO modules, controllers or instruments | Register mapping and polling limits should be confirmed during project review |
-| Modbus Slave | Expose RTU data to local master systems | Addressing and register map should be confirmed during project review |
-| Scheduled control | Time-based relay control target | Time sync, timezone and fail-safe behavior should be confirmed during project review |
-| Alarm push | Event notification target for dashboard, email, SMS or webhook | Channel and escalation behavior should be confirmed during project review |
-| OTA upgrade | Remote firmware upgrade target | Rollback, security and recovery flow should be confirmed during project review |
+| 4G LTE Cat1 | Primary wireless uplink for remote sites | Single-uplink cellular architecture for distributed deployments |
+| MQTT | Telemetry publishing and command workflow target | Suitable for broker, dashboard and cloud telemetry workflows |
+| Web dashboard | Remote status, control and configuration target | Suitable for fleet visibility and operator access |
+| Digital input | 2DI for status, alarm or dry-contact signals | Typical use: status feedback, alarm contact and cabinet signals |
+| Digital output | 2DO or relay outputs for remote control | Typical use: pump, valve, light or auxiliary relay control |
+| RS485 | Local fieldbus interface | Standard Modbus RTU integration path |
+| Modbus Master | Poll meters, IO modules, controllers or instruments | Suitable for local telemetry expansion |
+| Modbus Slave | Expose RTU data to local master systems | Suitable for local integration or supervisory polling |
+| Scheduled control | Time-based relay control target | Suitable for routine control and timed operations |
+| Alarm push | Event notification target for dashboard, email, SMS or webhook | Suitable for status change and exception handling |
+| OTA upgrade | Remote firmware upgrade target | Suitable for remote lifecycle management |
 
 ## IO Baseline
 
@@ -73,7 +73,7 @@ Field contacts connect to the 2DI inputs. Controlled equipment connects through 
 
 IER-140 should not be described as a safety PLC, emergency shutdown controller, certified fire alarm interface, elevator controller, medical device controller or grid protection relay. Any high-risk control use must rely on local safety circuits and validated fail-safe design.
 
-Exact LTE bands, relay contact rating, isolation voltage, surge level, IP rating, operating temperature, power input range, SIM compatibility, MQTT security profile or OTA recovery behavior should be confirmed during project engineering review.
+Exact LTE bands, relay contact rating, isolation voltage, surge level, IP rating, operating temperature, power input range, SIM compatibility and MQTT security profile should follow the released hardware version and deployment scope.
 
 ## Compatible Accessories
 
@@ -108,11 +108,11 @@ IER-140 is positioned as an RTU because it includes local IO for direct field co
 
 ### Does IER-140 support both uplink and downlink MQTT?
 
-The target direction includes MQTT telemetry uplink and confirmed command downlink for relay control, schedule updates and configuration. Topic format, security behavior and command acknowledgement are confirmed during firmware and project review.
+Yes. IER-140 is positioned for MQTT telemetry uplink and controlled downlink commands for relay control, schedule updates and configuration workflows.
 
 ### Can it control pumps and valves directly?
 
-It is designed for relay-style control of pumps, valves and similar equipment, while relay rating, wiring method and fail-safe behavior should be confirmed for each project.
+It is designed for relay-style control of pumps, valves and similar equipment through the correct control circuit, contactor or interface layer.
 
 ### Does it include WiFi or LoRa?
 

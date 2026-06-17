@@ -1,7 +1,7 @@
 ---
 id: how-to-choose-modbus-mqtt-gateway
 title: How to Choose the Right Modbus to MQTT Gateway
-excerpt: A practical guide for selecting an industrial gateway that connects Modbus field equipment to MQTT dashboards without overclaiming unvalidated features.
+excerpt: A practical guide for selecting an industrial gateway that connects Modbus field equipment to MQTT dashboards in real industrial projects.
 date: April 02, 2024
 author: Product Management
 category: Hardware Guide
@@ -30,7 +30,7 @@ Industrial gateways are usually installed in control cabinets, machine panels, p
 - **Documented power input and grounding design** for the target environment.
 - **Validated serial and Ethernet behavior** under the expected device count and polling interval.
 
-Exact temperature range, isolation design, EMC performance, and surge protection should be confirmed from the final datasheet and test report, not copied from a generic gateway checklist.
+Temperature range, isolation design, EMC performance, and surge protection should be taken from the final datasheet and test report, not copied from a generic gateway checklist.
 
 ## Step 3: Choose One Uplink Path
 
@@ -40,7 +40,7 @@ How will the gateway send data to the dashboard or cloud broker? Depending on th
 - **WiFi** for indoor sites where cable installation is difficult.
 - **4G/LTE cellular** for remote stations where local networks are unavailable.
 
-Keep wireless uplinks separated by model. A practical product matrix should avoid mixing WiFi, 4G, and LoRa in one device unless there is a specific engineering reason. IoTEdges currently separates the [IEG-100 Ethernet gateway](/products/ieg-100-ethernet-industrial-iot-gateway) and [IEG-120 WiFi gateway](/products/ieg-120-wifi-industrial-iot-gateway), while 4G and LoRa pages should wait for module, band, and RF validation.
+Keep wireless uplinks separated by model. A practical product matrix should avoid mixing WiFi, 4G, and LoRa in one device unless there is a specific engineering reason. IoTEdges currently separates the [IEG-100 Ethernet gateway](/products/ieg-100-ethernet-industrial-iot-gateway) and [IEG-120 WiFi gateway](/products/ieg-120-wifi-industrial-iot-gateway), while 4G and LoRa models should be published with their own clear hardware scope.
 
 ## Step 4: Treat Security as a Deployment Workflow
 

@@ -12,26 +12,26 @@ order: 5
 
 ## WiFi RTU For Indoor Monitoring
 
-IER-120 is designed as a WiFi remote monitoring RTU for indoor facilities, equipment rooms and cabinets where a reliable wireless LAN is available. Its intended role is to collect local IO and Modbus data, then send telemetry after firmware and WiFi confirmation.
+IER-120 is a WiFi remote monitoring RTU for indoor facilities, equipment rooms and cabinets where a reliable wireless LAN is available. It combines local IO and Modbus communications for alarm monitoring, utility telemetry and machine-status collection in indoor deployments.
 
-This product brief describes target configurations for project discussion and application matching.
+This page describes the standard IO baseline, network scope and application fit for projects that need a WiFi RTU rather than a pure gateway.
 
 ## IO Baseline
 
 | IO Type | Target Count | Configuration Notes |
 | --- | --- | --- |
-| Digital input | 4 | Input mode and pulse behavior should be confirmed during project review |
-| Digital output or relay | 2 | Output type and rating should be confirmed during project review |
-| Analog input | 2 | 4-20mA and/or 0-10V behavior should be confirmed during project review |
+| Digital input | 4 | Suitable for status, alarm and contact monitoring |
+| Digital output or relay | 2 | Suitable for relay-style control and auxiliary outputs |
+| Analog input | 2 | Suitable for 4-20mA or 0-10V process signals |
 
 ## Network And Protocol Direction
 
 | Layer | Role | Configuration Notes |
 | --- | --- | --- |
-| WiFi | Indoor wireless uplink target | Module and RF confirmation |
-| RS485 | Modbus RTU field communication target | Project engineering confirmation |
-| MQTT | Telemetry upload target | Publish and reconnect behavior should be confirmed during project review |
-| Ethernet | Setup or local interface if included | Final Project engineering confirmation |
+| WiFi | Indoor wireless uplink target | Best fit for sites with stable local WiFi coverage |
+| RS485 | Modbus RTU field communication target | Standard fieldbus path for downstream devices |
+| MQTT | Telemetry upload target | Suitable for dashboard, broker and cloud visibility |
+| Ethernet | Setup or local interface if included | Useful for setup or hybrid cabinet integration |
 
 IER-120 should not be positioned as a 4G RTU, LoRa RTU or outdoor long-range wireless product.
 
@@ -54,7 +54,7 @@ IER-120 should not be positioned as a 4G RTU, LoRa RTU or outdoor long-range wir
 
 ## Product Boundary
 
-Confirm 4G, LoRa, 5G, outdoor long-range wireless behavior, hazardous-area certification, relay rating, analog accuracy, RS485 isolation or WiFi certification until those capabilities are validated.
+4G, LoRa, 5G, outdoor long-range wireless behavior, hazardous-area certification and specialized industrial approvals are outside the baseline IER-120 scope.
 
 ## Compatible Accessories
 
@@ -73,6 +73,7 @@ See [Industrial IoT Accessories](/accessories), [DIN Rail Power Supply Guide](/k
 - [Modbus for Industrial IoT Gateways and RTUs](/knowledge/modbus)
 - [MQTT in Industrial IoT Monitoring](/knowledge/mqtt)
 - [RS485 Wiring for Modbus RTU Devices](/knowledge/rs485)
+- [WiFi Industrial IoT Gateway: When to Use WiFi Instead of Ethernet or 4G](/knowledge/wifi-industrial-iot-gateway)
 
 ## FAQ
 
@@ -90,7 +91,7 @@ The planning baseline is 4DI + 2DO/relay + 2AI.
 
 ### Can exact WiFi range be published now?
 
-No. Range depends on module, antenna, enclosure, site layout and RF conditions, so it should be confirmed during project review.
+WiFi range should always be checked against the installed antenna, enclosure, site layout and RF environment.
 
 
 
