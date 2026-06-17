@@ -19,10 +19,11 @@ import SolutionDetail from './pages/SolutionDetail';
 import ScrollToTop from './components/ScrollToTop';
 import AnalyticsPageView from './components/AnalyticsPageView';
 import { AIChatWidget } from './components/AIChatWidget';
+import { ThemeProvider } from './components/ThemeProvider';
 
 export function AppLayout() {
   return (
-    <>
+    <ThemeProvider>
       <ScrollToTop />
       <AnalyticsPageView />
       <div className="flex flex-col min-h-screen">
@@ -49,7 +50,7 @@ export function AppLayout() {
         <Footer />
         <AIChatWidget />
       </div>
-    </>
+    </ThemeProvider>
   );
 }
 

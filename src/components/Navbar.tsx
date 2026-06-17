@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X } from 'lucide-react';
+import { Menu, Moon, Sun, X } from 'lucide-react';
 import { cn } from '../lib/utils';
+import { useTheme } from './ThemeProvider';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
+  const { theme, toggleTheme } = useTheme();
 
   const navigation = [
     { name: 'Home', href: '/' },
@@ -64,6 +66,15 @@ export default function Navbar() {
                 </Link>
               ))}
             </nav>
+            <button
+              type="button"
+              onClick={toggleTheme}
+              aria-label={theme === 'light' ? 'Switch to dark theme' : 'Switch to light theme'}
+              title={theme === 'light' ? 'Switch to dark theme' : 'Switch to light theme'}
+              className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-slate-700 bg-slate-900/80 text-slate-300 transition-all hover:bg-slate-800 hover:text-white"
+            >
+              {theme === 'light' ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
+            </button>
             <Link
               to="/contact"
               data-analytics-event="cta_click"
@@ -77,7 +88,16 @@ export default function Navbar() {
           </div>
 
           {/* Mobile menu button */}
-          <div className="flex items-center lg:hidden">
+          <div className="flex items-center gap-2 lg:hidden">
+            <button
+              type="button"
+              onClick={toggleTheme}
+              aria-label={theme === 'light' ? 'Switch to dark theme' : 'Switch to light theme'}
+              title={theme === 'light' ? 'Switch to dark theme' : 'Switch to light theme'}
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-700 bg-slate-900/80 text-slate-300 transition-all hover:bg-slate-800 hover:text-white"
+            >
+              {theme === 'light' ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
+            </button>
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="text-slate-400 hover:text-white focus:outline-none"

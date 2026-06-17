@@ -1,4 +1,5 @@
 import { useMemo, useState, type FormEvent } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { Mail, Phone, MapPin, Send } from 'lucide-react';
 import { trackEvent } from '../lib/analytics';
 
@@ -60,12 +61,18 @@ const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const whatsappPattern = /^\+?[0-9][0-9\s().-]{6,24}$/;
 
 export default function Contact() {
+  const [searchParams] = useSearchParams();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [submitError, setSubmitError] = useState('');
   const [formStartedAt, setFormStartedAt] = useState(() => Date.now());
 
   const countryOptions = useMemo(() => countries, []);
+  const lockedInquiryType = String(searchParams.get('type') || '').trim();
+  const lockedInquirySubject = String(searchParams.get('subject') || '').trim();
+  const lockedInquirySource = String(searchParams.get('source') || '').trim();
+  const hasLockedInquiryContext = Boolean(lockedInquiryType || lockedInquirySubject);
+  const resolvedApplicationType = lockedInquiryType || '';
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -79,6 +86,16 @@ export default function Contact() {
     const applicationType = String(formData.get('application_type') || '').trim();
     const message = String(formData.get('message') || '').trim();
     const websiteUrl = String(formData.get('website_url') || '').trim();
+    const enrichedMessage = hasLockedInquiryContext
+      ? [
+          'Inquiry Context',
+          lockedInquiryType ? `Type: ${lockedInquiryType}` : '',
+          lockedInquirySubject ? `Subject: ${lockedInquirySubject}` : '',
+          lockedInquirySource ? `Source: ${lockedInquirySource}` : '',
+          '',
+          message,
+        ].filter(Boolean).join('\n')
+      : message;
 
     setSubmitError('');
 
@@ -114,7 +131,7 @@ export default function Contact() {
           email,
           whatsapp,
           country,
-          message,
+          message: enrichedMessage,
           application_type: applicationType,
           _formStartedAt: formStartedAt,
           website_url: websiteUrl,
@@ -134,6 +151,7 @@ export default function Contact() {
         form_name: 'contact_quote',
         application_type: applicationType,
         country,
+        inquiry_subject: lockedInquirySubject || undefined,
       });
     } catch (error) {
       console.error('Quote request submission failed:', error);
@@ -231,6 +249,32 @@ export default function Contact() {
               <form onSubmit={handleSubmit} className="space-y-6">
                 <input type="text" name="website_url" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" />
                 <input type="hidden" name="_formStartedAt" value={formStartedAt} />
+                {hasLockedInquiryContext && (
+                  <section className="rounded-lg border border-blue-500/20 bg-blue-500/10 p-5">
+                    <h3 className="mb-4 text-lg font-bold text-white" style={{ fontFamily: 'var(--font-display)' }}>Inquiry Context</h3>
+                    <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                      {lockedInquirySubject && (
+                        <div>
+                          <span className="mb-1 block text-xs font-bold uppercase tracking-widest text-blue-300">Subject</span>
+                          <div className="rounded-md border border-slate-600 bg-slate-900 px-3 py-2 text-sm text-white">
+                            {lockedInquirySubject}
+                          </div>
+                        </div>
+                      )}
+                      {lockedInquiryType && (
+                        <div>
+                          <span className="mb-1 block text-xs font-bold uppercase tracking-widest text-blue-300">Inquiry Type</span>
+                          <div className="rounded-md border border-slate-600 bg-slate-900 px-3 py-2 text-sm text-white">
+                            {lockedInquiryType}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                    <p className="mt-4 text-sm leading-relaxed text-slate-300">
+                      This inquiry is linked to the current page and cannot be changed here.
+                    </p>
+                  </section>
+                )}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <label className="block text-sm font-medium text-slate-300 mb-1">Name *</label>
@@ -265,17 +309,26 @@ export default function Contact() {
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-slate-300 mb-1">Application Type *</label>
-                    <select required name="application_type" className="w-full rounded-md border border-slate-600 bg-slate-900 px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent appearance-none">
-                      <option value="">Select target application...</option>
-                      <option value="Factory Energy Monitoring">Factory Energy Monitoring</option>
-                      <option value="Solar Monitoring">Solar Monitoring</option>
-                      <option value="Water Monitoring">Water Monitoring</option>
-                      <option value="Smart Agriculture">Smart Agriculture</option>
-                      <option value="Gate Access Control">Gate Access Control</option>
-                      <option value="Remote IO / RTU Project">Remote IO / RTU Project</option>
-                      <option value="Modbus MQTT Gateway">Modbus MQTT Gateway</option>
-                      <option value="Other IoT Use Case">Other IoT Use Case</option>
-                    </select>
+                    {resolvedApplicationType ? (
+                      <>
+                        <input type="hidden" name="application_type" value={resolvedApplicationType} />
+                        <div className="w-full rounded-md border border-slate-600 bg-slate-900 px-3 py-2 text-white">
+                          {resolvedApplicationType}
+                        </div>
+                      </>
+                    ) : (
+                      <select required name="application_type" className="w-full rounded-md border border-slate-600 bg-slate-900 px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent appearance-none">
+                        <option value="">Select target application...</option>
+                        <option value="Factory Energy Monitoring">Factory Energy Monitoring</option>
+                        <option value="Solar Monitoring">Solar Monitoring</option>
+                        <option value="Water Monitoring">Water Monitoring</option>
+                        <option value="Smart Agriculture">Smart Agriculture</option>
+                        <option value="Gate Access Control">Gate Access Control</option>
+                        <option value="Remote IO / RTU Project">Remote IO / RTU Project</option>
+                        <option value="Modbus MQTT Gateway">Modbus MQTT Gateway</option>
+                        <option value="Other IoT Use Case">Other IoT Use Case</option>
+                      </select>
+                    )}
                   </div>
                 </div>
 
