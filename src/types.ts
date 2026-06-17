@@ -16,6 +16,30 @@ export interface ProductSpec {
   value: string;
 }
 
+export interface ProductSpecGroup {
+  title: string;
+  specs: ProductSpec[];
+}
+
+export interface ProductSelectionGuide {
+  chooseWhen: string[];
+  notFitWhen: string[];
+  compareLinks: Array<{
+    href: string;
+    label: string;
+  }>;
+}
+
+export interface ProductBomGroup {
+  title: string;
+  items: string[];
+}
+
+export interface ProductFaqItem {
+  question: string;
+  answer: string;
+}
+
 export interface ProductPage {
   id: string;
   title: string;
@@ -27,7 +51,11 @@ export interface ProductPage {
   primaryKeyword: string;
   route: string;
   order: number;
+  specGroups: ProductSpecGroup[];
   specs: ProductSpec[];
+  selectionGuide?: ProductSelectionGuide;
+  bomGroups: ProductBomGroup[];
+  preSalesFaq: ProductFaqItem[];
 }
 
 export interface KnowledgePage {

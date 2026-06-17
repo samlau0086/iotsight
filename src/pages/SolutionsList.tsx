@@ -71,6 +71,20 @@ export default function SolutionsList() {
                 <p className="text-slate-400 mb-6 leading-relaxed flex-1 text-sm">
                   {solution.description}
                 </p>
+                <div className="mb-6 grid grid-cols-1 gap-2">
+                  <div className="rounded-md border border-slate-700 bg-slate-900 px-3 py-2">
+                    <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500">Recommended Product Type</div>
+                    <div className="mt-1 text-xs leading-relaxed text-slate-300">{solution.recommendedProductType}</div>
+                  </div>
+                  <div className="rounded-md border border-slate-700 bg-slate-900 px-3 py-2">
+                    <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500">Recommended Uplink</div>
+                    <div className="mt-1 text-xs leading-relaxed text-slate-300">{solution.recommendedUplink}</div>
+                  </div>
+                  <div className="rounded-md border border-slate-700 bg-slate-900 px-3 py-2">
+                    <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500">Typical Deployment</div>
+                    <div className="mt-1 text-xs leading-relaxed text-slate-300">{solution.deploymentEnvironment}</div>
+                  </div>
+                </div>
                 
                 <div>
                   <Link 

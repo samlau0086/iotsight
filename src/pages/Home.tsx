@@ -216,18 +216,22 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-              { title: "AI IoT Dashboard", desc: "Industrial operations dashboard for telemetry, SCADA, workflows, remote control and AI Copilot.", icon: Bot, href: "/products/ai-iot-dashboard-industrial-operations-platform" },
-              { title: "IEG-100 Ethernet Gateway", desc: "Ethernet gateway for Modbus data collection and MQTT telemetry.", icon: Server, href: "/products/ieg-100-ethernet-industrial-iot-gateway" },
-              { title: "IEIO-100 Remote IO", desc: "Modbus Remote IO family for DI, DO/relay, AI, and AO expansion.", icon: Activity, href: "/products/ieio-100-modbus-remote-io-module" },
-              { title: "IER-100 Ethernet RTU", desc: "Wired RTU with local IO and Modbus connectivity targets.", icon: Zap, href: "/products/ier-100-ethernet-industrial-rtu" },
-              { title: "IEG-120 WiFi Gateway", desc: "Indoor WiFi gateway for Modbus-to-MQTT applications.", icon: Cloud, href: "/products/ieg-120-wifi-industrial-iot-gateway" },
-              { title: "IEAC-140 Gate Opener", desc: "4G-first remote access controller for European gate and door projects.", icon: ShieldCheck, href: "/products/ieac-140-4g-gsm-gate-opener" },
-              { title: "IER-140 4G Relay RTU", desc: "4G LTE Cat1 remote relay RTU with 2DI, 2DO, RS485 and MQTT control.", icon: RadioTower, href: "/products/ier-140-4g-remote-relay-rtu" },
-              { title: "IER-141 Pump & Valve RTU", desc: "4G RTU for pump, valve and irrigation cabinets with 4DI, 4DO and 2AI.", icon: Droplets, href: "/products/ier-141-4g-pump-valve-rtu" },
-              { title: "IER-142 Power Cabinet RTU", desc: "4G cabinet RTU for dry-contact alarms, generator rooms and power panels.", icon: Activity, href: "/products/ier-142-4g-power-cabinet-rtu" }
+              { title: "AI IoT Dashboard", desc: "Industrial operations dashboard for telemetry, SCADA, workflows, remote control and AI Copilot.", metaA: "Software platform", metaB: "Best for multi-site operations", icon: Bot, href: "/products/ai-iot-dashboard-industrial-operations-platform" },
+              { title: "IEG-100 Ethernet Gateway", desc: "Ethernet gateway for Modbus data collection and MQTT telemetry.", metaA: "Ethernet", metaB: "Best for LAN cabinets", icon: Server, href: "/products/ieg-100-ethernet-industrial-iot-gateway" },
+              { title: "IEIO-100 Remote IO", desc: "Modbus Remote IO family for DI, DO/relay, AI, and AO expansion.", metaA: "RS485 Modbus RTU", metaB: "Best for I/O expansion", icon: Activity, href: "/products/ieio-100-modbus-remote-io-module" },
+              { title: "IER-100 Ethernet RTU", desc: "Wired RTU with local IO and Modbus connectivity targets.", metaA: "Ethernet", metaB: "4DI / 2DO / 2AI", icon: Zap, href: "/products/ier-100-ethernet-industrial-rtu" },
+              { title: "IEG-120 WiFi Gateway", desc: "Indoor WiFi gateway for Modbus-to-MQTT applications.", metaA: "WiFi", metaB: "Best for indoor retrofit", icon: Cloud, href: "/products/ieg-120-wifi-industrial-iot-gateway" },
+              { title: "IEAC-140 Gate Opener", desc: "4G-first remote access controller for European gate and door projects.", metaA: "4G", metaB: "Best for gates and barriers", icon: ShieldCheck, href: "/products/ieac-140-4g-gsm-gate-opener" },
+              { title: "IER-140 4G Relay RTU", desc: "4G LTE Cat1 remote relay RTU with 2DI, 2DO, RS485 and MQTT control.", metaA: "4G LTE Cat1", metaB: "2DI / 2DO / RS485", icon: RadioTower, href: "/products/ier-140-4g-remote-relay-rtu" },
+              { title: "IER-141 Pump & Valve RTU", desc: "4G RTU for pump, valve and irrigation cabinets with 4DI, 4DO and 2AI.", metaA: "4G LTE Cat1", metaB: "4DI / 4DO / 2AI", icon: Droplets, href: "/products/ier-141-4g-pump-valve-rtu" },
+              { title: "IER-142 Power Cabinet RTU", desc: "4G cabinet RTU for dry-contact alarms, generator rooms and power panels.", metaA: "4G LTE Cat1", metaB: "8DI / 4DO / RS485", icon: Activity, href: "/products/ier-142-4g-power-cabinet-rtu" }
             ].map((item, i) => (
               <Link key={i} to={item.href} className="bg-slate-900 border border-slate-800 rounded-xl p-6 hover:border-blue-500/50 transition block">
                 <item.icon className="w-8 h-8 text-blue-400 mb-6" />
+                <div className="mb-4 flex flex-wrap gap-2">
+                  <span className="rounded-full border border-slate-700 bg-slate-950 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-slate-300">{item.metaA}</span>
+                  <span className="rounded-full border border-blue-500/30 bg-blue-500/10 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-blue-300">{item.metaB}</span>
+                </div>
                 <h3 className="font-bold text-lg text-white mb-2">{item.title}</h3>
                 <p className="text-slate-400 text-sm leading-relaxed">{item.desc}</p>
               </Link>

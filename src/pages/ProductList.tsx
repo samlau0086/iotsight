@@ -1,6 +1,33 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight, Cable, Cpu, Network, ShieldCheck } from 'lucide-react';
 import { productPages } from '../data/products';
+import { ProductPage } from '../types';
+
+const getSpecValue = (product: ProductPage, labels: string[]) => {
+  const spec = product.specs.find((item) => labels.includes(item.label));
+  return spec?.value;
+};
+
+const getProductListMeta = (product: ProductPage) => {
+  const uplink =
+    getSpecValue(product, ['Uplink', 'Primary Uplink', 'Deployment']) ||
+    (product.category.includes('Software') ? 'Software platform' : 'Project-specific');
+
+  const bestFor =
+    getSpecValue(product, ['Best Fit', 'Target Market', 'Typical Users', 'Primary Role']) ||
+    product.excerpt;
+
+  const ioParts = [
+    getSpecValue(product, ['Digital Inputs']),
+    getSpecValue(product, ['Digital Outputs', 'Relay Outputs']),
+    getSpecValue(product, ['Analog Inputs']),
+    getSpecValue(product, ['Field Interface', 'Interface']),
+  ].filter(Boolean);
+
+  const ioSummary = ioParts.length > 0 ? ioParts.join(' / ') : 'See full model details';
+
+  return { uplink, bestFor, ioSummary };
+};
 
 export default function ProductList() {
   return (
@@ -68,33 +95,51 @@ export default function ProductList() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {productPages.map((product) => (
-            <article key={product.id} className="bg-slate-900 border border-slate-800 rounded-lg p-7 flex flex-col hover:border-blue-500/50 transition-colors">
-              <div className="flex items-center justify-between gap-4 mb-5">
-                <span className="text-[10px] uppercase tracking-[0.2em] text-blue-400 font-bold">{product.category}</span>
-                <span className="text-[10px] uppercase tracking-[0.18em] text-slate-500 font-bold">{product.model}</span>
-              </div>
-              <h2 className="text-2xl font-bold text-white mb-4" style={{ fontFamily: 'var(--font-display)' }}>
-                <Link to={`/products/${product.id}`} className="hover:text-blue-400 transition-colors">
-                  {product.title}
-                </Link>
-              </h2>
-              <p className="text-slate-400 text-sm leading-relaxed mb-8 flex-1">{product.excerpt}</p>
-              {product.specs.length > 0 && (
-                <div className="mb-6 grid grid-cols-1 gap-2">
-                  {product.specs.slice(0, 3).map((spec) => (
-                    <div key={`${product.id}-${spec.label}`} className="rounded-md border border-slate-800 bg-slate-950 px-3 py-2">
-                      <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500">{spec.label}</div>
-                      <div className="mt-1 text-xs leading-relaxed text-slate-300">{spec.value}</div>
-                    </div>
-                  ))}
+          {productPages.map((product) => {
+            const meta = getProductListMeta(product);
+
+            return (
+              <article key={product.id} className="bg-slate-900 border border-slate-800 rounded-lg p-7 flex flex-col hover:border-blue-500/50 transition-colors">
+                <div className="flex items-center justify-between gap-4 mb-5">
+                  <span className="text-[10px] uppercase tracking-[0.2em] text-blue-400 font-bold">{product.category}</span>
+                  <span className="text-[10px] uppercase tracking-[0.18em] text-slate-500 font-bold">{product.model}</span>
                 </div>
-              )}
-              <Link to={`/products/${product.id}`} className="inline-flex items-center gap-2 text-xs uppercase tracking-widest font-bold text-blue-400 hover:text-blue-300">
-                View product <ArrowRight className="w-4 h-4" />
-              </Link>
-            </article>
-          ))}
+                <div className="mb-4 flex flex-wrap gap-2">
+                  <span className="rounded-full border border-slate-700 bg-slate-950 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-slate-300">
+                    {meta.uplink}
+                  </span>
+                  <span className="rounded-full border border-blue-500/30 bg-blue-500/10 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-blue-300">
+                    Best for
+                  </span>
+                </div>
+                <h2 className="text-2xl font-bold text-white mb-4" style={{ fontFamily: 'var(--font-display)' }}>
+                  <Link to={`/products/${product.id}`} className="hover:text-blue-400 transition-colors">
+                    {product.title}
+                  </Link>
+                </h2>
+                <p className="text-slate-400 text-sm leading-relaxed mb-5 flex-1">{product.excerpt}</p>
+                <div className="mb-6 grid grid-cols-1 gap-2">
+                  <div className="rounded-md border border-slate-800 bg-slate-950 px-3 py-2">
+                    <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500">Best For</div>
+                    <div className="mt-1 text-xs leading-relaxed text-slate-300">{meta.bestFor}</div>
+                  </div>
+                  <div className="rounded-md border border-slate-800 bg-slate-950 px-3 py-2">
+                    <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500">I/O Summary</div>
+                    <div className="mt-1 text-xs leading-relaxed text-slate-300">{meta.ioSummary}</div>
+                  </div>
+                  {product.specs.length > 0 && (
+                    <div className="rounded-md border border-slate-800 bg-slate-950 px-3 py-2">
+                      <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500">{product.specs[0].label}</div>
+                      <div className="mt-1 text-xs leading-relaxed text-slate-300">{product.specs[0].value}</div>
+                    </div>
+                  )}
+                </div>
+                <Link to={`/products/${product.id}`} className="inline-flex items-center gap-2 text-xs uppercase tracking-widest font-bold text-blue-400 hover:text-blue-300">
+                  View product <ArrowRight className="w-4 h-4" />
+                </Link>
+              </article>
+            );
+          })}
         </div>
       </section>
     </div>

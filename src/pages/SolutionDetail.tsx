@@ -8,6 +8,14 @@ export default function SolutionDetail() {
   const { id } = useParams<{ id: string }>();
   const [isInquiryOpen, setIsInquiryOpen] = useState(false);
   const solution = solutions.find(s => s.id === id);
+  const inquiryChecklist = [
+    'Country and project application',
+    'Number of sites, panels, gates, pumps, or assets',
+    'Preferred uplink such as Ethernet, WiFi, or 4G',
+    'Required field signals such as DI, DO, AI, AO, RS485, or dry contacts',
+    'Existing devices to integrate such as meter, PLC, inverter, VFD, or access controller',
+    'Any OEM branding, dashboard, or deployment preference',
+  ];
 
   if (!solution) {
     return (
@@ -65,6 +73,34 @@ export default function SolutionDetail() {
               <Link to="/products" data-analytics-event="cta_click" data-analytics-category="solution" data-analytics-label={`View Products - ${solution.title}`} data-analytics-destination="/products" className="inline-flex items-center gap-2 px-8 py-4 border border-slate-700 text-white text-xs font-bold uppercase tracking-widest rounded transition-all hover:bg-slate-900">
                 View Products
               </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="border-b border-slate-800 bg-slate-900/60 py-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="mb-5 flex flex-col gap-2">
+            <p className="text-xs font-bold uppercase tracking-[0.24em] text-blue-300">Quick Solution Fit</p>
+            <h2 className="text-2xl font-bold text-white" style={{ fontFamily: 'var(--font-display)' }}>
+              Fast project-matching summary
+            </h2>
+            <p className="max-w-3xl text-sm leading-relaxed text-slate-400">
+              Use these three checkpoints to confirm whether this solution matches the right hardware path, uplink choice, and deployment environment before requesting a quote.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+            <div className="rounded-lg border border-slate-800 bg-slate-950/70 p-5">
+              <div className="mb-2 text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500">Recommended Product Type</div>
+              <div className="text-sm font-medium leading-relaxed text-slate-200">{solution.recommendedProductType}</div>
+            </div>
+            <div className="rounded-lg border border-slate-800 bg-slate-950/70 p-5">
+              <div className="mb-2 text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500">Recommended Uplink</div>
+              <div className="text-sm font-medium leading-relaxed text-slate-200">{solution.recommendedUplink}</div>
+            </div>
+            <div className="rounded-lg border border-slate-800 bg-slate-950/70 p-5">
+              <div className="mb-2 text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500">Typical Deployment</div>
+              <div className="text-sm font-medium leading-relaxed text-slate-200">{solution.deploymentEnvironment}</div>
             </div>
           </div>
         </div>
@@ -223,8 +259,18 @@ export default function SolutionDetail() {
       {/* CTA */}
       <section className="bg-slate-900 py-24 text-center">
         <div className="max-w-3xl mx-auto px-4">
-          <h2 className="text-3xl font-extrabold text-white mb-6 tracking-tight" style={{ fontFamily: 'var(--font-display)' }}>Ready to upgrade your infrastructure?</h2>
-          <p className="mb-10 text-slate-400 font-medium">Contact our technical team to discuss how we can adapt this architecture for your specific integration needs.</p>
+          <h2 className="text-3xl font-extrabold text-white mb-6 tracking-tight" style={{ fontFamily: 'var(--font-display)' }}>Need pricing or project matching?</h2>
+          <p className="mb-10 text-slate-400 font-medium">Share your site, signals, uplink preference, and target devices. We can map this solution to the right IoTEdges hardware and dashboard path.</p>
+          <div className="mb-8 rounded-lg border border-slate-800 bg-slate-950/60 p-5 text-left">
+            <h3 className="mb-3 text-sm font-bold uppercase tracking-[0.2em] text-white">What To Prepare Before Inquiry</h3>
+            <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+              {inquiryChecklist.map((item) => (
+                <div key={item} className="rounded-md border border-slate-800 bg-slate-900 px-3 py-2 text-xs leading-relaxed text-slate-300">
+                  {item}
+                </div>
+              ))}
+            </div>
+          </div>
           <div className="flex justify-center flex-wrap gap-4">
             <button type="button" onClick={() => setIsInquiryOpen(true)} data-analytics-event="cta_click" data-analytics-category="solution" data-analytics-label={`Bottom Inquiry - ${solution.title}`} data-analytics-destination="solution_inquiry_modal" className="bg-blue-600 text-white px-8 py-4 font-bold text-xs uppercase tracking-widest rounded hover:bg-blue-500 transition-all shadow-lg shadow-blue-500/20">Inquire This Solution</button>
             <Link to="/products" data-analytics-event="cta_click" data-analytics-category="solution" data-analytics-label={`Bottom Products - ${solution.title}`} data-analytics-destination="/products" className="border border-slate-700 text-white px-8 py-4 font-bold text-xs uppercase tracking-widest rounded hover:bg-slate-800 transition-all">View Related Products</Link>

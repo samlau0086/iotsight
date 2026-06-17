@@ -1,5 +1,8 @@
 import { ProductPage } from '../types';
 import { productSpecsById } from './productSpecs';
+import { productSelectionGuidesById } from './productSelectionGuides';
+import { productBomGuidesById } from './productBomGuides';
+import { productPreSalesFaqsById } from './productPreSalesFaqs';
 
 const markdownModules = import.meta.glob('../content/products/*.md', {
   eager: true,
@@ -55,7 +58,11 @@ function createProductPage(path: string, markdown: string): ProductPage {
     primaryKeyword: metadata.primaryKeyword || '',
     route: metadata.route || `/products/${metadata.id || fallbackId}`,
     order: Number(metadata.order || 0),
-    specs: productSpecsById[metadata.id || fallbackId] || [],
+    specGroups: (productSpecsById[metadata.id || fallbackId] || []).filter((group) => group.specs.length > 0),
+    specs: (productSpecsById[metadata.id || fallbackId] || []).flatMap((group) => group.specs),
+    selectionGuide: productSelectionGuidesById[metadata.id || fallbackId],
+    bomGroups: productBomGuidesById[metadata.id || fallbackId] || [],
+    preSalesFaq: productPreSalesFaqsById[metadata.id || fallbackId] || [],
   };
 }
 

@@ -5,6 +5,9 @@ export const solutions = [
     id: 'factory-energy',
     title: 'Factory Energy Monitoring',
     description: 'Track power consumption across your entire production line to support energy management, reduce waste, and improve visibility.',
+    recommendedProductType: 'Gateway or RTU',
+    recommendedUplink: 'Ethernet first',
+    deploymentEnvironment: 'Factory cabinets and LAN-connected workshops',
     detailedContent: [
       'In manufacturing environments, understanding and controlling energy consumption is critical. Factory energy monitoring connects Modbus power meters, production assets, and dashboards so teams can see peak demand, hidden waste, and operating patterns.',
       'By capturing real-time metrics across production lines, factory managers can optimize schedules, compare baseline consumption, and prepare better energy management reports.',
@@ -43,6 +46,9 @@ export const solutions = [
     id: 'solar-energy',
     title: 'Solar & Renewable Energy',
     description: 'Monitor inverter data, site conditions, and renewable energy assets with validation-aware gateway architecture.',
+    recommendedProductType: 'Gateway',
+    recommendedUplink: 'Ethernet first',
+    deploymentEnvironment: 'Inverter cabinets and site LAN environments',
     detailedContent: [
       'Managing distributed solar and renewable energy assets requires consistent access to inverter, meter, and site-condition data. A practical monitoring architecture starts by confirming protocol support, cabinet networking, and the required uplink method.',
       'Dashboards can help operators compare production trends, detect abnormal generation, and understand equipment behavior across sites. Control and grid-management functions should remain project-specific and validation-gated.',
@@ -73,6 +79,9 @@ export const solutions = [
     id: 'water-management',
     title: 'Water Management',
     description: 'Remote monitoring for pump stations, tank levels, flow meters, and water quality sensors across distributed sites.',
+    recommendedProductType: 'RTU and Remote IO',
+    recommendedUplink: 'Ethernet or 4G',
+    deploymentEnvironment: 'Pump stations, tanks, distributed utility cabinets',
     detailedContent: [
       'Water distribution and treatment systems need reliable telemetry from pumps, tanks, valves, meters, and water quality sensors. A practical solution starts by mapping local IO, Modbus devices, and uplink availability at each station.',
       'Dashboards can help operators monitor tank levels, pressure trends, pump status, and abnormal events. Automated control should be scoped carefully and validated against the site control philosophy.',
@@ -107,6 +116,9 @@ export const solutions = [
     id: 'smart-agriculture',
     title: 'Smart Agriculture',
     description: 'Track soil moisture, greenhouse climate, and irrigation equipment with an architecture that separates wired, LoRa, WiFi, and 4G paths.',
+    recommendedProductType: 'RTU or Remote IO',
+    recommendedUplink: '4G or wired cabinet path',
+    deploymentEnvironment: 'Greenhouses, irrigation cabinets, remote farm assets',
     detailedContent: [
       'Smart agriculture projects often combine soil sensors, greenhouse climate data, pump stations, irrigation valves, and remote dashboards. The right architecture depends heavily on distance, power availability, and whether the site can use wired cabinets, LoRa, WiFi, or cellular uplinks.',
       'For greenhouses and equipment rooms, wired Remote IO can be a practical first step. Field-wide LoRa or 4G products should remain validation-gated until wireless range, antenna, power, and regional frequency requirements are confirmed.',
@@ -139,6 +151,9 @@ export const solutions = [
     id: 'building-automation',
     title: 'Building Automation',
     description: 'Optimize building energy and equipment visibility through validated Modbus data collection and future advanced protocol paths.',
+    recommendedProductType: 'Gateway',
+    recommendedUplink: 'Ethernet first',
+    deploymentEnvironment: 'HVAC rooms, building panels, equipment floors',
     detailedContent: [
       'Building automation projects often involve chillers, AHUs, thermostats, energy meters, IAQ monitors, and occupancy sensors. The first step is confirming which devices expose Modbus data and which require advanced building protocols.',
       'By starting with validated Modbus data collection and keeping advanced BACnet or OPC UA requirements as separate engineering gates, facility managers can build visibility over building performance without over-scoping the first hardware deployment.',
@@ -171,6 +186,9 @@ export const solutions = [
     id: 'gate-access-control',
     title: 'Gate Access Control',
     description: 'Remote gate, door, barrier and access cabinet control for European installers using a validation-aware 4G-first controller path.',
+    recommendedProductType: 'Access controller or relay RTU',
+    recommendedUplink: '4G first',
+    deploymentEnvironment: 'Gate pillars, barriers, access cabinets, remote entrances',
     detailedContent: [
       'Gate access control projects often need a simple way to trigger a relay, authorize users, read door or gate status, and manage remote sites without running new network cables. In Europe, this search demand is often expressed as GSM gate opener, 4G gate opener, 4G intercom, remote access controller or RTU door controller.',
       'A practical architecture should start from 4G LTE rather than assuming long-term GSM availability. Country-level network support, SIM behavior, LTE bands, antenna performance and regulatory requirements must be checked before publishing final compatibility claims.',

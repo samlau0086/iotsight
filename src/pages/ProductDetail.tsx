@@ -9,6 +9,14 @@ export default function ProductDetail() {
   const { id } = useParams<{ id: string }>();
   const [isInquiryOpen, setIsInquiryOpen] = useState(false);
   const product = productPages.find((item) => item.id === id);
+  const inquiryChecklist = [
+    'Country and target market',
+    'Estimated quantity or sample request',
+    'Required uplink: Ethernet, WiFi, or 4G',
+    'Required DI / DO / AI / AO or relay count',
+    'Protocol or device list such as Modbus meter, PLC, inverter, or sensor',
+    'Any OEM, logo, enclosure, or firmware customization request',
+  ];
 
   if (!product) {
     return (
@@ -74,7 +82,7 @@ export default function ProductDetail() {
           </header>
 
           <div className="p-8 sm:p-12">
-            {product.specs.length > 0 && (
+            {product.specGroups.length > 0 && (
               <section className="mb-10">
                 <div className="mb-5 flex flex-col gap-2">
                   <p className="text-xs font-bold uppercase tracking-[0.24em] text-blue-300">Key Specs</p>
@@ -85,14 +93,126 @@ export default function ProductDetail() {
                     Buyers usually check the core I/O, field interface, uplink method, and protocol scope first. These baseline specs make that comparison faster before the full datasheet review.
                   </p>
                 </div>
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
-                  {product.specs.map((spec) => (
-                    <div key={`${product.id}-${spec.label}`} className="rounded-lg border border-slate-800 bg-slate-950/60 p-4">
-                      <div className="mb-2 text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500">
-                        {spec.label}
+                <div className="mb-5 rounded-lg border border-slate-800 bg-slate-950/70 px-4 py-3 text-xs leading-relaxed text-slate-400">
+                  Public page specs are the released baseline for model selection and inquiry matching. Final project datasheets can still vary by firmware package, enclosure choice, and OEM configuration.
+                </div>
+                <div className="grid grid-cols-1 gap-5 xl:grid-cols-2">
+                  {product.specGroups.map((group) => (
+                    <section key={`${product.id}-${group.title}`} className="rounded-lg border border-slate-800 bg-slate-950/60 p-5">
+                      <h3 className="mb-4 text-sm font-bold uppercase tracking-[0.2em] text-white">
+                        {group.title}
+                      </h3>
+                      <div className="grid grid-cols-1 gap-3">
+                        {group.specs.map((spec) => (
+                          <div key={`${product.id}-${group.title}-${spec.label}`} className="rounded-md border border-slate-800 bg-slate-900 px-4 py-3">
+                            <div className="mb-1 text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500">
+                              {spec.label}
+                            </div>
+                            <div className="text-sm font-medium leading-relaxed text-slate-200">{spec.value}</div>
+                          </div>
+                        ))}
                       </div>
-                      <div className="text-sm font-medium leading-relaxed text-slate-200">{spec.value}</div>
+                    </section>
+                  ))}
+                </div>
+              </section>
+            )}
+            {product.selectionGuide && (
+              <section className="mb-10">
+                <div className="mb-5 flex flex-col gap-2">
+                  <p className="text-xs font-bold uppercase tracking-[0.24em] text-blue-300">Model Selection Guide</p>
+                  <h2 className="text-2xl font-bold text-white" style={{ fontFamily: 'var(--font-display)' }}>
+                    How to decide if this is the right model
+                  </h2>
+                  <p className="max-w-3xl text-sm leading-relaxed text-slate-400">
+                    This section helps buyers narrow down uplink, product type, and project fit before requesting pricing or a full datasheet.
+                  </p>
+                </div>
+                <div className="grid grid-cols-1 gap-5 xl:grid-cols-[1fr_1fr_0.9fr]">
+                  <section className="rounded-lg border border-slate-800 bg-slate-950/60 p-5">
+                    <h3 className="mb-4 text-sm font-bold uppercase tracking-[0.2em] text-white">Choose This Model When</h3>
+                    <div className="grid grid-cols-1 gap-3">
+                      {product.selectionGuide.chooseWhen.map((item) => (
+                        <div key={item} className="rounded-md border border-slate-800 bg-slate-900 px-4 py-3 text-sm leading-relaxed text-slate-200">
+                          {item}
+                        </div>
+                      ))}
                     </div>
+                  </section>
+                  <section className="rounded-lg border border-slate-800 bg-slate-950/60 p-5">
+                    <h3 className="mb-4 text-sm font-bold uppercase tracking-[0.2em] text-white">Consider Another Model When</h3>
+                    <div className="grid grid-cols-1 gap-3">
+                      {product.selectionGuide.notFitWhen.map((item) => (
+                        <div key={item} className="rounded-md border border-slate-800 bg-slate-900 px-4 py-3 text-sm leading-relaxed text-slate-200">
+                          {item}
+                        </div>
+                      ))}
+                    </div>
+                  </section>
+                  <section className="rounded-lg border border-slate-800 bg-slate-950/60 p-5">
+                    <h3 className="mb-4 text-sm font-bold uppercase tracking-[0.2em] text-white">Also Compare</h3>
+                    <div className="grid grid-cols-1 gap-3">
+                      {product.selectionGuide.compareLinks.map((item) => (
+                        <Link
+                          key={item.href}
+                          to={item.href}
+                          className="flex items-center justify-between gap-3 rounded-md border border-slate-800 bg-slate-900 px-4 py-3 text-sm font-medium text-slate-200 transition-colors hover:border-blue-500/50 hover:text-blue-300"
+                        >
+                          {item.label}
+                          <ArrowRight className="h-4 w-4 shrink-0" />
+                        </Link>
+                      ))}
+                    </div>
+                  </section>
+                </div>
+              </section>
+            )}
+            {product.bomGroups.length > 0 && (
+              <section className="mb-10">
+                <div className="mb-5 flex flex-col gap-2">
+                  <p className="text-xs font-bold uppercase tracking-[0.24em] text-blue-300">Typical BOM</p>
+                  <h2 className="text-2xl font-bold text-white" style={{ fontFamily: 'var(--font-display)' }}>
+                    What else you may need for the project
+                  </h2>
+                  <p className="max-w-3xl text-sm leading-relaxed text-slate-400">
+                    Industrial buyers usually need more than the main device. This checklist helps turn a single-model inquiry into a more complete project BOM.
+                  </p>
+                </div>
+                <div className="grid grid-cols-1 gap-5 xl:grid-cols-2">
+                  {product.bomGroups.map((group) => (
+                    <section key={`${product.id}-${group.title}`} className="rounded-lg border border-slate-800 bg-slate-950/60 p-5">
+                      <h3 className="mb-4 text-sm font-bold uppercase tracking-[0.2em] text-white">
+                        {group.title}
+                      </h3>
+                      <ul className="grid grid-cols-1 gap-3">
+                        {group.items.map((item) => (
+                          <li key={item} className="rounded-md border border-slate-800 bg-slate-900 px-4 py-3 text-sm leading-relaxed text-slate-200">
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
+                    </section>
+                  ))}
+                </div>
+              </section>
+            )}
+            {product.preSalesFaq.length > 0 && (
+              <section className="mb-10">
+                <div className="mb-5 flex flex-col gap-2">
+                  <p className="text-xs font-bold uppercase tracking-[0.24em] text-blue-300">Pre-Sales FAQ</p>
+                  <h2 className="text-2xl font-bold text-white" style={{ fontFamily: 'var(--font-display)' }}>
+                    Common buyer questions before inquiry
+                  </h2>
+                  <p className="max-w-3xl text-sm leading-relaxed text-slate-400">
+                    These are the questions buyers usually ask around samples, OEM branding, setup scope, and project support before moving into quotation.
+                  </p>
+                </div>
+                <div className="grid grid-cols-1 gap-4">
+                  {product.preSalesFaq.map((item) => (
+                    <section key={item.question} className="rounded-lg border border-slate-800 bg-slate-950/60 p-5">
+                      <h3 className="mb-3 text-base font-bold text-white">{item.question}</h3>
+                      <p className="text-sm leading-relaxed text-slate-300">{item.answer}</p>
+                    </section>
                   ))}
                 </div>
               </section>
@@ -120,6 +240,16 @@ export default function ProductDetail() {
                   >
                     Inquire This Product <ArrowRight className="h-4 w-4" />
                   </button>
+                </div>
+                <div className="mb-5 rounded-lg border border-slate-800 bg-slate-950/60 p-4">
+                  <h3 className="mb-3 text-sm font-bold uppercase tracking-[0.2em] text-white">What To Prepare Before Inquiry</h3>
+                  <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+                    {inquiryChecklist.map((item) => (
+                      <div key={item} className="rounded-md border border-slate-800 bg-slate-900 px-3 py-2 text-xs leading-relaxed text-slate-300">
+                        {item}
+                      </div>
+                    ))}
+                  </div>
                 </div>
                 <h2 className="mb-2 text-xl font-bold text-white" style={{ fontFamily: 'var(--font-display)' }}>Need project accessories?</h2>
                 <p className="mb-4 text-sm leading-relaxed text-slate-300">
