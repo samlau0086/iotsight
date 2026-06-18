@@ -90,11 +90,11 @@ export default function ProductDetail() {
                     Procurement-ready product snapshot
                   </h2>
                   <p className="max-w-3xl text-sm leading-relaxed text-slate-400">
-                    Buyers usually check the core I/O, field interface, uplink method, and protocol scope first. These baseline specs make that comparison faster before the full datasheet review.
+                    Review the core I/O, field interface, uplink method, and protocol scope for this model.
                   </p>
                 </div>
                 <div className="mb-5 rounded-lg border border-slate-800 bg-slate-950/70 px-4 py-3 text-xs leading-relaxed text-slate-400">
-                  Public page specs are the released baseline for model selection and inquiry matching. Final project datasheets can still vary by firmware package, enclosure choice, and OEM configuration.
+                  Final specifications can vary by firmware package, enclosure choice, and OEM configuration.
                 </div>
                 <div className="grid grid-cols-1 gap-5 xl:grid-cols-2">
                   {product.specGroups.map((group) => (
@@ -125,7 +125,7 @@ export default function ProductDetail() {
                     How to decide if this is the right model
                   </h2>
                   <p className="max-w-3xl text-sm leading-relaxed text-slate-400">
-                    This section helps buyers narrow down uplink, product type, and project fit before requesting pricing or a full datasheet.
+                    Use this guide to confirm the right uplink, product type, and project fit.
                   </p>
                 </div>
                 <div className="grid grid-cols-1 gap-5 xl:grid-cols-[1fr_1fr_0.9fr]">
@@ -175,7 +175,7 @@ export default function ProductDetail() {
                     What else you may need for the project
                   </h2>
                   <p className="max-w-3xl text-sm leading-relaxed text-slate-400">
-                    Industrial buyers usually need more than the main device. This checklist helps turn a single-model inquiry into a more complete project BOM.
+                    Common project accessories, interfaces, and supporting parts for this model.
                   </p>
                 </div>
                 <div className="grid grid-cols-1 gap-5 xl:grid-cols-2">
@@ -204,7 +204,7 @@ export default function ProductDetail() {
                     Common buyer questions before inquiry
                   </h2>
                   <p className="max-w-3xl text-sm leading-relaxed text-slate-400">
-                    These are the questions buyers usually ask around samples, OEM branding, setup scope, and project support before moving into quotation.
+                    Answers to common questions on samples, OEM branding, setup scope, and project support.
                   </p>
                 </div>
                 <div className="grid grid-cols-1 gap-4">
