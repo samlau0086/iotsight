@@ -11,7 +11,7 @@ export default function BlogList() {
             <p className="text-xs font-bold uppercase tracking-[0.24em] text-blue-400 mb-5">IoTEdges Blog</p>
             <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight text-white mb-6" style={{ fontFamily: 'var(--font-display)' }}>Industrial IoT Blog</h1>
             <p className="text-lg text-slate-400 leading-relaxed">
-              Insights, guides, and trends on factory energy monitoring, remote equipment tracking, industrial networking, RTUs, gateways, Remote IO and project accessories.
+              Practical articles on product selection, deployment decisions, wiring, connectivity, and buyer-facing guidance for industrial gateways, RTUs, Remote IO, and accessories.
             </p>
           </div>
         </div>

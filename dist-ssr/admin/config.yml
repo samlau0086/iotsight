@@ -1,0 +1,767 @@
+# IoTEdges Decap CMS baseline.
+# The site already uses these file-backed collections and `/admin` is part of the rollout path.
+# Production go-live still depends on auth deployment, content QA, media verification, and an end-to-end dry run.
+
+backend:
+  name: github
+  repo: samla/iotsight
+  branch: main
+  base_url: https://cms-auth.iotedges.com
+  auth_endpoint: auth
+  commit_messages:
+    create: "cms: create {{collection}} {{slug}}"
+    update: "cms: update {{collection}} {{slug}}"
+    delete: "cms: delete {{collection}} {{slug}}"
+    uploadMedia: "cms: upload {{path}}"
+    deleteMedia: "cms: delete media {{path}}"
+
+local_backend: true
+
+site_url: https://iotedges.com
+display_url: https://iotedges.com
+logo_url: /uploads/iotedges-logo.png
+
+media_folder: public/uploads
+public_folder: /uploads
+
+publish_mode: editorial_workflow
+
+slug:
+  encoding: ascii
+  clean_accents: true
+  sanitize_replacement: "-"
+
+issue_reports:
+  url: https://github.com/samla/iotsight/issues/new
+
+collections:
+  # CMS stays focused on file-backed marketing content only.
+  # Navigation, footer, theme settings, analytics, live chat tokens, and request-quote logic
+  # still stay under code and deployment control.
+  # Collection schemas below are intentionally strict so editors can update copy and structured content
+  # without drifting the route model, taxonomy, or page composition.
+  - name: blog
+    label: Blog
+    label_singular: Blog Post
+    folder: src/content/blog
+    create: true
+    slug: "{{slug}}"
+    extension: md
+    format: frontmatter
+    summary: "{{title}} | {{category}}"
+    editor:
+      preview: false
+    fields:
+      - { label: ID, name: id, widget: string, hint: "Stable slug used in /blog/:id", pattern: ['^[a-z0-9]+(?:-[a-z0-9]+)*$', "Use a lowercase slug with hyphens only."] }
+      - { label: Title, name: title, widget: string, hint: "Use a search-intent title. Avoid generic headlines." }
+      - { label: Excerpt, name: excerpt, widget: text, hint: "Used on blog cards and as the main SEO description candidate." }
+      - { label: Date, name: date, widget: string, hint: "Keep display format consistent, for example June 18, 2026" }
+      - label: Author
+        name: author
+        widget: select
+        hint: "Use the controlled editorial team labels only. Do not create free-form author variants."
+        options:
+          - { label: Engineering Team, value: "Engineering Team" }
+          - { label: Product Management, value: "Product Management" }
+          - { label: Customer Success, value: "Customer Success" }
+      - label: Category
+        name: category
+        widget: select
+        hint: "Choose the closest existing editorial category. Do not create a topic-specific category in this field."
+        options:
+          - { label: Buyer Guide, value: "Buyer Guide" }
+          - { label: Industry Trends, value: "Industry Trends" }
+          - { label: Hardware Guide, value: "Hardware Guide" }
+          - { label: Case Studies, value: "Case Studies" }
+      - { label: Hero Image, name: imageUrl, widget: image, required: false, hint: "Prefer a 16:9 cover image. Use uploaded assets under /uploads when possible." }
+      - label: Related Products
+        name: relatedProducts
+        widget: list
+        required: false
+        hint: "Use product IDs only. Add only products that are genuinely relevant to the article."
+        field:
+          label: Product ID
+          name: productId
+          widget: string
+          hint: "Use a product slug such as ieg-100-ethernet-industrial-iot-gateway."
+          pattern:
+            - '^[a-z0-9]+(?:-[a-z0-9]+)*$'
+            - "Use a lowercase slug with hyphens only, not a title or URL."
+      - label: Related Resources
+        name: relatedResources
+        widget: list
+        required: false
+        hint: "Use site-relative routes such as /solutions/factory-energy or /knowledge/modbus."
+        field:
+          label: Route
+          name: route
+          widget: string
+          hint: "Use a site-relative route starting with /."
+          pattern:
+            - '^\/[a-z0-9\-\/]*$'
+            - "Use a site-relative route such as /knowledge/modbus, not a full URL."
+      - { label: Order, name: order, widget: number, value_type: int, required: false, hint: "Lower numbers usually sort earlier in lists." }
+      - { label: Body, name: body, widget: markdown, hint: "Write in Markdown. Avoid dumping raw HTML blocks unless truly necessary." }
+
+  - name: knowledge
+    label: Knowledge Base
+    label_singular: Knowledge Page
+    folder: src/content/knowledge
+    create: true
+    slug: "{{slug}}"
+    extension: md
+    format: frontmatter
+    summary: "{{title}} | {{category}}"
+    editor:
+      preview: false
+    fields:
+      - { label: ID, name: id, widget: string, hint: "Stable slug used in /knowledge/:id", pattern: ['^[a-z0-9]+(?:-[a-z0-9]+)*$', "Use a lowercase slug with hyphens only."] }
+      - { label: Title, name: title, widget: string, hint: "Use a precise technical title that matches the buyer or engineer search query." }
+      - { label: Excerpt, name: excerpt, widget: text, hint: "Used on the knowledge list and as the main SEO description candidate." }
+      - label: Category
+        name: category
+        widget: select
+        hint: "Keep this as a content type label, not a keyword bucket."
+        options:
+          - { label: Protocol Guide, value: "Protocol Guide" }
+          - { label: MQTT Guide, value: "MQTT Guide" }
+          - { label: Wiring Guide, value: "Wiring Guide" }
+          - { label: Sensor Wiring Guide, value: "Sensor Wiring Guide" }
+          - { label: IO Guide, value: "IO Guide" }
+          - { label: Control Guide, value: "Control Guide" }
+          - { label: Selection Guide, value: "Selection Guide" }
+          - { label: Accessory Guide, value: "Accessory Guide" }
+          - { label: Access Control Guide, value: "Access Control Guide" }
+          - { label: Connectivity Guide, value: "Connectivity Guide" }
+          - { label: Application Guide, value: "Application Guide" }
+      - { label: Primary Keyword, name: primaryKeyword, widget: string, hint: "One page should usually focus on one primary keyword or protocol term." }
+      - label: Related Products
+        name: relatedProducts
+        widget: list
+        required: false
+        hint: "Use product IDs that are directly relevant to this technical topic."
+        field:
+          label: Product ID
+          name: productId
+          widget: string
+          hint: "Use a product slug such as ier-140-4g-remote-relay-rtu."
+          pattern:
+            - '^[a-z0-9]+(?:-[a-z0-9]+)*$'
+            - "Use a lowercase slug with hyphens only, not a title or URL."
+      - { label: Order, name: order, widget: number, value_type: int, required: false, hint: "Lower numbers usually sort earlier in lists." }
+      - { label: Body, name: body, widget: markdown, hint: "Use Markdown for technical guidance, wiring notes, and protocol explanations." }
+
+  - name: products
+    label: Products
+    label_singular: Product Page
+    folder: src/content/products
+    create: false
+    slug: "{{slug}}"
+    extension: md
+    format: frontmatter
+    summary: "{{model}} - {{title}}"
+    editor:
+      preview: false
+    fields:
+      - { label: ID, name: id, widget: string, hint: "Stable slug used in /products/:id", pattern: ['^[a-z0-9]+(?:-[a-z0-9]+)*$', "Use a lowercase slug with hyphens only."] }
+      - { label: Title, name: title, widget: string, hint: "Buyer-facing product name shown as the page H1." }
+      - { label: Excerpt, name: excerpt, widget: text, hint: "Short product summary used in list cards and SEO description candidates." }
+      - { label: Hero Image, name: imageUrl, widget: image, hint: "Use a required product hero image in 4:3 or a controlled product visual under /uploads." }
+      - label: Category
+        name: category
+        widget: select
+        hint: "Choose the product family. If a new family is needed, update the frontend taxonomy before using it here."
+        options:
+          - { label: Industrial IoT Gateway, value: "Industrial IoT Gateway" }
+          - { label: Industrial RTU, value: "Industrial RTU" }
+          - { label: Remote IO Module, value: "Remote IO Module" }
+          - { label: Remote Access Controller, value: "Remote Access Controller" }
+          - { label: 4G Remote Relay RTU, value: "4G Remote Relay RTU" }
+          - { label: 4G Pump & Valve RTU, value: "4G Pump & Valve RTU" }
+          - { label: 4G Power Cabinet RTU, value: "4G Power Cabinet RTU" }
+          - { label: Industrial IoT Software, value: "Industrial IoT Software" }
+      - { label: Model, name: model, widget: string, hint: "Use the canonical model code, for example IEG-100 or IER-140." }
+      - label: Status
+        name: status
+        widget: select
+        hint: "Use Published for live-ready models, Available for project inquiry for validated but inquiry-led pages, Preview for roadmap-facing pages, and Draft for non-public content."
+        options:
+          - { label: Published, value: "Published" }
+          - { label: Available for project inquiry, value: "Available for project inquiry" }
+          - { label: Preview, value: "Preview" }
+          - { label: Draft, value: "Draft" }
+      - { label: Primary Keyword, name: primaryKeyword, widget: string, hint: "Main SEO term for this product page. Keep it focused." }
+      - label: Route
+        name: route
+        widget: string
+        hint: "Canonical path, for example /products/ieg-100-ethernet-industrial-iot-gateway"
+        pattern:
+          - '^\/products\/[a-z0-9\-\/]*$'
+          - "Use a site-relative product path starting with /products/."
+      - { label: Order, name: order, widget: number, value_type: int, hint: "Lower numbers usually sort earlier in product lists." }
+      - label: Spec Groups
+        name: specGroups
+        widget: list
+        summary: "{{fields.title}} | {{fields.specs.length}} specs"
+        hint: "Use this for structured specs such as communication, I/O, protocol, power, mounting, and environment. Do not hide key specs only inside the body."
+        fields:
+          - label: Group Title
+            name: title
+            widget: select
+            hint: "Use the controlled spec-group vocabulary so product pages stay consistent."
+            options:
+              - { label: Hardware I/O, value: "Hardware I/O" }
+              - { label: Communication, value: "Communication" }
+              - { label: Protocols, value: "Protocols" }
+              - { label: Power & Mounting, value: "Power & Mounting" }
+              - { label: Environment, value: "Environment" }
+              - { label: Platform Scope, value: "Platform Scope" }
+              - { label: Telemetry & Control, value: "Telemetry & Control" }
+              - { label: Operations Interface, value: "Operations Interface" }
+          - label: Specs
+            name: specs
+            widget: list
+            summary: "{{fields.label}}: {{fields.value}}"
+            fields:
+              - { label: Label, name: label, widget: string }
+              - { label: Value, name: value, widget: text }
+      - label: Selection Guide
+        name: selectionGuide
+        widget: object
+        hint: "Use this section to say who the model is for and where it is not a fit. Target at least 2-3 items in each list."
+        fields:
+          - label: Choose When
+            name: chooseWhen
+            widget: list
+            hint: "Project fit conditions. Keep each item short and practical."
+            field: { label: Item, name: item, widget: text }
+          - label: Not Fit When
+            name: notFitWhen
+            widget: list
+            hint: "Boundary conditions. Use this to prevent wrong-fit inquiries."
+            field: { label: Item, name: item, widget: text }
+          - label: Compare Links
+            name: compareLinks
+            widget: list
+            summary: "{{fields.label}} -> {{fields.href}}"
+            hint: "Add compare or browse links that help buyers continue product selection."
+            fields:
+              - { label: Label, name: label, widget: string }
+              - label: Href
+                name: href
+                widget: string
+                hint: "Use a site-relative path such as /products/ier-100-ethernet-industrial-rtu."
+                pattern:
+                  - '^\/[a-z0-9\-\/]*$'
+                  - "Use a site-relative path starting with /, not a full URL."
+      - label: BOM Groups
+        name: bomGroups
+        widget: list
+        summary: "{{fields.title}} | {{fields.items.length}} items"
+        hint: "Use this for project accessories and supporting parts, not generic marketing copy."
+        fields:
+          - { label: Group Title, name: title, widget: string, hint: "Examples: Cabinet Essentials, Field Connectivity, Accessories." }
+          - label: Items
+            name: items
+            widget: list
+            field: { label: Item, name: item, widget: text }
+      - label: Pre-Sales FAQ
+        name: preSalesFaq
+        widget: list
+        summary: "{{fields.question}}"
+        hint: "Use real buyer questions such as samples, OEM/ODM, protocol support, register mapping, certifications, or delivery."
+        fields:
+          - { label: Question, name: question, widget: string }
+          - { label: Answer, name: answer, widget: text }
+      - { label: Body, name: body, widget: markdown, hint: "Use Markdown for the narrative product page content. Keep exact unverified electrical or certification claims out until validated." }
+
+  - name: solutions
+    label: Solutions
+    label_singular: Solution Page
+    folder: src/content/solutions
+    create: false
+    slug: "{{slug}}"
+    extension: md
+    format: frontmatter
+    summary: "{{title}}"
+    editor:
+      preview: false
+    fields:
+      - { label: ID, name: id, widget: string, hint: "Stable slug used in /solutions/:id", pattern: ['^[a-z0-9]+(?:-[a-z0-9]+)*$', "Use a lowercase slug with hyphens only."] }
+      - { label: Title, name: title, widget: string, hint: "Buyer-facing solution title shown as the page H1." }
+      - { label: Description, name: description, widget: text, hint: "Short summary used on solution cards and as a page introduction." }
+      - { label: Hero Image, name: image, widget: image, hint: "Use a required solution hero image in 16:9." }
+      - { label: Architecture Image, name: architectureImage, widget: image, required: false, hint: "Use a clear architecture or deployment diagram when available." }
+      - { label: Icon Key, name: iconKey, widget: select, options: ["zap", "sun", "droplets", "sprout", "snowflake", "shield"], hint: "Matches the controlled frontend icon map." }
+      - label: Recommended Product Type
+        name: recommendedProductType
+        widget: select
+        hint: "Short solution label only. Do not turn this into a sentence."
+        options:
+          - { label: Gateway, value: "Gateway" }
+          - { label: RTU, value: "RTU" }
+          - { label: Gateway or RTU, value: "Gateway or RTU" }
+          - { label: RTU and Remote IO, value: "RTU and Remote IO" }
+          - { label: RTU or Remote IO, value: "RTU or Remote IO" }
+          - { label: Access controller or relay RTU, value: "Access controller or relay RTU" }
+      - label: Recommended Uplink
+        name: recommendedUplink
+        widget: select
+        hint: "Use a short uplink recommendation such as Ethernet first or 4G first."
+        options:
+          - { label: Ethernet first, value: "Ethernet first" }
+          - { label: 4G first, value: "4G first" }
+          - { label: Ethernet or 4G, value: "Ethernet or 4G" }
+          - { label: 4G or wired cabinet path, value: "4G or wired cabinet path" }
+      - { label: Deployment Environment, name: deploymentEnvironment, widget: string, hint: "Examples: Factory cabinets and LAN-connected workshops, remote pump stations, outdoor gate sites." }
+      - label: Route
+        name: link
+        widget: string
+        hint: "Canonical path, for example /solutions/factory-energy"
+        pattern:
+          - '^\/solutions\/[a-z0-9\-\/]*$'
+          - "Use a site-relative solution path starting with /solutions/."
+      - { label: Order, name: order, widget: number, value_type: int, required: false, hint: "Lower numbers usually sort earlier in solution lists." }
+      - label: Detailed Content
+        name: detailedContent
+        widget: list
+        hint: "Use short structured paragraphs for the upper part of the solution page. Target at least 3 paragraphs."
+        field: { label: Paragraph, name: paragraph, widget: text }
+      - label: Hardware
+        name: hardware
+        widget: list
+        hint: "List the typical hardware stack used in this solution. Target at least 4 items."
+        field: { label: Item, name: item, widget: text }
+      - label: Software
+        name: software
+        widget: list
+        hint: "List dashboards, analytics, alerts, or reporting functions used in this solution. Target at least 3 items."
+        field: { label: Item, name: item, widget: text }
+      - label: Related Products
+        name: relatedProducts
+        widget: list
+        summary: "{{fields.title}} -> {{fields.href}}"
+        hint: "Use buyer-facing link titles and valid site-relative product paths."
+        fields:
+          - { label: Title, name: title, widget: string }
+          - label: Href
+            name: href
+            widget: string
+            hint: "Use a site-relative product route such as /products/ier-141-4g-pump-valve-rtu."
+            pattern:
+              - '^\/[a-z0-9\-\/]*$'
+              - "Use a site-relative path starting with /, not a full URL."
+      - label: Related Resources
+        name: relatedResources
+        widget: list
+        required: false
+        summary: "{{fields.title}} -> {{fields.href}}"
+        hint: "Link related blog posts, knowledge pages, or case-study-style content."
+        fields:
+          - { label: Title, name: title, widget: string }
+          - label: Href
+            name: href
+            widget: string
+            hint: "Use a site-relative route such as /blog/how-to-choose-modbus-mqtt-gateway."
+            pattern:
+              - '^\/[a-z0-9\-\/]*$'
+              - "Use a site-relative path starting with /, not a full URL."
+      - { label: Body, name: body, widget: markdown, required: false, hint: "Optional if detailedContent remains the main body model. Use this for longer technical explanation, deployment notes, or architecture detail." }
+
+  - name: accessories
+    label: Accessories
+    label_singular: Accessories Page
+    delete: false
+    editor:
+      preview: false
+    files:
+      - label: Accessories Overview
+        name: accessoriesOverview
+        file: src/content/accessories/accessories-overview.md
+        fields:
+          - { label: ID, name: id, widget: hidden, default: accessories-overview }
+          - { label: Eyebrow, name: eyebrow, widget: string, hint: "Short section label above the H1." }
+          - { label: Title, name: title, widget: string, hint: "Main accessories page H1." }
+          - { label: Description, name: description, widget: text, hint: "Hero summary paragraph for the accessories page." }
+          - label: Overview Cards
+            name: overviewCards
+            widget: list
+            summary: "{{fields.title}}"
+            fields:
+              - { label: Title, name: title, widget: string }
+              - { label: Text, name: text, widget: text }
+              - label: Icon Key
+                name: iconKey
+                widget: select
+                options:
+                  - { label: Shield Check, value: "shield-check" }
+                  - { label: Cable, value: "cable" }
+                  - { label: Radio Tower, value: "radio-tower" }
+                  - { label: Zap, value: "zap" }
+                  - { label: Gauge, value: "gauge" }
+                  - { label: Door Open, value: "door-open" }
+                  - { label: Sliders Horizontal, value: "sliders-horizontal" }
+                  - { label: Router, value: "router" }
+                  - { label: Server, value: "server" }
+                  - { label: CPU, value: "cpu" }
+          - label: Accessory Groups
+            name: groups
+            widget: list
+            summary: "{{fields.title}}"
+            fields:
+              - { label: Title, name: title, widget: string }
+              - { label: Description, name: description, widget: text }
+              - label: Icon Key
+                name: iconKey
+                widget: select
+                options:
+                  - { label: Shield Check, value: "shield-check" }
+                  - { label: Cable, value: "cable" }
+                  - { label: Radio Tower, value: "radio-tower" }
+                  - { label: Zap, value: "zap" }
+                  - { label: Gauge, value: "gauge" }
+                  - { label: Door Open, value: "door-open" }
+                  - { label: Sliders Horizontal, value: "sliders-horizontal" }
+                  - { label: Router, value: "router" }
+                  - { label: Server, value: "server" }
+                  - { label: CPU, value: "cpu" }
+              - label: Items
+                name: items
+                widget: list
+                field: { label: Item, name: item, widget: string }
+          - label: Selection Guides
+            name: selectionGuides
+            widget: list
+            summary: "{{fields.title}}"
+            fields:
+              - { label: Title, name: title, widget: string }
+              - label: Href
+                name: href
+                widget: string
+                pattern:
+                  - '^\/[a-z0-9\-\/]*$'
+                  - "Use a site-relative path starting with /, not a full URL."
+              - { label: Summary, name: summary, widget: text }
+          - label: Product Accessory Map
+            name: productAccessoryMap
+            widget: list
+            summary: "{{fields.product}}"
+            fields:
+              - { label: Product, name: product, widget: string }
+              - label: Href
+                name: href
+                widget: string
+                pattern:
+                  - '^\/[a-z0-9\-\/]*$'
+                  - "Use a site-relative path starting with /, not a full URL."
+              - { label: Accessories, name: accessories, widget: text }
+          - label: Project Kits
+            name: projectKits
+            widget: list
+            summary: "{{fields.title}}"
+            fields:
+              - { label: Title, name: title, widget: string }
+              - label: Icon Key
+                name: iconKey
+                widget: select
+                options:
+                  - { label: Shield Check, value: "shield-check" }
+                  - { label: Cable, value: "cable" }
+                  - { label: Radio Tower, value: "radio-tower" }
+                  - { label: Zap, value: "zap" }
+                  - { label: Gauge, value: "gauge" }
+                  - { label: Door Open, value: "door-open" }
+                  - { label: Sliders Horizontal, value: "sliders-horizontal" }
+                  - { label: Router, value: "router" }
+                  - { label: Server, value: "server" }
+                  - { label: CPU, value: "cpu" }
+              - label: Contents
+                name: contents
+                widget: list
+                field: { label: Item, name: item, widget: string }
+          - { label: CTA Label, name: ctaLabel, widget: string }
+          - label: CTA Href
+            name: ctaHref
+            widget: string
+            pattern:
+              - '^\/[a-z0-9\-\/]*$'
+              - "Use a site-relative path starting with /, not a full URL."
+          - { label: Body Notes, name: body, widget: markdown, required: false, hint: "Internal structured notes for this page content model. The frontend layout stays template-driven." }
+
+  - name: siteCopy
+    label: Site Copy
+    label_singular: Site Copy File
+    delete: false
+    editor:
+      preview: false
+    files:
+      - label: Homepage Copy
+        name: homepageCopy
+        file: src/content/site-copy/homepage.md
+        fields:
+          - { label: ID, name: id, widget: hidden, default: homepage }
+          - { label: Hero Eyebrow, name: heroEyebrow, widget: string }
+          - { label: Hero Title, name: heroTitle, widget: string, hint: "Main homepage H1." }
+          - { label: Hero Highlight, name: heroHighlight, widget: string, required: false, hint: "Highlighted word or phrase inside the hero title." }
+          - { label: Hero Description, name: heroDescription, widget: text }
+          - { label: Hero Primary CTA Label, name: heroPrimaryCtaLabel, widget: string }
+          - label: Hero Primary CTA Href
+            name: heroPrimaryCtaHref
+            widget: string
+            pattern:
+              - '^\/[a-z0-9\-\/]*$'
+              - "Use a site-relative path starting with /, not a full URL."
+          - { label: Hero Secondary CTA Label, name: heroSecondaryCtaLabel, widget: string }
+          - label: Hero Secondary CTA Href
+            name: heroSecondaryCtaHref
+            widget: string
+            pattern:
+              - '^\/[a-z0-9\-\/]*$'
+              - "Use a site-relative path starting with /, not a full URL."
+          - label: Hero Stats
+            name: stats
+            widget: list
+            summary: "{{fields.value}} | {{fields.label}}"
+            fields:
+              - { label: Value, name: value, widget: string }
+              - { label: Label, name: label, widget: string }
+          - { label: Trust Eyebrow, name: trustEyebrow, widget: string }
+          - label: Trust Pills
+            name: trustPills
+            widget: list
+            field: { label: Text, name: text, widget: string }
+          - { label: Problems Title, name: problemsTitle, widget: string }
+          - { label: Problems Description, name: problemsDescription, widget: text }
+          - label: Problem Cards
+            name: problemCards
+            widget: list
+            summary: "{{fields.title}}"
+            fields:
+              - { label: Title, name: title, widget: string }
+              - { label: Description, name: description, widget: text }
+              - label: Icon Key
+                name: iconKey
+                widget: select
+                options:
+                  - { label: Activity, value: "activity" }
+                  - { label: Bell, value: "bell" }
+                  - { label: Cloud, value: "cloud" }
+                  - { label: Server, value: "server" }
+                  - { label: Shield Check, value: "shield-check" }
+                  - { label: Zap, value: "zap" }
+          - { label: Solution Title, name: solutionTitle, widget: string }
+          - { label: Solution Description, name: solutionDescription, widget: text }
+          - label: Solution Steps
+            name: solutionSteps
+            widget: list
+            summary: "{{fields.title}}"
+            fields:
+              - { label: Title, name: title, widget: text, hint: "Line breaks are allowed and will render on separate lines." }
+              - label: Icon Key
+                name: iconKey
+                widget: select
+                options:
+                  - { label: Activity, value: "activity" }
+                  - { label: Bell, value: "bell" }
+                  - { label: Cloud, value: "cloud" }
+                  - { label: Server, value: "server" }
+                  - { label: Shield Check, value: "shield-check" }
+                  - { label: Zap, value: "zap" }
+          - { label: Products Title, name: productsTitle, widget: string }
+          - { label: Products Description, name: productsDescription, widget: text }
+          - { label: Products Browse Label, name: productsBrowseLabel, widget: string }
+          - label: Products Browse Href
+            name: productsBrowseHref
+            widget: string
+            pattern:
+              - '^\/[a-z0-9\-\/]*$'
+              - "Use a site-relative path starting with /, not a full URL."
+          - { label: Bottom CTA Title, name: bottomCtaTitle, widget: string }
+          - { label: Bottom CTA Description, name: bottomCtaDescription, widget: text }
+          - { label: Bottom Primary CTA Label, name: bottomPrimaryCtaLabel, widget: string }
+          - label: Bottom Primary CTA Href
+            name: bottomPrimaryCtaHref
+            widget: string
+            pattern:
+              - '^\/[a-z0-9\-\/]*$'
+              - "Use a site-relative path starting with /, not a full URL."
+          - { label: Bottom Secondary CTA Label, name: bottomSecondaryCtaLabel, widget: string }
+          - label: Bottom Secondary CTA Href
+            name: bottomSecondaryCtaHref
+            widget: string
+            pattern:
+              - '^\/[a-z0-9\-\/]*$'
+              - "Use a site-relative path starting with /, not a full URL."
+          - { label: Body Notes, name: body, widget: markdown, required: false, hint: "Internal notes only. Homepage layout and product grid remain code-controlled." }
+      - label: About Page Copy
+        name: aboutPageCopy
+        file: src/content/site-copy/aboutpage.md
+        fields:
+          - { label: ID, name: id, widget: hidden, default: aboutpage }
+          - { label: Hero Title, name: heroTitle, widget: string }
+          - { label: Hero Description, name: heroDescription, widget: text }
+          - { label: Mission Title, name: missionTitle, widget: string }
+          - label: Mission Paragraphs
+            name: missionParagraphs
+            widget: list
+            field: { label: Paragraph, name: paragraph, widget: text }
+          - label: Mission Bullets
+            name: missionBullets
+            widget: list
+            field: { label: Text, name: text, widget: string }
+          - { label: Image URL, name: imageUrl, widget: image, hint: "Use a controlled local asset under /uploads." }
+          - { label: Image Overlay Title, name: imageOverlayTitle, widget: string }
+          - { label: Image Overlay Description, name: imageOverlayDescription, widget: text }
+          - label: Stats
+            name: stats
+            widget: list
+            summary: "{{fields.value}} | {{fields.label}}"
+            fields:
+              - { label: Value, name: value, widget: string }
+              - { label: Label, name: label, widget: string }
+          - { label: Reasons Title, name: reasonsTitle, widget: string }
+          - label: Reasons
+            name: reasons
+            widget: list
+            summary: "{{fields.title}}"
+            fields:
+              - { label: Title, name: title, widget: string }
+              - { label: Description, name: description, widget: text }
+          - { label: Partner CTA Title, name: partnerTitle, widget: string }
+          - { label: Partner CTA Description, name: partnerDescription, widget: text }
+          - { label: Partner CTA Label, name: partnerCtaLabel, widget: string }
+          - label: Partner CTA Href
+            name: partnerCtaHref
+            widget: string
+            pattern:
+              - '^\/[a-z0-9\-\/]*$'
+              - "Use a site-relative path starting with /, not a full URL."
+          - { label: Body Notes, name: body, widget: markdown, required: false, hint: "Internal notes only. About page layout stays code-controlled." }
+      - label: Contact Page Copy
+        name: contactPageCopy
+        file: src/content/site-copy/contactpage.md
+        fields:
+          - { label: ID, name: id, widget: hidden, default: contactpage }
+          - { label: Hero Title, name: heroTitle, widget: string }
+          - { label: Hero Description, name: heroDescription, widget: text }
+          - { label: Hero Image URL, name: heroImageUrl, widget: image, hint: "Use a controlled local asset under /uploads." }
+          - { label: Intro Title, name: introTitle, widget: string }
+          - { label: Intro Description, name: introDescription, widget: text }
+          - label: Contact Info
+            name: contactInfo
+            widget: list
+            summary: "{{fields.title}}"
+            fields:
+              - { label: Title, name: title, widget: string }
+              - { label: Value, name: value, widget: text }
+              - label: Icon Key
+                name: iconKey
+                widget: select
+                options:
+                  - { label: Mail, value: "mail" }
+                  - { label: Phone, value: "phone" }
+                  - { label: Map Pin, value: "map-pin" }
+          - { label: FAQ Title, name: faqTitle, widget: string }
+          - label: FAQs
+            name: faqs
+            widget: list
+            summary: "{{fields.question}}"
+            fields:
+              - { label: Question, name: question, widget: string }
+              - { label: Answer, name: answer, widget: text }
+          - { label: Body Notes, name: body, widget: markdown, required: false, hint: "Internal notes only. Contact form behavior stays code-controlled." }
+      - label: Gateway Page Copy
+        name: gatewayPageCopy
+        file: src/content/site-copy/gatewaypage.md
+        fields:
+          - { label: ID, name: id, widget: hidden, default: gatewaypage }
+          - { label: Eyebrow, name: eyebrow, widget: string }
+          - { label: Hero Title, name: heroTitle, widget: string }
+          - { label: Hero Description, name: heroDescription, widget: text }
+          - label: Gateway Models
+            name: gatewayModels
+            widget: list
+            summary: "{{fields.model}} | {{fields.title}}"
+            fields:
+              - { label: Title, name: title, widget: string }
+              - { label: Model, name: model, widget: string }
+              - label: Href
+                name: href
+                widget: string
+                pattern:
+                  - '^\/[a-z0-9\-\/]*$'
+                  - "Use a site-relative path starting with /, not a full URL."
+              - { label: CTA Label, name: ctaLabel, widget: string }
+              - label: Icon Key
+                name: iconKey
+                widget: select
+                options:
+                  - { label: Network, value: "network" }
+                  - { label: Radio Tower, value: "radio-tower" }
+                  - { label: Server, value: "server" }
+                  - { label: Shield Check, value: "shield-check" }
+                  - { label: WiFi, value: "wifi" }
+              - { label: Text, name: text, widget: text }
+          - label: Principle Cards
+            name: principleCards
+            widget: list
+            summary: "{{fields.title}}"
+            fields:
+              - { label: Title, name: title, widget: string }
+              - { label: Text, name: text, widget: text }
+              - label: Icon Key
+                name: iconKey
+                widget: select
+                options:
+                  - { label: Network, value: "network" }
+                  - { label: Radio Tower, value: "radio-tower" }
+                  - { label: Server, value: "server" }
+                  - { label: Shield Check, value: "shield-check" }
+                  - { label: WiFi, value: "wifi" }
+          - { label: Bottom CTA Title, name: bottomCtaTitle, widget: string }
+          - { label: Bottom CTA Description, name: bottomCtaDescription, widget: text }
+          - { label: Bottom CTA Label, name: bottomCtaLabel, widget: string }
+          - label: Bottom CTA Href
+            name: bottomCtaHref
+            widget: string
+            pattern:
+              - '^\/[a-z0-9\-\/]*$'
+              - "Use a site-relative path starting with /, not a full URL."
+          - { label: Body Notes, name: body, widget: markdown, required: false, hint: "Internal notes only. Gateway page layout and card structure stay code-controlled." }
+      - label: Demo Page Copy
+        name: demoPageCopy
+        file: src/content/site-copy/demopage.md
+        fields:
+          - { label: ID, name: id, widget: hidden, default: demopage }
+          - { label: Eyebrow, name: eyebrow, widget: string }
+          - { label: Hero Title, name: heroTitle, widget: string }
+          - { label: Hero Description, name: heroDescription, widget: text }
+          - { label: Hero CTA Label, name: heroCtaLabel, widget: string }
+          - label: Hero CTA Href
+            name: heroCtaHref
+            widget: string
+            pattern:
+              - '^\/[a-z0-9\-\/]*$'
+              - "Use a site-relative path starting with /, not a full URL."
+          - { label: Hero CTA Analytics Label, name: heroCtaAnalyticsLabel, widget: string }
+          - { label: Overview Label, name: overviewLabel, widget: string }
+          - { label: Overview Status, name: overviewStatus, widget: string }
+          - { label: Overview Description, name: overviewDescription, widget: text }
+          - label: Overview Badges
+            name: overviewBadges
+            widget: list
+            field: { label: Badge, name: badge, widget: string }
+          - { label: Bottom Left Title, name: bottomLeftTitle, widget: string }
+          - label: Bottom Left Paragraphs
+            name: bottomLeftParagraphs
+            widget: list
+            field: { label: Paragraph, name: paragraph, widget: text }
+          - { label: Bottom Right Title, name: bottomRightTitle, widget: string }
+          - label: Bottom Right Items
+            name: bottomRightItems
+            widget: list
+            summary: "{{fields.title}}"
+            fields:
+              - { label: Title, name: title, widget: string }
+              - { label: Description, name: description, widget: text }
+          - { label: Body Notes, name: body, widget: markdown, required: false, hint: "Internal notes only. Mock dashboard layout and simulated data stay code-controlled." }

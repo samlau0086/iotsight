@@ -1,0 +1,32 @@
+<svg width="1600" height="1200" viewBox="0 0 1600 1200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="1200" fill="#F5F1E8"/>
+  <rect x="72" y="72" width="1456" height="1056" rx="32" fill="#FAF7F2" stroke="#D9D0C2" stroke-width="4"/>
+  <text x="120" y="156" fill="#18181B" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">IoTEdges</text>
+  <text x="120" y="216" fill="#18181B" font-family="Arial, Helvetica, sans-serif" font-size="64" font-weight="700">IER-120</text>
+  <text x="120" y="266" fill="#5F5A52" font-family="Arial, Helvetica, sans-serif" font-size="28">WiFi Remote Monitoring RTU</text>
+  <rect x="120" y="320" width="146" height="46" rx="23" fill="#E8E0D2"/>
+  <text x="167" y="350" fill="#18181B" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700">WiFi</text>
+  <rect x="280" y="320" width="116" height="46" rx="23" fill="#E8E0D2"/>
+  <text x="318" y="350" fill="#18181B" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700">4DI</text>
+  <rect x="410" y="320" width="116" height="46" rx="23" fill="#E8E0D2"/>
+  <text x="448" y="350" fill="#18181B" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700">2DO</text>
+  <rect x="540" y="320" width="116" height="46" rx="23" fill="#E8E0D2"/>
+  <text x="578" y="350" fill="#18181B" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700">2AI</text>
+  <rect x="904" y="248" width="410" height="640" rx="28" fill="#22232A"/>
+  <rect x="934" y="280" width="350" height="576" rx="20" fill="#2C2F38"/>
+  <rect x="964" y="332" width="290" height="126" rx="12" fill="#3A3D48"/>
+  <rect x="964" y="484" width="290" height="98" rx="12" fill="#3A3D48"/>
+  <rect x="964" y="608" width="290" height="98" rx="12" fill="#3A3D48"/>
+  <rect x="964" y="732" width="290" height="82" rx="12" fill="#3A3D48"/>
+  <circle cx="1002" cy="394" r="10" fill="#E8E0D2"/>
+  <circle cx="1038" cy="394" r="10" fill="#E8E0D2"/>
+  <circle cx="1074" cy="394" r="10" fill="#E8E0D2"/>
+  <circle cx="1110" cy="394" r="10" fill="#E8E0D2"/>
+  <rect x="970" y="892" width="278" height="72" rx="14" fill="#E8E0D2"/>
+  <text x="120" y="502" fill="#18181B" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700">Standard Fit</text>
+  <text x="120" y="552" fill="#5F5A52" font-family="Arial, Helvetica, sans-serif" font-size="24">Indoor WiFi RTU with local I/O, alarm contacts, transmitters and Modbus</text>
+  <text x="120" y="620" fill="#18181B" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700">Suggested Use</text>
+  <text x="120" y="670" fill="#5F5A52" font-family="Arial, Helvetica, sans-serif" font-size="24">Equipment rooms, utility panels, OEM monitoring and cabinet telemetry</text>
+  <text x="120" y="738" fill="#18181B" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700">Image Status</text>
+  <text x="120" y="788" fill="#5F5A52" font-family="Arial, Helvetica, sans-serif" font-size="24">Controlled placeholder until final product photography is ready</text>
+</svg>

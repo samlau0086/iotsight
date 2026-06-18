@@ -10,7 +10,7 @@ order: 7
 
 # Relay Output Control for Pumps, Gates, Valves and Cabinets
 
-Relay output control is one of the most common reasons buyers search for a remote relay RTU. A relay output can trigger a control circuit, open a gate, start a pump through a contactor, switch a valve command or reset a remote cabinet alarm.
+Relay output control is one of the most common reasons buyers search for a remote relay RTU. A relay output can trigger a control circuit, open a gate, start a pump through a contactor, switch a valve command, or reset a remote cabinet alarm.
 
 ## Common Relay Control Applications
 
@@ -44,7 +44,7 @@ For MQTT-based control, define:
 - acknowledgement topic
 - timeout and retry behavior
 
-Do not rely only on the command message. Use feedback from DI, Modbus or equipment status whenever the project requires confirmation.
+Do not rely only on the command message. Use feedback from DI, Modbus, or equipment status whenever the project requires confirmation.
 
 ## Scheduled Control
 
@@ -59,7 +59,7 @@ Relay RTUs often support schedule-based behavior, such as irrigation cycles or l
 
 ## Safety Boundary
 
-Remote relay control is not the same as safety control. Motor protection, emergency stop, overload protection, fire safety, access safety and interlock circuits should be handled by certified local systems.
+Remote relay control is not the same as safety control. Motor protection, emergency stop, overload protection, fire safety, access safety, and interlock circuits should be handled by certified local systems.
 
 ## Related IoTEdges Products
 

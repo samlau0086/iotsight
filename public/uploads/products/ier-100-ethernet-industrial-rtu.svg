@@ -1,0 +1,45 @@
+<svg width="1600" height="1200" viewBox="0 0 1600 1200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="1200" fill="#F5F1E8"/>
+  <rect x="72" y="72" width="1456" height="1056" rx="32" fill="#FAF7F2" stroke="#D9D0C2" stroke-width="4"/>
+  <text x="120" y="156" fill="#18181B" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">IoTEdges</text>
+  <text x="120" y="216" fill="#18181B" font-family="Arial, Helvetica, sans-serif" font-size="64" font-weight="700">IER-100</text>
+  <text x="120" y="266" fill="#5F5A52" font-family="Arial, Helvetica, sans-serif" font-size="28">Ethernet Industrial RTU</text>
+  <rect x="120" y="320" width="140" height="46" rx="23" fill="#E8E0D2"/>
+  <text x="151" y="350" fill="#18181B" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700">4DI / 2DO</text>
+  <rect x="274" y="320" width="124" height="46" rx="23" fill="#E8E0D2"/>
+  <text x="307" y="350" fill="#18181B" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700">2AI</text>
+  <rect x="412" y="320" width="176" height="46" rx="23" fill="#E8E0D2"/>
+  <text x="441" y="350" fill="#18181B" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700">Ethernet + RS485</text>
+  <rect x="904" y="220" width="418" height="700" rx="28" fill="#202228"/>
+  <rect x="940" y="258" width="346" height="112" rx="16" fill="#2E323A"/>
+  <rect x="940" y="388" width="346" height="236" rx="16" fill="#2E323A"/>
+  <rect x="940" y="644" width="346" height="236" rx="16" fill="#2E323A"/>
+  <g fill="#E8E0D2">
+    <rect x="962" y="286" width="22" height="56" rx="6"/>
+    <rect x="992" y="286" width="22" height="56" rx="6"/>
+    <rect x="1022" y="286" width="22" height="56" rx="6"/>
+    <rect x="1052" y="286" width="22" height="56" rx="6"/>
+    <rect x="1082" y="286" width="22" height="56" rx="6"/>
+    <rect x="1112" y="286" width="22" height="56" rx="6"/>
+  </g>
+  <g fill="#C8BFB1">
+    <rect x="970" y="420" width="56" height="170" rx="10"/>
+    <rect x="1042" y="420" width="56" height="170" rx="10"/>
+    <rect x="1114" y="420" width="56" height="170" rx="10"/>
+    <rect x="1186" y="420" width="56" height="170" rx="10"/>
+  </g>
+  <g fill="#C8BFB1">
+    <rect x="970" y="678" width="42" height="166" rx="10"/>
+    <rect x="1022" y="678" width="42" height="166" rx="10"/>
+    <rect x="1074" y="678" width="42" height="166" rx="10"/>
+    <rect x="1126" y="678" width="42" height="166" rx="10"/>
+    <rect x="1178" y="678" width="42" height="166" rx="10"/>
+    <rect x="1230" y="678" width="42" height="166" rx="10"/>
+  </g>
+  <text x="120" y="502" fill="#18181B" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700">Standard Fit</text>
+  <text x="120" y="552" fill="#5F5A52" font-family="Arial, Helvetica, sans-serif" font-size="24">Wired RTU for alarms, contacts, transmitters, and relay-style control</text>
+  <text x="120" y="620" fill="#18181B" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700">Standard Baseline</text>
+  <text x="120" y="670" fill="#5F5A52" font-family="Arial, Helvetica, sans-serif" font-size="24">4DI + 2DO/relay + 2AI with RS485 and Ethernet uplink</text>
+  <text x="120" y="738" fill="#18181B" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700">Image Status</text>
+  <text x="120" y="788" fill="#5F5A52" font-family="Arial, Helvetica, sans-serif" font-size="24">Controlled placeholder until final product photography is ready</text>
+</svg>

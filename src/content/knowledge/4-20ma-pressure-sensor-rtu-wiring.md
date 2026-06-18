@@ -1,13 +1,17 @@
 ---
 id: 4-20ma-pressure-sensor-rtu-wiring
 title: 4-20mA Pressure Sensor Wiring for RTU and Remote IO Projects
-excerpt: How 4-20mA pressure transmitters connect to industrial RTUs and Remote IO modules for pump, tank, water and irrigation monitoring projects.
+excerpt: >-
+  How 4-20mA pressure transmitters connect to industrial RTUs and Remote IO
+  modules for pump, tank, water and irrigation monitoring deployments.
 category: Sensor Wiring Guide
 primaryKeyword: 4-20mA pressure sensor RTU wiring
-relatedProducts: ier-141-4g-pump-valve-rtu,ieio-100-modbus-remote-io-module,ier-100-ethernet-industrial-rtu
+relatedProducts:
+  - ier-141-4g-pump-valve-rtu
+  - ieio-100-modbus-remote-io-module
+  - ier-100-ethernet-industrial-rtu
 order: 15
 ---
-
 # 4-20mA Pressure Sensor Wiring for RTU and Remote IO Projects
 
 4-20mA pressure transmitters are common in pump stations, water systems, irrigation cabinets, tanks and industrial process monitoring. An RTU or Remote IO module reads the analog signal, converts it into engineering units and sends the value to MQTT or a dashboard.
@@ -36,7 +40,7 @@ order: 15
 
 The exact wiring depends on whether the transmitter is two-wire, three-wire or four-wire. Do not assume every 4-20mA sensor is wired the same way.
 
-For project planning, document:
+For deployment planning, document:
 
 - sensor model and pressure range
 - RTU analog input type
@@ -65,4 +69,4 @@ Yes, if the Remote IO analog input supports the sensor signal type and power req
 
 ### Should pressure sensors be sold with the RTU?
 
-For export projects, it is useful to offer recommended pressure sensor options or at least a clear wiring and specification checklist.
+For export deployments, it is useful to offer recommended pressure sensor options or at least a clear wiring and specification checklist.

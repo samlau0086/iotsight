@@ -1,0 +1,19 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="900" fill="#F5F1E8"/>
+  <rect x="60" y="60" width="1480" height="780" rx="28" fill="#FAF7F2" stroke="#D9D0C2" stroke-width="4"/>
+  <text x="110" y="138" fill="#18181B" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">IoTEdges Blog</text>
+  <rect x="110" y="176" width="152" height="40" rx="20" fill="#E8E0D2"/>
+  <text x="136" y="202" fill="#18181B" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700">Industry Trends</text>
+  <text x="110" y="302" fill="#18181B" font-family="Arial, Helvetica, sans-serif" font-size="64" font-weight="700">Industrial IoT</text>
+  <text x="110" y="370" fill="#18181B" font-family="Arial, Helvetica, sans-serif" font-size="64" font-weight="700">Trends 2024</text>
+  <text x="110" y="438" fill="#5F5A52" font-family="Arial, Helvetica, sans-serif" font-size="28">Edge computing, predictive maintenance and industrial AI directions</text>
+  <rect x="980" y="178" width="410" height="520" rx="28" fill="#22232A"/>
+  <rect x="1014" y="212" width="342" height="452" rx="20" fill="#2C2F38"/>
+  <rect x="1064" y="530" width="56" height="84" rx="10" fill="#E8E0D2"/>
+  <rect x="1136" y="478" width="56" height="136" rx="10" fill="#E8E0D2"/>
+  <rect x="1208" y="424" width="56" height="190" rx="10" fill="#E8E0D2"/>
+  <rect x="1280" y="356" width="56" height="258" rx="10" fill="#E8E0D2"/>
+  <path d="M1058 328C1108 300 1160 286 1216 280C1260 274 1306 284 1338 302" stroke="#3A3D48" stroke-width="12" stroke-linecap="round"/>
+  <text x="110" y="610" fill="#18181B" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700">Cover Status</text>
+  <text x="110" y="658" fill="#5F5A52" font-family="Arial, Helvetica, sans-serif" font-size="24">Controlled placeholder until final editorial artwork is ready</text>
+</svg>

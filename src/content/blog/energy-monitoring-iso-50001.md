@@ -1,16 +1,23 @@
 ---
 id: energy-monitoring-iso-50001
 title: Achieving ISO 50001 with Real-Time Energy Monitoring
-excerpt: Learn how implementing a robust factory energy monitoring system can streamline your path to ISO 50001 certification and significant cost savings.
-date: May 18, 2024
+excerpt: >-
+  Learn how implementing a robust factory energy monitoring system can
+  streamline your path to ISO 50001 certification and significant cost savings.
+date: 'May 18, 2024'
 author: Customer Success
 category: Case Studies
-imageUrl: https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=800
-relatedProducts: ieg-100-ethernet-industrial-iot-gateway,ier-100-ethernet-industrial-rtu,ieio-100-modbus-remote-io-module
-relatedResources: /factory-energy,/knowledge/modbus,/blog/how-to-choose-modbus-mqtt-gateway
+imageUrl: /uploads/blog/energy-monitoring-iso-50001.svg
+relatedProducts:
+  - ieg-100-ethernet-industrial-iot-gateway
+  - ier-100-ethernet-industrial-rtu
+  - ieio-100-modbus-remote-io-module
+relatedResources:
+  - /solutions/factory-energy
+  - /knowledge/modbus
+  - /blog/how-to-choose-modbus-mqtt-gateway
 order: 3
 ---
-
 # Achieving ISO 50001 with Real-Time Energy Monitoring
 
 With energy costs constantly fluctuating and a growing global emphasis on sustainability, achieving the ISO 50001 standard for Energy Management Systems (EnMS) has become a strategic priority for manufacturing facilities. But establishing an effective EnMS requires more than just policy changes; it requires accurate, continuous data.

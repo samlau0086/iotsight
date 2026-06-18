@@ -1,0 +1,9 @@
+{
+  "name": "iotedges-decap-auth",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-06-18",
+  "workers_dev": true,
+  "observability": {
+    "enabled": true
+  }
+}

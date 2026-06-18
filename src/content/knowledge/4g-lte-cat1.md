@@ -1,20 +1,25 @@
-﻿---
+---
 id: 4g-lte-cat1
 title: 4G LTE Cat1 for Industrial IoT RTUs
-excerpt: A practical guide to LTE Cat1 for remote RTUs, pump controllers, power cabinets, MQTT telemetry and field devices that need cellular connectivity.
+excerpt: >-
+  A practical guide to LTE Cat1 for remote RTUs, pump controllers, power
+  cabinets, MQTT telemetry and field devices that need cellular connectivity.
 category: Connectivity Guide
 primaryKeyword: 4G LTE Cat1 RTU
-relatedProducts: ier-140-4g-remote-relay-rtu,ier-141-4g-pump-valve-rtu,ier-142-4g-power-cabinet-rtu,ieac-140-4g-gsm-gate-opener
+relatedProducts:
+  - ier-140-4g-remote-relay-rtu
+  - ier-141-4g-pump-valve-rtu
+  - ier-142-4g-power-cabinet-rtu
+  - ieac-140-4g-gsm-gate-opener
 order: 5
 ---
-
 # 4G LTE Cat1 for Industrial IoT RTUs
 
 4G LTE Cat1 is a common cellular option for industrial IoT devices that need reliable remote connectivity without the cost and complexity of high-bandwidth routers. It is suitable for RTUs, relay controllers, pump stations, power cabinets, gate controllers and remote monitoring devices that send small amounts of data to MQTT or a web dashboard.
 
 ## Why LTE Cat1 Fits Remote RTUs
 
-Most RTU projects do not need video streaming or high data rates. They need stable connection, low enough latency for control commands, support for SIM/APN configuration, and enough bandwidth for telemetry, alarms and OTA updates.
+Most RTU deployments do not need video streaming or high data rates. They need stable connection, low enough latency for control commands, support for SIM/APN configuration, and enough bandwidth for telemetry, alarms, and OTA updates.
 
 LTE Cat1 is a practical fit for:
 
@@ -27,9 +32,9 @@ LTE Cat1 is a practical fit for:
 
 ## What To Confirm Before Deployment
 
-Before selecting a 4G RTU, confirm:
+Before selecting a 4G RTU, check:
 
-- target country and carrier
+- country and carrier
 - LTE bands supported by the module
 - SIM type, APN and private network requirements
 - antenna location and cabinet material
@@ -48,7 +53,7 @@ Before selecting a 4G RTU, confirm:
 
 ## LTE Cat1 And MQTT
 
-MQTT works well over LTE Cat1 because it can publish compact telemetry and receive control commands using a persistent connection. For RTU projects, define:
+MQTT works well over LTE Cat1 because it can publish compact telemetry and receive control commands using a persistent connection. For RTU deployments, define:
 
 - heartbeat topic
 - DI/DO status topic
@@ -66,5 +71,4 @@ MQTT works well over LTE Cat1 because it can publish compact telemetry and recei
 
 ## Selection Notes
 
-LTE Cat1 should be selected when the project needs cellular connectivity, remote configuration, alarm push, MQTT telemetry or remote relay control. For sites with stable wired LAN, an Ethernet model may be simpler. For indoor equipment rooms with existing wireless infrastructure, a WiFi model may be suitable.
-
+LTE Cat1 is a strong fit when the site needs cellular connectivity, remote configuration, alarm push, MQTT telemetry, or remote relay control. For sites with stable wired LAN, an Ethernet model may be simpler. For indoor equipment rooms with existing wireless infrastructure, a WiFi model may be suitable.

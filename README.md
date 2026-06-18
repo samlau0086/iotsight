@@ -4,57 +4,64 @@ English | 中文
 
 ## English
 
-IoTEdges is a React and Express website for industrial IoT solution marketing, product education, technical SEO content, and live chat lead capture.
-
-The site focuses on industrial IoT gateways, RTUs, Remote IO modules, remote access controllers, Modbus, MQTT, RS485, and remote monitoring solutions for factory energy, solar, water, agriculture, building automation, and gate access control.
+IoTEdges is a React and Express industrial IoT website for product marketing, SEO content, live chat lead capture, and CRM-backed quote requests.
 
 ### Features
 
-- Industrial IoT solution pages and solution detail pages, including gate access control
-- Product pages for IoTEdges gateways, RTUs, Remote IO modules, and remote access controllers
-- Markdown-based Blog, Knowledge Base, and public-safe product draft content
-- SEO-friendly build-time prerendering for marketing, solution, product, knowledge, and blog routes
-- Automatic canonical tags, Open Graph URLs, JSON-LD structured data, `sitemap.xml`, and `robots.txt`
+- Product pages for gateways, RTUs, Remote IO, remote relay RTUs, gate access controllers, and dashboard software
+- Solution pages for factory energy, solar, water, agriculture, building automation, and gate access control
+- Markdown content for Blog, Knowledge Base, Products, Solutions, Accessories, and selected site-owned marketing copy
+- Build-time prerendering for marketing, product, solution, knowledge, blog, accessories, and utility routes
+- Automatic canonical tags, Open Graph tags, JSON-LD, `sitemap.xml`, and `robots.txt`
 - Optional Google Analytics 4 and Google Tag Manager injection during build
-- Live chat widget through a server-side TradeQuest CRM proxy
-- GitHub Actions deployment to a VPS with PM2 restart and prerender checks
+- Server-side live chat proxy integration with TradeQuest CRM
+- CRM-backed Request Quote submission flow with honeypot and minimum-submit-time protection
+- GitHub Actions deployment to a VPS with PM2 restart
+- Decap CMS admin scaffold with GitHub OAuth Worker support
 
 ### Architecture
 
 ```mermaid
 flowchart LR
-  Visitor["Website visitor"] --> React["React website"]
+  Visitor["Website visitor"] --> React["React frontend"]
   React --> Express["IoTEdges Express server"]
   Express --> CRM["TradeQuest CRM Live Chat API"]
   Express <--> Socket["TradeQuest Socket.IO"]
   CRM --> Desk["Live Chat Desk / Agent"]
 ```
 
-The browser only calls this website's own API paths:
+The browser only calls this website's own endpoints:
 
 - `POST /api/live-chat/public/sessions`
 - `GET /api/live-chat/public/sessions/:id/messages`
 - `POST /api/live-chat/public/sessions/:id/messages`
+- `POST /api/quote-request`
 - Socket.IO path `/socket.io`
 
-The Express server forwards live chat requests to `LIVE_CHAT_API_BASE_URL` and injects `LIVE_CHAT_API_TOKEN` server-side. The token is never exposed to browser code or `VITE_` variables.
+`LIVE_CHAT_API_TOKEN` stays server-side and must not be exposed with a `VITE_` prefix.
 
 ### Project Structure
 
-- `src/App.tsx`: React routes and app shell
-- `src/pages`: website pages
-- `src/data/solutions.ts`: solution content and solution-to-product mapping
-- `src/data/blog.ts`: Markdown blog loader
-- `src/data/knowledge.ts`: Markdown knowledge base loader
-- `src/data/products.ts`: Markdown product page loader
-- `src/content/blog/*.md`: blog articles
-- `src/content/knowledge/*.md`: protocol and technical knowledge pages
-- `src/content/products/*.md`: public-safe product draft pages
-- `src/components/AIChatWidget.tsx`: live chat widget
-- `scripts/prerender.mjs`: prerender, SEO meta, sitemap, and robots generation
-- `server.ts`: Express server, static hosting, live chat proxy, Socket.IO bridge
-- `.github/workflows/deploy.yml`: CI build and VPS deployment
-- `ecosystem.config.cjs`: PM2 process config
+- `src/pages`: page components
+- `src/data/blog.ts`: blog Markdown loader
+- `src/data/knowledge.ts`: knowledge Markdown loader
+- `src/data/products.ts`: product Markdown loader
+- `src/data/solutions.ts`: solution Markdown loader
+- `src/data/accessories.ts`: accessories Markdown loader
+- `src/data/siteCopy.ts`: file-backed site copy loader
+- `src/content/blog/*.md`: blog content
+- `src/content/knowledge/*.md`: knowledge content
+- `src/content/products/*.md`: product content
+- `src/content/solutions/*.md`: solution content
+- `src/content/accessories/*.md`: accessories overview content
+- `src/content/site-copy/*.md`: homepage and utility page copy
+- `public/admin/index.html`: Decap CMS admin entry
+- `public/admin/config.yml`: Decap CMS config
+- `scripts/prerender.mjs`: prerender, SEO, sitemap, and robots generation
+- `server.ts`: Express server and API proxy layer
+- `.github/workflows/deploy.yml`: VPS deployment workflow
+- `.github/workflows/deploy-decap-auth.yml`: Decap Auth Worker deployment workflow
+- `.github/workflows/validate-cms-rollout.yml`: CMS validation workflow
 
 ### Local Development
 
@@ -68,28 +75,28 @@ Install dependencies:
 npm install
 ```
 
-Create a local environment file if you want to test live chat:
+Optional local environment file:
 
 ```bash
 cp .env.example .env
 ```
 
-Required live chat values:
+Live chat settings:
 
 ```bash
 LIVE_CHAT_API_BASE_URL=https://your-tradequest-crm.example.com
 LIVE_CHAT_API_TOKEN=your_live_chat_public_api_token
 ```
 
-Run the development server:
+Start dev server:
 
 ```bash
 npm run dev
 ```
 
-The app listens on `PORT`, defaulting to `3005`.
+Default port: `3005`.
 
-### Build and Run
+### Build and Validation
 
 Type check:
 
@@ -97,7 +104,83 @@ Type check:
 npm run lint
 ```
 
-Build frontend and server:
+CMS rollout validation:
+
+```bash
+npm run verify:cms-preflight
+```
+
+Step-by-step commands:
+
+```bash
+npm run verify:cms
+```
+
+CMS auth worker smoke test:
+
+```bash
+npm run verify:cms-runtime
+```
+
+CMS auth preflight:
+
+```bash
+npm run verify:cms-auth-preflight
+```
+
+CMS build artifact verification:
+
+```bash
+npm run verify:cms-build
+```
+
+Built production server surface verification:
+
+```bash
+npm run verify:server-surface
+```
+
+External CMS config consistency verification:
+
+```bash
+npm run verify:cms-external-config
+```
+
+This checks that `APP_URL`, `DECAP_*` URLs, and `public/admin/config.yml` `base_url` / `site_url` / `display_url` stay aligned.
+
+External auth worker verification:
+
+```bash
+npm run verify:auth-worker-surface
+```
+
+Live deployment surface verification:
+
+```bash
+npm run verify:production-surface
+```
+
+This checks the live `/admin/` shell, live `/admin/config.yml`, `robots.txt`, and `sitemap.xml`.
+
+Unified live CMS verification:
+
+```bash
+npm run verify:cms-live-surface
+```
+
+End-to-end CMS go-live verification:
+
+```bash
+npm run verify:cms-go-live
+```
+
+Create a CMS dry run report file:
+
+```bash
+npm run create:cms-dry-run-report -- --lang en --date 2026-06-18
+```
+
+Build:
 
 ```bash
 npm run build
@@ -113,256 +196,270 @@ npm start
 
 | Variable | Required | Description |
 | --- | --- | --- |
-| `PORT` | No | HTTP port. Defaults to `3005`. |
-| `APP_URL` | No | Public URL for canonical URLs and sitemap. Defaults to `https://iotedges.com` during prerender. |
-| `VITE_GA_MEASUREMENT_ID` | No | Public Google Analytics 4 measurement ID, for example `G-XXXXXXXXXX`. Injected during build. |
-| `VITE_GTM_ID` | No | Public Google Tag Manager container ID, for example `GTM-XXXXXXX`. Injected during build. |
-| `LIVE_CHAT_API_BASE_URL` | Yes for live chat | TradeQuest CRM origin, for example `https://crm.example.com`. |
-| `LIVE_CHAT_API_TOKEN` | Yes for live chat | Live chat API token generated in TradeQuest CRM. |
-| `GEMINI_API_KEY` | No | Optional key if server-side Gemini features are enabled later. |
-
-Do not expose `LIVE_CHAT_API_TOKEN` with a `VITE_` prefix. Frontend environment variables are bundled into browser code.
-
-`VITE_GA_MEASUREMENT_ID` and `VITE_GTM_ID` are public tracking IDs, so GitHub Actions Variables are recommended. The workflow also supports the same names as Secrets. If GA4 is already configured inside Google Tag Manager, leave `VITE_GA_MEASUREMENT_ID` empty to avoid double-counting page views.
+| `PORT` | No | HTTP port, default `3005` |
+| `APP_URL` | CMS deploy required | Public site URL for canonical URLs, sitemap, and CMS URL consistency checks |
+| `VITE_GA_MEASUREMENT_ID` | No | Google Analytics 4 Measurement ID |
+| `VITE_GTM_ID` | No | Google Tag Manager Container ID |
+| `LIVE_CHAT_API_BASE_URL` | Live chat only | TradeQuest CRM origin |
+| `LIVE_CHAT_API_TOKEN` | Live chat only | TradeQuest CRM live chat token |
+| `GEMINI_API_KEY` | No | Reserved for optional server-side AI features |
 
 ### Content Authoring
 
-Blog articles live in `src/content/blog/*.md`.
+The site content currently lives in file-backed Markdown:
 
-Knowledge Base articles live in `src/content/knowledge/*.md`.
+- `src/content/blog/*.md`
+- `src/content/knowledge/*.md`
+- `src/content/products/*.md`
+- `src/content/solutions/*.md`
+- `src/content/accessories/*.md`
+- `src/content/site-copy/*.md`
 
-Product draft pages live in `src/content/products/*.md`.
+`gray-matter` is used for frontmatter parsing, so nested arrays and objects are supported for CMS-managed structured fields.
 
-Each file starts with frontmatter metadata followed by Markdown content. Adding a new Markdown file automatically adds it to the corresponding list after the next build or dev-server reload.
+### Decap CMS
 
-Blog frontmatter can include optional related links:
+Admin path:
 
-```md
----
-id: how-to-choose-4g-gate-opener-europe
-title: How to Choose a 4G Gate Opener for Europe
-excerpt: Short summary used on the blog list and SEO meta.
-date: June 09, 2026
-author: Product Management
-category: Buyer Guide
-imageUrl: https://example.com/image.jpg
-relatedProducts: ieac-140-4g-gsm-gate-opener
-relatedResources: /solutions/gate-access-control,/knowledge/4g-gsm-gate-opener-europe
-order: 4
----
-
-# How to Choose a 4G Gate Opener for Europe
+```text
+/admin/
 ```
 
-Knowledge Base example:
+Current collections:
 
-```md
----
-id: modbus
-title: Modbus for Industrial IoT Gateways and RTUs
-excerpt: Short summary used on the knowledge list and SEO meta.
-category: Protocol Guide
-primaryKeyword: Modbus
-relatedProducts: ieg-100-ethernet-industrial-iot-gateway,ier-100-ethernet-industrial-rtu
-order: 1
----
+- Blog
+- Knowledge Base
+- Products
+- Solutions
+- Accessories Overview
+- Site Copy
+  - Homepage Copy
+  - About Page Copy
+  - Contact Page Copy
+  - Gateway Page Copy
+  - Demo Page Copy
 
-# Modbus for Industrial IoT Gateways and RTUs
+Current rollout logic:
 
-Write the technical guide in Markdown.
+1. Blog
+2. Knowledge Base
+3. Products
+4. Solutions
+5. Accessories Overview
+6. Site Copy files
+
+This keeps the highest-risk structured collections under tighter control before wider editorial use.
+
+### CMS Documentation Hub
+
+- `docs/decap-cms-draft.md`
+- `docs/decap-cms-config-draft.md`
+- `docs/cms-minimum-go-live.md`
+- `docs/decap-auth-rollout.md`
+- `docs/decap-cms-qa-checklist.md`
+- `docs/cms-rollout-sequence.md`
+- `docs/github-cloudflare-cms-setup-runbook.md`
+- `docs/cms-admin-dry-run-checklist.md`
+- `docs/cms-admin-dry-run-report-template.md`
+- `docs/cms-go-live-checklist.md`
+- `docs/cms-troubleshooting.md`
+- `docs/cms-editor-handbook.md`
+- `docs/cms-field-glossary.md`
+- `docs/media-asset-guidelines.md`
+- `docs/content-readiness-audit.zh-CN.md`
+- `docs/decap-cms-config-draft.zh-CN.md`
+- `docs/cms-minimum-go-live.zh-CN.md`
+- `docs/cms-editor-handbook.zh-CN.md`
+- `docs/cms-field-glossary.zh-CN.md`
+- `docs/cms-admin-dry-run-checklist.zh-CN.md`
+- `docs/cms-admin-dry-run-report-template.zh-CN.md`
+- `docs/cms-rollout-sequence.zh-CN.md`
+- `docs/media-asset-guidelines.zh-CN.md`
+- `docs/github-cloudflare-cms-setup-runbook.zh-CN.md`
+- `docs/cms-go-live-checklist.zh-CN.md`
+- `docs/cms-troubleshooting.zh-CN.md`
+
+### Decap Auth Worker
+
+The repo includes a Cloudflare Worker scaffold for GitHub OAuth:
+
+- `workers/decap-auth-cloudflare/src/index.ts`
+- `workers/decap-auth-cloudflare/wrangler.jsonc`
+- `workers/decap-auth-cloudflare/.dev.vars.example`
+
+Recommended production layout:
+
+- main site: `https://iotedges.com`
+- CMS admin: `https://iotedges.com/admin/`
+- auth worker: `https://cms-auth.iotedges.com`
+
+Configured admin backend:
+
+```yml
+backend:
+  name: github
+  repo: samla/iotsight
+  branch: main
+  base_url: https://cms-auth.iotedges.com
+  auth_endpoint: auth
 ```
-
-Product page example:
-
-```md
----
-id: ieg-100-ethernet-industrial-iot-gateway
-title: IEG-100 Ethernet Industrial IoT Gateway
-excerpt: Short summary used on the product list and SEO meta.
-category: Industrial IoT Gateway
-model: IEG-100
-status: Public-safe draft
-primaryKeyword: Ethernet industrial IoT gateway
-route: /products/ieg-100-ethernet-industrial-iot-gateway
-order: 1
----
-
-## Product Section
-
-Write validation-safe product content in Markdown.
-```
-
-Product pages should keep exact ratings, certifications, wireless coverage, protocol limits, and final datasheet values validation-gated until engineering evidence exists.
 
 ### SEO and Prerendering
 
-`npm run build` runs the prerender script after the Vite client and SSR builds.
-
-The prerender step generates static HTML for:
+`npm run build` prerenders:
 
 - `/`
-- main marketing routes
-- `/solutions` and every `/solutions/:id`
-- `/products` and every `/products/:id`
-- `/knowledge` and every `/knowledge/:id`
-- `/blog` and every `/blog/:id`
+- `/about`
+- `/contact`
+- `/demo`
+- `/gateway`
+- `/accessories`
+- `/solutions` and `/solutions/:id`
+- `/products` and `/products/:id`
+- `/knowledge` and `/knowledge/:id`
+- `/blog` and `/blog/:id`
 
-For Blog, Knowledge Base, Product, and Solution pages, prerendering writes page-specific:
+Build output includes:
 
-- `<title>`
-- meta description
-- canonical URL
-- Open Graph tags
-- JSON-LD structured data
-
-The prerender step also writes:
-
+- page-specific `<title>`, meta description, canonical, Open Graph, and JSON-LD
 - `dist/sitemap.xml`
 - `dist/robots.txt`
 
-### Search Console Sitemap
-
-After deployment, submit this sitemap URL in Google Search Console:
+Submit this sitemap to Google Search Console:
 
 ```text
 https://iotedges.com/sitemap.xml
 ```
 
-Google can also discover the sitemap from:
+### Analytics and Events
 
-```text
-https://iotedges.com/robots.txt
-```
+If `VITE_GTM_ID` or `VITE_GA_MEASUREMENT_ID` is provided at build time, generated HTML includes GTM and/or GA4.
 
-The sitemap is generated automatically by `npm run build` from the prerender route list in `src/entry-server.tsx`. It includes the home page, main collection pages, product pages, solution pages, knowledge pages, and blog posts. If the production domain changes, set `APP_URL` during build/deployment so canonical URLs, Open Graph URLs, `robots.txt`, and `sitemap.xml` use the correct domain.
+Current tracked events include:
 
-If `VITE_GTM_ID` or `VITE_GA_MEASUREMENT_ID` is configured during build, the prerender step also injects Google Tag Manager and/or Google Analytics 4 tags into the generated HTML.
+- `virtual_page_view`
+- `cta_click`
+- `lead_form_submit`
+- `live_chat_open`
+- `live_chat_lead_submit`
+- `live_chat_message_send`
+- `live_chat_close`
 
-Google tracking tags are not written into the source `index.html`. They appear only in generated files under `dist` after `npm run build`, such as `dist/index.html` and prerendered route HTML files. The GitHub Actions deployment now fails if neither `VITE_GTM_ID` nor `VITE_GA_MEASUREMENT_ID` is configured.
+### Request Quote
 
-Because the site uses client-side routing, internal page changes do not reload the HTML document. `src/components/AnalyticsPageView.tsx` listens for route changes and sends a `virtual_page_view` event to `dataLayer`. If direct GA4 is configured with `VITE_GA_MEASUREMENT_ID`, it also sends a GA4 `config` update with the new `page_path`, `page_location`, and `page_title`. When using GTM, create a Custom Event trigger for `virtual_page_view` if your GA4 tag is managed inside GTM.
+The Request Quote form posts to `/api/quote-request`, then the server validates and forwards valid requests to the CRM public form endpoint.
 
-Key conversion events currently pushed to `dataLayer` are:
+Fields:
 
-- `virtual_page_view`: client-side route change
-- `cta_click`: marked CTA clicks, including hero, navigation, demo, and solution CTAs
-- `lead_form_submit`: contact quote form submission
-- `live_chat_open`: live chat widget opened
-- `live_chat_lead_submit`: live chat pre-chat form submitted
-- `live_chat_message_send`: visitor message sent in live chat
-- `live_chat_close`: live chat widget closed
+- `name`
+- `company`
+- `email`
+- `whatsapp`
+- `country`
+- `application_type`
+- `message`
+- `_formStartedAt`
+- `website_url`
 
-The Request Quote form submits to the same-origin `/api/quote-request` endpoint, and the server forwards valid submissions to the CRM public form endpoint at `https://crms.geekmt.com/api/public/customer-forms/form_1780670393030_531/submit`. The payload fields are `name`, `company`, `email`, `whatsapp`, `country`, `application_type`, `message`, `_formStartedAt`, and the hidden honeypot field `website_url`. The form validates email and WhatsApp format in the browser, uses a searchable country dropdown, blocks very fast submissions, and does not send the honeypot submission to the CRM when `website_url` has a value. To avoid slow CRM responses blocking visitors, the server returns `202 Accepted` after local validation and forwards the CRM request in the background. CRM response time and failures are logged server-side, and `QUOTE_REQUEST_TIMEOUT_MS`, default `15000`, controls the background forwarding timeout.
+`website_url` is a hidden honeypot field. `_formStartedAt` is used to block too-fast submissions.
 
-Generated static files are written under `dist`, for example:
+### VPS Deployment
 
-- `dist/products/ieg-100-ethernet-industrial-iot-gateway/index.html`
-- `dist/knowledge/modbus/index.html`
-- `dist/blog/my-post/index.html`
-
-In production, `server.ts` checks for a prerendered `index.html` that matches the request path before falling back to the SPA `dist/index.html`.
-
-### VPS Deployment With GitHub Actions
-
-The workflow in `.github/workflows/deploy.yml` builds the app, uploads the release bundle to the VPS over SSH, writes production `.env`, installs production dependencies, and restarts PM2.
-
-The workflow runs:
+`.github/workflows/deploy.yml` handles:
 
 - `npm ci`
 - `npm run lint`
+- `npm run verify:cms-preflight`
+- `npm run verify:cms-auth-preflight`
+- `npm run verify:cms`
+- `npm run verify:cms-runtime`
+- `npm run verify:cms-build`
 - `npm run build`
-- prerender checks for product pages
-- prerender checks for knowledge pages
-- SEO discovery file checks for `sitemap.xml` and `robots.txt`
+- release upload to VPS
+- production `.env` generation
+- production dependency install
+- PM2 restart
 
-Required GitHub Actions secrets:
+### CMS Go-Live
 
-- `VPS_HOST`: VPS IP address or domain
-- `VPS_USER`: SSH user, for example `root` or `deploy`
-- `VPS_SSH_KEY`: private SSH key for deployment
-- `LIVE_CHAT_API_BASE_URL`: TradeQuest CRM origin
-- `LIVE_CHAT_API_TOKEN`: private live chat provider token
+Before enabling CMS for production use, run:
 
-Optional GitHub Actions secrets:
-
-- `APP_URL`: production site URL
-- `GEMINI_API_KEY`: optional Gemini API key
-- `VPS_PORT`: SSH port, defaults to `22`
-- `VPS_DEPLOY_PATH`: deploy path, defaults to `/var/www/iotedges`
-
-Optional GitHub Actions variable:
-
-- `PORT`: production app port, defaults to `3005`
-- `VITE_GA_MEASUREMENT_ID`: GA4 measurement ID, for example `G-XXXXXXXXXX`
-- `VITE_GTM_ID`: Google Tag Manager container ID, for example `GTM-XXXXXXX`
-
-Useful production commands on the VPS:
-
-```bash
-pm2 status
-pm2 logs iotedges
-pm2 restart iotedges
-```
+1. `docs/cms-rollout-sequence.md`
+2. `docs/cms-admin-dry-run-checklist.md`
+3. `docs/cms-admin-dry-run-report-template.md`
+4. `docs/cms-go-live-checklist.md`
+5. `docs/cms-troubleshooting.md`
+6. `docs/cms-admin-dry-run-checklist.zh-CN.md`
+7. `docs/cms-admin-dry-run-report-template.zh-CN.md`
+8. `docs/cms-go-live-checklist.zh-CN.md`
+9. `docs/cms-rollout-sequence.zh-CN.md`
 
 ## 中文
 
-IoTEdges 是一个基于 React 和 Express 的工业物联网官网项目，用于展示解决方案、介绍产品能力、发布技术 SEO 内容，并通过网站 Live Chat 收集潜在客户线索。
-
-网站重点围绕工业 IoT Gateway、RTU、Remote IO、Remote Access Controller、Modbus、MQTT、RS485，以及工厂能源监控、光伏监控、水务监控、智慧农业、楼宇自动化和门禁远程控制等场景展开。
+IoTEdges 是一个基于 React 和 Express 的工业物联网网站项目，用于承载产品页面、解决方案页面、SEO 内容、Live Chat 线索收集，以及 CRM 驱动的询盘表单。
 
 ### 功能
 
-- 工业物联网解决方案列表页和详情页，包括门禁远程控制场景
-- IoTEdges Gateway、RTU、Remote IO、Remote Access Controller 产品页
-- 使用 Markdown 管理 Blog、Knowledge Base 和 public-safe 产品草稿内容
-- 构建时预渲染营销页、解决方案页、产品页、知识库页和 Blog，提高 SEO 友好度
-- 构建时自动生成 canonical、Open Graph URL、`sitemap.xml` 和 `robots.txt`
-- 构建时可选注入 Google Analytics 4 和 Google Tag Manager
-- Live Chat 浮窗，通过服务端代理连接 TradeQuest CRM
-- GitHub Actions 自动部署到 VPS，并通过 PM2 重启服务
+- 工业 Gateway、RTU、Remote IO、Remote Relay RTU、门禁控制器和 Dashboard 软件产品页
+- 工厂能耗、光伏、水务、农业、楼宇自动化和门禁控制等解决方案页面
+- 基于 Markdown 的 Blog、Knowledge Base、Products、Solutions、Accessories 和部分站点文案内容体系
+- 构建时预渲染营销页、产品页、方案页、知识页、博客页、配件页和辅助页面
+- 自动生成 canonical、Open Graph、JSON-LD、`sitemap.xml` 和 `robots.txt`
+- 构建时按需注入 Google Analytics 4 和 Google Tag Manager
+- 通过服务端代理接入 TradeQuest CRM Live Chat
+- CRM 驱动的 Request Quote 提交流程，带蜜罐字段和最短提交时间保护
+- 通过 GitHub Actions 自动部署到 VPS，并通过 PM2 重启服务
+- 已包含 Decap CMS 管理后台草案和 GitHub OAuth Worker 架构
 
 ### 架构
 
 ```mermaid
 flowchart LR
-  Visitor["网站访客"] --> React["React 网站前端"]
+  Visitor["网站访问者"] --> React["React 前端"]
   React --> Express["IoTEdges Express 服务端"]
   Express --> CRM["TradeQuest CRM Live Chat API"]
   Express <--> Socket["TradeQuest Socket.IO"]
   CRM --> Desk["Live Chat Desk / Agent"]
 ```
 
-浏览器只请求本站自己的 API：
+浏览器只调用本站自己的接口：
 
 - `POST /api/live-chat/public/sessions`
 - `GET /api/live-chat/public/sessions/:id/messages`
 - `POST /api/live-chat/public/sessions/:id/messages`
+- `POST /api/quote-request`
 - Socket.IO 路径 `/socket.io`
 
-Express 服务端会把 Live Chat 请求转发到 `LIVE_CHAT_API_BASE_URL`，并在服务端注入 `LIVE_CHAT_API_TOKEN`。该 token 不会暴露到浏览器，也不要配置为 `VITE_` 前缀变量。
+`LIVE_CHAT_API_TOKEN` 只保留在服务端，不能暴露成 `VITE_` 前缀变量。
 
 ### 项目结构
 
-- `src/App.tsx`：React 路由和应用外壳
-- `src/pages`：网站页面
-- `src/data/solutions.ts`：解决方案内容和 solution-to-product 映射
-- `src/data/blog.ts`：Markdown Blog 加载器
-- `src/data/knowledge.ts`：Markdown Knowledge Base 加载器
-- `src/data/products.ts`：Markdown 产品页加载器
-- `src/content/blog/*.md`：Blog 文章
-- `src/content/knowledge/*.md`：协议和技术知识库页面
-- `src/content/products/*.md`：public-safe 产品草稿页
-- `src/components/AIChatWidget.tsx`：Live Chat 浮窗组件
-- `scripts/prerender.mjs`：预渲染、SEO meta、sitemap 和 robots 生成脚本
-- `server.ts`：Express 服务端、静态资源托管、Live Chat 代理、Socket.IO 桥接
-- `.github/workflows/deploy.yml`：CI 构建和 VPS 部署流程
-- `ecosystem.config.cjs`：PM2 进程配置
+- `src/pages`: 页面组件
+- `src/data/blog.ts`: Blog Markdown 加载器
+- `src/data/knowledge.ts`: Knowledge Markdown 加载器
+- `src/data/products.ts`: Products Markdown 加载器
+- `src/data/solutions.ts`: Solutions Markdown 加载器
+- `src/data/accessories.ts`: Accessories Markdown 加载器
+- `src/data/siteCopy.ts`: 站点文案内容加载器
+- `src/content/blog/*.md`: Blog 内容
+- `src/content/knowledge/*.md`: Knowledge 内容
+- `src/content/products/*.md`: Products 内容
+- `src/content/solutions/*.md`: Solutions 内容
+- `src/content/accessories/*.md`: Accessories 内容
+- `src/content/site-copy/*.md`: 首页和辅助页面文案
+- `public/admin/index.html`: Decap CMS 后台入口
+- `public/admin/config.yml`: Decap CMS 配置
+- `scripts/prerender.mjs`: 预渲染、SEO、sitemap、robots 生成脚本
+- `server.ts`: Express 服务端和 API 代理层
+- `.github/workflows/deploy.yml`: VPS 自动部署流程
+- `.github/workflows/deploy-decap-auth.yml`: Decap Auth Worker 部署流程
+- `.github/workflows/validate-cms-rollout.yml`: CMS 校验流程
 
 ### 本地开发
 
 前置要求：
 
-- Node.js 22 或更新版本
+- Node.js 22 或更高版本
 
 安装依赖：
 
@@ -370,28 +467,28 @@ Express 服务端会把 Live Chat 请求转发到 `LIVE_CHAT_API_BASE_URL`，并
 npm install
 ```
 
-如果要本地测试 Live Chat，创建环境变量文件：
+如需本地测试 Live Chat，可创建：
 
 ```bash
 cp .env.example .env
 ```
 
-Live Chat 必需配置：
+Live Chat 变量：
 
 ```bash
 LIVE_CHAT_API_BASE_URL=https://your-tradequest-crm.example.com
 LIVE_CHAT_API_TOKEN=your_live_chat_public_api_token
 ```
 
-启动开发服务：
+启动开发环境：
 
 ```bash
 npm run dev
 ```
 
-应用监听 `PORT`，默认端口为 `3005`。
+默认端口：`3005`。
 
-### 构建和运行
+### 构建与校验
 
 类型检查：
 
@@ -399,7 +496,77 @@ npm run dev
 npm run lint
 ```
 
-构建前端和服务端：
+CMS 配置校验：
+
+```bash
+npm run verify:cms-preflight
+```
+
+分步命令：
+
+```bash
+npm run verify:cms
+```
+
+CMS Auth Worker 冒烟测试：
+
+```bash
+npm run verify:cms-runtime
+```
+
+CMS Auth Worker 预检：
+
+```bash
+npm run verify:cms-auth-preflight
+```
+
+外部配置一致性校验：
+
+```bash
+npm run verify:cms-external-config
+```
+
+这个命令会检查 `APP_URL`、`DECAP_*` URL，以及 `public/admin/config.yml` 里的 `base_url` / `site_url` / `display_url` 是否一致。
+
+线上 Auth Worker 验证：
+
+```bash
+npm run verify:auth-worker-surface
+```
+
+线上网站表面验证：
+
+```bash
+npm run verify:production-surface
+```
+
+这个命令会检查线上 `/admin/` 壳、线上 `/admin/config.yml`、`robots.txt` 和 `sitemap.xml`。
+
+整套 CMS 线上验证：
+
+```bash
+npm run verify:cms-live-surface
+```
+
+CMS 最终上线总验证：
+
+```bash
+npm run verify:cms-go-live
+```
+
+CMS 构建产物校验：
+
+```bash
+npm run verify:cms-build
+```
+
+生成 CMS 试运行报告文件：
+
+```bash
+npm run create:cms-dry-run-report -- --lang zh-CN --date 2026-06-18
+```
+
+构建：
 
 ```bash
 npm run build
@@ -415,192 +582,194 @@ npm start
 
 | 变量 | 是否必需 | 说明 |
 | --- | --- | --- |
-| `PORT` | 否 | HTTP 服务端口，默认 `3005`。 |
-| `APP_URL` | 否 | 用于 canonical URL 和 sitemap 的公网地址；预渲染默认使用 `https://iotedges.com`。 |
-| `VITE_GA_MEASUREMENT_ID` | 否 | 公开的 Google Analytics 4 Measurement ID，例如 `G-XXXXXXXXXX`，构建时注入 HTML。 |
-| `VITE_GTM_ID` | 否 | 公开的 Google Tag Manager Container ID，例如 `GTM-XXXXXXX`，构建时注入 HTML。 |
-| `LIVE_CHAT_API_BASE_URL` | Live Chat 必需 | TradeQuest CRM 地址，例如 `https://crm.example.com`。 |
-| `LIVE_CHAT_API_TOKEN` | Live Chat 必需 | TradeQuest CRM 中生成的 Live Chat API token。 |
-| `GEMINI_API_KEY` | 否 | 后续如果启用服务端 Gemini 功能，可配置该 key。 |
+| `PORT` | 否 | HTTP 端口，默认 `3005` |
+| `APP_URL` | CMS 部署必需 | canonical、Open Graph、sitemap 以及 CMS URL 一致性校验使用的公开域名 |
+| `VITE_GA_MEASUREMENT_ID` | 否 | Google Analytics 4 Measurement ID |
+| `VITE_GTM_ID` | 否 | Google Tag Manager Container ID |
+| `LIVE_CHAT_API_BASE_URL` | Live Chat 必需 | TradeQuest CRM 域名 |
+| `LIVE_CHAT_API_TOKEN` | Live Chat 必需 | TradeQuest CRM 的 Live Chat token |
+| `GEMINI_API_KEY` | 否 | 预留的服务端 AI 功能密钥 |
 
-不要把 `LIVE_CHAT_API_TOKEN` 配置成 `VITE_` 前缀变量。前端环境变量会被打包进浏览器代码。
+### 内容管理
 
-`VITE_GA_MEASUREMENT_ID` 和 `VITE_GTM_ID` 是公开追踪 ID，建议放在 GitHub Actions Variables；workflow 也兼容同名 Secrets。若你已经在 GTM 中配置了 GA4，请不要同时设置 `VITE_GA_MEASUREMENT_ID`，否则可能重复统计 page view。
+当前站点内容源是文件驱动的 Markdown：
 
-### 内容写作
+- `src/content/blog/*.md`
+- `src/content/knowledge/*.md`
+- `src/content/products/*.md`
+- `src/content/solutions/*.md`
+- `src/content/accessories/*.md`
+- `src/content/site-copy/*.md`
 
-Blog 文章位于 `src/content/blog/*.md`。
+frontmatter 由 `gray-matter` 解析，因此支持数组和嵌套对象，适合 Decap CMS 管理结构化字段。
 
-Knowledge Base 文章位于 `src/content/knowledge/*.md`。
+### Decap CMS
 
-产品草稿页位于 `src/content/products/*.md`。
+后台路径：
 
-每个文件以 frontmatter 元数据开头，后面是 Markdown 正文。新增 Markdown 文件后，下一次构建或开发服务刷新时会自动进入对应列表。
-
-Blog frontmatter 可以配置相关产品和资源：
-
-```md
----
-id: how-to-choose-4g-gate-opener-europe
-title: How to Choose a 4G Gate Opener for Europe
-excerpt: 用于 Blog 列表和 SEO meta 的简短摘要。
-date: June 09, 2026
-author: Product Management
-category: Buyer Guide
-imageUrl: https://example.com/image.jpg
-relatedProducts: ieac-140-4g-gsm-gate-opener
-relatedResources: /solutions/gate-access-control,/knowledge/4g-gsm-gate-opener-europe
-order: 4
----
-
-# How to Choose a 4G Gate Opener for Europe
+```text
+/admin/
 ```
 
-Knowledge Base 示例：
+当前 collection：
 
-```md
----
-id: modbus
-title: Modbus for Industrial IoT Gateways and RTUs
-excerpt: 用于知识库列表和 SEO meta 的简短摘要。
-category: Protocol Guide
-primaryKeyword: Modbus
-relatedProducts: ieg-100-ethernet-industrial-iot-gateway,ier-100-ethernet-industrial-rtu
-order: 1
----
+- Blog
+- Knowledge Base
+- Products
+- Solutions
+- Accessories Overview
+- Site Copy
+  - Homepage Copy
+  - About Page Copy
+  - Contact Page Copy
+  - Gateway Page Copy
+  - Demo Page Copy
 
-# Modbus for Industrial IoT Gateways and RTUs
+当前建议的 rollout 顺序：
 
-使用 Markdown 编写技术指南。
+1. Blog
+2. Knowledge Base
+3. Products
+4. Solutions
+5. Accessories Overview
+6. Site Copy 文件
+
+这样可以先验证高风险结构化 collection，再逐步开放单文件受控文案。
+
+### CMS 文档入口
+
+- `docs/decap-cms-draft.md`
+- `docs/decap-cms-config-draft.md`
+- `docs/decap-auth-rollout.md`
+- `docs/decap-cms-qa-checklist.md`
+- `docs/cms-rollout-sequence.md`
+- `docs/github-cloudflare-cms-setup-runbook.md`
+- `docs/cms-admin-dry-run-checklist.md`
+- `docs/cms-admin-dry-run-report-template.md`
+- `docs/cms-go-live-checklist.md`
+- `docs/cms-troubleshooting.md`
+- `docs/cms-editor-handbook.md`
+- `docs/cms-field-glossary.md`
+- `docs/media-asset-guidelines.md`
+- `docs/content-readiness-audit.zh-CN.md`
+- `docs/decap-cms-config-draft.zh-CN.md`
+- `docs/cms-editor-handbook.zh-CN.md`
+- `docs/cms-field-glossary.zh-CN.md`
+- `docs/cms-admin-dry-run-checklist.zh-CN.md`
+- `docs/cms-admin-dry-run-report-template.zh-CN.md`
+- `docs/cms-rollout-sequence.zh-CN.md`
+- `docs/media-asset-guidelines.zh-CN.md`
+- `docs/github-cloudflare-cms-setup-runbook.zh-CN.md`
+- `docs/cms-go-live-checklist.zh-CN.md`
+- `docs/cms-troubleshooting.zh-CN.md`
+
+### Decap Auth Worker
+
+仓库中已包含 Cloudflare Worker 版 GitHub OAuth bridge：
+
+- `workers/decap-auth-cloudflare/src/index.ts`
+- `workers/decap-auth-cloudflare/wrangler.jsonc`
+- `workers/decap-auth-cloudflare/.dev.vars.example`
+
+建议生产结构：
+
+- 主站：`https://iotedges.com`
+- CMS 后台：`https://iotedges.com/admin/`
+- Auth Worker：`https://cms-auth.iotedges.com`
+
+当前后台配置：
+
+```yml
+backend:
+  name: github
+  repo: samla/iotsight
+  branch: main
+  base_url: https://cms-auth.iotedges.com
+  auth_endpoint: auth
 ```
 
-产品页示例：
+### SEO 与预渲染
 
-```md
----
-id: ieg-100-ethernet-industrial-iot-gateway
-title: IEG-100 Ethernet Industrial IoT Gateway
-excerpt: 用于产品列表和 SEO meta 的简短摘要。
-category: Industrial IoT Gateway
-model: IEG-100
-status: Public-safe draft
-primaryKeyword: Ethernet industrial IoT gateway
-route: /products/ieg-100-ethernet-industrial-iot-gateway
-order: 1
----
-
-## Product Section
-
-使用 Markdown 编写验证安全的产品内容。
-```
-
-产品页在工程证据完成前，应继续使用 validation-safe 措辞，不发布精确电气规格、认证、无线覆盖、协议限制或最终 datasheet 参数。
-
-### SEO 和预渲染
-
-`npm run build` 会在 Vite 客户端构建和 SSR 构建后执行预渲染脚本。
-
-预渲染会为以下页面生成静态 HTML：
+`npm run build` 会预渲染：
 
 - `/`
-- 主要营销页面
-- `/solutions` 和每个 `/solutions/:id`
-- `/products` 和每个 `/products/:id`
-- `/knowledge` 和每个 `/knowledge/:id`
-- `/blog` 和每个 `/blog/:id`
+- `/about`
+- `/contact`
+- `/demo`
+- `/gateway`
+- `/accessories`
+- `/solutions` 和 `/solutions/:id`
+- `/products` 和 `/products/:id`
+- `/knowledge` 和 `/knowledge/:id`
+- `/blog` 和 `/blog/:id`
 
-对于 Blog、Knowledge Base、Product 和 Solution 页面，预渲染会写入页面专属的：
+构建产物会包含：
 
-- `<title>`
-- meta description
-- canonical URL
-- Open Graph tags
-
-预渲染还会生成：
-
+- 页面级 `<title>`、meta description、canonical、Open Graph、JSON-LD
 - `dist/sitemap.xml`
 - `dist/robots.txt`
 
-### Search Console Sitemap
-
-部署完成后，在 Google Search Console 里提交这个 sitemap 地址：
+提交到 Google Search Console 的 sitemap：
 
 ```text
 https://iotedges.com/sitemap.xml
 ```
 
-Google 也可以通过 robots 文件发现 sitemap：
+### 分析与事件
 
-```text
-https://iotedges.com/robots.txt
-```
+如果在构建时提供 `VITE_GTM_ID` 或 `VITE_GA_MEASUREMENT_ID`，生成的 HTML 会自动注入 GTM 和或 GA4。
 
-sitemap 会由 `npm run build` 根据 `src/entry-server.tsx` 中的预渲染路由列表自动生成，包含首页、主要栏目页、产品页、解决方案页、知识库页和 Blog 文章页。如果以后生产域名变化，需要在构建/部署环境里设置 `APP_URL`，确保 canonical URL、Open Graph URL、`robots.txt` 和 `sitemap.xml` 都使用正确域名。
+当前关键事件包括：
 
-如果构建时配置了 `VITE_GTM_ID` 或 `VITE_GA_MEASUREMENT_ID`，预渲染脚本还会把 Google Tag Manager 和/或 Google Analytics 4 标签注入生成的 HTML。
+- `virtual_page_view`
+- `cta_click`
+- `lead_form_submit`
+- `live_chat_open`
+- `live_chat_lead_submit`
+- `live_chat_message_send`
+- `live_chat_close`
 
-Google tracking 标签不会写入源码 `index.html`，只会在 `npm run build` 后出现在 `dist` 目录的生成文件中，例如 `dist/index.html` 和各个预渲染路由 HTML。现在 GitHub Actions 会在 `VITE_GTM_ID` 和 `VITE_GA_MEASUREMENT_ID` 都未配置时直接失败，避免无追踪代码的版本被部署。
+### Request Quote
 
-由于网站使用前端路由，站内页面切换不会重新加载 HTML 文档。`src/components/AnalyticsPageView.tsx` 会监听路由变化，并向 `dataLayer` 发送 `virtual_page_view` 事件。如果通过 `VITE_GA_MEASUREMENT_ID` 直接配置 GA4，它也会同步发送带有新 `page_path`、`page_location` 和 `page_title` 的 GA4 `config` 更新。若 GA4 是通过 GTM 管理，请在 GTM 中为 `virtual_page_view` 创建 Custom Event 触发器。
+Request Quote 表单提交到 `/api/quote-request`，服务端完成本地校验后再转发到 CRM 公共表单接口。
 
-当前会推送到 `dataLayer` 的关键转化事件包括：
+字段包括：
 
-- `virtual_page_view`：前端路由页面切换
-- `cta_click`：已标记的 CTA 点击，包括首页、导航、Demo 和 Solution CTA
-- `lead_form_submit`：联系页询盘表单提交
-- `live_chat_open`：打开 Live Chat
-- `live_chat_lead_submit`：Live Chat 访客信息表单提交
-- `live_chat_message_send`：访客发送 Live Chat 消息
-- `live_chat_close`：关闭 Live Chat
+- `name`
+- `company`
+- `email`
+- `whatsapp`
+- `country`
+- `application_type`
+- `message`
+- `_formStartedAt`
+- `website_url`
 
-Request Quote 表单会先提交到同源的 `/api/quote-request`，再由服务端转发到 CRM public form endpoint：`https://crms.geekmt.com/api/public/customer-forms/form_1780670393030_531/submit`。提交字段包括 `name`、`company`、`email`、`whatsapp`、`country`、`application_type`、`message`、`_formStartedAt` 和隐藏蜜罐字段 `website_url`。前端会校验 email 和 WhatsApp 格式，国家字段使用可搜索下拉，过快提交会被拦截；如果 `website_url` 有值，则视为机器人提交，不会发送到 CRM。为了避免 CRM 响应慢导致访客长时间等待，服务端本地校验通过后会立即返回 `202 Accepted`，并在后台继续转发 CRM 请求。CRM 响应耗时和失败会记录在服务端日志中，后台转发超时时间通过 `QUOTE_REQUEST_TIMEOUT_MS` 控制，默认 `15000` 毫秒。
+`website_url` 是隐藏蜜罐字段，`_formStartedAt` 用于拦截过快提交。
 
-生成的静态文件会写入 `dist`，例如：
+### VPS 自动部署
 
-- `dist/products/ieg-100-ethernet-industrial-iot-gateway/index.html`
-- `dist/knowledge/modbus/index.html`
-- `dist/blog/my-post/index.html`
-
-生产环境中，`server.ts` 会先查找与请求路径匹配的预渲染 `index.html`，找不到时再 fallback 到 SPA 的 `dist/index.html`。
-
-### GitHub Actions 部署到 VPS
-
-`.github/workflows/deploy.yml` 会构建项目，通过 SSH 上传 release 包到 VPS，写入生产 `.env`，安装生产依赖，并重启 PM2。
-
-workflow 会执行：
+`.github/workflows/deploy.yml` 会执行：
 
 - `npm ci`
 - `npm run lint`
+- `npm run verify:cms-preflight`
+- `npm run verify:cms-auth-preflight`
+- `npm run verify:cms`
+- `npm run verify:cms-runtime`
+- `npm run verify:cms-build`
 - `npm run build`
-- 产品页预渲染检查
-- 知识库页预渲染检查
-- `sitemap.xml` 和 `robots.txt` 检查
+- 上传构建产物到 VPS
+- 生成生产 `.env`
+- 安装生产依赖
+- 通过 PM2 重启服务
 
-必需的 GitHub Actions Secrets：
+### CMS 上线准备
 
-- `VPS_HOST`：VPS IP 或域名
-- `VPS_USER`：SSH 用户，例如 `root` 或 `deploy`
-- `VPS_SSH_KEY`：部署用 SSH 私钥
-- `LIVE_CHAT_API_BASE_URL`：TradeQuest CRM 地址
-- `LIVE_CHAT_API_TOKEN`：Live Chat provider token
+正式启用 CMS 前，建议至少按这个顺序执行：
 
-可选的 GitHub Actions Secrets：
-
-- `APP_URL`：生产环境网站 URL
-- `GEMINI_API_KEY`：可选 Gemini API key
-- `VPS_PORT`：SSH 端口，默认 `22`
-- `VPS_DEPLOY_PATH`：部署路径，默认 `/var/www/iotedges`
-
-可选的 GitHub Actions Variables：
-
-- `PORT`：生产服务端口，默认 `3005`
-- `VITE_GA_MEASUREMENT_ID`：GA4 Measurement ID，例如 `G-XXXXXXXXXX`
-- `VITE_GTM_ID`：Google Tag Manager Container ID，例如 `GTM-XXXXXXX`
-
-VPS 常用命令：
-
-```bash
-pm2 status
-pm2 logs iotedges
-pm2 restart iotedges
-```
+1. `docs/cms-rollout-sequence.md`
+2. `docs/cms-admin-dry-run-checklist.zh-CN.md`
+3. `docs/cms-admin-dry-run-report-template.zh-CN.md`
+4. `docs/cms-go-live-checklist.zh-CN.md`
+5. `docs/cms-rollout-sequence.zh-CN.md`

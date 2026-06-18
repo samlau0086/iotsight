@@ -1,6 +1,41 @@
+import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Activity, Zap, Server, Bell, BarChart3, Cloud, ShieldCheck, RadioTower, Droplets, Bot } from 'lucide-react';
+import { ArrowRight, Activity, Zap, Server, Bell, Cloud, ShieldCheck, RadioTower, Droplets, Bot } from 'lucide-react';
 import { motion } from 'motion/react';
+import { homeSiteCopy } from '../data/siteCopy';
+
+const homeIcons = {
+  activity: Activity,
+  bell: Bell,
+  cloud: Cloud,
+  'shield-check': ShieldCheck,
+  server: Server,
+  zap: Zap,
+} as const;
+
+function getHomeIcon(iconKey: string) {
+  return homeIcons[iconKey as keyof typeof homeIcons] || Activity;
+}
+
+function renderHeroTitle() {
+  const { heroTitle, heroHighlight } = homeSiteCopy;
+  const highlightIndex = heroTitle.indexOf(heroHighlight);
+
+  if (!heroHighlight || highlightIndex === -1) {
+    return heroTitle;
+  }
+
+  const before = heroTitle.slice(0, highlightIndex);
+  const after = heroTitle.slice(highlightIndex + heroHighlight.length);
+
+  return (
+    <>
+      {before}
+      <span className="text-blue-500">{heroHighlight}</span>
+      {after}
+    </>
+  );
+}
 
 export default function Home() {
   return (
@@ -15,35 +50,29 @@ export default function Home() {
          >
           <div className="inline-flex max-w-max items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[10px] font-bold uppercase tracking-widest">
             <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
-            Next-Gen Industrial Monitoring
+            {homeSiteCopy.heroEyebrow}
           </div>
           <h1 className="text-4xl md:text-5xl lg:text-5xl font-extrabold leading-[1.1] text-white tracking-tight">
-            Industrial IoT for <span className="text-blue-500">Factories</span>, Energy & Remote Assets
+            {renderHeroTitle()}
           </h1>
           <p className="text-slate-400 text-lg max-w-md leading-relaxed font-medium">
-            Monitor energy usage, machines, solar farms, and remote equipment in real time with industrial gateways, AI-powered dashboards, and smart alerts.
+            {homeSiteCopy.heroDescription}
           </p>
           <div className="flex flex-wrap gap-4 pt-4">
-            <Link to="/demo" data-analytics-event="cta_click" data-analytics-category="hero" data-analytics-label="View Live Demo" data-analytics-destination="/demo" className="px-8 py-4 bg-white text-slate-950 font-bold rounded shadow-lg shadow-white/5 hover:bg-slate-200 transition-all uppercase tracking-widest text-xs flex items-center justify-center">
-              View Live Demo
+            <Link to={homeSiteCopy.heroPrimaryCtaHref} data-analytics-event="cta_click" data-analytics-category="hero" data-analytics-label={homeSiteCopy.heroPrimaryCtaLabel} data-analytics-destination={homeSiteCopy.heroPrimaryCtaHref} className="px-8 py-4 bg-white text-slate-950 font-bold rounded shadow-lg shadow-white/5 hover:bg-slate-200 transition-all uppercase tracking-widest text-xs flex items-center justify-center">
+              {homeSiteCopy.heroPrimaryCtaLabel}
             </Link>
-            <Link to="/products" data-analytics-event="cta_click" data-analytics-category="hero" data-analytics-label="View Products" data-analytics-destination="/products" className="px-8 py-4 border border-slate-700 font-bold rounded hover:bg-slate-900 transition-all uppercase tracking-widest text-xs flex items-center justify-center text-white">
-              View Products
+            <Link to={homeSiteCopy.heroSecondaryCtaHref} data-analytics-event="cta_click" data-analytics-category="hero" data-analytics-label={homeSiteCopy.heroSecondaryCtaLabel} data-analytics-destination={homeSiteCopy.heroSecondaryCtaHref} className="px-8 py-4 border border-slate-700 font-bold rounded hover:bg-slate-900 transition-all uppercase tracking-widest text-xs flex items-center justify-center text-white">
+              {homeSiteCopy.heroSecondaryCtaLabel}
             </Link>
           </div>
           <div className="grid grid-cols-3 gap-6 pt-8 border-t border-slate-800 mt-4">
-            <div className="flex flex-col">
-              <span className="text-2xl font-bold text-white">10</span>
-              <span className="text-[10px] text-slate-500 uppercase tracking-widest font-bold">Product Models</span>
-            </div>
-            <div className="flex flex-col">
-              <span className="text-2xl font-bold text-white">4</span>
-              <span className="text-[10px] text-slate-500 uppercase tracking-widest font-bold">Core Protocol Topics</span>
-            </div>
-            <div className="flex flex-col">
-              <span className="text-2xl font-bold text-white">EU</span>
-              <span className="text-[10px] text-slate-500 uppercase tracking-widest font-bold">Access Control Focus</span>
-            </div>
+            {homeSiteCopy.stats.map((stat) => (
+              <div key={stat.label} className="flex flex-col">
+                <span className="text-2xl font-bold text-white">{stat.value}</span>
+                <span className="text-[10px] text-slate-500 uppercase tracking-widest font-bold">{stat.label}</span>
+              </div>
+            ))}
           </div>
         </motion.div>
             
@@ -131,12 +160,11 @@ export default function Home() {
       {/* Trust Bar (replacing Trust & OEM Module) */}
       <section className="py-8 bg-slate-900 border-y border-slate-800 flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16 px-12 shrink-0">
         <div className="flex flex-col gap-1 text-center md:text-left">
-          <span className="text-[10px] text-slate-500 font-bold uppercase tracking-[0.2em] mb-2">Enterprise Grade</span>
+          <span className="text-[10px] text-slate-500 font-bold uppercase tracking-[0.2em] mb-2">{homeSiteCopy.trustEyebrow}</span>
           <div className="flex flex-wrap justify-center md:justify-start gap-6 items-center opacity-80">
-            <span className="text-xs font-semibold text-slate-300">OEM / ODM Support</span>
-            <span className="text-xs font-semibold text-slate-300">Modbus / MQTT Compatible</span>
-            <span className="text-xs font-semibold text-slate-300">Private Cloud Deployment</span>
-            <span className="text-xs font-semibold text-slate-300">Custom Branding</span>
+            {homeSiteCopy.trustPills.map((pill) => (
+              <span key={pill.text} className="text-xs font-semibold text-slate-300">{pill.text}</span>
+            ))}
           </div>
         </div>
       </section>
@@ -144,26 +172,24 @@ export default function Home() {
       {/* Problems Section */}
       <section className="py-24 bg-slate-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mb-16 text-center mx-auto">
-            <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-4 tracking-tight">Manufacturing Problems We Solve</h2>
-            <p className="text-lg text-slate-400 leading-relaxed font-medium">Lack of visibility leads to unnecessary costs and machine downtime.</p>
+        <div className="max-w-3xl mb-16 text-center mx-auto">
+            <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-4 tracking-tight">{homeSiteCopy.problemsTitle}</h2>
+            <p className="text-lg text-slate-400 leading-relaxed font-medium">{homeSiteCopy.problemsDescription}</p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              { title: "High electricity costs", desc: "No way to track real-time consumption and identify waste.", icon: Zap },
-              { title: "No real-time visibility", desc: "Hard to know if machines are running optimally.", icon: Activity },
-              { title: "Unexpected downtime", desc: "Machines break down without prior warning or load data.", icon: ShieldCheck },
-              { title: "No remote alert system", desc: "Issues are only discovered when operators are on-site.", icon: Bell }
-            ].map((item, i) => (
-              <div key={i} className="bg-slate-900 p-6 rounded-xl border border-slate-800 hover:border-slate-700 transition flex flex-col">
+            {homeSiteCopy.problemCards.map((item) => {
+              const Icon = getHomeIcon(item.iconKey);
+
+              return (
+              <div key={item.title} className="bg-slate-900 p-6 rounded-xl border border-slate-800 hover:border-slate-700 transition flex flex-col">
                 <div className="w-10 h-10 rounded-lg bg-blue-500/10 border border-blue-500/20 text-blue-400 flex items-center justify-center mb-6">
-                  <item.icon className="w-5 h-5" />
+                  <Icon className="w-5 h-5" />
                 </div>
                 <h3 className="font-bold text-white mb-2">{item.title}</h3>
-                <p className="text-slate-400 text-sm leading-relaxed">{item.desc}</p>
+                <p className="text-slate-400 text-sm leading-relaxed">{item.description}</p>
               </div>
-            ))}
+            )})}
           </div>
         </div>
       </section>
@@ -171,32 +197,33 @@ export default function Home() {
       {/* Solution Section */}
       <section className="py-24 bg-slate-900 border-y border-slate-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mb-16 mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-4 tracking-tight">The Complete Monitoring Solution</h2>
-            <p className="text-lg text-slate-400 font-medium">Everything you need from hardware data collection to AI-driven insights.</p>
+        <div className="max-w-3xl mb-16 mx-auto text-center">
+            <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-4 tracking-tight">{homeSiteCopy.solutionTitle}</h2>
+            <p className="text-lg text-slate-400 font-medium">{homeSiteCopy.solutionDescription}</p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-5 gap-4 lg:gap-8 items-center text-center">
-            <div className="space-y-4">
-              <div className="mx-auto w-16 h-16 rounded-2xl bg-slate-950 border border-slate-800 flex items-center justify-center text-blue-400">
-                <Activity className="w-8 h-8" />
-              </div>
-              <h3 className="font-bold text-white uppercase tracking-widest text-xs">Energy Meter<br/>Data Collection</h3>
-            </div>
-            <div className="hidden md:block text-slate-600"><ArrowRight className="mx-auto" /></div>
-            <div className="space-y-4">
-              <div className="mx-auto w-16 h-16 rounded-2xl bg-slate-950 border border-slate-800 flex items-center justify-center text-blue-400">
-                <Server className="w-8 h-8" />
-              </div>
-              <h3 className="font-bold text-white uppercase tracking-widest text-xs">Industrial IoT<br/>Gateway</h3>
-            </div>
-            <div className="hidden md:block text-slate-600"><ArrowRight className="mx-auto" /></div>
-            <div className="space-y-4">
-              <div className="mx-auto w-16 h-16 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400">
-                <Cloud className="w-8 h-8" />
-              </div>
-              <h3 className="font-bold text-white uppercase tracking-widest text-xs">Cloud Dashboard<br/>& AI Insights</h3>
-            </div>
+            {homeSiteCopy.solutionSteps.map((step, index) => {
+              const Icon = getHomeIcon(step.iconKey);
+              const isLast = index === homeSiteCopy.solutionSteps.length - 1;
+              const isEmphasized = isLast;
+
+              return (
+                <Fragment key={step.title}>
+                  <div className="space-y-4">
+                    <div className={`mx-auto flex h-16 w-16 items-center justify-center rounded-2xl border ${
+                      isEmphasized
+                        ? 'border-blue-500/20 bg-blue-500/10 text-blue-400'
+                        : 'border-slate-800 bg-slate-950 text-blue-400'
+                    }`}>
+                      <Icon className="w-8 h-8" />
+                    </div>
+                    <h3 className="whitespace-pre-line text-xs font-bold uppercase tracking-widest text-white">{step.title}</h3>
+                  </div>
+                  {!isLast ? <div className="hidden text-slate-600 md:block"><ArrowRight className="mx-auto" /></div> : null}
+                </Fragment>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -206,11 +233,11 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-12 gap-6">
             <div>
-              <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-4 tracking-tight">Core Hardware & Software</h2>
-              <p className="text-lg text-slate-400 font-medium">Industrial gateways, RTUs, Remote IO modules, remote relay controllers, access controllers, and AI dashboard software.</p>
+              <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-4 tracking-tight">{homeSiteCopy.productsTitle}</h2>
+              <p className="text-lg text-slate-400 font-medium">{homeSiteCopy.productsDescription}</p>
             </div>
-            <Link to="/products" className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-blue-400 hover:text-blue-300">
-              View all products <ArrowRight className="w-4 h-4" />
+            <Link to={homeSiteCopy.productsBrowseHref} className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-blue-400 hover:text-blue-300">
+              {homeSiteCopy.productsBrowseLabel} <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
 
@@ -243,16 +270,16 @@ export default function Home() {
       {/* CTA Section */}
       <section className="py-24 bg-blue-600">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
-          <h2 className="text-3xl md:text-5xl font-extrabold mb-6 tracking-tight">Make industrial energy and equipment visible from anywhere.</h2>
+          <h2 className="text-3xl md:text-5xl font-extrabold mb-6 tracking-tight">{homeSiteCopy.bottomCtaTitle}</h2>
           <p className="text-blue-100 text-lg mb-10 max-w-2xl mx-auto font-medium">
-            Tell us your monitoring project. Get a customized solution proposal within 24 hours.
+            {homeSiteCopy.bottomCtaDescription}
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <Link to="/contact" data-analytics-event="cta_click" data-analytics-category="bottom_cta" data-analytics-label="Request Quote" data-analytics-destination="/contact" className="px-8 py-4 bg-white text-blue-600 font-bold rounded hover:bg-slate-100 transition-all uppercase tracking-widest text-xs flex justify-center items-center shadow-lg">
-              Request Quote
+            <Link to={homeSiteCopy.bottomPrimaryCtaHref} data-analytics-event="cta_click" data-analytics-category="bottom_cta" data-analytics-label={homeSiteCopy.bottomPrimaryCtaLabel} data-analytics-destination={homeSiteCopy.bottomPrimaryCtaHref} className="px-8 py-4 bg-white text-blue-600 font-bold rounded hover:bg-slate-100 transition-all uppercase tracking-widest text-xs flex justify-center items-center shadow-lg">
+              {homeSiteCopy.bottomPrimaryCtaLabel}
             </Link>
-            <Link to="/demo" data-analytics-event="cta_click" data-analytics-category="bottom_cta" data-analytics-label="View Dashboard Preview" data-analytics-destination="/demo" className="px-8 py-4 border border-blue-400 text-white font-bold rounded hover:bg-blue-700 transition-all uppercase tracking-widest text-xs flex justify-center items-center">
-              View Dashboard Preview
+            <Link to={homeSiteCopy.bottomSecondaryCtaHref} data-analytics-event="cta_click" data-analytics-category="bottom_cta" data-analytics-label={homeSiteCopy.bottomSecondaryCtaLabel} data-analytics-destination={homeSiteCopy.bottomSecondaryCtaHref} className="px-8 py-4 border border-blue-400 text-white font-bold rounded hover:bg-blue-700 transition-all uppercase tracking-widest text-xs flex justify-center items-center">
+              {homeSiteCopy.bottomSecondaryCtaLabel}
             </Link>
           </div>
         </div>

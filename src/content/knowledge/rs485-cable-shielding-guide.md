@@ -1,10 +1,13 @@
 ---
 id: rs485-cable-shielding-guide
 title: RS485 Cable and Shielding Guide for Modbus RTU Installations
-excerpt: A practical accessory guide for RS485 cable, shielding, grounding, termination and surge protection in Modbus RTU gateway, RTU and Remote IO projects.
+excerpt: A practical accessory guide for RS485 cable, shielding, grounding, termination and surge protection in Modbus RTU gateway, RTU and Remote IO deployments.
 category: Wiring Guide
 primaryKeyword: RS485 cable shielding guide
-relatedProducts: ieg-100-ethernet-industrial-iot-gateway,ier-100-ethernet-industrial-rtu,ieio-100-modbus-remote-io-module
+relatedProducts:
+  - ieg-100-ethernet-industrial-iot-gateway
+  - ier-100-ethernet-industrial-rtu
+  - ieio-100-modbus-remote-io-module
 order: 12
 ---
 
@@ -12,7 +15,7 @@ order: 12
 
 RS485 wiring quality directly affects Modbus RTU reliability. Many gateway problems that look like firmware issues are actually caused by poor cable selection, inconsistent A/B wiring, excessive stubs, missing termination or grounding mistakes.
 
-This guide focuses on accessory and installation decisions for RS485-based industrial IoT projects.
+This page covers accessory and installation decisions for RS485-based industrial IoT deployments.
 
 ## Recommended Cable Characteristics
 
@@ -54,11 +57,11 @@ Shielding should reduce noise without creating new grounding problems. In practi
 
 ### Does every RS485 network need termination?
 
-Termination depends on bus length, baud rate, device design and site wiring. Follow device manuals and project engineering requirements.
+Termination depends on bus length, baud rate, device design, and site wiring. Follow device manuals and site engineering requirements.
 
 ### Can I use ordinary alarm cable for RS485?
 
-It may work in short, quiet installations, but industrial Modbus RTU projects should use suitable twisted-pair wiring and follow shielding guidance.
+It may work in short, quiet installations, but industrial Modbus RTU deployments should use suitable twisted-pair wiring and follow shielding guidance.
 
 ### Should RS485 accessories be included in export quotations?
 

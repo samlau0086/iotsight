@@ -1,20 +1,82 @@
 ---
-id: ai-iot-dashboard-industrial-operations-platform
-title: AI IoT Dashboard for Industrial Operations
-excerpt: Cloud and private-deployment dashboard for industrial device management, telemetry monitoring, SCADA visualization, workflow automation, remote control and AI-assisted operations.
-category: Industrial IoT Software
-model: AI IoT Dashboard
-status: Available for project inquiry
-primaryKeyword: AI IoT dashboard for industrial monitoring
-route: /products/ai-iot-dashboard-industrial-operations-platform
+id: "ai-iot-dashboard-industrial-operations-platform"
+title: "AI IoT Dashboard for Industrial Operations"
+excerpt: "Industrial operations dashboard for device management, telemetry monitoring, SCADA visualization, workflow automation, remote control, and AI-assisted analysis."
+category: "Industrial IoT Software"
+model: "AI IoT Dashboard"
+status: "Preview"
+primaryKeyword: "AI IoT dashboard for industrial monitoring"
+route: "/products/ai-iot-dashboard-industrial-operations-platform"
 order: 0
+imageUrl: "/uploads/products/ai-iot-dashboard-industrial-operations-platform.svg"
+specGroups:
+  - title: "Platform Scope"
+    specs:
+      - label: "Deployment"
+        value: "Cloud, private deployment, or OEM-branded dashboard"
+      - label: "Device Scope"
+        value: "RTUs, gateways, Remote IO, meters, PLCs, sensors"
+      - label: "Typical Users"
+        value: "Operations, maintenance, integrators, OEM support teams"
+      - label: "Configuration Method"
+        value: "Web application with role-based user access"
+  - title: "Telemetry & Control"
+    specs:
+      - label: "Telemetry Ingest"
+        value: "MQTT subscriber and HTTP API"
+      - label: "Remote Control"
+        value: "MQTT command topics and pending command queue"
+      - label: "Workflow Engine"
+        value: "Alarm, schedule, and event-triggered automation"
+  - title: "Operations Interface"
+    specs:
+      - label: "SCADA Views"
+        value: "Site views for pumps, tanks, cabinets, machines, and access points"
+      - label: "AI Layer"
+        value: "AI Copilot for alarms, trends, and maintenance analysis"
+selectionGuide:
+  chooseWhen:
+    - "You need one operations layer for gateways, RTUs, Remote IO, and distributed field assets."
+    - "You need dashboard views, alarms, reports, workflow automation, or remote command management."
+    - "You want cloud, private deployment, or OEM-branded software on top of IoT hardware."
+  notFitWhen:
+    - "You only need a field hardware device with no dashboard or software layer."
+    - "You expect the platform to replace local Modbus polling or direct fieldbus wiring by itself."
+    - "You need a pure SCADA runtime without MQTT, HTTP ingest, or cloud workflow requirements."
+  compareLinks:
+    - href: "/demo"
+      label: "View Dashboard Preview"
+    - href: "/products/ieg-100-ethernet-industrial-iot-gateway"
+      label: "Compare with IEG-100 Gateway"
+    - href: "/products/ier-140-4g-remote-relay-rtu"
+      label: "Compare with IER-140 RTU"
+bomGroups:
+  - title: "Platform Setup"
+    items:
+      - "Server or VPS environment for cloud or private deployment"
+      - "Domain, SSL, and deployment access plan"
+      - "Database backup and retention policy"
+      - "User roles and tenant structure checklist"
+  - title: "Device Integration"
+    items:
+      - "Gateway or RTU device inventory list"
+      - "MQTT topics or HTTP ingest token worksheet"
+      - "Register, metric, and alarm mapping sheet"
+      - "Site naming and device label convention"
+preSalesFaq:
+  - question: "Can this be deployed on our own VPS or cloud server?"
+    answer: "Yes. The platform supports cloud deployment, private deployment, and OEM-branded dashboard delivery."
+  - question: "Do you support OEM branding?"
+    answer: "Yes. OEM branding can include logo, domain, interface styling, and customer-facing user structure."
+  - question: "Can you import our existing devices and telemetry model?"
+    answer: "Yes. Existing devices and telemetry models can be imported through device binding, topic mapping, HTTP payload structure, and alarm model setup."
 ---
 
 ## AI Industrial Operations Platform
 
 The IoTEdges AI IoT Dashboard is the software layer above industrial RTUs, MQTT gateways, LoRa gateways, Remote IO modules, smart meters, PLCs, sensors and access controllers. It is designed to help operators collect field data, visualize equipment status, respond to alarms and control remote assets from a single operations interface.
 
-This platform can be used as a cloud dashboard, private deployment or project-specific OEM dashboard depending on customer requirements.
+This platform is available as a cloud dashboard, private deployment, or OEM-branded operations dashboard.
 
 ## Core Capabilities
 
@@ -37,7 +99,7 @@ The dashboard does not replace the site gateway. Field protocols and weak-networ
 | --- | --- |
 | Field devices | PLC, meter, sensor, pump controller, valve controller, door controller or Remote IO |
 | Edge hardware | IoTEdges RTU, MQTT gateway, LoRa gateway or Ethernet gateway collects local data |
-| Network uplink | Ethernet, WiFi, 4G LTE Cat1 or LoRaWAN gateway backhaul depending on project site |
+| Network uplink | Ethernet, WiFi, 4G LTE Cat1, or LoRaWAN gateway backhaul |
 | Dashboard backend | Receives telemetry through HTTP or MQTT, stores data and exposes APIs |
 | Dashboard frontend | Provides device views, SCADA screens, analytics, workflow builder and AI assistant |
 
@@ -70,7 +132,7 @@ This approach is suitable for:
 - schedule update
 - remote configuration request
 
-For Modbus write, PLC control, serial protocol control or private device commands, the dashboard should generate the command while the edge gateway performs protocol-specific execution.
+For Modbus write, PLC control, serial protocol control, or private device commands, the dashboard generates the command while the edge gateway performs protocol-specific execution.
 
 ## Suitable Applications
 
@@ -107,9 +169,9 @@ For Modbus write, PLC control, serial protocol control or private device command
 | Deployment Type | Best Fit |
 | --- | --- |
 | IoTEdges cloud dashboard | Fast project launch and remote monitoring |
-| Private cloud deployment | Customers who require their own server, domain or data policy |
+| Private cloud deployment | Customers who require their own server, domain, or data policy |
 | OEM dashboard | Hardware partners and solution providers needing custom branding |
-| Project-specific dashboard | Industrial projects requiring custom widgets, device templates and reports |
+| Customized dashboard | Industrial deployments requiring custom widgets, device templates, and reports |
 
 ## FAQ
 
@@ -127,8 +189,8 @@ Yes. Commands can be published to MQTT command topics or stored for gateways to 
 
 ### Can this be deployed on a customer's own server?
 
-Yes. Private deployment can be discussed for customers who need their own VPS, cloud server, domain, database and access policy.
+Yes. Private deployment is available for customers who need their own VPS, cloud server, domain, database, and access policy.
 
 ### Is AI Copilot required for every project?
 
-No. AI Copilot is an optional operations layer. The dashboard can still work as a standard industrial IoT monitoring and control platform without AI features.
+No. The dashboard can run as a standard industrial IoT monitoring and control platform, with AI Copilot enabled where it adds value.

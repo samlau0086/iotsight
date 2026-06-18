@@ -1,0 +1,23 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="900" fill="#F5F1E8"/>
+  <rect x="60" y="60" width="1480" height="780" rx="28" fill="#FAF7F2" stroke="#D9D0C2" stroke-width="4"/>
+  <text x="110" y="140" fill="#18181B" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">IoTEdges Solution</text>
+  <text x="110" y="216" fill="#18181B" font-family="Arial, Helvetica, sans-serif" font-size="64" font-weight="700">Smart Agriculture</text>
+  <text x="110" y="266" fill="#5F5A52" font-family="Arial, Helvetica, sans-serif" font-size="28">Greenhouse, irrigation and remote farm telemetry architecture</text>
+  <rect x="110" y="320" width="178" height="44" rx="22" fill="#E8E0D2"/>
+  <text x="145" y="349" fill="#18181B" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700">RTU or Remote IO</text>
+  <rect x="304" y="320" width="196" height="44" rx="22" fill="#E8E0D2"/>
+  <text x="332" y="349" fill="#18181B" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700">4G or Wired Cabinet</text>
+  <rect x="980" y="160" width="410" height="520" rx="28" fill="#22232A"/>
+  <rect x="1014" y="194" width="342" height="452" rx="20" fill="#2C2F38"/>
+  <rect x="1048" y="252" width="128" height="110" rx="14" fill="#3A3D48"/>
+  <rect x="1194" y="252" width="128" height="110" rx="14" fill="#3A3D48"/>
+  <rect x="1048" y="392" width="274" height="94" rx="14" fill="#3A3D48"/>
+  <rect x="1048" y="526" width="274" height="80" rx="14" fill="#E8E0D2"/>
+  <rect x="160" y="436" width="540" height="118" rx="22" fill="#EFE7DA"/>
+  <text x="194" y="484" fill="#18181B" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700">Typical Fit</text>
+  <text x="194" y="530" fill="#5F5A52" font-family="Arial, Helvetica, sans-serif" font-size="24">Greenhouses, irrigation panels, reservoir edges, remote farm assets</text>
+  <rect x="160" y="590" width="540" height="118" rx="22" fill="#EFE7DA"/>
+  <text x="194" y="638" fill="#18181B" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700">Asset Status</text>
+  <text x="194" y="684" fill="#5F5A52" font-family="Arial, Helvetica, sans-serif" font-size="24">Controlled placeholder until final agriculture visuals are available</text>
+</svg>

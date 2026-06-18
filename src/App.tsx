@@ -1,8 +1,7 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Navigate, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Home from './pages/Home';
-import FactoryEnergy from './pages/FactoryEnergy';
 import Gateway from './pages/Gateway';
 import Demo from './pages/Demo';
 import About from './pages/About';
@@ -31,7 +30,7 @@ export function AppLayout() {
         <main className="flex-grow">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/factory-energy" element={<FactoryEnergy />} />
+            <Route path="/factory-energy" element={<Navigate to="/solutions/factory-energy" replace />} />
             <Route path="/solutions" element={<SolutionsList />} />
             <Route path="/solutions/:id" element={<SolutionDetail />} />
             <Route path="/products" element={<ProductList />} />

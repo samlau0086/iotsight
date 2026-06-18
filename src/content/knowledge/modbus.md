@@ -1,16 +1,20 @@
-﻿---
+---
 id: modbus
 title: Modbus for Industrial IoT Gateways and RTUs
-excerpt: A practical explanation of Modbus RTU, Modbus TCP, RS485 wiring, polling, register maps, and how Modbus data connects to IoT gateways.
+excerpt: >-
+  A practical explanation of Modbus RTU, Modbus TCP, RS485 wiring, polling,
+  register maps, and how Modbus data connects to IoT gateways.
 category: Protocol Guide
 primaryKeyword: Modbus
-relatedProducts: ieg-100-ethernet-industrial-iot-gateway,ier-100-ethernet-industrial-rtu,ieio-100-modbus-remote-io-module
+relatedProducts:
+  - ieg-100-ethernet-industrial-iot-gateway
+  - ier-100-ethernet-industrial-rtu
+  - ieio-100-modbus-remote-io-module
 order: 1
 ---
-
 # Modbus for Industrial IoT Gateways and RTUs
 
-Modbus is one of the most common industrial communication protocols used by energy meters, PLCs, inverters, VFDs, sensors, and Remote IO modules. For many industrial IoT projects, the first architecture question is simple: how do we read Modbus data reliably and publish it to a dashboard?
+Modbus is one of the most common industrial communication protocols used by energy meters, PLCs, inverters, VFDs, sensors, and Remote IO modules. For many industrial IoT deployments, the first architecture question is simple: how do we read Modbus data reliably and publish it to a dashboard?
 
 ## Modbus RTU vs Modbus TCP
 
@@ -30,21 +34,20 @@ Before selecting a Modbus gateway, define:
 - Polling interval: how often each value needs to be read.
 - Data destination: local dashboard, MQTT broker, cloud platform, or SCADA system.
 
-The [IEG-100 Ethernet Industrial IoT Gateway](/products/ieg-100-ethernet-industrial-iot-gateway) is the current IoTEdges product reference for wired Modbus data collection and MQTT telemetry.
+The [IEG-100 Ethernet Industrial IoT Gateway](/products/ieg-100-ethernet-industrial-iot-gateway) fits wired Modbus data collection and MQTT telemetry.
 
 ## Modbus and Remote IO
 
-Remote IO modules often expose digital inputs, digital outputs, analog inputs, or analog outputs through Modbus registers. This makes them useful when a project needs to expand signals without replacing the main controller.
+Remote IO modules often expose digital inputs, digital outputs, analog inputs, or analog outputs through Modbus registers. This makes them useful when a deployment needs to expand signals without replacing the main controller.
 
-The [IEIO-100 Modbus Remote IO Module](/products/ieio-100-modbus-remote-io-module) is the IoTEdges product reference for wired Modbus Remote IO expansion in machine, utility and cabinet projects.
+The [IEIO-100 Modbus Remote IO Module](/products/ieio-100-modbus-remote-io-module) fits wired Modbus Remote IO expansion in machine, utility, and cabinet deployments.
 
 ## Modbus and RTUs
 
 An RTU usually combines local IO with communication capability. It can read local DI/DO/AI signals, communicate with Modbus devices, and support remote monitoring architectures.
 
-The [IER-100 Ethernet Industrial RTU](/products/ier-100-ethernet-industrial-rtu) is the IoTEdges product reference for an Ethernet RTU path with local IO and Modbus connectivity.
+The [IER-100 Ethernet Industrial RTU](/products/ier-100-ethernet-industrial-rtu) fits an Ethernet RTU path with local IO and Modbus connectivity.
 
-## Project Notes
+## Deployment Notes
 
-Device count, polling interval, register mapping and environmental ratings should always be checked against the released datasheet of the selected device. For SEO and buyer education, this page focuses on architecture and selection logic first, then links into the most relevant product pages.
-
+Device count, polling interval, register mapping, and environmental ratings should always be checked against the released datasheet of the selected device. Keep the focus on architecture and selection logic, then link into the most relevant product pages.

@@ -1,16 +1,24 @@
 ---
 id: how-to-choose-power-cabinet-monitoring-rtu
 title: How to Choose a Power Cabinet Monitoring RTU
-excerpt: A practical checklist for selecting a power cabinet RTU for breaker status, door alarms, ATS panels, generator rooms, RS485 meters and remote event logging.
-date: June 17, 2026
+excerpt: >-
+  A practical checklist for selecting a power cabinet RTU for breaker status,
+  door alarms, ATS panels, generator rooms, RS485 meters and remote event
+  logging.
+date: 'June 17, 2026'
 author: Product Management
 category: Hardware Guide
-imageUrl: https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&q=80&w=800
-relatedProducts: ier-142-4g-power-cabinet-rtu,ier-140-4g-remote-relay-rtu,ier-100-ethernet-industrial-rtu
-relatedResources: /knowledge/rs485,/knowledge/mqtt,/knowledge/rtu-vs-gateway-vs-remote-io
+imageUrl: /uploads/blog/how-to-choose-power-cabinet-monitoring-rtu.svg
+relatedProducts:
+  - ier-142-4g-power-cabinet-rtu
+  - ier-140-4g-remote-relay-rtu
+  - ier-100-ethernet-industrial-rtu
+relatedResources:
+  - /knowledge/rs485
+  - /knowledge/mqtt
+  - /knowledge/rtu-vs-gateway-vs-remote-io
 order: 6
 ---
-
 # How to Choose a Power Cabinet Monitoring RTU
 
 Power cabinet monitoring projects look simple on paper, but they can involve many signal types at once: breaker status, door contacts, SPD alarms, ATS events, generator-room alarms, RS485 energy meters and a few relay outputs for reset or annunciation.
@@ -26,13 +34,13 @@ Many cabinet projects need a lot of dry-contact monitoring and only a small amou
 - horn, lamp or reset outputs
 - any RS485 meters or controllers
 
-This immediately tells you whether the project needs a DI-heavy RTU instead of a small relay controller.
+This immediately tells you whether the site needs a DI-heavy RTU instead of a small relay controller.
 
 ## 2. Decide If The Site Needs Wired Or Cellular Uplink
 
 If the cabinet already has reliable LAN access, a wired RTU can be the cleanest approach. If it is a remote utility cabinet, telecom cabinet or generator room without reliable local network access, 4G is often the better architecture.
 
-The [IER-142 4G Power Cabinet RTU](/products/ier-142-4g-power-cabinet-rtu) is the IoTEdges reference path for remote cabinet and alarm-panel monitoring.
+The [IER-142 4G Power Cabinet RTU](/products/ier-142-4g-power-cabinet-rtu) fits remote cabinet and alarm-panel monitoring.
 
 ## 3. Check Whether RS485 Devices Must Also Be Read
 
@@ -55,4 +63,4 @@ Use a compact RTU when the job is mostly a few alarms and a few outputs. Use a D
 
 ## Practical Recommendation
 
-For cabinet projects with many dry-contact alarms and remote event visibility requirements, start with a power cabinet RTU architecture. It gives you a cleaner fit than forcing the project into a small relay controller or a pure gateway.
+For cabinet applications with many dry-contact alarms and remote event visibility requirements, start with a power cabinet RTU architecture. It gives you a cleaner fit than forcing the site into a small relay controller or a pure gateway.

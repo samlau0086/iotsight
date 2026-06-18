@@ -18,7 +18,7 @@ export default function Footer() {
           <span className="text-[10px] text-slate-500 font-bold uppercase tracking-[0.2em] mb-4 block">Solutions</span>
           <ul className="space-y-3 text-xs font-semibold text-slate-300">
             <li><Link to="/solutions" className="hover:text-white transition-colors">All Solutions</Link></li>
-            <li><Link to="/factory-energy" className="hover:text-white transition-colors">Factory Energy</Link></li>
+            <li><Link to="/solutions/factory-energy" className="hover:text-white transition-colors">Factory Energy</Link></li>
             <li><Link to="/solutions/solar-energy" className="hover:text-white transition-colors">Solar & Renewable</Link></li>
             <li><Link to="/solutions/smart-agriculture" className="hover:text-white transition-colors">Smart Agriculture</Link></li>
             <li><Link to="/solutions/gate-access-control" className="hover:text-white transition-colors">Gate Access Control</Link></li>

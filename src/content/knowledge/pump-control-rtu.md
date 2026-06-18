@@ -1,10 +1,13 @@
 ---
 id: pump-control-rtu
-title: Pump Control RTU: Signals, Relays, Pressure Inputs and Remote Monitoring
+title: "Pump Control RTU: Signals, Relays, Pressure Inputs and Remote Monitoring"
 excerpt: A practical guide to pump control RTU architecture, including DI feedback, relay outputs, pressure transmitters, RS485 Modbus devices and remote alarms.
 category: Application Guide
 primaryKeyword: pump control RTU
-relatedProducts: ier-141-4g-pump-valve-rtu,ier-140-4g-remote-relay-rtu,ier-100-ethernet-industrial-rtu
+relatedProducts:
+  - ier-141-4g-pump-valve-rtu
+  - ier-140-4g-remote-relay-rtu
+  - ier-100-ethernet-industrial-rtu
 order: 11
 ---
 
@@ -42,7 +45,7 @@ Use a larger RTU when the site also needs:
 - pump and valve combinations
 - VFD or Modbus meter integration
 
-The [IER-141 4G Pump & Valve RTU](/products/ier-141-4g-pump-valve-rtu) is the IoTEdges reference path for these projects.
+The [IER-141 4G Pump & Valve RTU](/products/ier-141-4g-pump-valve-rtu) fits these projects.
 
 ## Control Architecture Matters
 
@@ -56,12 +59,12 @@ An RTU should not be treated as a direct motor-power switch. In most pump projec
 4. Trigger alarms on fault, offline status or process thresholds.
 5. Apply controlled remote commands or schedules where the site design allows it.
 
-## IoTEdges Product Mapping
+## Related Products
 
-- [IER-141 4G Pump & Valve RTU](/products/ier-141-4g-pump-valve-rtu): multi-signal 4G RTU for pumps, valves and irrigation cabinets
+- [IER-141 4G Pump & Valve RTU](/products/ier-141-4g-pump-valve-rtu): multi-signal 4G RTU for pumps, valves, and irrigation cabinets
 - [IER-140 4G Remote Relay RTU](/products/ier-140-4g-remote-relay-rtu): compact relay RTU for simpler control points
-- [IER-100 Ethernet Industrial RTU](/products/ier-100-ethernet-industrial-rtu): wired RTU path for LAN-connected cabinets and local SCADA integration
+- [IER-100 Ethernet Industrial RTU](/products/ier-100-ethernet-industrial-rtu): wired RTU for LAN-connected cabinets and local SCADA integration
 
-## Selection Rule
+## Final Choice
 
-If the project only needs simple remote switching, use a compact relay RTU. If it needs pressure, level, VFD data, multiple relays and more field feedback, move to a pump-control RTU architecture.
+If the project only needs simple remote switching, use a compact relay RTU. If it needs pressure, level, VFD data, multiple relays, and more field feedback, use a pump-control RTU.

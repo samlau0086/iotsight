@@ -6,6 +6,7 @@ import { blogPosts } from './data/blog';
 import { productPages } from './data/products';
 import { knowledgePages } from './data/knowledge';
 import { solutions } from './data/solutions';
+import { aboutSiteCopy, contactSiteCopy, demoSiteCopy, gatewaySiteCopy } from './data/siteCopy';
 
 export function render(url: string) {
   return renderToString(
@@ -20,7 +21,6 @@ export function render(url: string) {
 export function getPrerenderRoutes() {
   return [
     '/',
-    '/factory-energy',
     '/solutions',
     '/gateway',
     '/demo',
@@ -104,6 +104,38 @@ export function getSeoMeta(url: string) {
     return {
       title: 'Industrial IoT Products | IoTEdges',
       description: 'Explore IoTEdges industrial IoT gateways, RTUs, remote relay controllers, Remote IO modules and dashboard software for Modbus, MQTT, Ethernet, WiFi and 4G applications.',
+      type: 'website',
+    };
+  }
+
+  if (url === '/about') {
+    return {
+      title: `${aboutSiteCopy.heroTitle} | IoTEdges`,
+      description: aboutSiteCopy.heroDescription,
+      type: 'website',
+    };
+  }
+
+  if (url === '/contact') {
+    return {
+      title: `${contactSiteCopy.heroTitle} | IoTEdges`,
+      description: contactSiteCopy.heroDescription,
+      type: 'website',
+    };
+  }
+
+  if (url === '/gateway') {
+    return {
+      title: `${gatewaySiteCopy.heroTitle} | IoTEdges`,
+      description: gatewaySiteCopy.heroDescription,
+      type: 'website',
+    };
+  }
+
+  if (url === '/demo') {
+    return {
+      title: `${demoSiteCopy.heroTitle} | IoTEdges`,
+      description: demoSiteCopy.heroDescription,
       type: 'website',
     };
   }

@@ -1,6 +1,6 @@
 ﻿---
 id: rtu-vs-gateway-vs-remote-io
-title: RTU vs Gateway vs Remote IO: How to Choose the Right Device
+title: "RTU vs Gateway vs Remote IO: How to Choose the Right Device"
 excerpt: Compare industrial RTUs, IoT gateways and Remote IO modules for Modbus, MQTT, local IO, relay control and remote monitoring projects.
 category: Selection Guide
 primaryKeyword: RTU vs gateway vs remote IO
@@ -57,7 +57,7 @@ Remote IO fit:
 - local cabinet IO
 - digital and analog signal expansion
 
-## IoTEdges Product Mapping
+## Related Products
 
 - [IEG-100 Ethernet Industrial IoT Gateway](/products/ieg-100-ethernet-industrial-iot-gateway): gateway path for Modbus data collection.
 - [IER-140 4G Remote Relay RTU](/products/ier-140-4g-remote-relay-rtu): compact cellular RTU for 2DI/2DO relay applications.
@@ -65,7 +65,7 @@ Remote IO fit:
 - [IER-142 4G Power Cabinet RTU](/products/ier-142-4g-power-cabinet-rtu): DI-heavy cellular RTU for cabinet and generator alarm monitoring.
 - [IEIO-100 Modbus Remote IO Module](/products/ieio-100-modbus-remote-io-module): Remote IO path for Modbus signal expansion.
 
-## Selection Rule
+## Final Choice
 
 If you mainly need data conversion, choose a gateway. If you need local IO and remote control, choose an RTU. If you need signal expansion for another controller, choose Remote IO.
 

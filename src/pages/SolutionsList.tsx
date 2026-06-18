@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
-import { solutions } from '../data/solutions';
+import { getSolutionIcon, solutions } from '../data/solutions';
 
 export default function SolutionsList() {
   return (
@@ -19,13 +19,13 @@ export default function SolutionsList() {
         <div className="grid grid-cols-1 lg:grid-cols-[1.35fr_0.85fr] gap-6 mb-12">
           <section className="border border-slate-800 bg-slate-800 rounded-xl p-7">
             <h2 className="text-2xl font-bold text-white mb-4" style={{ fontFamily: 'var(--font-display)' }}>
-              Start with the application, then map the hardware
+              Match the application to the right hardware path
             </h2>
             <p className="text-sm leading-relaxed text-slate-400 mb-4">
-              Solution pages are often the first entry point for search traffic because buyers search by application before they search by exact model number. A factory manager may search for factory energy monitoring, while an installer may search for a 4G gate opener or pump control RTU.
+              Use the application first, then confirm the gateway, RTU, Remote IO, accessories, and dashboard path that fit the project.
             </p>
             <p className="text-sm leading-relaxed text-slate-400">
-              Each solution page is designed to connect that search intent to a practical IoTEdges architecture: field sensors and meters, the correct gateway or RTU family, required accessories, and the dashboard workflow used for monitoring and alarms.
+              Factory energy, water systems, solar sites, agriculture, and gate access projects each push the product choice in a different direction.
             </p>
           </section>
 
@@ -52,6 +52,11 @@ export default function SolutionsList() {
           {solutions.map((solution) => (
             <div key={solution.id} className="bg-slate-800 border border-slate-700 rounded-xl overflow-hidden shadow-xl hover:border-blue-500/50 transition-all flex flex-col group">
               <div className="h-48 overflow-hidden relative">
+                {(() => {
+                  const Icon = getSolutionIcon(solution.iconKey);
+
+                  return (
+                    <>
                 <img 
                   src={solution.image} 
                   alt={solution.title} 
@@ -60,8 +65,11 @@ export default function SolutionsList() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 to-transparent"></div>
                 <div className="absolute bottom-4 left-4 w-10 h-10 rounded-lg bg-blue-500/20 border border-blue-500/30 text-blue-400 flex items-center justify-center backdrop-blur-md">
-                  <solution.icon className="w-5 h-5" />
+                  <Icon className="w-5 h-5" />
                 </div>
+                    </>
+                  );
+                })()}
               </div>
               
               <div className="p-8 flex-1 flex flex-col">

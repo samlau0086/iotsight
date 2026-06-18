@@ -1,16 +1,21 @@
-﻿---
+---
 id: mqtt-downlink-control
 title: MQTT Downlink Control for Industrial RTUs
-excerpt: Learn how MQTT downlink commands can control relays, update schedules and configure industrial RTUs while keeping acknowledgement and safety boundaries clear.
+excerpt: >-
+  Learn how MQTT downlink commands can control relays, update schedules and
+  configure industrial RTUs while keeping acknowledgement and safety boundaries
+  clear.
 category: MQTT Guide
 primaryKeyword: MQTT downlink control
-relatedProducts: ier-140-4g-remote-relay-rtu,ier-141-4g-pump-valve-rtu,ier-142-4g-power-cabinet-rtu
+relatedProducts:
+  - ier-140-4g-remote-relay-rtu
+  - ier-141-4g-pump-valve-rtu
+  - ier-142-4g-power-cabinet-rtu
 order: 10
 ---
-
 # MQTT Downlink Control for Industrial RTUs
 
-MQTT is often used for telemetry upload, but industrial RTUs may also need downlink commands. Downlink means the platform sends a command to the device, such as relay on/off, pulse output, schedule update or configuration change.
+MQTT is often used for telemetry upload, but industrial RTUs may also need downlink commands. Downlink means the platform sends a command to the device, such as relay on/off, pulse output, schedule update, or configuration change.
 
 ## Uplink vs Downlink
 
@@ -47,7 +52,7 @@ The RTU should publish an acknowledgement that shows whether the command was acc
 
 ## Relay Feedback
 
-If the project needs confirmation that the field equipment actually changed state, use feedback:
+If the site needs confirmation that the field equipment actually changed state, use feedback:
 
 - DI feedback from contactor or valve
 - Modbus status from VFD or controller
@@ -63,4 +68,3 @@ MQTT downlink should not replace local safety logic. Emergency stop, motor prote
 - [IER-140 4G Remote Relay RTU](/products/ier-140-4g-remote-relay-rtu)
 - [IER-141 4G Pump & Valve RTU](/products/ier-141-4g-pump-valve-rtu)
 - [IER-142 4G Power Cabinet RTU](/products/ier-142-4g-power-cabinet-rtu)
-

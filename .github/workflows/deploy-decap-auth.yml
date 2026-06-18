@@ -1,0 +1,83 @@
+name: Deploy Decap Auth Worker
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/deploy-decap-auth.yml'
+      - 'workers/decap-auth-cloudflare/**'
+      - 'scripts/lib/**'
+      - 'scripts/verify-cms-rollout.mjs'
+      - 'scripts/smoke-decap-auth-worker.ts'
+      - 'scripts/verify-cms-external-config.mjs'
+      - 'scripts/verify-auth-worker-surface.mjs'
+      - 'scripts/verify-cms-live-surface.mjs'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'public/admin/index.html'
+      - 'docs/decap-auth-rollout.md'
+      - 'docs/decap-cms-qa-checklist.md'
+      - 'docs/cms-go-live-checklist.md'
+      - 'docs/cms-go-live-checklist.zh-CN.md'
+      - 'docs/cms-troubleshooting.md'
+      - 'docs/cms-troubleshooting.zh-CN.md'
+      - 'public/admin/config.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-decap-auth-worker
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    name: Deploy Cloudflare Worker
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Validate worker scaffold files
+        run: |
+          test -f workers/decap-auth-cloudflare/src/index.ts
+          test -f workers/decap-auth-cloudflare/wrangler.jsonc
+          test -f workers/decap-auth-cloudflare/.dev.vars.example
+
+      - name: Run CMS auth preflight
+        run: npm run verify:cms-auth-preflight
+
+      - name: Verify CMS external config consistency
+        env:
+          CMS_CONFIG_VERIFY_MODE: worker
+          DECAP_AUTH_HEALTH_URL: ${{ vars.DECAP_AUTH_HEALTH_URL || secrets.DECAP_AUTH_HEALTH_URL }}
+          DECAP_OAUTH_REDIRECT_URI: ${{ vars.DECAP_OAUTH_REDIRECT_URI || secrets.DECAP_OAUTH_REDIRECT_URI }}
+          DECAP_OAUTH_SITE_ORIGIN: ${{ vars.DECAP_OAUTH_SITE_ORIGIN || secrets.DECAP_OAUTH_SITE_ORIGIN }}
+        run: npm run verify:cms-external-config
+
+      - name: Deploy worker
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          workingDirectory: workers/decap-auth-cloudflare
+          wranglerVersion: "4"
+          secrets: |
+            GITHUB_CLIENT_ID
+            GITHUB_CLIENT_SECRET
+            OAUTH_REDIRECT_URI
+            OAUTH_SITE_ORIGIN
+            OAUTH_SCOPE
+        env:
+          GITHUB_CLIENT_ID: ${{ secrets.DECAP_GITHUB_CLIENT_ID }}
+          GITHUB_CLIENT_SECRET: ${{ secrets.DECAP_GITHUB_CLIENT_SECRET }}
+          OAUTH_REDIRECT_URI: ${{ vars.DECAP_OAUTH_REDIRECT_URI || secrets.DECAP_OAUTH_REDIRECT_URI }}
+          OAUTH_SITE_ORIGIN: ${{ vars.DECAP_OAUTH_SITE_ORIGIN || secrets.DECAP_OAUTH_SITE_ORIGIN }}
+          OAUTH_SCOPE: ${{ vars.DECAP_OAUTH_SCOPE || 'repo,user' }}
+
+      - name: Verify worker surface
+        env:
+          DECAP_AUTH_HEALTH_URL: ${{ vars.DECAP_AUTH_HEALTH_URL || secrets.DECAP_AUTH_HEALTH_URL }}
+          DECAP_OAUTH_REDIRECT_URI: ${{ vars.DECAP_OAUTH_REDIRECT_URI || secrets.DECAP_OAUTH_REDIRECT_URI }}
+        run: npm run verify:auth-worker-surface

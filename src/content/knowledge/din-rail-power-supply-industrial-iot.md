@@ -1,20 +1,25 @@
 ---
 id: din-rail-power-supply-industrial-iot
 title: DIN Rail Power Supply Guide for Industrial IoT Gateways and RTUs
-excerpt: How to plan 12V and 24V DC power supplies, cabinet wiring, fuses and backup power for industrial IoT gateways, RTUs and Remote IO modules.
+excerpt: >-
+  How to plan 12V and 24V DC power supplies, cabinet wiring, fuses and backup
+  power for industrial IoT gateways, RTUs and Remote IO modules.
 category: Accessory Guide
 primaryKeyword: DIN rail power supply industrial IoT
-relatedProducts: ieg-100-ethernet-industrial-iot-gateway,ier-100-ethernet-industrial-rtu,ier-140-4g-remote-relay-rtu,ieio-100-modbus-remote-io-module
+relatedProducts:
+  - ieg-100-ethernet-industrial-iot-gateway
+  - ier-100-ethernet-industrial-rtu
+  - ier-140-4g-remote-relay-rtu
+  - ieio-100-modbus-remote-io-module
 order: 13
 ---
-
 # DIN Rail Power Supply Guide for Industrial IoT Gateways and RTUs
 
-Industrial IoT gateways, RTUs and Remote IO modules usually need a stable low-voltage DC supply inside a cabinet. For export projects, the power accessory plan should be discussed together with the main device, because field failures are often caused by unstable power, poor grounding, missing protection or cabinet wiring errors.
+Industrial IoT gateways, RTUs, and Remote IO modules usually need a stable low-voltage DC supply inside a cabinet. The power accessory plan should be defined together with the main device, because field failures are often caused by unstable power, poor grounding, missing protection, or cabinet wiring errors.
 
 ## Common Power Planning Questions
 
-Before selecting a power supply, confirm:
+Before selecting a power supply, check:
 
 - device input voltage range
 - total current requirement for gateway, RTU, sensors and relays
@@ -52,11 +57,11 @@ The final voltage must match the device datasheet and cabinet design. Do not ass
 
 ### Can one power supply feed the RTU and sensors?
 
-Sometimes yes, but current capacity, sensor loop power, noise, grounding and isolation should be reviewed first.
+Sometimes yes, but current capacity, sensor loop power, noise, grounding, and isolation should be checked first.
 
 ### Should I include a UPS?
 
-For remote alarm, gate access, water and power cabinet monitoring, backup power can be useful if the project requires outage reporting.
+For remote alarm, gate access, water, and power cabinet monitoring, backup power can be useful when the site requires outage reporting.
 
 ### Is DIN rail mounting required?
 

@@ -1,16 +1,23 @@
 ---
 id: when-to-use-wifi-industrial-gateway
 title: When to Use a WiFi Industrial Gateway Instead of Ethernet or 4G
-excerpt: A buyer-focused guide to choosing WiFi for indoor industrial telemetry projects, and knowing when Ethernet or 4G is the safer architecture.
-date: June 17, 2026
+excerpt: >-
+  A buyer-focused guide to choosing WiFi for indoor industrial telemetry
+  projects, and knowing when Ethernet or 4G is the safer architecture.
+date: 'June 17, 2026'
 author: Engineering Team
 category: Buyer Guide
-imageUrl: https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&q=80&w=800
-relatedProducts: ieg-120-wifi-industrial-iot-gateway,ieg-100-ethernet-industrial-iot-gateway,ier-120-wifi-remote-monitoring-rtu
-relatedResources: /knowledge/wifi-industrial-iot-gateway,/knowledge/modbus,/knowledge/mqtt
+imageUrl: /uploads/blog/when-to-use-wifi-industrial-gateway.svg
+relatedProducts:
+  - ieg-120-wifi-industrial-iot-gateway
+  - ieg-100-ethernet-industrial-iot-gateway
+  - ier-120-wifi-remote-monitoring-rtu
+relatedResources:
+  - /knowledge/wifi-industrial-iot-gateway
+  - /knowledge/modbus
+  - /knowledge/mqtt
 order: 5
 ---
-
 # When to Use a WiFi Industrial Gateway Instead of Ethernet or 4G
 
 WiFi sits in an awkward middle zone for industrial IoT. It is easier to deploy than Ethernet, but it is not the right answer for every remote site. Buyers often know they want wireless connectivity, but they have not yet decided whether the site should use WiFi or 4G.

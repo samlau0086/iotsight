@@ -3,6 +3,19 @@ import { ArrowRight, Cable, Cpu, Network, ShieldCheck } from 'lucide-react';
 import { productPages } from '../data/products';
 import { ProductPage } from '../types';
 
+const getStatusStyles = (status: string) => {
+  switch (status) {
+    case 'Published':
+      return 'border-emerald-500/30 bg-emerald-500/10 text-emerald-300';
+    case 'Preview':
+      return 'border-amber-500/30 bg-amber-500/10 text-amber-300';
+    case 'Available for project inquiry':
+      return 'border-blue-500/30 bg-blue-500/10 text-blue-300';
+    default:
+      return 'border-slate-700 bg-slate-950 text-slate-300';
+  }
+};
+
 const getSpecValue = (product: ProductPage, labels: string[]) => {
   const spec = product.specs.find((item) => labels.includes(item.label));
   return spec?.value;
@@ -65,13 +78,13 @@ export default function ProductList() {
         <div className="grid grid-cols-1 lg:grid-cols-[1.35fr_0.85fr] gap-6 mb-12">
           <section className="border border-slate-800 bg-slate-900 rounded-lg p-7">
             <h2 className="text-2xl font-bold text-white mb-4" style={{ fontFamily: 'var(--font-display)' }}>
-              Compare product families before choosing a model
+              Choose the product family that matches the project
             </h2>
             <p className="text-sm leading-relaxed text-slate-400 mb-4">
-              IoTEdges product pages are organized around real buying decisions: which uplink to use, whether local IO is required, whether the project needs pure data acquisition or relay control, and what accessories are needed to complete the cabinet.
+              Match the uplink, IO count, protocol scope, and control function to the actual installation before narrowing down the model.
             </p>
             <p className="text-sm leading-relaxed text-slate-400">
-              Start with wired Ethernet models for factory cabinets and LAN-connected infrastructure. Move to WiFi or 4G only when the site actually requires wireless uplink. For projects that need direct field signals, compare RTUs and Remote IO modules rather than choosing a gateway by default.
+              Wired Ethernet fits cabinet and LAN projects. WiFi or 4G makes sense only when the site actually needs wireless uplink. If the project needs direct field signals, compare RTUs and Remote IO modules first.
             </p>
           </section>
 
@@ -99,17 +112,32 @@ export default function ProductList() {
             const meta = getProductListMeta(product);
 
             return (
-              <article key={product.id} className="bg-slate-900 border border-slate-800 rounded-lg p-7 flex flex-col hover:border-blue-500/50 transition-colors">
+              <article key={product.id} className="bg-slate-900 border border-slate-800 rounded-lg overflow-hidden flex flex-col hover:border-blue-500/50 transition-colors">
+                <Link to={`/products/${product.id}`} className="block aspect-[16/10] overflow-hidden border-b border-slate-800 bg-slate-950">
+                  {product.imageUrl ? (
+                    <img
+                      src={product.imageUrl}
+                      alt={product.title}
+                      className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
+                      referrerPolicy="no-referrer"
+                    />
+                  ) : (
+                    <div className="flex h-full w-full items-center justify-center bg-slate-950 text-sm font-bold uppercase tracking-[0.2em] text-slate-500">
+                      {product.model}
+                    </div>
+                  )}
+                </Link>
+                <div className="p-7 flex flex-1 flex-col">
                 <div className="flex items-center justify-between gap-4 mb-5">
                   <span className="text-[10px] uppercase tracking-[0.2em] text-blue-400 font-bold">{product.category}</span>
                   <span className="text-[10px] uppercase tracking-[0.18em] text-slate-500 font-bold">{product.model}</span>
                 </div>
                 <div className="mb-4 flex flex-wrap gap-2">
+                  <span className={`rounded-full border px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em] ${getStatusStyles(product.status)}`}>
+                    {product.status}
+                  </span>
                   <span className="rounded-full border border-slate-700 bg-slate-950 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-slate-300">
                     {meta.uplink}
-                  </span>
-                  <span className="rounded-full border border-blue-500/30 bg-blue-500/10 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-blue-300">
-                    Best for
                   </span>
                 </div>
                 <h2 className="text-2xl font-bold text-white mb-4" style={{ fontFamily: 'var(--font-display)' }}>
@@ -137,6 +165,7 @@ export default function ProductList() {
                 <Link to={`/products/${product.id}`} className="inline-flex items-center gap-2 text-xs uppercase tracking-widest font-bold text-blue-400 hover:text-blue-300">
                   View product <ArrowRight className="w-4 h-4" />
                 </Link>
+                </div>
               </article>
             );
           })}

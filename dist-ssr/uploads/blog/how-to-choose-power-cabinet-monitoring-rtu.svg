@@ -1,0 +1,19 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="900" fill="#F5F1E8"/>
+  <rect x="60" y="60" width="1480" height="780" rx="28" fill="#FAF7F2" stroke="#D9D0C2" stroke-width="4"/>
+  <text x="110" y="138" fill="#18181B" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">IoTEdges Blog</text>
+  <rect x="110" y="176" width="164" height="40" rx="20" fill="#E8E0D2"/>
+  <text x="136" y="202" fill="#18181B" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700">Hardware Guide</text>
+  <text x="110" y="302" fill="#18181B" font-family="Arial, Helvetica, sans-serif" font-size="64" font-weight="700">Power Cabinet</text>
+  <text x="110" y="370" fill="#18181B" font-family="Arial, Helvetica, sans-serif" font-size="64" font-weight="700">Monitoring RTU</text>
+  <text x="110" y="438" fill="#5F5A52" font-family="Arial, Helvetica, sans-serif" font-size="28">Selection guide for signals, cabinet fit and remote alarm monitoring</text>
+  <rect x="980" y="178" width="410" height="520" rx="28" fill="#22232A"/>
+  <rect x="1014" y="212" width="342" height="452" rx="20" fill="#2C2F38"/>
+  <rect x="1064" y="246" width="272" height="344" rx="18" fill="#3A3D48"/>
+  <rect x="1096" y="286" width="208" height="70" rx="12" fill="#E8E0D2"/>
+  <rect x="1096" y="386" width="208" height="42" rx="10" fill="#E8E0D2"/>
+  <rect x="1096" y="446" width="208" height="42" rx="10" fill="#E8E0D2"/>
+  <rect x="1096" y="506" width="208" height="42" rx="10" fill="#E8E0D2"/>
+  <text x="110" y="610" fill="#18181B" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700">Cover Status</text>
+  <text x="110" y="658" fill="#5F5A52" font-family="Arial, Helvetica, sans-serif" font-size="24">Controlled placeholder until final editorial artwork is ready</text>
+</svg>

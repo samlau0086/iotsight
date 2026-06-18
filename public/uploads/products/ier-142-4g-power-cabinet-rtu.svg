@@ -1,0 +1,34 @@
+<svg width="1600" height="1200" viewBox="0 0 1600 1200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="1200" fill="#F5F1E8"/>
+  <rect x="72" y="72" width="1456" height="1056" rx="32" fill="#FAF7F2" stroke="#D9D0C2" stroke-width="4"/>
+  <text x="120" y="156" fill="#18181B" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">IoTEdges</text>
+  <text x="120" y="216" fill="#18181B" font-family="Arial, Helvetica, sans-serif" font-size="64" font-weight="700">IER-142</text>
+  <text x="120" y="266" fill="#5F5A52" font-family="Arial, Helvetica, sans-serif" font-size="28">4G Power Cabinet RTU</text>
+  <rect x="120" y="320" width="132" height="46" rx="23" fill="#E8E0D2"/>
+  <text x="152" y="350" fill="#18181B" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700">8DI / 4DO</text>
+  <rect x="266" y="320" width="138" height="46" rx="23" fill="#E8E0D2"/>
+  <text x="298" y="350" fill="#18181B" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700">4G LTE Cat1</text>
+  <rect x="418" y="320" width="174" height="46" rx="23" fill="#E8E0D2"/>
+  <text x="447" y="350" fill="#18181B" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700">Cabinet Alarm RTU</text>
+  <rect x="900" y="222" width="420" height="688" rx="28" fill="#202228"/>
+  <rect x="936" y="260" width="348" height="612" rx="18" fill="#2E323A"/>
+  <rect x="1110" y="142" width="12" height="150" rx="6" fill="#3C404A"/>
+  <circle cx="1116" cy="128" r="26" fill="#C8BFB1"/>
+  <g fill="#E8E0D2">
+    <rect x="964" y="312" width="36" height="208" rx="8"/>
+    <rect x="1010" y="312" width="36" height="208" rx="8"/>
+    <rect x="1056" y="312" width="36" height="208" rx="8"/>
+    <rect x="1102" y="312" width="36" height="208" rx="8"/>
+    <rect x="1148" y="312" width="36" height="208" rx="8"/>
+    <rect x="1194" y="312" width="36" height="208" rx="8"/>
+    <rect x="1240" y="312" width="36" height="208" rx="8"/>
+  </g>
+  <rect x="964" y="566" width="312" height="88" rx="14" fill="#3C404A"/>
+  <rect x="964" y="684" width="312" height="132" rx="14" fill="#3C404A"/>
+  <text x="120" y="502" fill="#18181B" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700">Standard Fit</text>
+  <text x="120" y="552" fill="#5F5A52" font-family="Arial, Helvetica, sans-serif" font-size="24">Power cabinets, ATS panels, generator rooms, and dry-contact alarm monitoring</text>
+  <text x="120" y="620" fill="#18181B" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700">Standard Baseline</text>
+  <text x="120" y="670" fill="#5F5A52" font-family="Arial, Helvetica, sans-serif" font-size="24">8DI + 4DO with RS485, MQTT, event alarms, heartbeat telemetry, and OTA update</text>
+  <text x="120" y="738" fill="#18181B" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700">Image Status</text>
+  <text x="120" y="788" fill="#5F5A52" font-family="Arial, Helvetica, sans-serif" font-size="24">Controlled placeholder until final product photography is ready</text>
+</svg>

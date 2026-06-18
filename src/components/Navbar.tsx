@@ -24,7 +24,7 @@ export default function Navbar() {
     if (path === '/blog' && location.pathname.startsWith('/blog')) {
       return true;
     }
-    if (path === '/solutions' && (location.pathname.startsWith('/solutions') || location.pathname === '/factory-energy')) {
+    if (path === '/solutions' && location.pathname.startsWith('/solutions')) {
       return true;
     }
     if (path === '/products' && (location.pathname.startsWith('/products') || location.pathname === '/gateway')) {

@@ -1,16 +1,22 @@
-﻿---
+---
 id: digital-io
 title: Digital Input and Digital Output in RTU and Remote IO Devices
-excerpt: Learn how DI and DO are used for dry contacts, alarms, relay control, pump feedback, valve status, cabinet monitoring and remote RTU projects.
+excerpt: >-
+  Learn how DI and DO are used for dry contacts, alarms, relay control, pump
+  feedback, valve status, cabinet monitoring and remote RTU deployments.
 category: IO Guide
 primaryKeyword: digital input digital output RTU
-relatedProducts: ier-100-ethernet-industrial-rtu,ier-140-4g-remote-relay-rtu,ier-141-4g-pump-valve-rtu,ier-142-4g-power-cabinet-rtu,ieio-100-modbus-remote-io-module
+relatedProducts:
+  - ier-100-ethernet-industrial-rtu
+  - ier-140-4g-remote-relay-rtu
+  - ier-141-4g-pump-valve-rtu
+  - ier-142-4g-power-cabinet-rtu
+  - ieio-100-modbus-remote-io-module
 order: 6
 ---
-
 # Digital Input and Digital Output in RTU and Remote IO Devices
 
-Digital input and digital output are the basic building blocks of many industrial monitoring and control projects. A digital input reads a binary state. A digital output drives a relay, signal or control circuit.
+Digital input and digital output are the basic building blocks of many industrial monitoring and control deployments. A digital input reads a binary state. A digital output drives a relay, signal or control circuit.
 
 ## What Is Digital Input?
 
@@ -42,13 +48,13 @@ Common uses include:
 
 In a cellular RTU, DI and DO allow remote equipment to be monitored and controlled from a dashboard or MQTT platform. For example:
 
-- IER-140 uses a compact 2DI + 2DO profile for simple relay projects.
+- IER-140 uses a compact 2DI + 2DO profile for simple relay deployments.
 - IER-141 expands to 4DI + 4DO for pump and valve control.
 - IER-142 uses an 8DI + 4DO profile for cabinet alarm monitoring.
 
 ## Key Engineering Questions
 
-Before wiring DI and DO, confirm:
+Before wiring DI and DO, check:
 
 - dry contact or wet contact input mode
 - input voltage and isolation
@@ -67,5 +73,4 @@ Before wiring DI and DO, confirm:
 
 ## Practical Rule
 
-Use DI for status and alarms. Use DO or relay outputs for control signals. For motors, pumps and high-power equipment, the RTU should normally control an external contactor or control circuit rather than switching the load directly.
-
+Use DI for status and alarms. Use DO or relay outputs for control signals. For motors, pumps, and high-power equipment, the RTU should normally control an external contactor or control circuit rather than switching the load directly.

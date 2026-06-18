@@ -1,0 +1,31 @@
+<svg width="1600" height="1200" viewBox="0 0 1600 1200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="1200" fill="#F5F1E8"/>
+  <rect x="72" y="72" width="1456" height="1056" rx="32" fill="#FAF7F2" stroke="#D9D0C2" stroke-width="4"/>
+  <text x="120" y="156" fill="#18181B" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">IoTEdges</text>
+  <text x="120" y="216" fill="#18181B" font-family="Arial, Helvetica, sans-serif" font-size="64" font-weight="700">IER-140</text>
+  <text x="120" y="266" fill="#5F5A52" font-family="Arial, Helvetica, sans-serif" font-size="28">4G Remote Relay RTU</text>
+  <rect x="120" y="320" width="138" height="46" rx="23" fill="#E8E0D2"/>
+  <text x="152" y="350" fill="#18181B" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700">4G LTE Cat1</text>
+  <rect x="272" y="320" width="140" height="46" rx="23" fill="#E8E0D2"/>
+  <text x="303" y="350" fill="#18181B" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700">2DI / 2DO</text>
+  <rect x="426" y="320" width="164" height="46" rx="23" fill="#E8E0D2"/>
+  <text x="456" y="350" fill="#18181B" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700">MQTT / Modbus</text>
+  <rect x="900" y="250" width="420" height="640" rx="28" fill="#202228"/>
+  <rect x="936" y="292" width="348" height="548" rx="18" fill="#2E323A"/>
+  <rect x="1110" y="170" width="12" height="150" rx="6" fill="#3C404A"/>
+  <circle cx="1116" cy="154" r="26" fill="#C8BFB1"/>
+  <g fill="#E8E0D2">
+    <rect x="968" y="340" width="60" height="210" rx="12"/>
+    <rect x="1044" y="340" width="60" height="210" rx="12"/>
+    <rect x="1120" y="340" width="60" height="210" rx="12"/>
+    <rect x="1196" y="340" width="60" height="210" rx="12"/>
+  </g>
+  <rect x="968" y="590" width="288" height="74" rx="14" fill="#3C404A"/>
+  <rect x="968" y="694" width="288" height="110" rx="14" fill="#3C404A"/>
+  <text x="120" y="502" fill="#18181B" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700">Standard Fit</text>
+  <text x="120" y="552" fill="#5F5A52" font-family="Arial, Helvetica, sans-serif" font-size="24">Remote relay control for pumps, valves, cabinets, street lights, and field alarms</text>
+  <text x="120" y="620" fill="#18181B" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700">Standard Baseline</text>
+  <text x="120" y="670" fill="#5F5A52" font-family="Arial, Helvetica, sans-serif" font-size="24">2DI + 2DO with RS485, MQTT, scheduled control, alarm push, and OTA update</text>
+  <text x="120" y="738" fill="#18181B" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700">Image Status</text>
+  <text x="120" y="788" fill="#5F5A52" font-family="Arial, Helvetica, sans-serif" font-size="24">Controlled placeholder until final product photography is ready</text>
+</svg>

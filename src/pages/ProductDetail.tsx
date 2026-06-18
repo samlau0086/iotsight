@@ -5,6 +5,19 @@ import { productPages } from '../data/products';
 import MarkdownContent from '../components/MarkdownContent';
 import QuoteRequestModal from '../components/QuoteRequestModal';
 
+const getStatusStyles = (status: string) => {
+  switch (status) {
+    case 'Published':
+      return 'border-emerald-500/30 bg-emerald-500/10 text-emerald-300';
+    case 'Preview':
+      return 'border-amber-500/30 bg-amber-500/10 text-amber-300';
+    case 'Available for project inquiry':
+      return 'border-blue-500/30 bg-blue-500/10 text-blue-300';
+    default:
+      return 'border-slate-700 bg-slate-950 text-slate-300';
+  }
+};
+
 export default function ProductDetail() {
   const { id } = useParams<{ id: string }>();
   const [isInquiryOpen, setIsInquiryOpen] = useState(false);
@@ -47,6 +60,23 @@ export default function ProductDetail() {
         </Link>
 
         <article className="bg-slate-900 border border-slate-800 rounded-lg overflow-hidden shadow-2xl">
+          <div className="aspect-[16/8] w-full overflow-hidden border-b border-slate-800 bg-slate-950">
+            {product.imageUrl ? (
+              <img
+                src={product.imageUrl}
+                alt={product.title}
+                className="h-full w-full object-cover"
+                referrerPolicy="no-referrer"
+              />
+            ) : (
+              <div className="flex h-full w-full items-center justify-center bg-slate-950 text-center">
+                <div>
+                  <div className="text-[10px] font-bold uppercase tracking-[0.24em] text-slate-500">{product.category}</div>
+                  <div className="mt-3 text-3xl font-bold text-white" style={{ fontFamily: 'var(--font-display)' }}>{product.model}</div>
+                </div>
+              </div>
+            )}
+          </div>
           <header className="p-8 sm:p-12 border-b border-slate-800">
             <div className="flex flex-wrap items-center gap-3 mb-6">
               <span className="inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.2em] text-blue-300 font-bold bg-blue-500/10 border border-blue-500/20 px-3 py-1 rounded-full">
@@ -54,6 +84,9 @@ export default function ProductDetail() {
               </span>
               <span className="text-[10px] uppercase tracking-[0.2em] text-slate-500 font-bold border border-slate-700 px-3 py-1 rounded-full">
                 {product.model}
+              </span>
+              <span className={`text-[10px] uppercase tracking-[0.2em] font-bold border px-3 py-1 rounded-full ${getStatusStyles(product.status)}`}>
+                {product.status}
               </span>
             </div>
             <h1 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight mb-5" style={{ fontFamily: 'var(--font-display)' }}>
@@ -94,7 +127,7 @@ export default function ProductDetail() {
                   </p>
                 </div>
                 <div className="mb-5 rounded-lg border border-slate-800 bg-slate-950/70 px-4 py-3 text-xs leading-relaxed text-slate-400">
-                  Final specifications can vary by firmware package, enclosure choice, and OEM configuration.
+                  Final decisions should follow the released hardware datasheet and the approved project configuration.
                 </div>
                 <div className="grid grid-cols-1 gap-5 xl:grid-cols-2">
                   {product.specGroups.map((group) => (
@@ -125,7 +158,7 @@ export default function ProductDetail() {
                     How to decide if this is the right model
                   </h2>
                   <p className="max-w-3xl text-sm leading-relaxed text-slate-400">
-                    Use this guide to confirm the right uplink, product type, and project fit.
+                    Confirm the uplink, product type, and project fit before you request pricing.
                   </p>
                 </div>
                 <div className="grid grid-cols-1 gap-5 xl:grid-cols-[1fr_1fr_0.9fr]">
@@ -201,7 +234,7 @@ export default function ProductDetail() {
                 <div className="mb-5 flex flex-col gap-2">
                   <p className="text-xs font-bold uppercase tracking-[0.24em] text-blue-300">Pre-Sales FAQ</p>
                   <h2 className="text-2xl font-bold text-white" style={{ fontFamily: 'var(--font-display)' }}>
-                    Common buyer questions before inquiry
+                    Common questions
                   </h2>
                   <p className="max-w-3xl text-sm leading-relaxed text-slate-400">
                     Answers to common questions on samples, OEM branding, setup scope, and project support.
@@ -224,11 +257,11 @@ export default function ProductDetail() {
               <div className="rounded-lg border border-blue-500/20 bg-blue-500/10 p-5">
                 <div className="mb-5 flex flex-wrap items-center justify-between gap-4">
                   <div>
-                    <h2 className="mb-2 text-xl font-bold text-white" style={{ fontFamily: 'var(--font-display)' }}>Need pricing or project matching?</h2>
-                    <p className="text-sm leading-relaxed text-slate-300">
-                      Start an inquiry for <strong>{product.model}</strong>. The quote form will be prefilled with this product and locked to the current item.
-                    </p>
-                  </div>
+                  <h2 className="mb-2 text-xl font-bold text-white" style={{ fontFamily: 'var(--font-display)' }}>Need a quotation?</h2>
+                  <p className="text-sm leading-relaxed text-slate-300">
+                      Start an inquiry for <strong>{product.model}</strong>. The quote form is prefilled with this product and locked to the current item.
+                  </p>
+                </div>
                   <button
                     type="button"
                     onClick={() => setIsInquiryOpen(true)}
@@ -242,7 +275,7 @@ export default function ProductDetail() {
                   </button>
                 </div>
                 <div className="mb-5 rounded-lg border border-slate-800 bg-slate-950/60 p-4">
-                  <h3 className="mb-3 text-sm font-bold uppercase tracking-[0.2em] text-white">What To Prepare Before Inquiry</h3>
+                  <h3 className="mb-3 text-sm font-bold uppercase tracking-[0.2em] text-white">Information to include</h3>
                   <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
                     {inquiryChecklist.map((item) => (
                       <div key={item} className="rounded-md border border-slate-800 bg-slate-900 px-3 py-2 text-xs leading-relaxed text-slate-300">

@@ -13,7 +13,7 @@ export default function KnowledgeList() {
               Industrial IoT protocol and connectivity guides
             </h1>
             <p className="text-lg text-slate-400 leading-relaxed">
-              Practical reference pages for Modbus, MQTT, RS485, and related industrial communication topics that connect directly to IoTEdges product planning.
+              Reference pages for Modbus, MQTT, RS485, IO wiring, and field connectivity topics that map directly to product selection and project scope.
             </p>
           </div>
         </div>
@@ -37,13 +37,13 @@ export default function KnowledgeList() {
         <div className="grid grid-cols-1 lg:grid-cols-[1.35fr_0.85fr] gap-6 mb-12">
           <section className="border border-slate-800 bg-slate-900 rounded-lg p-7">
             <h2 className="text-2xl font-bold text-white mb-4" style={{ fontFamily: 'var(--font-display)' }}>
-              Technical guides built for industrial buyers and integrators
+              Technical guides tied to real hardware decisions
             </h2>
             <p className="text-sm leading-relaxed text-slate-400 mb-4">
-              The knowledge base explains how Modbus, MQTT, RS485, digital IO, analog inputs and field accessories fit into real industrial IoT deployments. These pages are written to answer specification, wiring and product-selection questions before a buyer requests a quotation.
+              The knowledge base explains how Modbus, MQTT, RS485, digital IO, analog inputs, and field accessories fit into industrial IoT deployments. The goal is to answer specification, wiring, and product-selection questions before a buyer requests a quotation.
             </p>
             <p className="text-sm leading-relaxed text-slate-400">
-              Use these guides to move from protocol understanding into hardware selection. Most readers start with Modbus, then compare gateway versus RTU versus Remote IO, and finally check wiring, antenna and power-supply guidance for the final installation.
+              Most readers start with Modbus or MQTT, compare gateway versus RTU versus Remote IO, and then confirm wiring, antenna, and power-supply details for the final installation.
             </p>
           </section>
 

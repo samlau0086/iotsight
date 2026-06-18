@@ -250,8 +250,23 @@ async function startServer() {
   } else {
     const distPath = path.join(process.cwd(), "dist");
     app.use(express.static(distPath, { redirect: false }));
+
+    const resolvePrerenderedHtml = (requestPath: string) => {
+      const normalizedPath = requestPath
+        .replace(/^\/+/, "")
+        .replace(/\/+$/, "");
+
+      return normalizedPath
+        ? path.join(distPath, normalizedPath, "index.html")
+        : path.join(distPath, "index.html");
+    };
+
+    app.get(["/admin", "/admin/"], (_req, res) => {
+      res.sendFile(path.join(distPath, "admin", "index.html"));
+    });
+
     app.get("*", (req, res) => {
-      const prerenderedPath = path.join(distPath, req.path, "index.html");
+      const prerenderedPath = resolvePrerenderedHtml(req.path);
       const fallbackPath = fs.existsSync(prerenderedPath)
         ? prerenderedPath
         : path.join(distPath, "index.html");

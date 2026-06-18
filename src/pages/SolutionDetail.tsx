@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft, ArrowRight, CheckCircle2, Server, Monitor } from 'lucide-react';
-import { solutions } from '../data/solutions';
+import { getSolutionIcon, solutions } from '../data/solutions';
 import QuoteRequestModal from '../components/QuoteRequestModal';
 
 export default function SolutionDetail() {
@@ -28,7 +28,7 @@ export default function SolutionDetail() {
     );
   }
 
-  const Icon = solution.icon;
+  const Icon = getSolutionIcon(solution.iconKey);
 
   return (
     <div className="bg-slate-950 text-slate-200">
@@ -113,15 +113,9 @@ export default function SolutionDetail() {
             <div>
               <h2 className="text-3xl font-bold text-white mb-6" style={{ fontFamily: 'var(--font-display)' }}>Transforming {solution.title} with Real-Time Data</h2>
               <div className="text-slate-400 mb-6 leading-relaxed space-y-4">
-                {solution.detailedContent ? (
-                  solution.detailedContent.map((paragraph, idx) => (
-                    <p key={idx}>{paragraph}</p>
-                  ))
-                ) : (
-                  <p>
-                    Unlock new efficiencies by connecting your remote or legacy equipment directly to the cloud. Our end-to-end hardware and software ecosystem simplifies the complex data gathering process into actionable insights.
-                  </p>
-                )}
+                {solution.detailedContent.map((paragraph, idx) => (
+                  <p key={idx}>{paragraph}</p>
+                ))}
               </div>
               
               <div className="mt-12 space-y-12">
@@ -259,10 +253,10 @@ export default function SolutionDetail() {
       {/* CTA */}
       <section className="bg-slate-900 py-24 text-center">
         <div className="max-w-3xl mx-auto px-4">
-          <h2 className="text-3xl font-extrabold text-white mb-6 tracking-tight" style={{ fontFamily: 'var(--font-display)' }}>Need pricing or project matching?</h2>
+          <h2 className="text-3xl font-extrabold text-white mb-6 tracking-tight" style={{ fontFamily: 'var(--font-display)' }}>Need a quotation?</h2>
           <p className="mb-10 text-slate-400 font-medium">Share your site, signals, uplink preference, and target devices. We can map this solution to the right IoTEdges hardware and dashboard path.</p>
           <div className="mb-8 rounded-lg border border-slate-800 bg-slate-950/60 p-5 text-left">
-            <h3 className="mb-3 text-sm font-bold uppercase tracking-[0.2em] text-white">What To Prepare Before Inquiry</h3>
+            <h3 className="mb-3 text-sm font-bold uppercase tracking-[0.2em] text-white">Information to include</h3>
             <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
               {inquiryChecklist.map((item) => (
                 <div key={item} className="rounded-md border border-slate-800 bg-slate-900 px-3 py-2 text-xs leading-relaxed text-slate-300">

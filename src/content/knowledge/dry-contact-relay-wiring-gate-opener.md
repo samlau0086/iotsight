@@ -1,13 +1,16 @@
 ---
 id: dry-contact-relay-wiring-gate-opener
 title: Dry Contact Relay Wiring for 4G Gate Openers and Remote Access Controllers
-excerpt: A practical guide to dry-contact relay wiring for 4G gate openers, access controllers, exit buttons, door contacts and existing gate motor inputs.
+excerpt: >-
+  A practical guide to dry-contact relay wiring for 4G gate openers, access
+  controllers, exit buttons, door contacts and existing gate motor inputs.
 category: Wiring Guide
 primaryKeyword: dry contact relay wiring gate opener
-relatedProducts: ieac-140-4g-gsm-gate-opener,ier-140-4g-remote-relay-rtu
+relatedProducts:
+  - ieac-140-4g-gsm-gate-opener
+  - ier-140-4g-remote-relay-rtu
 order: 14
 ---
-
 # Dry Contact Relay Wiring for 4G Gate Openers and Remote Access Controllers
 
 Most 4G gate openers and remote access controllers do not power the gate motor directly. Instead, they trigger an existing gate controller input through a dry-contact relay. This is the normal approach for integrating a cellular controller with an existing gate motor, barrier, garage door or access-control panel.

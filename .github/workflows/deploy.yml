@@ -28,9 +28,6 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Type check
-        run: npm run lint
-
       - name: Verify analytics configuration
         env:
           VITE_GA_MEASUREMENT_ID: ${{ vars.VITE_GA_MEASUREMENT_ID || secrets.VITE_GA_MEASUREMENT_ID }}
@@ -41,11 +38,20 @@ jobs:
             exit 1
           fi
 
-      - name: Build
+      - name: Run CMS preflight
         env:
           VITE_GA_MEASUREMENT_ID: ${{ vars.VITE_GA_MEASUREMENT_ID || secrets.VITE_GA_MEASUREMENT_ID }}
           VITE_GTM_ID: ${{ vars.VITE_GTM_ID || secrets.VITE_GTM_ID }}
-        run: npm run build
+        run: npm run verify:cms-preflight
+
+      - name: Verify CMS external config consistency
+        env:
+          CMS_CONFIG_VERIFY_MODE: website
+          APP_URL: ${{ vars.APP_URL || secrets.APP_URL }}
+          DECAP_AUTH_HEALTH_URL: ${{ vars.DECAP_AUTH_HEALTH_URL || secrets.DECAP_AUTH_HEALTH_URL }}
+          DECAP_OAUTH_REDIRECT_URI: ${{ vars.DECAP_OAUTH_REDIRECT_URI || secrets.DECAP_OAUTH_REDIRECT_URI }}
+          DECAP_OAUTH_SITE_ORIGIN: ${{ vars.DECAP_OAUTH_SITE_ORIGIN || secrets.DECAP_OAUTH_SITE_ORIGIN }}
+        run: npm run verify:cms-external-config
 
       - name: Verify prerendered product pages
         run: |
@@ -188,7 +194,7 @@ jobs:
 
       - name: Prepare production env
         env:
-          APP_URL: ${{ secrets.APP_URL }}
+          APP_URL: ${{ vars.APP_URL || secrets.APP_URL }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           LIVE_CHAT_API_BASE_URL: ${{ secrets.LIVE_CHAT_API_BASE_URL }}
           LIVE_CHAT_API_TOKEN: ${{ secrets.LIVE_CHAT_API_TOKEN }}
@@ -263,3 +269,12 @@ jobs:
             pm2 save
           fi
           EOF
+
+      - name: Verify live CMS surface
+        env:
+          APP_URL: ${{ vars.APP_URL || secrets.APP_URL }}
+          DECAP_AUTH_HEALTH_URL: ${{ vars.DECAP_AUTH_HEALTH_URL || secrets.DECAP_AUTH_HEALTH_URL }}
+          DECAP_OAUTH_REDIRECT_URI: ${{ vars.DECAP_OAUTH_REDIRECT_URI || secrets.DECAP_OAUTH_REDIRECT_URI }}
+        run: |
+          export VERIFY_SITE_URL="${APP_URL:-https://iotedges.com}"
+          npm run verify:cms-live-surface

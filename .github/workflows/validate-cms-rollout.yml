@@ -1,0 +1,135 @@
+name: Validate CMS Rollout
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/validate-cms-rollout.yml'
+      - '.github/workflows/deploy.yml'
+      - '.github/workflows/deploy-decap-auth.yml'
+      - 'workers/decap-auth-cloudflare/**'
+      - 'scripts/create-cms-dry-run-report.mjs'
+      - 'scripts/lib/**'
+      - 'scripts/prerender.mjs'
+      - 'scripts/verify-cms-build-output.mjs'
+      - 'scripts/verify-built-server-surface.mjs'
+      - 'scripts/verify-cms-external-config.mjs'
+      - 'scripts/verify-production-surface.mjs'
+      - 'scripts/verify-auth-worker-surface.mjs'
+      - 'scripts/verify-cms-live-surface.mjs'
+      - 'scripts/verify-cms-go-live.mjs'
+      - 'scripts/verify-cms-rollout.mjs'
+      - 'scripts/smoke-decap-auth-worker.ts'
+      - 'public/admin/**'
+      - 'public/uploads/**'
+      - 'src/content/**'
+      - 'src/data/**'
+      - 'src/lib/frontmatter.ts'
+      - 'docs/decap-cms-config-draft.md'
+      - 'docs/cms-minimum-go-live.md'
+      - 'docs/content-model-schema.md'
+      - 'docs/decap-auth-rollout.md'
+      - 'docs/github-cloudflare-cms-setup-runbook.md'
+      - 'docs/cms-admin-dry-run-checklist.md'
+      - 'docs/cms-admin-dry-run-checklist.zh-CN.md'
+      - 'docs/cms-admin-dry-run-report-template.md'
+      - 'docs/cms-dry-run-reports/**'
+      - 'docs/github-cloudflare-cms-setup-runbook.zh-CN.md'
+      - 'docs/cms-admin-dry-run-report-template.zh-CN.md'
+      - 'docs/cms-editor-handbook.md'
+      - 'docs/cms-editor-handbook.zh-CN.md'
+      - 'docs/cms-field-glossary.md'
+      - 'docs/cms-field-glossary.zh-CN.md'
+      - 'docs/cms-go-live-checklist.md'
+      - 'docs/cms-rollout-sequence.md'
+      - 'docs/cms-troubleshooting.md'
+      - 'docs/cms-go-live-checklist.zh-CN.md'
+      - 'docs/cms-minimum-go-live.zh-CN.md'
+      - 'docs/cms-rollout-sequence.zh-CN.md'
+      - 'docs/cms-troubleshooting.zh-CN.md'
+      - 'docs/media-asset-guidelines.md'
+      - 'docs/media-asset-guidelines.zh-CN.md'
+      - 'docs/decap-cms-qa-checklist.md'
+      - 'README.md'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'tsconfig.json'
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/validate-cms-rollout.yml'
+      - '.github/workflows/deploy.yml'
+      - '.github/workflows/deploy-decap-auth.yml'
+      - 'workers/decap-auth-cloudflare/**'
+      - 'scripts/create-cms-dry-run-report.mjs'
+      - 'scripts/lib/**'
+      - 'scripts/prerender.mjs'
+      - 'scripts/verify-cms-build-output.mjs'
+      - 'scripts/verify-built-server-surface.mjs'
+      - 'scripts/verify-cms-external-config.mjs'
+      - 'scripts/verify-production-surface.mjs'
+      - 'scripts/verify-auth-worker-surface.mjs'
+      - 'scripts/verify-cms-live-surface.mjs'
+      - 'scripts/verify-cms-go-live.mjs'
+      - 'scripts/verify-cms-rollout.mjs'
+      - 'scripts/smoke-decap-auth-worker.ts'
+      - 'public/admin/**'
+      - 'public/uploads/**'
+      - 'src/content/**'
+      - 'src/data/**'
+      - 'src/lib/frontmatter.ts'
+      - 'docs/decap-cms-config-draft.md'
+      - 'docs/cms-minimum-go-live.md'
+      - 'docs/content-model-schema.md'
+      - 'docs/decap-auth-rollout.md'
+      - 'docs/github-cloudflare-cms-setup-runbook.md'
+      - 'docs/cms-admin-dry-run-checklist.md'
+      - 'docs/cms-admin-dry-run-checklist.zh-CN.md'
+      - 'docs/cms-admin-dry-run-report-template.md'
+      - 'docs/cms-dry-run-reports/**'
+      - 'docs/github-cloudflare-cms-setup-runbook.zh-CN.md'
+      - 'docs/cms-admin-dry-run-report-template.zh-CN.md'
+      - 'docs/cms-editor-handbook.md'
+      - 'docs/cms-editor-handbook.zh-CN.md'
+      - 'docs/cms-field-glossary.md'
+      - 'docs/cms-field-glossary.zh-CN.md'
+      - 'docs/cms-go-live-checklist.md'
+      - 'docs/cms-rollout-sequence.md'
+      - 'docs/cms-troubleshooting.md'
+      - 'docs/cms-go-live-checklist.zh-CN.md'
+      - 'docs/cms-minimum-go-live.zh-CN.md'
+      - 'docs/cms-rollout-sequence.zh-CN.md'
+      - 'docs/cms-troubleshooting.zh-CN.md'
+      - 'docs/media-asset-guidelines.md'
+      - 'docs/media-asset-guidelines.zh-CN.md'
+      - 'docs/decap-cms-qa-checklist.md'
+      - 'README.md'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'tsconfig.json'
+  workflow_dispatch:
+
+concurrency:
+  group: validate-cms-rollout-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Validate CMS Rollout Checks
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run CMS preflight
+        run: npm run verify:cms-preflight

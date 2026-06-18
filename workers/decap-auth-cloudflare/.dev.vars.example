@@ -1,0 +1,5 @@
+GITHUB_CLIENT_ID=your_github_oauth_client_id
+GITHUB_CLIENT_SECRET=your_github_oauth_client_secret
+OAUTH_REDIRECT_URI=https://cms-auth.iotedges.com/callback
+OAUTH_SITE_ORIGIN=https://iotedges.com
+OAUTH_SCOPE=repo,user

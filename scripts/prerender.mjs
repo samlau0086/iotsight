@@ -299,6 +299,8 @@ async function writeRobots() {
   const robots = [
     'User-agent: *',
     'Allow: /',
+    'Disallow: /admin',
+    'Disallow: /admin/',
     '',
     `Sitemap: ${siteUrl}/sitemap.xml`,
     '',

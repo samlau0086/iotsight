@@ -1,0 +1,19 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="900" fill="#F5F1E8"/>
+  <rect x="60" y="60" width="1480" height="780" rx="28" fill="#FAF7F2" stroke="#D9D0C2" stroke-width="4"/>
+  <text x="110" y="138" fill="#18181B" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">IoTEdges Blog</text>
+  <rect x="110" y="176" width="136" height="40" rx="20" fill="#E8E0D2"/>
+  <text x="138" y="202" fill="#18181B" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700">Case Studies</text>
+  <text x="110" y="302" fill="#18181B" font-family="Arial, Helvetica, sans-serif" font-size="64" font-weight="700">ISO 50001</text>
+  <text x="110" y="370" fill="#18181B" font-family="Arial, Helvetica, sans-serif" font-size="64" font-weight="700">Energy Monitoring</text>
+  <text x="110" y="438" fill="#5F5A52" font-family="Arial, Helvetica, sans-serif" font-size="28">Real-time monitoring, reporting and energy baseline visibility</text>
+  <rect x="980" y="178" width="410" height="520" rx="28" fill="#22232A"/>
+  <rect x="1014" y="212" width="342" height="452" rx="20" fill="#2C2F38"/>
+  <rect x="1064" y="274" width="256" height="94" rx="14" fill="#3A3D48"/>
+  <rect x="1064" y="404" width="82" height="176" rx="12" fill="#E8E0D2"/>
+  <rect x="1160" y="464" width="82" height="116" rx="12" fill="#E8E0D2"/>
+  <rect x="1256" y="344" width="82" height="236" rx="12" fill="#E8E0D2"/>
+  <path d="M1106 356L1196 450L1296 322" stroke="#E8E0D2" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="110" y="610" fill="#18181B" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700">Cover Status</text>
+  <text x="110" y="658" fill="#5F5A52" font-family="Arial, Helvetica, sans-serif" font-size="24">Controlled placeholder until final editorial artwork is ready</text>
+</svg>

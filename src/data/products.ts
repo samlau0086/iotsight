@@ -1,8 +1,5 @@
 import { ProductPage } from '../types';
-import { productSpecsById } from './productSpecs';
-import { productSelectionGuidesById } from './productSelectionGuides';
-import { productBomGuidesById } from './productBomGuides';
-import { productPreSalesFaqsById } from './productPreSalesFaqs';
+import { parseFrontmatter, readNumber, readOptionalString, readString } from '../lib/frontmatter';
 
 const markdownModules = import.meta.glob('../content/products/*.md', {
   eager: true,
@@ -10,59 +7,108 @@ const markdownModules = import.meta.glob('../content/products/*.md', {
   import: 'default',
 }) as Record<string, string>;
 
-function parseFrontmatter(markdown: string) {
-  const normalizedMarkdown = markdown.replace(/^\uFEFF/, '');
-  const frontmatterMatch = normalizedMarkdown.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?([\s\S]*)$/);
+function readProductSpecGroups(value: unknown): ProductPage['specGroups'] {
+  if (!Array.isArray(value)) return [];
 
-  if (!frontmatterMatch) {
-    return {
-      metadata: {} as Record<string, string>,
-      content: normalizedMarkdown.trim(),
-    };
-  }
+  return value
+    .map((group) => {
+      if (!group || typeof group !== 'object') return null;
+      const entry = group as Record<string, unknown>;
+      const specs = Array.isArray(entry.specs)
+        ? entry.specs
+            .map((spec) => {
+              if (!spec || typeof spec !== 'object') return null;
+              const specEntry = spec as Record<string, unknown>;
+              const label = readString(specEntry.label);
+              const specValue = readString(specEntry.value);
+              return label && specValue ? { label, value: specValue } : null;
+            })
+            .filter((item): item is ProductPage['specs'][number] => Boolean(item))
+        : [];
 
-  const metadata = frontmatterMatch[1]
-    .split(/\r?\n/)
-    .reduce<Record<string, string>>((acc, line) => {
-      const separatorIndex = line.indexOf(':');
-      if (separatorIndex === -1) return acc;
+      const title = readString(entry.title);
+      return title && specs.length > 0 ? { title, specs } : null;
+    })
+    .filter((item): item is ProductPage['specGroups'][number] => Boolean(item));
+}
 
-      const key = line.slice(0, separatorIndex).trim();
-      const value = line.slice(separatorIndex + 1).trim().replace(/^['"]|['"]$/g, '');
+function readProductSelectionGuide(value: unknown): ProductPage['selectionGuide'] {
+  if (!value || typeof value !== 'object') return undefined;
 
-      if (key) {
-        acc[key] = value;
-      }
-
-      return acc;
-    }, {});
+  const entry = value as Record<string, unknown>;
+  const compareLinks = Array.isArray(entry.compareLinks)
+    ? entry.compareLinks
+        .map((link) => {
+          if (!link || typeof link !== 'object') return null;
+          const linkEntry = link as Record<string, unknown>;
+          const href = readString(linkEntry.href);
+          const label = readString(linkEntry.label);
+          return href && label ? { href, label } : null;
+        })
+        .filter((item): item is NonNullable<ProductPage['selectionGuide']>['compareLinks'][number] => Boolean(item))
+    : [];
 
   return {
-    metadata,
-    content: frontmatterMatch[2].trim(),
+    chooseWhen: Array.isArray(entry.chooseWhen) ? entry.chooseWhen.map((item) => readString(item)).filter(Boolean) : [],
+    notFitWhen: Array.isArray(entry.notFitWhen) ? entry.notFitWhen.map((item) => readString(item)).filter(Boolean) : [],
+    compareLinks,
   };
+}
+
+function readProductBomGroups(value: unknown): ProductPage['bomGroups'] {
+  if (!Array.isArray(value)) return [];
+
+  return value
+    .map((group) => {
+      if (!group || typeof group !== 'object') return null;
+      const entry = group as Record<string, unknown>;
+      const title = readString(entry.title);
+      const items = Array.isArray(entry.items) ? entry.items.map((item) => readString(item)).filter(Boolean) : [];
+      return title && items.length > 0 ? { title, items } : null;
+    })
+    .filter((item): item is ProductPage['bomGroups'][number] => Boolean(item));
+}
+
+function readProductFaq(value: unknown): ProductPage['preSalesFaq'] {
+  if (!Array.isArray(value)) return [];
+
+  return value
+    .map((item) => {
+      if (!item || typeof item !== 'object') return null;
+      const entry = item as Record<string, unknown>;
+      const question = readString(entry.question);
+      const answer = readString(entry.answer);
+      return question && answer ? { question, answer } : null;
+    })
+    .filter((item): item is ProductPage['preSalesFaq'][number] => Boolean(item));
 }
 
 function createProductPage(path: string, markdown: string): ProductPage {
   const { metadata, content } = parseFrontmatter(markdown);
   const fallbackId = path.split('/').pop()?.replace(/\.md$/, '') || 'product-page';
+  const productId = readString(metadata.id, fallbackId);
+  const specGroups = readProductSpecGroups(metadata.specGroups);
+  const selectionGuide = readProductSelectionGuide(metadata.selectionGuide);
+  const bomGroups = readProductBomGroups(metadata.bomGroups);
+  const preSalesFaq = readProductFaq(metadata.preSalesFaq);
 
   return {
-    id: metadata.id || fallbackId,
-    title: metadata.title || 'Untitled Product',
-    excerpt: metadata.excerpt || '',
+    id: productId,
+    title: readString(metadata.title, 'Untitled Product'),
+    excerpt: readString(metadata.excerpt),
     content,
-    category: metadata.category || 'Industrial IoT Product',
-    model: metadata.model || '',
-    status: metadata.status || '',
-    primaryKeyword: metadata.primaryKeyword || '',
-    route: metadata.route || `/products/${metadata.id || fallbackId}`,
-    order: Number(metadata.order || 0),
-    specGroups: (productSpecsById[metadata.id || fallbackId] || []).filter((group) => group.specs.length > 0),
-    specs: (productSpecsById[metadata.id || fallbackId] || []).flatMap((group) => group.specs),
-    selectionGuide: productSelectionGuidesById[metadata.id || fallbackId],
-    bomGroups: productBomGuidesById[metadata.id || fallbackId] || [],
-    preSalesFaq: productPreSalesFaqsById[metadata.id || fallbackId] || [],
+    imageUrl: readOptionalString(metadata.imageUrl),
+    category: readString(metadata.category, 'Industrial IoT Product'),
+    model: readString(metadata.model),
+    status: readString(metadata.status),
+    primaryKeyword: readString(metadata.primaryKeyword),
+    route: readString(metadata.route, `/products/${productId}`),
+    order: readNumber(metadata.order),
+    specGroups,
+    specs: specGroups.flatMap((group) => group.specs),
+    selectionGuide,
+    bomGroups,
+    preSalesFaq,
   };
 }
 
