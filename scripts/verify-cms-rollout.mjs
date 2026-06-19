@@ -298,7 +298,7 @@ function main() {
   assertIncludes(adminHtml, 'decap-cms.js', 'public/admin/index.html');
   assertIncludes(adminHtml, 'noindex, nofollow, noarchive', 'public/admin/index.html');
   assertIncludes(adminHtml, 'IoTEdges CMS requires JavaScript', 'public/admin/index.html');
-  assertIncludes(adminConfig, 'repo: samla/iotsight', 'public/admin/config.yml');
+  assertIncludes(adminConfig, 'repo: samlau0086/iotsight', 'public/admin/config.yml');
   assertIncludes(adminConfig, 'branch: main', 'public/admin/config.yml');
   assertIncludes(adminConfig, 'base_url: https://cms-auth.iotedges.com', 'public/admin/config.yml');
   assertIncludes(adminConfig, 'auth_endpoint: auth', 'public/admin/config.yml');

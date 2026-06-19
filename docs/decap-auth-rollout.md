@@ -134,7 +134,7 @@ For the current Cloudflare scaffold, the expected Decap settings are:
 ```yml
 backend:
   name: github
-  repo: samla/iotsight
+  repo: samlau0086/iotsight
   branch: main
   base_url: https://cms-auth.iotedges.com
   auth_endpoint: auth

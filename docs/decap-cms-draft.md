@@ -145,7 +145,7 @@ The draft uses:
 ```yaml
 backend:
   name: github
-  repo: samla/iotsight
+  repo: samlau0086/iotsight
   branch: main
 ```
 

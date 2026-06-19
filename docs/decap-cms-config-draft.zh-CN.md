@@ -49,7 +49,7 @@ Decap CMS 不负责：
 ```yaml
 backend:
   name: github
-  repo: samla/iotsight
+  repo: samlau0086/iotsight
   branch: main
   base_url: https://cms-auth.iotedges.com
   auth_endpoint: auth
@@ -77,7 +77,7 @@ slug:
   sanitize_replacement: "-"
 
 issue_reports:
-  url: https://github.com/samla/iotsight/issues/new
+  url: https://github.com/samlau0086/iotsight/issues/new
 ```
 
 ## 4. 部署配置矩阵
