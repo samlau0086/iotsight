@@ -304,6 +304,40 @@ backend:
   auth_endpoint: auth
 ```
 
+Deployment steps:
+
+1. Create a GitHub OAuth App:
+   - Application name: `IoTEdges Decap CMS`
+   - Homepage URL: `https://iotedges.com/admin/`
+   - Authorization callback URL: `https://cms-auth.iotedges.com/callback`
+2. In the GitHub repository, add these Actions Secrets:
+   - `CLOUDFLARE_API_TOKEN`
+   - `CLOUDFLARE_ACCOUNT_ID`
+   - `DECAP_GITHUB_CLIENT_ID`
+   - `DECAP_GITHUB_CLIENT_SECRET`
+3. Add these Actions Variables or Secrets:
+   - `DECAP_AUTH_HEALTH_URL=https://cms-auth.iotedges.com/healthz`
+   - `DECAP_OAUTH_REDIRECT_URI=https://cms-auth.iotedges.com/callback`
+   - `DECAP_OAUTH_SITE_ORIGIN=https://iotedges.com`
+   - `DECAP_OAUTH_SCOPE=repo,user`
+4. In Cloudflare, create a Worker deployment token with permissions for Workers deployment. If you will manage the Worker custom domain manually in the dashboard, Worker deployment permissions are sufficient.
+5. In the Cloudflare DNS page for `iotedges.com`, remove any existing `cms-auth` `A`, `AAAA`, or `CNAME` record that points to the VPS or another service.
+6. Run GitHub Actions workflow `Deploy Decap Auth Worker`.
+7. In Cloudflare `Workers & Pages`, open Worker `iotedges-decap-auth`, then add Custom Domain `cms-auth.iotedges.com` under `Settings > Domains & Routes`.
+8. Wait until the custom domain becomes active, then verify:
+   - `https://cms-auth.iotedges.com/healthz`
+   - `npm run verify:auth-worker-surface`
+9. Deploy the main website to the VPS so the live `/admin/config.yml` matches the Worker base URL.
+10. Run final checks:
+   - `npm run verify:cms-live-surface`
+   - `npm run verify:cms-go-live`
+
+Important DNS note:
+
+- `cms-auth.iotedges.com` should not point to the VPS.
+- Do not create a manual `A` record for the Worker.
+- Bind `cms-auth.iotedges.com` as a Cloudflare Worker Custom Domain and let Cloudflare manage DNS and TLS for that hostname.
+
 ### SEO and Prerendering
 
 `npm run build` prerenders:
@@ -687,6 +721,40 @@ backend:
   base_url: https://cms-auth.iotedges.com
   auth_endpoint: auth
 ```
+
+部署步骤：
+
+1. 先创建 GitHub OAuth App：
+   - Application name：`IoTEdges Decap CMS`
+   - Homepage URL：`https://iotedges.com/admin/`
+   - Authorization callback URL：`https://cms-auth.iotedges.com/callback`
+2. 在 GitHub 仓库中添加这些 Actions Secrets：
+   - `CLOUDFLARE_API_TOKEN`
+   - `CLOUDFLARE_ACCOUNT_ID`
+   - `DECAP_GITHUB_CLIENT_ID`
+   - `DECAP_GITHUB_CLIENT_SECRET`
+3. 添加这些 Actions Variables 或 Secrets：
+   - `DECAP_AUTH_HEALTH_URL=https://cms-auth.iotedges.com/healthz`
+   - `DECAP_OAUTH_REDIRECT_URI=https://cms-auth.iotedges.com/callback`
+   - `DECAP_OAUTH_SITE_ORIGIN=https://iotedges.com`
+   - `DECAP_OAUTH_SCOPE=repo,user`
+4. 在 Cloudflare 创建用于 Worker 部署的 API Token。如果你准备在 Cloudflare 控制台里手动管理 custom domain，那么具备 Worker 部署权限即可。
+5. 在 `iotedges.com` 的 Cloudflare DNS 页面中，删除任何现有的 `cms-auth` `A`、`AAAA` 或 `CNAME` 记录，尤其是指向 VPS 或其他服务的记录。
+6. 运行 GitHub Actions workflow：`Deploy Decap Auth Worker`。
+7. 在 Cloudflare `Workers & Pages` 中打开 Worker `iotedges-decap-auth`，然后在 `Settings > Domains & Routes` 下添加 Custom Domain：`cms-auth.iotedges.com`。
+8. 等待 custom domain 生效后，验证：
+   - `https://cms-auth.iotedges.com/healthz`
+   - `npm run verify:auth-worker-surface`
+9. 再把主站部署到 VPS，确保线上 `/admin/config.yml` 已使用正确的 Worker `base_url`。
+10. 最后执行：
+   - `npm run verify:cms-live-surface`
+   - `npm run verify:cms-go-live`
+
+DNS 关键说明：
+
+- `cms-auth.iotedges.com` 不应该指向 VPS。
+- 不要给 Worker 手动创建 `A` 记录。
+- 应该把 `cms-auth.iotedges.com` 绑定为 Cloudflare Worker Custom Domain，让 Cloudflare 接管该子域名的 DNS 和 TLS。
 
 ### SEO 与预渲染
 
