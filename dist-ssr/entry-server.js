@@ -6,7 +6,7 @@ import { Moon, Sun, X, Menu, Bell, ArrowRight, Bot, Server, Activity, Zap, Cloud
 import { clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { motion, AnimatePresence } from "motion/react";
-import matter from "gray-matter";
+import { parse } from "yaml";
 import Markdown from "react-markdown";
 import { io } from "socket.io-client";
 function cn(...inputs) {
@@ -284,11 +284,40 @@ const __vite_glob_0_2$4 = "---\nid: demopage\neyebrow: AI IoT Dashboard Preview\
 const __vite_glob_0_3$4 = "---\nid: gatewaypage\neyebrow: IoTEdges Gateway Family\nheroTitle: Industrial IoT Gateways\nheroDescription: Start from practical Ethernet, WiFi and cellular gateway models, then match the uplink, field protocol and dashboard requirements to the project.\ngatewayModels:\n  - title: IEG-100 Ethernet Industrial IoT Gateway\n    model: IEG-100\n    href: /products/ieg-100-ethernet-industrial-iot-gateway\n    ctaLabel: View model details\n    iconKey: server\n    text: Ethernet-only gateway for Modbus RTU/TCP data collection and MQTT telemetry.\n  - title: IEG-120 WiFi Industrial IoT Gateway\n    model: IEG-120\n    href: /products/ieg-120-wifi-industrial-iot-gateway\n    ctaLabel: View model details\n    iconKey: wifi\n    text: Indoor WiFi gateway for Modbus data collection and MQTT telemetry where a reliable wireless LAN is available.\n  - title: IEG-140 4G Industrial IoT Gateway\n    model: IEG-140\n    href: /products\n    ctaLabel: Browse gateway options\n    iconKey: radio-tower\n    text: 4G gateway family for remote sites where wired LAN is not available.\nprincipleCards:\n  - title: Separate uplink models\n    text: Ethernet, WiFi, 4G LTE, and LoRaWAN are kept as separate model families.\n    iconKey: network\n  - title: Specification discipline\n    text: Public product pages stay aligned with the released hardware scope, protocol fit, and deployment environment.\n    iconKey: shield-check\n  - title: Modbus and MQTT baseline\n    text: Baseline gateways focus on Modbus RTU and Modbus TCP collection plus MQTT telemetry for industrial data projects.\n    iconKey: server\nbottomCtaTitle: Need a gateway for a specific site?\nbottomCtaDescription: Tell us your field devices, protocol, uplink method, and deployment environment. We will map your project to the right gateway or RTU path.\nbottomCtaLabel: Request Gateway Quote\nbottomCtaHref: /contact\n---\n\nThis file controls Gateway-page copy only. The layout, card structure, icon system, and route behavior stay under code control.\n";
 const __vite_glob_0_4$4 = '---\nid: homepage\nheroEyebrow: Next-Gen Industrial Monitoring\nheroTitle: Industrial IoT for Factories, Energy & Remote Assets\nheroHighlight: Factories\nheroDescription: Monitor energy usage, machines, solar farms, and remote equipment in real time with industrial gateways, AI-powered dashboards, and smart alerts.\nheroPrimaryCtaLabel: View Live Demo\nheroPrimaryCtaHref: /demo\nheroSecondaryCtaLabel: View Products\nheroSecondaryCtaHref: /products\nstats:\n  - value: "10"\n    label: Product Models\n  - value: "4"\n    label: Core Protocol Topics\n  - value: EU\n    label: Access Control Focus\ntrustEyebrow: Enterprise Grade\ntrustPills:\n  - text: OEM / ODM Support\n  - text: Modbus / MQTT Compatible\n  - text: Private Cloud Deployment\n  - text: Custom Branding\nproblemsTitle: Manufacturing Problems We Solve\nproblemsDescription: Lack of visibility leads to unnecessary costs and machine downtime.\nproblemCards:\n  - title: High electricity costs\n    description: No way to track real-time consumption and identify waste.\n    iconKey: zap\n  - title: No real-time visibility\n    description: Hard to know if machines are running optimally.\n    iconKey: activity\n  - title: Unexpected downtime\n    description: Machines break down without prior warning or load data.\n    iconKey: shield-check\n  - title: No remote alert system\n    description: Issues are only discovered when operators are on-site.\n    iconKey: bell\nsolutionTitle: The Complete Monitoring Solution\nsolutionDescription: Everything you need from hardware data collection to AI-driven insights.\nsolutionSteps:\n  - title: |-\n      Energy Meter\n      Data Collection\n    iconKey: activity\n  - title: |-\n      Industrial IoT\n      Gateway\n    iconKey: server\n  - title: |-\n      Cloud Dashboard\n      & AI Insights\n    iconKey: cloud\nproductsTitle: Core Hardware & Software\nproductsDescription: Industrial gateways, RTUs, Remote IO modules, remote relay controllers, access controllers, and AI dashboard software.\nproductsBrowseLabel: View all products\nproductsBrowseHref: /products\nbottomCtaTitle: Make industrial energy and equipment visible from anywhere.\nbottomCtaDescription: Tell us your monitoring project. Get a customized solution proposal within 24 hours.\nbottomPrimaryCtaLabel: Request Quote\nbottomPrimaryCtaHref: /contact\nbottomSecondaryCtaLabel: View Dashboard Preview\nbottomSecondaryCtaHref: /demo\n---\n\nInternal note: keep homepage copy editable while layout, product cards, dashboard illustration, and section order stay code-controlled.\n';
 function parseFrontmatter(markdown) {
+  var _a;
   const normalizedMarkdown = markdown.replace(/^\uFEFF/, "");
-  const parsed = matter(normalizedMarkdown);
+  if (!normalizedMarkdown.startsWith("---")) {
+    return {
+      metadata: {},
+      content: normalizedMarkdown.trim()
+    };
+  }
+  const lines = normalizedMarkdown.split(/\r?\n/);
+  if (((_a = lines[0]) == null ? void 0 : _a.trim()) !== "---") {
+    return {
+      metadata: {},
+      content: normalizedMarkdown.trim()
+    };
+  }
+  let closingLineIndex = -1;
+  for (let index = 1; index < lines.length; index += 1) {
+    if (/^(---|\.{3})\s*$/.test(lines[index] ?? "")) {
+      closingLineIndex = index;
+      break;
+    }
+  }
+  if (closingLineIndex === -1) {
+    return {
+      metadata: {},
+      content: normalizedMarkdown.trim()
+    };
+  }
+  const frontmatterSource = lines.slice(1, closingLineIndex).join("\n");
+  const contentSource = lines.slice(closingLineIndex + 1).join("\n");
+  const parsedMetadata = parse(frontmatterSource);
   return {
-    metadata: parsed.data || {},
-    content: String(parsed.content || "").trim()
+    metadata: parsedMetadata && typeof parsedMetadata === "object" ? parsedMetadata : {},
+    content: contentSource.trim()
   };
 }
 function readString(value, fallback = "") {
