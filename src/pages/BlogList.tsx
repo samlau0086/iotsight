@@ -21,18 +21,16 @@ export default function BlogList() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {blogPosts.map((post) => (
             <article key={post.id} className="bg-slate-800 border border-slate-700 rounded-xl overflow-hidden shadow-xl hover:border-blue-500/50 transition-colors flex flex-col">
-              {post.imageUrl && (
-                <div className="h-56 shrink-0">
-                  <Link to={`/blog/${post.id}`} className="block h-full">
-                    <img 
-                      src={post.imageUrl} 
-                      alt={post.title} 
-                      className="w-full h-full object-cover"
-                      referrerPolicy="no-referrer"
-                    />
-                  </Link>
-                </div>
-              )}
+              <div className="h-56 shrink-0">
+                <Link to={`/blog/${post.id}`} className="block h-full">
+                  <img 
+                    src={post.imageUrl} 
+                    alt={post.title} 
+                    className="w-full h-full object-cover"
+                    referrerPolicy="no-referrer"
+                  />
+                </Link>
+              </div>
               <div className="p-7 flex-1 flex flex-col">
                 <div className="flex flex-wrap items-center gap-3 text-xs text-slate-400 mb-4">
                   <span className="flex items-center gap-1">

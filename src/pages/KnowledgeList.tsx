@@ -68,17 +68,27 @@ export default function KnowledgeList() {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {knowledgePages.map((page) => (
-            <article key={page.id} className="bg-slate-900 border border-slate-800 rounded-lg p-7 flex flex-col hover:border-blue-500/50 transition-colors">
-              <span className="text-[10px] uppercase tracking-[0.2em] text-blue-400 font-bold mb-5">{page.category}</span>
-              <h2 className="text-2xl font-bold text-white mb-4" style={{ fontFamily: 'var(--font-display)' }}>
-                <Link to={`/knowledge/${page.id}`} className="hover:text-blue-400 transition-colors">
-                  {page.title}
-                </Link>
-              </h2>
-              <p className="text-slate-400 text-sm leading-relaxed mb-8 flex-1">{page.excerpt}</p>
-              <Link to={`/knowledge/${page.id}`} className="inline-flex items-center gap-2 text-xs uppercase tracking-widest font-bold text-blue-400 hover:text-blue-300">
-                Read guide <ArrowRight className="w-4 h-4" />
+            <article key={page.id} className="bg-slate-900 border border-slate-800 rounded-lg overflow-hidden flex flex-col hover:border-blue-500/50 transition-colors">
+              <Link to={`/knowledge/${page.id}`} className="block aspect-[16/10] overflow-hidden border-b border-slate-800 bg-slate-950">
+                <img
+                  src={page.imageUrl}
+                  alt={page.title}
+                  className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
+                  referrerPolicy="no-referrer"
+                />
               </Link>
+              <div className="p-7 flex flex-1 flex-col">
+                <span className="text-[10px] uppercase tracking-[0.2em] text-blue-400 font-bold mb-5">{page.category}</span>
+                <h2 className="text-2xl font-bold text-white mb-4" style={{ fontFamily: 'var(--font-display)' }}>
+                  <Link to={`/knowledge/${page.id}`} className="hover:text-blue-400 transition-colors">
+                    {page.title}
+                  </Link>
+                </h2>
+                <p className="text-slate-400 text-sm leading-relaxed mb-8 flex-1">{page.excerpt}</p>
+                <Link to={`/knowledge/${page.id}`} className="inline-flex items-center gap-2 text-xs uppercase tracking-widest font-bold text-blue-400 hover:text-blue-300">
+                  Read guide <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
             </article>
           ))}
         </div>

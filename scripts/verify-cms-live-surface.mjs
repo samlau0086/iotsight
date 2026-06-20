@@ -2,6 +2,7 @@ import { spawnSync } from 'node:child_process';
 
 const commands = [
   { name: 'production-surface', script: 'verify:production-surface' },
+  { name: 'live-route-samples', script: 'verify:live-route-samples' },
   { name: 'auth-worker-surface', script: 'verify:auth-worker-surface' },
 ];
 
@@ -37,10 +38,16 @@ function deriveHints(failureText) {
     failureText.includes('content-type: text/html');
   const hasAdminFallbackFailure =
     failureText.includes('/admin/config.yml appears to be HTML fallback instead of the CMS YAML config') ||
+    failureText.includes('appears to be serving the homepage fallback instead of page-specific content') ||
     (
       failureText.includes('/admin/ is missing "IoTEdges Content Admin"') &&
       failureText.includes('/admin/config.yml is missing "backend:"')
     );
+  const hasApiSurfaceFailure =
+    failureText.includes('/api/health returned HTTP') ||
+    failureText.includes('/api/health did not return valid JSON') ||
+    failureText.includes('/api/quote-request returned HTTP') ||
+    failureText.includes('/api/quote-request did not return valid JSON');
   const hasRobotsMismatch =
     failureText.includes('robots.txt is missing "Disallow: /admin"') ||
     failureText.includes('robots.txt is missing "Disallow: /admin/"');
@@ -54,11 +61,15 @@ function deriveHints(failureText) {
   }
 
   if (hasAdminFallbackFailure) {
-    hints.push('The live site is likely still serving the app shell or homepage fallback for /admin and /admin/config.yml. Check the VPS deployment version, Express static routing, and any CDN or reverse-proxy rewrites.');
+    hints.push('The live site is likely still serving the app shell or homepage fallback for /admin and/or one or more prerendered content routes. Check the VPS deployment version, prerender output, Express static routing, and any CDN or reverse-proxy rewrites.');
   }
 
   if (hasRobotsMismatch) {
     hints.push('The live robots.txt does not match the current prerender output. This usually means the website deployment is still serving an older build.');
+  }
+
+  if (hasApiSurfaceFailure) {
+    hints.push('The live server API surface is not responding as expected. Check the VPS process, PM2 reload, current release contents, and whether the live server is running the latest bundled server build.');
   }
 
   if ((hasAuthDnsFailure || hasAuthHtmlFailure) && (hasAdminFallbackFailure || hasRobotsMismatch)) {

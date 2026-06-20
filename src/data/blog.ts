@@ -1,5 +1,7 @@
 import { BlogPost } from '../types';
 import { parseFrontmatter, readNumber, readOptionalString, readString, readStringArray } from '../lib/frontmatter';
+import { resolveBlogImageUrl } from '../lib/contentImages';
+import { isPublicEditorialStatus, resolveEditorialStatus } from '../lib/contentStatus';
 
 type BlogPostWithOrder = BlogPost & {
   order: number;
@@ -20,10 +22,11 @@ function createBlogPost(path: string, markdown: string): BlogPostWithOrder {
     title: readString(metadata.title, 'Untitled Article'),
     excerpt: readString(metadata.excerpt),
     content,
+    status: resolveEditorialStatus(metadata.status),
     date: readString(metadata.date),
     author: readString(metadata.author),
     category: readString(metadata.category),
-    imageUrl: readOptionalString(metadata.imageUrl),
+    imageUrl: resolveBlogImageUrl(readOptionalString(metadata.imageUrl)),
     relatedProducts: readStringArray(metadata.relatedProducts),
     relatedResources: readStringArray(metadata.relatedResources),
     order: readNumber(metadata.order),
@@ -32,5 +35,6 @@ function createBlogPost(path: string, markdown: string): BlogPostWithOrder {
 
 export const blogPosts: BlogPost[] = Object.entries(markdownModules)
   .map(([path, markdown]) => createBlogPost(path, markdown))
+  .filter((post) => isPublicEditorialStatus(post.status))
   .sort((a, b) => a.order - b.order)
   .map(({ order, ...post }) => post);

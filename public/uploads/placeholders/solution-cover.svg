@@ -1,0 +1,15 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="900" fill="#F6F1E8"/>
+  <rect x="64" y="64" width="1472" height="772" rx="28" fill="#E7DED1" stroke="#CEC3B6" stroke-width="4"/>
+  <rect x="130" y="150" width="540" height="600" rx="24" fill="#1C2228"/>
+  <rect x="196" y="216" width="408" height="200" rx="18" fill="#2C333B"/>
+  <rect x="196" y="456" width="408" height="220" rx="18" fill="#37404A"/>
+  <rect x="760" y="176" width="520" height="38" rx="19" fill="#3A4651"/>
+  <rect x="760" y="250" width="344" height="24" rx="12" fill="#73808C"/>
+  <rect x="760" y="298" width="420" height="24" rx="12" fill="#73808C"/>
+  <rect x="760" y="380" width="620" height="126" rx="24" fill="#F3ECE2" stroke="#CEC3B6" stroke-width="3"/>
+  <rect x="760" y="548" width="620" height="126" rx="24" fill="#F3ECE2" stroke="#CEC3B6" stroke-width="3"/>
+  <text x="760" y="136" fill="#22282F" font-family="Arial, Helvetica, sans-serif" font-size="44" font-weight="700">IoTEdges Solution Cover</text>
+  <text x="804" y="458" fill="#505B66" font-family="Arial, Helvetica, sans-serif" font-size="28">Controlled placeholder until final application imagery is ready</text>
+  <text x="804" y="626" fill="#505B66" font-family="Arial, Helvetica, sans-serif" font-size="28">Use for solution cards, hero sections and OG fallback</text>
+</svg>

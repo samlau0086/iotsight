@@ -3,10 +3,11 @@ export interface BlogPost {
   title: string;
   excerpt: string;
   content: string;
+  status: string;
   date: string;
   author: string;
   category: string;
-  imageUrl?: string;
+  imageUrl: string;
   relatedProducts: string[];
   relatedResources: string[];
 }
@@ -45,7 +46,7 @@ export interface ProductPage {
   title: string;
   excerpt: string;
   content: string;
-  imageUrl?: string;
+  imageUrl: string;
   category: string;
   model: string;
   status: string;
@@ -64,8 +65,10 @@ export interface KnowledgePage {
   title: string;
   excerpt: string;
   content: string;
+  status: string;
   category: string;
   primaryKeyword: string;
+  imageUrl: string;
   relatedProducts: string[];
   order: number;
 }
@@ -80,6 +83,7 @@ export interface SolutionPage {
   title: string;
   description: string;
   content: string;
+  status: string;
   image: string;
   architectureImage?: string;
   recommendedProductType: string;

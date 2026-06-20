@@ -1,0 +1,16 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="900" fill="#F5F0E6"/>
+  <rect x="72" y="72" width="1456" height="756" rx="28" fill="#E6DDD0" stroke="#CDBFB0" stroke-width="4"/>
+  <rect x="148" y="154" width="580" height="590" rx="24" fill="#1F252C"/>
+  <rect x="226" y="228" width="426" height="34" rx="17" fill="#61707C"/>
+  <rect x="226" y="286" width="330" height="20" rx="10" fill="#7D8993"/>
+  <rect x="226" y="338" width="372" height="20" rx="10" fill="#7D8993"/>
+  <rect x="226" y="412" width="432" height="244" rx="18" fill="#313941"/>
+  <rect x="804" y="198" width="522" height="38" rx="19" fill="#39454F"/>
+  <rect x="804" y="276" width="444" height="24" rx="12" fill="#75828C"/>
+  <rect x="804" y="322" width="372" height="24" rx="12" fill="#75828C"/>
+  <rect x="804" y="410" width="592" height="214" rx="24" fill="#F3ECE2" stroke="#CDBFB0" stroke-width="3"/>
+  <text x="804" y="154" fill="#232A30" font-family="Arial, Helvetica, sans-serif" font-size="44" font-weight="700">IoTEdges Knowledge Cover</text>
+  <text x="852" y="510" fill="#505C67" font-family="Arial, Helvetica, sans-serif" font-size="28">Controlled placeholder for protocol, wiring and selection guides</text>
+  <text x="852" y="554" fill="#505C67" font-family="Arial, Helvetica, sans-serif" font-size="28">Use until final technical diagrams or themed covers are ready</text>
+</svg>

@@ -1,5 +1,7 @@
 import { KnowledgePage } from '../types';
-import { parseFrontmatter, readNumber, readString, readStringArray } from '../lib/frontmatter';
+import { parseFrontmatter, readNumber, readOptionalString, readString, readStringArray } from '../lib/frontmatter';
+import { resolveKnowledgeImageUrl } from '../lib/contentImages';
+import { isPublicEditorialStatus, resolveEditorialStatus } from '../lib/contentStatus';
 
 const markdownModules = import.meta.glob('../content/knowledge/*.md', {
   eager: true,
@@ -16,8 +18,10 @@ function createKnowledgePage(path: string, markdown: string): KnowledgePage {
     title: readString(metadata.title, 'Untitled Knowledge Page'),
     excerpt: readString(metadata.excerpt),
     content,
+    status: resolveEditorialStatus(metadata.status),
     category: readString(metadata.category, 'Industrial IoT Knowledge Base'),
     primaryKeyword: readString(metadata.primaryKeyword),
+    imageUrl: resolveKnowledgeImageUrl(readOptionalString(metadata.imageUrl)),
     relatedProducts: readStringArray(metadata.relatedProducts),
     order: readNumber(metadata.order),
   };
@@ -25,4 +29,5 @@ function createKnowledgePage(path: string, markdown: string): KnowledgePage {
 
 export const knowledgePages: KnowledgePage[] = Object.entries(markdownModules)
   .map(([path, markdown]) => createKnowledgePage(path, markdown))
+  .filter((page) => isPublicEditorialStatus(page.status))
   .sort((a, b) => a.order - b.order);

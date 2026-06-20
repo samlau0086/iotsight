@@ -1,0 +1,14 @@
+<svg width="1600" height="1000" viewBox="0 0 1600 1000" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="1000" fill="#F3EEE5"/>
+  <rect x="64" y="64" width="1472" height="872" rx="28" fill="#E4DDD1" stroke="#C9C0B3" stroke-width="4"/>
+  <rect x="148" y="164" width="720" height="560" rx="26" fill="#1E232A"/>
+  <rect x="216" y="232" width="584" height="424" rx="18" fill="#2D333B"/>
+  <rect x="956" y="220" width="420" height="36" rx="18" fill="#4F5B66"/>
+  <rect x="956" y="294" width="320" height="24" rx="12" fill="#7B8791"/>
+  <rect x="956" y="342" width="380" height="24" rx="12" fill="#7B8791"/>
+  <rect x="956" y="426" width="460" height="168" rx="24" fill="#EFE8DD" stroke="#C9C0B3" stroke-width="3"/>
+  <rect x="956" y="632" width="460" height="128" rx="24" fill="#EFE8DD" stroke="#C9C0B3" stroke-width="3"/>
+  <text x="956" y="170" fill="#20252B" font-family="Arial, Helvetica, sans-serif" font-size="44" font-weight="700">IoTEdges Product Cover</text>
+  <text x="956" y="520" fill="#4B5560" font-family="Arial, Helvetica, sans-serif" font-size="28">Controlled placeholder until final product visual is ready</text>
+  <text x="956" y="700" fill="#4B5560" font-family="Arial, Helvetica, sans-serif" font-size="28">Use for product list cards, detail heroes and OG fallback</text>
+</svg>

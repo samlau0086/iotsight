@@ -15,6 +15,8 @@ const allowedSpecGroupTitles = new Set([
   'Telemetry & Control',
   'Operations Interface',
 ]);
+const allowedEditorialStatuses = new Set(['Draft', 'Review', 'Published']);
+const allowedProductStatuses = new Set(['Draft', 'Preview', 'Available for project inquiry', 'Published']);
 
 function readFile(relativePath) {
   const absolutePath = path.join(root, relativePath);
@@ -165,6 +167,9 @@ function assertProductStructure() {
     if (!data.status) {
       throw new Error(`Product status missing in ${relativePath}`);
     }
+    if (!allowedProductStatuses.has(data.status)) {
+      throw new Error(`Product status invalid in ${relativePath}: ${data.status}`);
+    }
     if (!data.route || typeof data.route !== 'string' || !relativeRoutePattern.test(data.route)) {
       throw new Error(`Product route invalid in ${relativePath}: ${data.route}`);
     }
@@ -191,6 +196,64 @@ function assertProductStructure() {
   }
 }
 
+function assertBlogStructure() {
+  const dir = path.join(root, 'src/content/blog');
+  const names = fs.readdirSync(dir).filter((name) => name.endsWith('.md'));
+
+  for (const name of names) {
+    const relativePath = path.join('src/content/blog', name);
+    const data = readFrontmatter(relativePath);
+
+    if (!data.title || data.title === 'Untitled Article') {
+      throw new Error(`Blog title missing in ${relativePath}`);
+    }
+    if (!data.excerpt) {
+      throw new Error(`Blog excerpt missing in ${relativePath}`);
+    }
+    if (!data.date) {
+      throw new Error(`Blog date missing in ${relativePath}`);
+    }
+    if (!data.author) {
+      throw new Error(`Blog author missing in ${relativePath}`);
+    }
+    if (!data.category) {
+      throw new Error(`Blog category missing in ${relativePath}`);
+    }
+    if (!data.imageUrl) {
+      throw new Error(`Blog hero image missing in ${relativePath}`);
+    }
+    if (data.status && !allowedEditorialStatuses.has(data.status)) {
+      throw new Error(`Blog status invalid in ${relativePath}: ${data.status}`);
+    }
+  }
+}
+
+function assertKnowledgeStructure() {
+  const dir = path.join(root, 'src/content/knowledge');
+  const names = fs.readdirSync(dir).filter((name) => name.endsWith('.md'));
+
+  for (const name of names) {
+    const relativePath = path.join('src/content/knowledge', name);
+    const data = readFrontmatter(relativePath);
+
+    if (!data.title || data.title === 'Untitled Knowledge Page') {
+      throw new Error(`Knowledge title missing in ${relativePath}`);
+    }
+    if (!data.excerpt) {
+      throw new Error(`Knowledge excerpt missing in ${relativePath}`);
+    }
+    if (!data.category) {
+      throw new Error(`Knowledge category missing in ${relativePath}`);
+    }
+    if (!data.primaryKeyword) {
+      throw new Error(`Knowledge primaryKeyword missing in ${relativePath}`);
+    }
+    if (data.status && !allowedEditorialStatuses.has(data.status)) {
+      throw new Error(`Knowledge status invalid in ${relativePath}: ${data.status}`);
+    }
+  }
+}
+
 function assertSolutionStructure() {
   const dir = path.join(root, 'src/content/solutions');
   const names = fs.readdirSync(dir).filter((name) => name.endsWith('.md'));
@@ -211,6 +274,9 @@ function assertSolutionStructure() {
     }
     if (!data.image) {
       throw new Error(`Solution hero image missing in ${relativePath}`);
+    }
+    if (data.status && !allowedEditorialStatuses.has(data.status)) {
+      throw new Error(`Solution status invalid in ${relativePath}: ${data.status}`);
     }
     if (!data.link || typeof data.link !== 'string' || !relativeRoutePattern.test(data.link)) {
       throw new Error(`Solution route invalid in ${relativePath}: ${data.link}`);
@@ -293,6 +359,10 @@ function main() {
   assertFile('docs/decap-cms-qa-checklist.md');
 
   assertAllContentFrontmatterParses();
+  assertBlogStructure();
+  assertKnowledgeStructure();
+  assertProductStructure();
+  assertSolutionStructure();
 
   assertIncludes(adminHtml, 'IoTEdges Content Admin', 'public/admin/index.html');
   assertIncludes(adminHtml, 'decap-cms.js', 'public/admin/index.html');
@@ -377,7 +447,7 @@ function main() {
   assertIncludes(validateWorkflow, 'scripts/verify-cms-go-live.mjs', '.github/workflows/validate-cms-rollout.yml');
   assertIncludes(validateWorkflow, 'src/content/**', '.github/workflows/validate-cms-rollout.yml');
   assertIncludes(validateWorkflow, 'src/data/**', '.github/workflows/validate-cms-rollout.yml');
-  assertIncludes(validateWorkflow, 'src/lib/frontmatter.ts', '.github/workflows/validate-cms-rollout.yml');
+  assertIncludes(validateWorkflow, 'src/lib/**', '.github/workflows/validate-cms-rollout.yml');
   assertIncludes(validateWorkflow, 'public/uploads/**', '.github/workflows/validate-cms-rollout.yml');
   assertIncludes(validateWorkflow, 'docs/content-model-schema.md', '.github/workflows/validate-cms-rollout.yml');
   assertIncludes(validateWorkflow, 'docs/cms-admin-dry-run-checklist.zh-CN.md', '.github/workflows/validate-cms-rollout.yml');
@@ -561,9 +631,6 @@ function main() {
       valuePattern: relativeRoutePattern,
     },
   ]);
-
-  assertProductStructure();
-  assertSolutionStructure();
 
   console.log('CMS rollout verification passed.');
 }

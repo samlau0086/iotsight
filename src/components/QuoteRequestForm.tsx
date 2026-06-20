@@ -66,8 +66,11 @@ type QuoteRequestFormProps = {
   submitLabel?: string;
   successTitle?: string;
   successMessage?: string;
+  successChecklist?: string[];
   analyticsFormName?: string;
   onSubmitted?: () => void;
+  onSuccessSecondaryAction?: () => void;
+  successSecondaryLabel?: string;
 };
 
 export default function QuoteRequestForm({
@@ -77,8 +80,15 @@ export default function QuoteRequestForm({
   submitLabel = 'Submit Request',
   successTitle = 'Request Received',
   successMessage = "Thank you! We'll review your IoT requirements and respond shortly.",
+  successChecklist = [
+    'Your inquiry is linked to the current page context and queued for internal review.',
+    'We will normally reply with the next technical questions, configuration fit, or quotation path.',
+    'If the project is urgent, include target quantity, market, and required protocols in your next message.',
+  ],
   analyticsFormName = 'contact_quote',
   onSubmitted,
+  onSuccessSecondaryAction,
+  successSecondaryLabel = 'Close',
 }: QuoteRequestFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -88,6 +98,11 @@ export default function QuoteRequestForm({
   const countryOptions = useMemo(() => countries, []);
   const hasLockedInquiryContext = Boolean(lockedInquiryType || lockedInquirySubject);
   const resolvedApplicationType = lockedInquiryType || '';
+  const resetSuccessState = () => {
+    setSubmitted(false);
+    setSubmitError('');
+    setFormStartedAt(Date.now());
+  };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -184,16 +199,34 @@ export default function QuoteRequestForm({
         </div>
         <h3 className="text-2xl font-bold text-white mb-2">{successTitle}</h3>
         <p className="text-slate-400">{successMessage}</p>
-        <button
-          onClick={() => {
-            setSubmitted(false);
-            setSubmitError('');
-            setFormStartedAt(Date.now());
-          }}
-          className="mt-8 text-blue-400 font-medium hover:text-blue-300"
-        >
-          Submit another inquiry
-        </button>
+        <div className="mx-auto mt-6 max-w-xl rounded-lg border border-slate-700 bg-slate-900/80 p-5 text-left">
+          <div className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-slate-400">What Happens Next</div>
+          <div className="grid grid-cols-1 gap-2">
+            {successChecklist.map((item) => (
+              <div key={item} className="rounded-md border border-slate-700 bg-slate-950 px-3 py-2 text-sm leading-relaxed text-slate-300">
+                {item}
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
+          {onSuccessSecondaryAction ? (
+            <button
+              type="button"
+              onClick={onSuccessSecondaryAction}
+              className="rounded-md border border-slate-700 px-4 py-2 text-sm font-medium text-slate-200 transition hover:bg-slate-800"
+            >
+              {successSecondaryLabel}
+            </button>
+          ) : null}
+          <button
+            type="button"
+            onClick={resetSuccessState}
+            className="text-blue-400 font-medium hover:text-blue-300"
+          >
+            Submit another inquiry
+          </button>
+        </div>
       </div>
     );
   }

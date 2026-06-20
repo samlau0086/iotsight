@@ -1,0 +1,15 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="900" fill="#F6F1E7"/>
+  <rect x="80" y="72" width="1440" height="756" rx="28" fill="#E7DED1" stroke="#CDC1B3" stroke-width="4"/>
+  <rect x="156" y="152" width="548" height="596" rx="24" fill="#20262D"/>
+  <rect x="238" y="236" width="384" height="24" rx="12" fill="#596572"/>
+  <rect x="238" y="292" width="276" height="24" rx="12" fill="#596572"/>
+  <rect x="238" y="380" width="384" height="286" rx="18" fill="#323A43"/>
+  <rect x="780" y="188" width="556" height="38" rx="19" fill="#3A4651"/>
+  <rect x="780" y="260" width="420" height="24" rx="12" fill="#7A8792"/>
+  <rect x="780" y="306" width="468" height="24" rx="12" fill="#7A8792"/>
+  <rect x="780" y="390" width="560" height="200" rx="24" fill="#F4EEE4" stroke="#CDC1B3" stroke-width="3"/>
+  <text x="780" y="146" fill="#232A30" font-family="Arial, Helvetica, sans-serif" font-size="44" font-weight="700">IoTEdges Editorial Cover</text>
+  <text x="834" y="500" fill="#505C67" font-family="Arial, Helvetica, sans-serif" font-size="28">Controlled placeholder for blog and buyer-guide content</text>
+  <text x="834" y="544" fill="#505C67" font-family="Arial, Helvetica, sans-serif" font-size="28">Replace with final article artwork when available</text>
+</svg>

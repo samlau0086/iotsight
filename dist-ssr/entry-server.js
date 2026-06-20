@@ -2,7 +2,7 @@ import { jsx, jsxs, Fragment as Fragment$1 } from "react/jsx-runtime";
 import React, { createContext, useState, useEffect, useMemo, useContext, Fragment, useRef } from "react";
 import { renderToString } from "react-dom/server";
 import { useLocation, Link, useSearchParams, useParams, Routes, Route, Navigate, MemoryRouter } from "react-router-dom";
-import { Moon, Sun, X, Menu, Bell, ArrowRight, Bot, Server, Activity, Zap, Cloud, ShieldCheck, RadioTower, Droplets, Wifi, Network, LayoutDashboard, GitMerge, SlidersHorizontal, KeyRound, Database, Settings, AlertTriangle, TerminalSquare, CheckCircle2, BarChart3, Gauge, Power, Router, Workflow, Radio, Cpu, Send, MapPin, Phone, Mail, Tag, Calendar, User, ArrowLeft, Cable, DoorOpen, BookOpen, ThermometerSnowflake, Sprout, Monitor, MessageCircle } from "lucide-react";
+import { Moon, Sun, X, Menu, Bell, ArrowRight, Bot, Server, Activity, Zap, Cloud, ShieldCheck, RadioTower, Droplets, Wifi, Network, LayoutDashboard, GitMerge, SlidersHorizontal, KeyRound, Database, Settings, AlertTriangle, TerminalSquare, CheckCircle2, BarChart3, Gauge, Power, Router, Workflow, Radio, Cpu, Send, MapPin, Phone, Mail, Tag, Calendar, User, ThermometerSnowflake, Sprout, ArrowLeft, Cable, DoorOpen, BookOpen, Monitor, MessageCircle } from "lucide-react";
 import { clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { motion, AnimatePresence } from "motion/react";
@@ -1300,8 +1300,15 @@ function QuoteRequestForm({
   submitLabel = "Submit Request",
   successTitle = "Request Received",
   successMessage = "Thank you! We'll review your IoT requirements and respond shortly.",
+  successChecklist = [
+    "Your inquiry is linked to the current page context and queued for internal review.",
+    "We will normally reply with the next technical questions, configuration fit, or quotation path.",
+    "If the project is urgent, include target quantity, market, and required protocols in your next message."
+  ],
   analyticsFormName = "contact_quote",
-  onSubmitted
+  onSubmitted,
+  onSuccessSecondaryAction,
+  successSecondaryLabel = "Close"
 }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -1310,6 +1317,11 @@ function QuoteRequestForm({
   const countryOptions = useMemo(() => countries, []);
   const hasLockedInquiryContext = Boolean(lockedInquiryType || lockedInquirySubject);
   const resolvedApplicationType = lockedInquiryType || "";
+  const resetSuccessState = () => {
+    setSubmitted(false);
+    setSubmitError("");
+    setFormStartedAt(Date.now());
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
     const form = e.currentTarget;
@@ -1390,18 +1402,30 @@ function QuoteRequestForm({
       /* @__PURE__ */ jsx("div", { className: "w-16 h-16 bg-green-500/10 text-green-400 rounded-full flex items-center justify-center mx-auto mb-4 border border-green-500/20", children: /* @__PURE__ */ jsx(Send, { className: "w-8 h-8" }) }),
       /* @__PURE__ */ jsx("h3", { className: "text-2xl font-bold text-white mb-2", children: successTitle }),
       /* @__PURE__ */ jsx("p", { className: "text-slate-400", children: successMessage }),
-      /* @__PURE__ */ jsx(
-        "button",
-        {
-          onClick: () => {
-            setSubmitted(false);
-            setSubmitError("");
-            setFormStartedAt(Date.now());
-          },
-          className: "mt-8 text-blue-400 font-medium hover:text-blue-300",
-          children: "Submit another inquiry"
-        }
-      )
+      /* @__PURE__ */ jsxs("div", { className: "mx-auto mt-6 max-w-xl rounded-lg border border-slate-700 bg-slate-900/80 p-5 text-left", children: [
+        /* @__PURE__ */ jsx("div", { className: "mb-3 text-xs font-bold uppercase tracking-[0.2em] text-slate-400", children: "What Happens Next" }),
+        /* @__PURE__ */ jsx("div", { className: "grid grid-cols-1 gap-2", children: successChecklist.map((item) => /* @__PURE__ */ jsx("div", { className: "rounded-md border border-slate-700 bg-slate-950 px-3 py-2 text-sm leading-relaxed text-slate-300", children: item }, item)) })
+      ] }),
+      /* @__PURE__ */ jsxs("div", { className: "mt-8 flex flex-wrap items-center justify-center gap-4", children: [
+        onSuccessSecondaryAction ? /* @__PURE__ */ jsx(
+          "button",
+          {
+            type: "button",
+            onClick: onSuccessSecondaryAction,
+            className: "rounded-md border border-slate-700 px-4 py-2 text-sm font-medium text-slate-200 transition hover:bg-slate-800",
+            children: successSecondaryLabel
+          }
+        ) : null,
+        /* @__PURE__ */ jsx(
+          "button",
+          {
+            type: "button",
+            onClick: resetSuccessState,
+            className: "text-blue-400 font-medium hover:text-blue-300",
+            children: "Submit another inquiry"
+          }
+        )
+      ] })
     ] });
   }
   return /* @__PURE__ */ jsxs("form", { onSubmit: handleSubmit, className: "space-y-6", children: [
@@ -1695,6 +1719,45 @@ const __vite_glob_0_2$3 = "---\nid: how-to-choose-modbus-mqtt-gateway\ntitle: Ho
 const __vite_glob_0_3$3 = "---\nid: how-to-choose-power-cabinet-monitoring-rtu\ntitle: How to Choose a Power Cabinet Monitoring RTU\nexcerpt: >-\n  A practical checklist for selecting a power cabinet RTU for breaker status,\n  door alarms, ATS panels, generator rooms, RS485 meters and remote event\n  logging.\ndate: 'June 17, 2026'\nauthor: Product Management\ncategory: Hardware Guide\nimageUrl: /uploads/blog/how-to-choose-power-cabinet-monitoring-rtu.svg\nrelatedProducts:\n  - ier-142-4g-power-cabinet-rtu\n  - ier-140-4g-remote-relay-rtu\n  - ier-100-ethernet-industrial-rtu\nrelatedResources:\n  - /knowledge/rs485\n  - /knowledge/mqtt\n  - /knowledge/rtu-vs-gateway-vs-remote-io\norder: 6\n---\n# How to Choose a Power Cabinet Monitoring RTU\n\nPower cabinet monitoring projects look simple on paper, but they can involve many signal types at once: breaker status, door contacts, SPD alarms, ATS events, generator-room alarms, RS485 energy meters and a few relay outputs for reset or annunciation.\n\n## 1. Count Inputs Before You Count Protocols\n\nMany cabinet projects need a lot of dry-contact monitoring and only a small amount of control. Start by listing:\n\n- breaker or switch status\n- ATS state\n- door open or tamper alarm\n- generator fault alarms\n- horn, lamp or reset outputs\n- any RS485 meters or controllers\n\nThis immediately tells you whether the site needs a DI-heavy RTU instead of a small relay controller.\n\n## 2. Decide If The Site Needs Wired Or Cellular Uplink\n\nIf the cabinet already has reliable LAN access, a wired RTU can be the cleanest approach. If it is a remote utility cabinet, telecom cabinet or generator room without reliable local network access, 4G is often the better architecture.\n\nThe [IER-142 4G Power Cabinet RTU](/products/ier-142-4g-power-cabinet-rtu) fits remote cabinet and alarm-panel monitoring.\n\n## 3. Check Whether RS485 Devices Must Also Be Read\n\nA cabinet monitoring RTU becomes more valuable when it can combine digital alarms with Modbus telemetry from:\n\n- energy meters\n- ATS controllers\n- generator controllers\n- alarm modules\n\nThat combination gives operators both event-level visibility and deeper meter or controller data.\n\n## 4. Keep Protection Separate From Monitoring\n\nAn RTU can monitor and report electrical status, but it should not be confused with certified protection equipment. Protection relays, shutdown systems and critical safety behavior remain separate functions in the electrical design.\n\n## 5. Match The Product To The Cabinet\n\nUse a compact RTU when the job is mostly a few alarms and a few outputs. Use a DI-heavy cabinet RTU when the site needs many status signals, event logging and RS485 meter integration in one device.\n\n## Practical Recommendation\n\nFor cabinet applications with many dry-contact alarms and remote event visibility requirements, start with a power cabinet RTU architecture. It gives you a cleaner fit than forcing the site into a small relay controller or a pure gateway.\n";
 const __vite_glob_0_4$3 = "---\nid: industrial-iot-trends-2024\ntitle: Top Industrial IoT Trends to Watch in 2024\nexcerpt: >-\n  Explore the emerging trends in Industrial IoT, from edge computing to\n  AI-driven predictive maintenance, and how they are shaping the future of\n  manufacturing.\ndate: 'March 15, 2024'\nauthor: Engineering Team\ncategory: Industry Trends\nimageUrl: /uploads/blog/industrial-iot-trends-2024.svg\nrelatedProducts:\n  - ieg-100-ethernet-industrial-iot-gateway\n  - ieg-120-wifi-industrial-iot-gateway\n  - ier-100-ethernet-industrial-rtu\nrelatedResources:\n  - /knowledge/modbus\n  - /knowledge/mqtt\n  - /products\norder: 1\n---\n# Top Industrial IoT Trends to Watch in 2024\n\nThe Industrial Internet of Things (IIoT) is rapidly evolving, bringing unprecedented connectivity and intelligence to the factory floor. As we move deeper into 2024, several key trends are emerging that promise to further transform industrial operations.\n\n## 1. Edge Computing Takes Center Stage\n\nWhile cloud computing has been the backbone of IIoT, the shift toward edge computing is accelerating. Processing selected data locally at the edge can reduce bandwidth usage, improve response time, and make remote monitoring systems more resilient. For many deployments, the first step is still practical data acquisition through a gateway such as the [IEG-100 Ethernet Industrial IoT Gateway](/products/ieg-100-ethernet-industrial-iot-gateway) or [IEG-120 WiFi Industrial IoT Gateway](/products/ieg-120-wifi-industrial-iot-gateway).\n\n## 2. AI-Driven Predictive Maintenance\n\nPredictive maintenance has transitioned from a buzzword to a core requirement. By applying artificial intelligence and machine learning algorithms to the vast amounts of telemetry data collected from machines, plant managers can accurately forecast equipment failures before they happen. This drastically reduces unexpected downtime and lowers maintenance costs.\n\n## 3. The IT/OT Convergence\n\nThe historical divide between Information Technology (IT) and Operational Technology (OT) is dissolving. Modern factory energy monitoring systems are now designed to seamlessly integrate plant floor data with enterprise IT systems (like ERP and CRM). This convergence allows executives to have a holistic view of the business, aligning production metrics directly with financial performance.\n\n## 4. Enhanced Cybersecurity Measures\n\nAs more industrial systems come online, they become targets for cyber threats. Consequently, securing IIoT architectures is paramount. We are seeing a heightened focus on authenticated device access, encrypted telemetry paths, credential management, and clear IT/OT network boundaries. Public product pages should describe these capabilities according to released firmware behavior, broker onboarding flow, and operating procedures.\n\n## Conclusion\n\nThe future of manufacturing relies on the successful integration of these IIoT trends. At IoTEdges, our product path starts with practical [industrial IoT gateways, RTUs, and remote IO modules](/products), then expands each public specification through released hardware, software, and integration paths.\n";
 const __vite_glob_0_5$3 = "---\nid: when-to-use-wifi-industrial-gateway\ntitle: When to Use a WiFi Industrial Gateway Instead of Ethernet or 4G\nexcerpt: >-\n  A buyer-focused guide to choosing WiFi for indoor industrial telemetry\n  projects, and knowing when Ethernet or 4G is the safer architecture.\ndate: 'June 17, 2026'\nauthor: Engineering Team\ncategory: Buyer Guide\nimageUrl: /uploads/blog/when-to-use-wifi-industrial-gateway.svg\nrelatedProducts:\n  - ieg-120-wifi-industrial-iot-gateway\n  - ieg-100-ethernet-industrial-iot-gateway\n  - ier-120-wifi-remote-monitoring-rtu\nrelatedResources:\n  - /knowledge/wifi-industrial-iot-gateway\n  - /knowledge/modbus\n  - /knowledge/mqtt\norder: 5\n---\n# When to Use a WiFi Industrial Gateway Instead of Ethernet or 4G\n\nWiFi sits in an awkward middle zone for industrial IoT. It is easier to deploy than Ethernet, but it is not the right answer for every remote site. Buyers often know they want wireless connectivity, but they have not yet decided whether the site should use WiFi or 4G.\n\n## Start With The Network You Already Have\n\nWiFi is most effective when the site already has stable indoor wireless coverage. That usually means:\n\n- a building, plant or equipment room with managed WiFi\n- a cabinet located within reliable signal range\n- IT approval for the gateway to join the network\n- a project that does not need outdoor long-distance wireless\n\nIf the customer already trusts the local LAN and only wants to avoid pulling new cable, WiFi can be the most practical option.\n\n## Choose Ethernet When Reliability Comes First\n\nEthernet is still the safer default for many control cabinets. If the project already has a LAN drop, a wired path is usually easier to support over the long term.\n\nThe [IEG-100 Ethernet Industrial IoT Gateway](/products/ieg-100-ethernet-industrial-iot-gateway) is a better fit when the job is fixed-cabinet telemetry with predictable networking.\n\n## Choose 4G When The Site Is Truly Remote\n\nIf the site is a pump station, gate entrance, rural utility cabinet or distributed field asset, WiFi is often the wrong starting point. Those projects usually need cellular uplink instead of dependence on a nearby building network.\n\n## Gateway Or RTU?\n\nSome buyers actually need a WiFi RTU rather than a WiFi gateway. If the site needs local digital inputs, relay outputs or analog inputs, compare a WiFi RTU such as the [IER-120 WiFi Remote Monitoring RTU](/products/ier-120-wifi-remote-monitoring-rtu) instead of using a gateway by default.\n\n## Practical Recommendation\n\nUse a WiFi industrial gateway when the site is indoors, the network is already there, and the main job is Modbus data collection plus MQTT or dashboard telemetry. If the project needs maximum network stability, choose Ethernet. If it needs remote independence, choose 4G.\n";
+const DEFAULT_PRODUCT_IMAGE_URL = "/uploads/placeholders/product-cover.svg";
+const DEFAULT_SOLUTION_IMAGE_URL = "/uploads/placeholders/solution-cover.svg";
+const DEFAULT_BLOG_IMAGE_URL = "/uploads/placeholders/blog-cover.svg";
+const DEFAULT_KNOWLEDGE_IMAGE_URL = "/uploads/placeholders/knowledge-cover.svg";
+function normalizeImageUrl(value) {
+  return typeof value === "string" && value.trim() ? value.trim() : "";
+}
+function resolveProductImageUrl(imageUrl) {
+  return normalizeImageUrl(imageUrl) || DEFAULT_PRODUCT_IMAGE_URL;
+}
+function resolveSolutionImageUrl(imageUrl) {
+  return normalizeImageUrl(imageUrl) || DEFAULT_SOLUTION_IMAGE_URL;
+}
+function resolveBlogImageUrl(imageUrl) {
+  return normalizeImageUrl(imageUrl) || DEFAULT_BLOG_IMAGE_URL;
+}
+function resolveKnowledgeImageUrl(imageUrl) {
+  return normalizeImageUrl(imageUrl) || DEFAULT_KNOWLEDGE_IMAGE_URL;
+}
+const EDITORIAL_PUBLIC_STATUS = "Published";
+const editorialStatuses = ["Draft", "Review", "Published"];
+const productStatuses = ["Draft", "Preview", "Available for project inquiry", "Published"];
+function isAllowedStatus(value, allowed) {
+  return allowed.includes(value);
+}
+function resolveEditorialStatus(value) {
+  const normalized = typeof value === "string" ? value.trim() : "";
+  return isAllowedStatus(normalized, editorialStatuses) ? normalized : EDITORIAL_PUBLIC_STATUS;
+}
+function resolveProductStatus(value) {
+  const normalized = typeof value === "string" ? value.trim() : "";
+  return isAllowedStatus(normalized, productStatuses) ? normalized : EDITORIAL_PUBLIC_STATUS;
+}
+function isPublicEditorialStatus(status) {
+  return resolveEditorialStatus(status) === EDITORIAL_PUBLIC_STATUS;
+}
+function isPublicProductStatus(status) {
+  return resolveProductStatus(status) !== "Draft";
+}
 const markdownModules$4 = /* @__PURE__ */ Object.assign({
   "../content/blog/energy-monitoring-iso-50001.md": __vite_glob_0_0$4,
   "../content/blog/how-to-choose-4g-gate-opener-europe.md": __vite_glob_0_1$3,
@@ -1712,16 +1775,17 @@ function createBlogPost(path, markdown) {
     title: readString(metadata.title, "Untitled Article"),
     excerpt: readString(metadata.excerpt),
     content,
+    status: resolveEditorialStatus(metadata.status),
     date: readString(metadata.date),
     author: readString(metadata.author),
     category: readString(metadata.category),
-    imageUrl: readOptionalString(metadata.imageUrl),
+    imageUrl: resolveBlogImageUrl(readOptionalString(metadata.imageUrl)),
     relatedProducts: readStringArray(metadata.relatedProducts),
     relatedResources: readStringArray(metadata.relatedResources),
     order: readNumber(metadata.order)
   };
 }
-const blogPosts = Object.entries(markdownModules$4).map(([path, markdown]) => createBlogPost(path, markdown)).sort((a, b) => a.order - b.order).map(({ order, ...post }) => post);
+const blogPosts = Object.entries(markdownModules$4).map(([path, markdown]) => createBlogPost(path, markdown)).filter((post) => isPublicEditorialStatus(post.status)).sort((a, b) => a.order - b.order).map(({ order, ...post }) => post);
 function BlogList() {
   return /* @__PURE__ */ jsxs("div", { className: "bg-slate-900 min-h-screen pt-24 pb-20 text-slate-300", children: [
     /* @__PURE__ */ jsx("section", { className: "border-b border-slate-800 bg-slate-900/70", children: /* @__PURE__ */ jsx("div", { className: "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20", children: /* @__PURE__ */ jsxs("div", { className: "max-w-3xl", children: [
@@ -1730,7 +1794,7 @@ function BlogList() {
       /* @__PURE__ */ jsx("p", { className: "text-lg text-slate-400 leading-relaxed", children: "Practical articles on product selection, deployment decisions, wiring, connectivity, and buyer-facing guidance for industrial gateways, RTUs, Remote IO, and accessories." })
     ] }) }) }),
     /* @__PURE__ */ jsx("section", { className: "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16", children: /* @__PURE__ */ jsx("div", { className: "grid grid-cols-1 lg:grid-cols-3 gap-6", children: blogPosts.map((post) => /* @__PURE__ */ jsxs("article", { className: "bg-slate-800 border border-slate-700 rounded-xl overflow-hidden shadow-xl hover:border-blue-500/50 transition-colors flex flex-col", children: [
-      post.imageUrl && /* @__PURE__ */ jsx("div", { className: "h-56 shrink-0", children: /* @__PURE__ */ jsx(Link, { to: `/blog/${post.id}`, className: "block h-full", children: /* @__PURE__ */ jsx(
+      /* @__PURE__ */ jsx("div", { className: "h-56 shrink-0", children: /* @__PURE__ */ jsx(Link, { to: `/blog/${post.id}`, className: "block h-full", children: /* @__PURE__ */ jsx(
         "img",
         {
           src: post.imageUrl,
@@ -1809,13 +1873,15 @@ function createKnowledgePage(path, markdown) {
     title: readString(metadata.title, "Untitled Knowledge Page"),
     excerpt: readString(metadata.excerpt),
     content,
+    status: resolveEditorialStatus(metadata.status),
     category: readString(metadata.category, "Industrial IoT Knowledge Base"),
     primaryKeyword: readString(metadata.primaryKeyword),
+    imageUrl: resolveKnowledgeImageUrl(readOptionalString(metadata.imageUrl)),
     relatedProducts: readStringArray(metadata.relatedProducts),
     order: readNumber(metadata.order)
   };
 }
-const knowledgePages = Object.entries(markdownModules$3).map(([path, markdown]) => createKnowledgePage(path, markdown)).sort((a, b) => a.order - b.order);
+const knowledgePages = Object.entries(markdownModules$3).map(([path, markdown]) => createKnowledgePage(path, markdown)).filter((page) => isPublicEditorialStatus(page.status)).sort((a, b) => a.order - b.order);
 const __vite_glob_0_0$2 = '---\nid: "ai-iot-dashboard-industrial-operations-platform"\ntitle: "AI IoT Dashboard for Industrial Operations"\nexcerpt: "Industrial operations dashboard for device management, telemetry monitoring, SCADA visualization, workflow automation, remote control, and AI-assisted analysis."\ncategory: "Industrial IoT Software"\nmodel: "AI IoT Dashboard"\nstatus: "Preview"\nprimaryKeyword: "AI IoT dashboard for industrial monitoring"\nroute: "/products/ai-iot-dashboard-industrial-operations-platform"\norder: 0\nimageUrl: "/uploads/products/ai-iot-dashboard-industrial-operations-platform.svg"\nspecGroups:\n  - title: "Platform Scope"\n    specs:\n      - label: "Deployment"\n        value: "Cloud, private deployment, or OEM-branded dashboard"\n      - label: "Device Scope"\n        value: "RTUs, gateways, Remote IO, meters, PLCs, sensors"\n      - label: "Typical Users"\n        value: "Operations, maintenance, integrators, OEM support teams"\n      - label: "Configuration Method"\n        value: "Web application with role-based user access"\n  - title: "Telemetry & Control"\n    specs:\n      - label: "Telemetry Ingest"\n        value: "MQTT subscriber and HTTP API"\n      - label: "Remote Control"\n        value: "MQTT command topics and pending command queue"\n      - label: "Workflow Engine"\n        value: "Alarm, schedule, and event-triggered automation"\n  - title: "Operations Interface"\n    specs:\n      - label: "SCADA Views"\n        value: "Site views for pumps, tanks, cabinets, machines, and access points"\n      - label: "AI Layer"\n        value: "AI Copilot for alarms, trends, and maintenance analysis"\nselectionGuide:\n  chooseWhen:\n    - "You need one operations layer for gateways, RTUs, Remote IO, and distributed field assets."\n    - "You need dashboard views, alarms, reports, workflow automation, or remote command management."\n    - "You want cloud, private deployment, or OEM-branded software on top of IoT hardware."\n  notFitWhen:\n    - "You only need a field hardware device with no dashboard or software layer."\n    - "You expect the platform to replace local Modbus polling or direct fieldbus wiring by itself."\n    - "You need a pure SCADA runtime without MQTT, HTTP ingest, or cloud workflow requirements."\n  compareLinks:\n    - href: "/demo"\n      label: "View Dashboard Preview"\n    - href: "/products/ieg-100-ethernet-industrial-iot-gateway"\n      label: "Compare with IEG-100 Gateway"\n    - href: "/products/ier-140-4g-remote-relay-rtu"\n      label: "Compare with IER-140 RTU"\nbomGroups:\n  - title: "Platform Setup"\n    items:\n      - "Server or VPS environment for cloud or private deployment"\n      - "Domain, SSL, and deployment access plan"\n      - "Database backup and retention policy"\n      - "User roles and tenant structure checklist"\n  - title: "Device Integration"\n    items:\n      - "Gateway or RTU device inventory list"\n      - "MQTT topics or HTTP ingest token worksheet"\n      - "Register, metric, and alarm mapping sheet"\n      - "Site naming and device label convention"\npreSalesFaq:\n  - question: "Can this be deployed on our own VPS or cloud server?"\n    answer: "Yes. The platform supports cloud deployment, private deployment, and OEM-branded dashboard delivery."\n  - question: "Do you support OEM branding?"\n    answer: "Yes. OEM branding can include logo, domain, interface styling, and customer-facing user structure."\n  - question: "Can you import our existing devices and telemetry model?"\n    answer: "Yes. Existing devices and telemetry models can be imported through device binding, topic mapping, HTTP payload structure, and alarm model setup."\n---\n\n## AI Industrial Operations Platform\n\nThe IoTEdges AI IoT Dashboard is the software layer above industrial RTUs, MQTT gateways, LoRa gateways, Remote IO modules, smart meters, PLCs, sensors and access controllers. It is designed to help operators collect field data, visualize equipment status, respond to alarms and control remote assets from a single operations interface.\n\nThis platform is available as a cloud dashboard, private deployment, or OEM-branded operations dashboard.\n\n## Core Capabilities\n\n| Capability | Description | Typical Use |\n| --- | --- | --- |\n| Device management | Manage RTUs, gateways, meters, sensors, Remote IO and access controllers | Industrial asset visibility |\n| Telemetry ingest | Receive device data through HTTP API or MQTT subscriber | RTU and gateway data collection |\n| SCADA visualization | Build site views for pumps, tanks, cabinets, machines, meters and access points | Remote equipment monitoring |\n| Raw data storage | Store and inspect telemetry payloads, metrics, topics and timestamps | Troubleshooting and audit |\n| Workflow automation | Trigger actions from alarms, offline status, schedules, MQTT messages or AI anomaly detection | Automated response |\n| Remote control | Send commands through MQTT topics or gateway pending queues | Relay, DO, AO and setpoint control |\n| AI Copilot | Ask natural-language questions about alarms, abnormal trends and maintenance risk | Faster operations analysis |\n| Reports and analytics | Create charts, dashboards and operating reports from historical telemetry | Energy, uptime and compliance reporting |\n\n## Recommended Field Architecture\n\nThe dashboard does not replace the site gateway. Field protocols and weak-network handling should remain on the edge device side.\n\n| Layer | Role |\n| --- | --- |\n| Field devices | PLC, meter, sensor, pump controller, valve controller, door controller or Remote IO |\n| Edge hardware | IoTEdges RTU, MQTT gateway, LoRa gateway or Ethernet gateway collects local data |\n| Network uplink | Ethernet, WiFi, 4G LTE Cat1, or LoRaWAN gateway backhaul |\n| Dashboard backend | Receives telemetry through HTTP or MQTT, stores data and exposes APIs |\n| Dashboard frontend | Provides device views, SCADA screens, analytics, workflow builder and AI assistant |\n\n## Telemetry and Device Binding\n\nEach field device can be matched to dashboard assets by External Device ID, MQTT topic, HTTP ingest token or gateway-side register mapping. This allows Modbus registers, RS485 data, DI/DO states, AI/AO values and gateway health metrics to be normalized into a consistent telemetry model.\n\nCommon examples include:\n\n- `device_id`: external gateway or RTU ID\n- `metrics.pressure`: pump pressure in bar\n- `metrics.flow_rate`: water flow in m3/h\n- `metrics.power`: electrical load in W or kW\n- `metrics.relay_1`: relay or DO state\n- `metrics.signal`: 4G, WiFi or LoRa signal quality\n- `status`: online, warning, critical or offline\n\n## Remote Control Architecture\n\nRemote commands can be sent through MQTT command topics when the gateway is online. If MQTT publish is not available, commands can be stored in a pending queue for the gateway to pull and acknowledge.\n\nThis approach is suitable for:\n\n- relay pulse control\n- DO on/off control\n- AO setpoint update\n- pump start/stop command\n- valve open/close command\n- gate opener command\n- schedule update\n- remote configuration request\n\nFor Modbus write, PLC control, serial protocol control, or private device commands, the dashboard generates the command while the edge gateway performs protocol-specific execution.\n\n## Suitable Applications\n\n- factory equipment monitoring\n- energy monitoring and demand analysis\n- pump and valve station monitoring\n- water and wastewater remote monitoring\n- solar site monitoring\n- agricultural irrigation control\n- power cabinet and generator room monitoring\n- gate, door and access control monitoring\n- cold storage and environmental monitoring\n- OEM machine remote monitoring\n\n## Related IoTEdges Products\n\n- [IEG-100 Ethernet Industrial IoT Gateway](/products/ieg-100-ethernet-industrial-iot-gateway)\n- [IEG-120 WiFi Industrial IoT Gateway](/products/ieg-120-wifi-industrial-iot-gateway)\n- [IER-140 4G Remote Relay RTU](/products/ier-140-4g-remote-relay-rtu)\n- [IER-141 4G Pump and Valve RTU](/products/ier-141-4g-pump-valve-rtu)\n- [IEIO-100 Modbus Remote IO Module](/products/ieio-100-modbus-remote-io-module)\n- [IEAC-140 4G GSM Gate Opener](/products/ieac-140-4g-gsm-gate-opener)\n\n## Related Knowledge\n\n- [MQTT in Industrial IoT Monitoring](/knowledge/mqtt)\n- [MQTT Downlink Control for Industrial Devices](/knowledge/mqtt-downlink-control)\n- [Modbus for Industrial IoT Gateways and RTUs](/knowledge/modbus)\n- [RTU vs Gateway vs Remote IO](/knowledge/rtu-vs-gateway-vs-remote-io)\n- [Digital IO in Industrial Monitoring and Control](/knowledge/digital-io)\n\n## Deployment Options\n\n| Deployment Type | Best Fit |\n| --- | --- |\n| IoTEdges cloud dashboard | Fast project launch and remote monitoring |\n| Private cloud deployment | Customers who require their own server, domain, or data policy |\n| OEM dashboard | Hardware partners and solution providers needing custom branding |\n| Customized dashboard | Industrial deployments requiring custom widgets, device templates, and reports |\n\n## FAQ\n\n### Is this dashboard only for energy monitoring?\n\nNo. Energy monitoring is one application. The dashboard is designed for multi-device industrial operations, including pumps, valves, access control, environmental monitoring, power cabinets, machines and OEM equipment.\n\n### Does the dashboard directly read Modbus devices?\n\nThe recommended architecture is to let an RTU or gateway collect Modbus data locally and send normalized telemetry to the dashboard through HTTP or MQTT. This keeps serial polling, bus timing and weak-network recovery on the edge side.\n\n### Can it send commands back to devices?\n\nYes. Commands can be published to MQTT command topics or stored for gateways to pull from a pending command queue. The edge device is responsible for executing relay, Modbus write, AO setpoint or private protocol actions.\n\n### Can this be deployed on a customer\'s own server?\n\nYes. Private deployment is available for customers who need their own VPS, cloud server, domain, database, and access policy.\n\n### Is AI Copilot required for every project?\n\nNo. The dashboard can run as a standard industrial IoT monitoring and control platform, with AI Copilot enabled where it adds value.\n';
 const __vite_glob_0_1$1 = '---\nid: "ieac-140-4g-gsm-gate-opener"\ntitle: "IEAC-140 4G GSM Gate Opener"\nexcerpt: "Europe-focused 4G remote access controller for gates, doors, barriers, intercom access and RTU-style remote relay control."\ncategory: "Remote Access Controller"\nmodel: "IEAC-140"\nstatus: "Available for project inquiry"\nprimaryKeyword: "4G GSM gate opener"\nroute: "/products/ieac-140-4g-gsm-gate-opener"\norder: 6\nimageUrl: "/uploads/products/ieac-140-4g-gsm-gate-opener.svg"\nspecGroups:\n  - title: "Hardware I/O"\n    specs:\n      - label: "Relay Outputs"\n        value: "2 dry-contact relay outputs"\n      - label: "Digital Inputs"\n        value: "2 digital inputs for gate, door, exit button, or alarm status"\n      - label: "Relay Type"\n        value: "Dry contact trigger output for gate motor or lock controller input"\n      - label: "Antenna"\n        value: "External cellular antenna path for cabinet or pillar installation"\n  - title: "Communication"\n    specs:\n      - label: "Primary Uplink"\n        value: "4G LTE for Europe-focused access control deployments"\n      - label: "Legacy Search Fit"\n        value: "GSM gate opener replacement positioning"\n  - title: "Protocols"\n    specs:\n      - label: "Access Methods"\n        value: "Authorized call, SMS, dashboard, app, or API workflow"\n      - label: "Primary Role"\n        value: "Remote gate, barrier, lock, and cabinet access control"\n  - title: "Power & Mounting"\n    specs:\n      - label: "Primary Market"\n        value: "European installers, distributors, OEM access-control brands"\n      - label: "Power Supply"\n        value: "12-24VDC for gate control cabinets"\n      - label: "Enclosure"\n        value: "Controller board or module for protected cabinet or enclosure integration"\n      - label: "Configuration Method"\n        value: "Installer setup by local app, web UI, or service tool"\nselectionGuide:\n  chooseWhen:\n    - "The site is a gate, barrier, garage door, or access-control retrofit in Europe."\n    - "You need dry-contact relay triggering with 4G remote access logic."\n    - "Buyers are searching for GSM gate opener replacement but should be guided toward 4G-first hardware."\n  notFitWhen:\n    - "The site needs broad industrial relay automation rather than access control."\n    - "You need a finished intercom audio product with fully confirmed SIP or VoLTE scope."\n    - "The site already has a local access controller and only needs generic cabinet telemetry."\n  compareLinks:\n    - href: "/products/ier-140-4g-remote-relay-rtu"\n      label: "Compare with IER-140 4G Relay RTU"\n    - href: "/knowledge/4g-gsm-gate-opener-europe"\n      label: "Read the Europe Gate Opener Guide"\n    - href: "/products"\n      label: "Browse Access and RTU Products"\nbomGroups:\n  - title: "Access Control BOM"\n    items:\n      - "12-24VDC power source from access cabinet"\n      - "External 4G antenna and cable path"\n      - "SIM card with APN and operator setup"\n      - "Protected enclosure or gate-side cabinet space"\n  - title: "Gate Interface"\n    items:\n      - "Dry-contact relay wiring to gate motor controller"\n      - "Gate status magnetic contact or sensor"\n      - "Exit button or local trigger input"\n      - "Installer commissioning checklist for authorized users"\npreSalesFaq:\n  - question: "Can this be sold under our access-control brand?"\n    answer: "Yes. OEM branding, installer packaging, and access-control partner documentation are available for distributor and private-label programs."\n  - question: "Do you provide setup guidance for European SIM and APN use?"\n    answer: "Yes. SIM, APN, operator, and installation guidance are part of normal deployment support for Europe-focused installations."\n  - question: "Can access methods be adjusted for call, SMS, app, or API workflows?"\n    answer: "Yes. Call, SMS, app, dashboard, and API workflows can be matched to the required access model."\n---\n\n## 4G Gate Opener For European Access Control Projects\n\nIEAC-140 is a Europe-focused remote access controller for gates, doors, barriers, equipment rooms and small access-control cabinets. It is positioned for buyers searching **GSM Gate Opener**, **4G Gate Opener**, **4G Intercom**, **Remote Access Controller** and **RTU Door Controller** solutions.\n\nFor installers, distributors, and OEM access-control brands, IEAC-140 is a 4G-first relay controller that can trigger existing gate motors, garage doors, road barriers, electric locks, and access panels through dry-contact relay output. It is suitable for retrofit sites where the customer wants remote opening without running a new network cable to the gate.\n\n## Why 4G First\n\nLegacy GSM gate openers are still searched for in Europe, but 2G/GSM availability varies by country and operator. IEAC-140 is positioned as a 4G-first access controller. Any 2G/GSM fallback should be treated as a country- and module-specific option.\n\nFor new European installations, 4G LTE should be the primary connectivity path.\n\n## Typical Buyer Requirements\n\nEuropean buyers and installers usually evaluate a 4G gate opener around a few practical questions:\n\n- Can it open an existing gate motor through a dry-contact relay?\n- Can authorized users open the gate by call, SMS, app, dashboard or API?\n- Can it read gate position, door contact, exit button or alarm status?\n- Does it work with local SIM cards and common APN settings?\n- Can an external antenna be used when the controller is inside a metal cabinet?\n- Can installers manage multiple customers, sites or access devices remotely?\n- Can the device replace older GSM gate openers affected by 2G/3G network retirement?\n- Can the product be OEM branded for distributors or access-control installers?\n\n## Product Role\n\n| Function Area | Role | Configuration Notes |\n| --- | --- | --- |\n| 4G LTE | Primary cellular uplink for European deployments | Suitable for remote entrances, gates and access cabinets |\n| GSM / 2G fallback | Legacy keyword and optional fallback by module and country | Use only where local network support exists |\n| Relay output | Gate, door, barrier, garage door, electric lock or access panel trigger | Dry-contact relay integration path |\n| Digital input | Gate position, door contact, exit button, alarm or auxiliary input | Suitable for status and trigger inputs |\n| Remote access logic | Authorized caller, SMS, app, dashboard, API, or scheduled access | Suitable for installer and property workflows |\n| User management | Installer, administrator, and authorized-user workflow | Suitable for managed site access |\n| Event logging | Access events, relay trigger history and device status records | Suitable for audit trail and service review |\n| Intercom integration | Access/intercom workflow positioning | Voice and SIP features depend on selected project scope |\n\n## Typical Applications\n\n- apartment and residential gate access\n- commercial barrier control\n- garage door remote opening\n- farm and rural gate opening\n- parking access control\n- industrial yard entrance control\n- gated community access\n- temporary construction site access\n- equipment room or utility cabinet door control\n- remote site access logging\n- retrofit projects replacing legacy GSM gate openers\n- OEM access-control panels for European installers\n\n## IO Baseline\n\nA practical I/O baseline is:\n\n| IO Type | Configuration Direction | Configuration Notes |\n| --- | --- | --- |\n| Relay output | 1 or 2 relay outputs for gate, lock or barrier triggering | Suitable for dry-contact trigger workflows |\n| Digital input | 1 or more status inputs for gate position, door contact or alarm | Suitable for state feedback and local triggers |\n| Local setup | USB, Bluetooth, local web UI or app-based setup | Selected by installer workflow and deployed variant |\n| Antenna | External cellular antenna path for cabinet installations | Recommended where the controller sits inside metal housing |\n\n## Dry Contact Relay Wiring\n\nMost gate openers and barrier controllers expose terminals for a push button, open input, step-by-step input or external access-control trigger. IEAC-140 should be wired as a dry-contact relay trigger rather than directly powering the motor or lock.\n\nTypical wiring concept:\n\n| Existing Controller Terminal | IEAC-140 Connection |\n| --- | --- |\n| Push button / OPEN input | Relay COM and NO |\n| Door contact / gate status sensor | Digital input |\n| Exit button | Digital input or parallel local wiring based on site design |\n| External power supply | Power input matched to the site voltage and protection design |\n\nRelay pulse duration, normally-open or normally-closed behavior, contact rating, isolation, and surge protection should match the gate motor or door controller in use.\n\n## SIM Card, APN And Antenna Notes\n\nFor European installations, the SIM and RF design are as important as the controller itself.\n\n- Use an IoT SIM, M2M SIM or local operator SIM with stable 4G coverage at the gate.\n- Confirm APN, username, password, and private-network requirements before installation.\n- Check LTE band support against the target country and operator.\n- Use an external antenna when the device is installed inside a metal cabinet or weak-signal location.\n- Avoid promising 2G/GSM fallback unless the module, operator and country have been validated.\n- Consider roaming SIM behavior carefully for distributors selling across multiple EU markets.\n\n## Access Methods\n\nIEAC-140 supports these common access-control workflows:\n\n| Method | Typical Use |\n| --- | --- |\n| Authorized caller opening | Simple user experience for residents, staff or recurring visitors |\n| SMS command | Installer-friendly backup control or simple legacy workflow |\n| Dashboard control | Remote operation by property manager, facility manager or support team |\n| Mobile app workflow | End-user opening, user management and site visibility when included in the project |\n| API integration | Integration with property management, parking, visitor or industrial systems |\n| Scheduled access | Time-window control for staff, suppliers or temporary visitors |\n\n## Installer And OEM Opportunities\n\nIEAC-140 is suitable for access-control installers, gate automation companies, distributors, and OEM brands that need a 4G-first gate opener product for European deployments.\n\nPotential commercial options include:\n\n- private label or OEM front label\n- custom enclosure or DIN-rail cabinet integration\n- installer dashboard for multi-site device management\n- custom user import/export workflow\n- SIM and APN presets matched to installer rollout needs\n- integration with access-control, parking or property-management platforms\n- multilingual documentation for target European markets\n\n## Comparison: GSM Gate Opener vs 4G Gate Opener\n\n| Topic | Legacy GSM Gate Opener | IEAC-140 4G Gate Opener Direction |\n| --- | --- | --- |\n| Network | Often relies on 2G/GSM | 4G LTE first |\n| Future availability | Country and operator dependent | Better direction for new European deployments |\n| Access logic | Usually call or SMS based | Call, SMS, dashboard, API or app workflow |\n| Remote management | Often limited | Designed for dashboard-based multi-site management |\n| Data visibility | Basic event records or none | Access logs, device status and alarm records can be added |\n| Expansion | Usually fixed relay behavior | RTU-style inputs, relay logic and cloud workflow options |\n\n## Europe Market Notes\n\nIEAC-140 should be presented to European buyers as a 4G remote access controller first. Country-specific 2G/GSM support, SIM compatibility, LTE bands, CE/RED requirements, antenna design, and enclosure rating should match the target deployment market.\n\nRecommended market positioning:\n\n- **Primary term:** 4G gate opener\n- **Secondary terms:** GSM gate opener replacement, remote access controller, 4G relay controller, RTU door controller\n- **Application terms:** apartment gate opener, farm gate opener, garage door opener, barrier controller, gate access control\n- **Careful terms:** 4G intercom, VoLTE intercom, SIP intercom, emergency access, safety controller, certified fire access\n\n## Compatible Accessories\n\n| Accessory | Project Use |\n| --- | --- |\n| 4G LTE external antenna | Gate pillar, roadside cabinet or weak-signal installation |\n| IoT SIM / M2M SIM | Cellular connectivity, APN setup and roaming planning |\n| Gate status contact | Read open/closed gate or door status |\n| Exit button | Local manual trigger or access workflow input |\n| Weatherproof enclosure and cable glands | Outdoor or gate-side installation protection |\n\nSee [Industrial IoT Accessories](/accessories), [4G Antenna Guide](/knowledge/4g-antenna-industrial-rtu), and [Dry Contact Relay Wiring Guide](/knowledge/dry-contact-relay-wiring-gate-opener) for gate opener accessory planning.\n\n## Related Products\n\n- [AI IoT Dashboard for Industrial Operations](/products/ai-iot-dashboard-industrial-operations-platform)\n- [IER-140 4G Remote Relay RTU](/products/ier-140-4g-remote-relay-rtu)\n- [IER-120 WiFi Remote Monitoring RTU](/products/ier-120-wifi-remote-monitoring-rtu)\n- [IER-100 Ethernet Industrial RTU](/products/ier-100-ethernet-industrial-rtu)\n- [IEIO-100 Modbus Remote IO Module](/products/ieio-100-modbus-remote-io-module)\n\n## Related Knowledge\n\n- [GSM vs 4G Gate Opener for Europe](/knowledge/4g-gsm-gate-opener-europe)\n- [MQTT in Industrial IoT Monitoring](/knowledge/mqtt)\n- [RS485 Wiring for Modbus RTU Devices](/knowledge/rs485)\n\n## Product Boundary\n\nIEAC-140 should not be described as a certified emergency access system, safety controller, fire alarm interface, elevator controller, payment access terminal, or finished intercom audio product unless the relevant hardware, firmware, safety, telecom, and regulatory scope is included.\n\nExact LTE bands, VoLTE behavior, SIP intercom behavior, call quality, relay rating, IP rating, operating temperature, CE/RED status, and country compatibility should follow the released product version and target-market documentation.\n\n## FAQ\n\n### Is IEAC-140 a GSM gate opener?\n\nIt targets GSM gate opener replacement search intent, but it is positioned as a 4G-first gate opener for new European installations. GSM or 2G fallback depends on module choice and country-level network availability.\n\n### Does it support 4G intercom?\n\nIt supports access and intercom-style workflows, while voice, SIP, VoLTE, and audio features should be confirmed only for variants that explicitly include them.\n\n### Can it open a gate by phone call?\n\nAuthorized-caller access is one supported workflow. IEAC-140 can also use SMS, app, dashboard, or API control.\n\n### Can it connect to an existing gate motor?\n\nYes, the intended integration is through a dry-contact relay connected to the existing gate controller input, such as push button, open or step-by-step terminals. The controller should not be wired directly to motor power.\n\n### Does it need a SIM card?\n\nYes, a 4G cellular gate opener normally needs a SIM card or IoT SIM with a data plan and suitable local coverage. APN and operator settings should be checked before installation.\n\n### Can it manage multiple users?\n\nYes. User management is part of the access-control workflow and can include authorized phone numbers, dashboard users, app users and API-managed access lists.\n\n### Can it be used as a 4G relay controller?\n\nYes. IEAC-140 can be positioned as a 4G relay controller for gate, door, barrier and cabinet access. For broader industrial relay automation, [IER-140 4G Remote Relay RTU](/products/ier-140-4g-remote-relay-rtu) may be a better fit.\n\n### Is it suitable for Europe?\n\nEurope is the primary target market. Country compatibility depends on LTE bands, SIM behavior, operator support, antenna design, and local regulatory requirements.\n';
 const __vite_glob_0_2$1 = '---\nid: "ieg-100-ethernet-industrial-iot-gateway"\ntitle: "IEG-100 Ethernet Industrial IoT Gateway"\nexcerpt: "Ethernet-only industrial IoT gateway designed for Modbus RTU/TCP data collection and MQTT publishing."\ncategory: "Industrial IoT Gateway"\nmodel: "IEG-100"\nstatus: "Published"\nprimaryKeyword: "Ethernet industrial IoT gateway"\nroute: "/products/ieg-100-ethernet-industrial-iot-gateway"\norder: 1\nimageUrl: "/uploads/products/ieg-100-ethernet-industrial-iot-gateway.svg"\nspecGroups:\n  - title: "Hardware I/O"\n    specs:\n      - label: "Local I/O"\n        value: "No built-in DI/DO; gateway-focused architecture"\n      - label: "Field Interface"\n        value: "1 x RS485 for Modbus RTU devices"\n  - title: "Communication"\n    specs:\n      - label: "Uplink"\n        value: "Ethernet"\n      - label: "Best Fit"\n        value: "Control cabinets, LAN-connected factories, utility rooms"\n  - title: "Protocols"\n    specs:\n      - label: "Network Protocols"\n        value: "Modbus TCP and MQTT telemetry publishing"\n      - label: "Primary Role"\n        value: "Modbus data collection and MQTT telemetry"\n  - title: "Power & Mounting"\n    specs:\n      - label: "Power Supply"\n        value: "9-36VDC for cabinet deployment"\n      - label: "Operating Temperature"\n        value: "-20 to 70 C for industrial indoor panels"\n      - label: "Configuration Method"\n        value: "Local web configuration and remote parameter setup"\n      - label: "Mounting"\n        value: "DIN rail cabinet deployment"\nselectionGuide:\n  chooseWhen:\n    - "The site already has wired LAN or cabinet Ethernet available."\n    - "You need Modbus data collection and MQTT telemetry without local DI/DO control."\n    - "The application is centered on meters, inverters, instruments, or PLC data collection."\n  notFitWhen:\n    - "You need local digital or analog I/O on the same device."\n    - "The site has no wired internet and really needs 4G backhaul."\n    - "The deployment uses indoor WiFi instead of Ethernet."\n  compareLinks:\n    - href: "/products/ier-100-ethernet-industrial-rtu"\n      label: "Compare with IER-100 Ethernet RTU"\n    - href: "/products/ieg-120-wifi-industrial-iot-gateway"\n      label: "Compare with IEG-120 WiFi Gateway"\n    - href: "/products"\n      label: "Browse All Gateways and RTUs"\nbomGroups:\n  - title: "Cabinet Essentials"\n    items:\n      - "24VDC or 12VDC DIN rail power supply"\n      - "DIN rail and terminal block set"\n      - "Industrial Ethernet patch cable"\n      - "Labeling and panel wiring markers"\n  - title: "Field Connectivity"\n    items:\n      - "Shielded RS485 cable"\n      - "RS485 isolation or surge module"\n      - "Modbus meter, inverter, or instrument list"\n      - "MQTT broker and topic mapping worksheet"\npreSalesFaq:\n  - question: "Can you provide sample units for testing?"\n    answer: "Yes. Sample units can be arranged for evaluation, pilot use, and distributor review."\n  - question: "Can the MQTT payload or topic format be adjusted?"\n    answer: "Yes. Topic naming, payload mapping, and broker parameters can be adjusted for the target dashboard or OEM workflow."\n  - question: "Do you provide Modbus register mapping support?"\n    answer: "Yes. We can support device list review, register collection scope, and recommended polling structure for the deployment."\n---\n\n## Ethernet Gateway For Wired Industrial Sites\n\nIEG-100 is an Ethernet-only industrial IoT gateway for wired LAN and cabinet deployments. It is built to collect data from Modbus field devices and publish telemetry to MQTT-based monitoring systems in factory, energy, and utility-monitoring environments.\n\nThe page below describes the standard application fit, architecture and selection logic for buyers comparing Ethernet gateway options.\n\n## Architecture\n\n| Layer | Role | Configuration Notes |\n| --- | --- | --- |\n| Ethernet | Wired uplink and local network connection | Best fit for control cabinets, local LANs and equipment rooms |\n| RS485 | Modbus RTU field interface | Standard fieldbus path for meters, inverters and instruments |\n| Modbus TCP | Ethernet device polling | Suitable for PLCs, meters and networked controllers |\n| MQTT | Telemetry publishing | Suitable for dashboard, broker and cloud telemetry workflows |\n\nIEG-100 should not be positioned as a 4G, WiFi or LoRa gateway. Those uplinks belong to separate IoTEdges model families.\n\n## Suitable Applications\n\n- energy meter data collection\n- solar inverter monitoring through site LAN\n- factory utility monitoring\n- building equipment rooms\n- OEM equipment monitoring where Ethernet is available\n- water or environmental equipment cabinets with wired network access\n\n## Product Boundary\n\nIEG-100 is a baseline gateway, not an advanced multi-protocol edge computer. Buyers that need OPC UA, BACnet, CAN, remote write/control, advanced edge logic or larger protocol scope should evaluate a higher-tier edge gateway path.\n\n## Compatible Accessories\n\n| Accessory | Project Use |\n| --- | --- |\n| Shielded RS485 cable | Connect Modbus RTU meters, inverters, instruments or Remote IO modules |\n| Pluggable terminal blocks | Faster cabinet wiring and service replacement |\n| DIN rail power supply | Stable 12V or 24V DC supply for cabinet installations |\n| RS485 surge or isolation module | Recommended for noisy, long-cable or outdoor-connected fieldbus installations |\n| Modbus energy meter or instrument | Common data source for energy, solar and equipment monitoring |\n\nSee [Industrial IoT Accessories](/accessories), [RS485 Cable and Shielding Guide](/knowledge/rs485-cable-shielding-guide), and [DIN Rail Power Supply Guide](/knowledge/din-rail-power-supply-industrial-iot) for accessory planning.\n\n## Related Knowledge\n\n- [Modbus for Industrial IoT Gateways and RTUs](/knowledge/modbus)\n- [MQTT in Industrial IoT Monitoring](/knowledge/mqtt)\n- [RS485 Wiring for Modbus RTU Devices](/knowledge/rs485)\n\n## Model Comparison\n\n| Model | Uplink | Best Fit |\n| --- | --- | --- |\n| IEG-100 | Ethernet | Wired LAN and cabinet deployments |\n| IEG-120 | WiFi | Indoor WiFi deployments |\n| IEG-140 | 4G LTE | Remote sites without wired LAN |\n\n## FAQ\n\n### Is IEG-100 a 4G gateway?\n\nNo. IEG-100 is the Ethernet-only model. 4G gateway behavior belongs to IEG-140.\n\n### Does IEG-100 support WiFi or LoRa?\n\nNo. WiFi and LoRaWAN are separate product families.\n\n### Does IEG-100 support OPC UA?\n\nNot in the baseline IEG-100 scope. Advanced protocols belong to higher-tier edge gateway models.\n\n### What should I use for exact device count or polling speed planning?\n\nUse the released datasheet and the selected polling map for final sizing. Device count and polling interval depend on register scope, network layout, and reporting frequency.\n';
@@ -1904,10 +1970,10 @@ function createProductPage(path, markdown) {
     title: readString(metadata.title, "Untitled Product"),
     excerpt: readString(metadata.excerpt),
     content,
-    imageUrl: readOptionalString(metadata.imageUrl),
+    imageUrl: resolveProductImageUrl(readOptionalString(metadata.imageUrl)),
     category: readString(metadata.category, "Industrial IoT Product"),
     model: readString(metadata.model),
-    status: readString(metadata.status),
+    status: resolveProductStatus(readString(metadata.status)),
     primaryKeyword: readString(metadata.primaryKeyword),
     route: readString(metadata.route, `/products/${productId}`),
     order: readNumber(metadata.order),
@@ -1918,7 +1984,234 @@ function createProductPage(path, markdown) {
     preSalesFaq
   };
 }
-const productPages = Object.entries(markdownModules$2).map(([path, markdown]) => createProductPage(path, markdown)).sort((a, b) => a.order - b.order);
+const productPages = Object.entries(markdownModules$2).map(([path, markdown]) => createProductPage(path, markdown)).filter((product) => isPublicProductStatus(product.status)).sort((a, b) => a.order - b.order);
+const __vite_glob_0_0$1 = "---\nid: building-automation\ntitle: Building Automation\ndescription: Optimize building energy and equipment visibility through Modbus data collection and practical building monitoring architecture.\nimage: /uploads/solutions/building-automation-hero.svg\narchitectureImage: /uploads/solutions/building-automation-architecture.svg\nrecommendedProductType: Gateway\nrecommendedUplink: Ethernet first\ndeploymentEnvironment: HVAC rooms, building panels, equipment floors\niconKey: snowflake\nlink: /solutions/building-automation\norder: 5\ndetailedContent:\n  - Building automation projects often involve chillers, AHUs, thermostats, energy meters, IAQ monitors, and occupancy sensors. A practical starting point is to identify which devices already expose Modbus data and can be integrated quickly.\n  - By starting with Modbus data collection first, facility managers can build visibility over building performance without over-scoping the first hardware deployment.\n  - BACnet, OPC UA, and broader multi-protocol requirements can be reviewed as higher-tier integration paths when the project needs them.\nhardware:\n  - IEG-100 Ethernet gateway for Modbus device collection\n  - Edge gateway path for BACnet or OPC UA integration when required\n  - Smart HVAC thermostats\n  - Indoor Air Quality (IAQ) monitors\n  - Occupancy sensors\nsoftware:\n  - Floorplan layout visualization\n  - HVAC trend and schedule review\n  - Tenant energy report workflow\n  - Air quality index (AQI) dashboard\nrelatedProducts:\n  - title: IEG-100 Ethernet Industrial IoT Gateway\n    href: /products/ieg-100-ethernet-industrial-iot-gateway\n  - title: IER-142 4G Power Cabinet RTU\n    href: /products/ier-142-4g-power-cabinet-rtu\n  - title: IEIO-100 Modbus Remote IO Module\n    href: /products/ieio-100-modbus-remote-io-module\n---\n\n## Building Visibility\n\nStart with Modbus data collection for HVAC and energy devices, then expand into broader protocol integration when the building scope requires it.\n";
+const __vite_glob_0_1 = "---\nid: factory-energy\ntitle: Factory Energy Monitoring\ndescription: Track power consumption across your entire production line to support energy management, reduce waste, and improve visibility.\nimage: /uploads/solutions/factory-energy-hero.svg\narchitectureImage: /uploads/solutions/factory-energy-architecture.svg\nrecommendedProductType: Gateway or RTU\nrecommendedUplink: Ethernet first\ndeploymentEnvironment: Factory cabinets and LAN-connected workshops\niconKey: zap\nlink: /solutions/factory-energy\norder: 1\ndetailedContent:\n  - In manufacturing environments, understanding and controlling energy consumption is critical. Factory energy monitoring connects Modbus power meters, production assets, and dashboards so teams can see peak demand, hidden waste, and operating patterns.\n  - By capturing real-time metrics across production lines, factory managers can optimize schedules, compare baseline consumption, and prepare better energy management reports.\n  - Integration starts with validated IoTEdges gateway, RTU, and Remote IO product paths. The final hardware selection should follow the meter protocol, cabinet layout, local IO needs, and uplink method of the project.\nhardware:\n  - IEG-100 Ethernet gateway for wired Modbus meter collection\n  - IER-100 Ethernet RTU when local DI/DO/AI signals are required\n  - IEIO-100 Remote IO modules for distributed signal expansion\n  - Split-core Current Transformers (CT)\n  - Modbus RTU / TCP power meters\nsoftware:\n  - Real-time energy consumption dashboard\n  - Energy baseline and peak demand trend analysis\n  - Automated energy reports\n  - Threshold alarms via configured notification channels\nrelatedProducts:\n  - title: IEG-100 Ethernet Industrial IoT Gateway\n    href: /products/ieg-100-ethernet-industrial-iot-gateway\n  - title: IER-142 4G Power Cabinet RTU\n    href: /products/ier-142-4g-power-cabinet-rtu\n  - title: IER-100 Ethernet Industrial RTU\n    href: /products/ier-100-ethernet-industrial-rtu\n  - title: IEIO-100 Modbus Remote IO Module\n    href: /products/ieio-100-modbus-remote-io-module\nrelatedResources:\n  - title: Achieving ISO 50001 with Real-Time Energy Monitoring\n    href: /blog/energy-monitoring-iso-50001\n  - title: How to Choose the Right Modbus to MQTT Gateway\n    href: /blog/how-to-choose-modbus-mqtt-gateway\n  - title: Modbus for Industrial IoT Gateways and RTUs\n    href: /knowledge/modbus\n---\n\n## Factory Energy Monitoring\n\nBuild a practical path from meters and cabinet wiring to dashboards, reporting, and energy visibility across workshops and production assets.\n";
+const __vite_glob_0_2 = "---\nid: gate-access-control\ntitle: Gate Access Control\ndescription: Remote gate, door, barrier and access cabinet control for European installers using a validation-aware 4G-first controller path.\nimage: /uploads/solutions/gate-access-control-hero.svg\narchitectureImage: /uploads/solutions/gate-access-control-architecture.svg\nrecommendedProductType: Access controller or relay RTU\nrecommendedUplink: 4G first\ndeploymentEnvironment: Gate pillars, barriers, access cabinets, remote entrances\niconKey: shield\nlink: /solutions/gate-access-control\norder: 6\ndetailedContent:\n  - Gate access control projects often need a simple way to trigger a relay, authorize users, read door or gate status, and manage remote sites without running new network cables. In Europe, this search demand is often expressed as GSM gate opener, 4G gate opener, 4G intercom, remote access controller or RTU door controller.\n  - A practical architecture should start from 4G LTE rather than assuming long-term GSM availability. Country-level network support, SIM behavior, LTE bands, antenna performance and regulatory requirements must be checked before publishing final compatibility claims.\n  - IoTEdges positions this solution around a 4G-first remote access controller path, with GSM/2G described only as a possible legacy fallback after module and regional validation.\nhardware:\n  - IEAC-140 4G GSM Gate Opener for Europe-focused access projects\n  - Gate, door, barrier or lock relay interface after rating validation\n  - Door contact, gate status or alarm digital input path\n  - External antenna path for cabinets or remote entrances\n  - Local SIM and carrier validation for target European countries\nsoftware:\n  - Authorized access workflow planning\n  - Remote relay trigger and status monitoring concept\n  - Access event logging after firmware validation\n  - Installer setup workflow after product definition\n  - Optional dashboard, SMS, app or API workflow after validation\nrelatedProducts:\n  - title: IER-140 4G Remote Relay RTU\n    href: /products/ier-140-4g-remote-relay-rtu\n  - title: IEAC-140 4G GSM Gate Opener\n    href: /products/ieac-140-4g-gsm-gate-opener\nrelatedResources:\n  - title: How to Choose a 4G Gate Opener for Europe\n    href: /blog/how-to-choose-4g-gate-opener-europe\n  - title: GSM vs 4G Gate Opener for Europe\n    href: /knowledge/4g-gsm-gate-opener-europe\n---\n\n## Gate and Door Control\n\nUse a 4G-first architecture for gate, barrier, and remote entrance projects where installers need relay control, status feedback, and low-friction deployment without local LAN access.\n";
+const __vite_glob_0_3 = "---\nid: smart-agriculture\ntitle: Smart Agriculture\ndescription: Track soil moisture, greenhouse climate, and irrigation equipment with an architecture that separates wired, LoRa, WiFi, and 4G paths.\nimage: /uploads/solutions/smart-agriculture-hero.svg\narchitectureImage: /uploads/solutions/smart-agriculture-architecture.svg\nrecommendedProductType: RTU or Remote IO\nrecommendedUplink: 4G or wired cabinet path\ndeploymentEnvironment: Greenhouses, irrigation cabinets, remote farm assets\niconKey: sprout\nlink: /solutions/smart-agriculture\norder: 4\ndetailedContent:\n  - Smart agriculture projects often combine soil sensors, greenhouse climate data, pump stations, irrigation valves, and remote dashboards. The right architecture depends heavily on distance, power availability, and whether the site can use wired cabinets, LoRa, WiFi, or cellular uplinks.\n  - For greenhouses and equipment rooms, wired Remote IO can be a practical first step. Field-wide LoRa or 4G products should remain validation-gated until wireless range, antenna, power, and regional frequency requirements are confirmed.\n  - IoTEdges should publish agriculture pages by application first, then connect them to product pages only after each wireless model has engineering evidence.\nhardware:\n  - Future LoRa or 4G RTU path after wireless and power validation\n  - IEIO-100 Remote IO modules for wired greenhouse cabinets\n  - Multi-depth soil moisture probes\n  - Environmental temperature and humidity sensors\n  - Solenoid valve controllers\nsoftware:\n  - Irrigation schedule dashboard\n  - Crop stress warning notifications\n  - Weather data integration after project scoping\n  - Historical sensor trend reporting\nrelatedProducts:\n  - title: IER-141 4G Pump & Valve RTU\n    href: /products/ier-141-4g-pump-valve-rtu\n  - title: IER-140 4G Remote Relay RTU\n    href: /products/ier-140-4g-remote-relay-rtu\n  - title: IEIO-100 Modbus Remote IO Module\n    href: /products/ieio-100-modbus-remote-io-module\n---\n\n## Smart Agriculture Deployment\n\nSeparate greenhouse cabinet monitoring, irrigation control, and field-wide wireless sensing into clear hardware paths before fixing the final product combination.\n";
+const __vite_glob_0_4 = "---\nid: solar-energy\ntitle: Solar & Renewable Energy\ndescription: Monitor inverter data, site conditions, and renewable energy assets with practical gateway architecture for solar monitoring.\nimage: /uploads/solutions/solar-energy-hero.svg\narchitectureImage: /uploads/solutions/solar-energy-architecture.svg\nrecommendedProductType: Gateway\nrecommendedUplink: Ethernet first\ndeploymentEnvironment: Inverter cabinets and site LAN environments\niconKey: sun\nlink: /solutions/solar-energy\norder: 2\ndetailedContent:\n  - Managing distributed solar and renewable energy assets requires consistent access to inverter, meter, and site-condition data. A practical monitoring architecture starts by matching protocol support, cabinet networking, and the required uplink method to the site.\n  - Dashboards can help operators compare production trends, detect abnormal generation, and understand equipment behavior across sites. Advanced control or grid-management functions should be defined according to the operating workflow of the project.\n  - Ethernet gateway deployments are a strong fit for LAN-connected inverter cabinets, while 4G or LoRaWAN paths can be used for remote or distributed solar sites where wired networking is not practical.\nhardware:\n  - IEG-100 Ethernet gateway for LAN-connected inverter cabinets\n  - IEG-140 4G gateway for remote solar sites without reliable wired networking\n  - String combiner boxes\n  - Irradiance and temperature weather stations\n  - Modbus-capable solar inverters\nsoftware:\n  - Multi-site PV dashboard\n  - Inverter and meter trend visualization\n  - Performance ratio analysis\n  - Fault and threshold notification workflows\nrelatedProducts:\n  - title: IEG-100 Ethernet Industrial IoT Gateway\n    href: /products/ieg-100-ethernet-industrial-iot-gateway\n---\n\n## Solar and Renewable Monitoring\n\nUse a protocol-first architecture to collect inverter, meter, and site-condition data before expanding into multi-site renewable energy dashboards.\n";
+const __vite_glob_0_5 = "---\nid: water-management\ntitle: Water Management\ndescription: Remote monitoring for pump stations, tank levels, flow meters, and water quality sensors across distributed sites.\nimage: /uploads/solutions/water-management-hero.svg\narchitectureImage: /uploads/solutions/water-management-architecture.svg\nrecommendedProductType: RTU and Remote IO\nrecommendedUplink: Ethernet or 4G\ndeploymentEnvironment: Pump stations, tanks, distributed utility cabinets\niconKey: droplets\nlink: /solutions/water-management\norder: 3\ndetailedContent:\n  - Water distribution and treatment systems need reliable telemetry from pumps, tanks, valves, meters, and water quality sensors. A practical solution starts by mapping local IO, Modbus devices, and uplink availability at each station.\n  - Dashboards can help operators monitor tank levels, pressure trends, pump status, and abnormal events. Automated control should be scoped carefully and validated against the site control philosophy.\n  - For IoTEdges planning, wired RTU and Remote IO paths are the safest first public pages. Cellular water monitoring remains a strong SEO topic, but final 4G RTU specifications should wait for module, band, and field validation.\nhardware:\n  - IER-100 Ethernet RTU for cabinet-based water telemetry\n  - IEIO-100 Remote IO modules for pump and level signal expansion\n  - Future IER-140 4G RTU after cellular validation\n  - Ultrasonic level sensors\n  - Water quality probes and flow or pressure transmitters\n  - Variable Frequency Drives (VFDs)\nsoftware:\n  - Pump station and tank dashboard\n  - Level, pressure, and flow trend analysis\n  - Tank level threshold alarms\n  - Maintenance history and event review\nrelatedProducts:\n  - title: IER-141 4G Pump & Valve RTU\n    href: /products/ier-141-4g-pump-valve-rtu\n  - title: IER-140 4G Remote Relay RTU\n    href: /products/ier-140-4g-remote-relay-rtu\n  - title: IER-100 Ethernet Industrial RTU\n    href: /products/ier-100-ethernet-industrial-rtu\n  - title: IEIO-100 Modbus Remote IO Module\n    href: /products/ieio-100-modbus-remote-io-module\n---\n\n## Water Monitoring Architecture\n\nMap signals, field devices, and uplink constraints first, then select the RTU and Remote IO path that fits pump stations, tanks, and distributed utility cabinets.\n";
+const solutionIconsByKey = {
+  zap: Zap,
+  sun: Sun,
+  droplets: Droplets,
+  sprout: Sprout,
+  snowflake: ThermometerSnowflake,
+  shield: ShieldCheck
+};
+const defaultSolutionIcon = Zap;
+const markdownModules$1 = /* @__PURE__ */ Object.assign({
+  "../content/solutions/building-automation.md": __vite_glob_0_0$1,
+  "../content/solutions/factory-energy.md": __vite_glob_0_1,
+  "../content/solutions/gate-access-control.md": __vite_glob_0_2,
+  "../content/solutions/smart-agriculture.md": __vite_glob_0_3,
+  "../content/solutions/solar-energy.md": __vite_glob_0_4,
+  "../content/solutions/water-management.md": __vite_glob_0_5
+});
+function readContentLinks(value) {
+  if (!Array.isArray(value)) {
+    return [];
+  }
+  return value.map((item) => {
+    if (!item || typeof item !== "object") {
+      return null;
+    }
+    const title = readString(item.title);
+    const href = readString(item.href);
+    if (!title || !href) {
+      return null;
+    }
+    return { title, href };
+  }).filter((item) => Boolean(item));
+}
+function createSolutionPage(path, markdown) {
+  var _a;
+  const { metadata, content } = parseFrontmatter(markdown);
+  const fallbackId = ((_a = path.split("/").pop()) == null ? void 0 : _a.replace(/\.md$/, "")) || "solution-page";
+  const id = readString(metadata.id, fallbackId);
+  const iconKey = readString(metadata.iconKey, "zap");
+  const link = readString(metadata.link, `/solutions/${id}`);
+  return {
+    id,
+    title: readString(metadata.title, "Untitled Solution"),
+    description: readString(metadata.description),
+    content,
+    status: resolveEditorialStatus(metadata.status),
+    image: resolveSolutionImageUrl(readString(metadata.image)),
+    architectureImage: readOptionalString(metadata.architectureImage),
+    recommendedProductType: readString(metadata.recommendedProductType),
+    recommendedUplink: readString(metadata.recommendedUplink),
+    deploymentEnvironment: readString(metadata.deploymentEnvironment),
+    detailedContent: readStringArray(metadata.detailedContent),
+    hardware: readStringArray(metadata.hardware),
+    software: readStringArray(metadata.software),
+    relatedProducts: readContentLinks(metadata.relatedProducts),
+    relatedResources: readContentLinks(metadata.relatedResources),
+    iconKey: solutionIconsByKey[iconKey] ? iconKey : "zap",
+    link,
+    order: readNumber(metadata.order)
+  };
+}
+const solutions = Object.entries(markdownModules$1).map(([path, markdown]) => createSolutionPage(path, markdown)).filter((solution) => isPublicEditorialStatus(solution.status)).sort((a, b) => a.order - b.order);
+function getSolutionIcon(iconKey) {
+  return solutionIconsByKey[iconKey] || defaultSolutionIcon;
+}
+function normalizeRoute(route) {
+  return String(route || "").trim().replace(/\/+$/, "");
+}
+function byScoreAndOrder(left, right) {
+  return right.score - left.score || left.order - right.order || left.title.localeCompare(right.title);
+}
+function dedupeScoredLinks(links, max = 4) {
+  const deduped = /* @__PURE__ */ new Map();
+  for (const link of links.sort(byScoreAndOrder)) {
+    const existing = deduped.get(link.href);
+    if (!existing || byScoreAndOrder(link, existing) < 0) {
+      deduped.set(link.href, link);
+    }
+  }
+  return Array.from(deduped.values()).sort(byScoreAndOrder).slice(0, max).map(({ score: _score, order: _order, ...link }) => link);
+}
+function productHrefMatches(product, href) {
+  const normalizedHref = normalizeRoute(href);
+  return normalizedHref === normalizeRoute(product.route) || normalizedHref === normalizeRoute(`/products/${product.id}`);
+}
+function solutionToLink(solution) {
+  return {
+    title: solution.title,
+    href: normalizeRoute(solution.link) || `/solutions/${solution.id}`,
+    score: 0,
+    order: solution.order
+  };
+}
+function knowledgeToLink(page) {
+  return {
+    title: page.title,
+    href: `/knowledge/${page.id}`,
+    score: 0,
+    order: page.order
+  };
+}
+function blogToLink(post) {
+  return {
+    title: post.title,
+    href: `/blog/${post.id}`,
+    score: 0,
+    order: post.order ?? 0
+  };
+}
+function resolveInternalRouteTitle(href) {
+  const normalizedHref = normalizeRoute(href);
+  const product = productPages.find((item) => productHrefMatches(item, normalizedHref));
+  if (product) return product.title;
+  const solution = solutions.find((item) => normalizeRoute(item.link) === normalizedHref || normalizeRoute(`/solutions/${item.id}`) === normalizedHref);
+  if (solution) return solution.title;
+  const knowledge = knowledgePages.find((item) => normalizeRoute(`/knowledge/${item.id}`) === normalizedHref);
+  if (knowledge) return knowledge.title;
+  const blog = blogPosts.find((item) => normalizeRoute(`/blog/${item.id}`) === normalizedHref);
+  if (blog) return blog.title;
+  return null;
+}
+function getRelatedLinksForProduct(product) {
+  const relatedSolutions = dedupeScoredLinks(
+    solutions.filter((solution) => solution.relatedProducts.some((link) => productHrefMatches(product, link.href))).map((solution) => ({ ...solutionToLink(solution), score: 4 }))
+  );
+  const relatedKnowledge = dedupeScoredLinks(
+    knowledgePages.filter((page) => page.relatedProducts.includes(product.id)).map((page) => ({ ...knowledgeToLink(page), score: 4 }))
+  );
+  const relatedBlog = dedupeScoredLinks(
+    blogPosts.filter((post) => post.relatedProducts.includes(product.id)).map((post, index) => ({ ...blogToLink({ ...post, order: index }), score: 4 }))
+  );
+  return { relatedSolutions, relatedKnowledge, relatedBlog };
+}
+function getRelatedLinksForKnowledge(page) {
+  const pageRoute = normalizeRoute(`/knowledge/${page.id}`);
+  const productIds = new Set(page.relatedProducts);
+  const relatedSolutions = dedupeScoredLinks(
+    solutions.map((solution) => {
+      let score = 0;
+      if (solution.relatedResources.some((link) => normalizeRoute(link.href) === pageRoute)) {
+        score += 4;
+      }
+      const sharedProducts = solution.relatedProducts.filter(
+        (link) => productPages.some((product) => productIds.has(product.id) && productHrefMatches(product, link.href))
+      ).length;
+      score += sharedProducts;
+      return score > 0 ? { ...solutionToLink(solution), score } : null;
+    }).filter((item) => Boolean(item))
+  );
+  const relatedBlog = dedupeScoredLinks(
+    blogPosts.map((post, index) => {
+      let score = 0;
+      if (post.relatedResources.some((href) => normalizeRoute(href) === pageRoute)) {
+        score += 4;
+      }
+      const sharedProducts = post.relatedProducts.filter((productId) => productIds.has(productId)).length;
+      score += sharedProducts;
+      return score > 0 ? { ...blogToLink({ ...post, order: index }), score } : null;
+    }).filter((item) => Boolean(item))
+  );
+  return { relatedSolutions, relatedBlog };
+}
+function getRelatedLinksForSolution(solution) {
+  const solutionRoute = normalizeRoute(solution.link) || normalizeRoute(`/solutions/${solution.id}`);
+  const solutionProductIds = new Set(
+    productPages.filter((product) => solution.relatedProducts.some((link) => productHrefMatches(product, link.href))).map((product) => product.id)
+  );
+  const relatedKnowledge = dedupeScoredLinks(
+    knowledgePages.map((page) => {
+      let score = 0;
+      const sharedProducts = page.relatedProducts.filter((productId) => solutionProductIds.has(productId)).length;
+      score += sharedProducts;
+      if (solution.relatedResources.some((link) => normalizeRoute(link.href) === normalizeRoute(`/knowledge/${page.id}`))) {
+        score += 4;
+      }
+      return score > 0 ? { ...knowledgeToLink(page), score } : null;
+    }).filter((item) => Boolean(item))
+  );
+  const relatedBlog = dedupeScoredLinks(
+    blogPosts.map((post, index) => {
+      let score = 0;
+      if (post.relatedResources.some((href) => normalizeRoute(href) === solutionRoute)) {
+        score += 4;
+      }
+      const sharedProducts = post.relatedProducts.filter((productId) => solutionProductIds.has(productId)).length;
+      score += sharedProducts;
+      return score > 0 ? { ...blogToLink({ ...post, order: index }), score } : null;
+    }).filter((item) => Boolean(item))
+  );
+  return { relatedKnowledge, relatedBlog };
+}
+function getRelatedLinksForBlog(post) {
+  const postProductIds = new Set(post.relatedProducts);
+  const directResourceRoutes = new Set(post.relatedResources.map(normalizeRoute));
+  const relatedSolutions = dedupeScoredLinks(
+    solutions.map((solution) => {
+      let score = 0;
+      const solutionRoute = normalizeRoute(solution.link) || normalizeRoute(`/solutions/${solution.id}`);
+      if (directResourceRoutes.has(solutionRoute)) {
+        score += 4;
+      }
+      const sharedProducts = solution.relatedProducts.filter(
+        (link) => productPages.some((product) => postProductIds.has(product.id) && productHrefMatches(product, link.href))
+      ).length;
+      score += sharedProducts;
+      return score > 0 ? { ...solutionToLink(solution), score } : null;
+    }).filter((item) => Boolean(item))
+  );
+  const relatedKnowledge = dedupeScoredLinks(
+    knowledgePages.map((page) => {
+      let score = 0;
+      if (directResourceRoutes.has(normalizeRoute(`/knowledge/${page.id}`))) {
+        score += 4;
+      }
+      const sharedProducts = page.relatedProducts.filter((productId) => postProductIds.has(productId)).length;
+      score += sharedProducts;
+      return score > 0 ? { ...knowledgeToLink(page), score } : null;
+    }).filter((item) => Boolean(item))
+  );
+  return { relatedSolutions, relatedKnowledge };
+}
 const splitTableRow = (line) => {
   const trimmed = line.trim();
   const withoutEdges = trimmed.replace(/^\|/, "").replace(/\|$/, "");
@@ -1997,8 +2290,77 @@ function MarkdownContent({ children }) {
     }
   );
 }
+function RelatedLinksSection({ title, description, links }) {
+  if (links.length === 0) {
+    return null;
+  }
+  return /* @__PURE__ */ jsxs("section", { children: [
+    /* @__PURE__ */ jsx("h2", { className: "text-2xl font-bold text-white mb-3", style: { fontFamily: "var(--font-display)" }, children: title }),
+    description ? /* @__PURE__ */ jsx("p", { className: "mb-5 text-sm leading-relaxed text-slate-400", children: description }) : null,
+    /* @__PURE__ */ jsx("div", { className: "grid grid-cols-1 gap-3", children: links.map((link) => /* @__PURE__ */ jsxs(
+      Link,
+      {
+        to: link.href,
+        className: "flex items-center justify-between gap-4 rounded-lg border border-slate-700 bg-slate-900 p-4 text-sm font-bold text-slate-200 transition-colors hover:border-blue-500/50 hover:text-blue-300",
+        children: [
+          link.title,
+          /* @__PURE__ */ jsx(ArrowRight, { className: "w-4 h-4 shrink-0" })
+        ]
+      },
+      link.href
+    )) })
+  ] });
+}
+function QuoteRequestModal({
+  isOpen,
+  onClose,
+  title,
+  description,
+  lockedInquiryType,
+  lockedInquirySubject,
+  lockedInquirySource,
+  analyticsFormName,
+  submitLabel,
+  successTitle,
+  successMessage,
+  successChecklist
+}) {
+  if (!isOpen) return null;
+  return /* @__PURE__ */ jsx("div", { className: "fixed inset-0 z-[80] flex items-center justify-center bg-slate-950/80 px-4 py-6 backdrop-blur-sm", children: /* @__PURE__ */ jsxs("div", { className: "relative w-full max-w-3xl rounded-2xl border border-slate-700 bg-slate-800 shadow-2xl", children: [
+    /* @__PURE__ */ jsx(
+      "button",
+      {
+        type: "button",
+        onClick: onClose,
+        "aria-label": "Close inquiry form",
+        className: "absolute right-4 top-4 inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-700 bg-slate-900 text-slate-300 transition hover:bg-slate-700 hover:text-white",
+        children: /* @__PURE__ */ jsx(X, { className: "h-5 w-5" })
+      }
+    ),
+    /* @__PURE__ */ jsxs("div", { className: "border-b border-slate-700 px-6 py-6 sm:px-8", children: [
+      /* @__PURE__ */ jsx("h2", { className: "pr-12 text-3xl font-bold text-white", style: { fontFamily: "var(--font-display)" }, children: title }),
+      /* @__PURE__ */ jsx("p", { className: "mt-3 max-w-2xl text-sm leading-relaxed text-slate-400", children: description })
+    ] }),
+    /* @__PURE__ */ jsx("div", { className: "px-6 py-6 sm:px-8", children: /* @__PURE__ */ jsx(
+      QuoteRequestForm,
+      {
+        lockedInquiryType,
+        lockedInquirySubject,
+        lockedInquirySource,
+        analyticsFormName,
+        submitLabel,
+        successTitle,
+        successMessage,
+        successChecklist,
+        onSuccessSecondaryAction: onClose,
+        successSecondaryLabel: "Close"
+      }
+    ) })
+  ] }) });
+}
 function BlogPostPage() {
   const { id } = useParams();
+  const [isInquiryOpen, setIsInquiryOpen] = useState(false);
   const post = blogPosts.find((p) => p.id === id);
   if (!post) {
     return /* @__PURE__ */ jsxs("div", { className: "bg-slate-900 min-h-screen pt-32 pb-20 text-center text-slate-300", children: [
@@ -2007,6 +2369,7 @@ function BlogPostPage() {
     ] });
   }
   const relatedProducts = post.relatedProducts.map((productId) => productPages.find((product) => product.id === productId)).filter((product) => Boolean(product));
+  const { relatedSolutions, relatedKnowledge } = getRelatedLinksForBlog(post);
   const relatedResources = post.relatedResources.map((href) => {
     var _a;
     const blogMatch = href.match(/^\/blog\/([^/]+)$/);
@@ -2015,75 +2378,154 @@ function BlogPostPage() {
     const matchingKnowledge = knowledgeMatch ? knowledgePages.find((item) => item.id === knowledgeMatch[1]) : null;
     return {
       href,
-      title: (matchingBlog == null ? void 0 : matchingBlog.title) || (matchingKnowledge == null ? void 0 : matchingKnowledge.title) || ((_a = href.split("/").filter(Boolean).pop()) == null ? void 0 : _a.replace(/-/g, " ")) || href
+      title: (matchingBlog == null ? void 0 : matchingBlog.title) || (matchingKnowledge == null ? void 0 : matchingKnowledge.title) || resolveInternalRouteTitle(href) || ((_a = href.split("/").filter(Boolean).pop()) == null ? void 0 : _a.replace(/-/g, " ")) || href
     };
   });
-  return /* @__PURE__ */ jsx("div", { className: "bg-slate-900 min-h-screen pt-24 pb-20 text-slate-300", children: /* @__PURE__ */ jsxs("div", { className: "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8", children: [
-    /* @__PURE__ */ jsxs(Link, { to: "/blog", className: "inline-flex items-center gap-2 text-slate-400 hover:text-white mb-8 transition-colors", children: [
-      /* @__PURE__ */ jsx(ArrowLeft, { className: "w-4 h-4" }),
-      " Back to Blog"
-    ] }),
-    /* @__PURE__ */ jsxs("article", { className: "bg-slate-800 border border-slate-700 rounded-xl overflow-hidden shadow-2xl", children: [
-      post.imageUrl && /* @__PURE__ */ jsx("div", { className: "w-full h-64 sm:h-96", children: /* @__PURE__ */ jsx(
-        "img",
-        {
-          src: post.imageUrl,
-          alt: post.title,
-          className: "w-full h-full object-cover",
-          referrerPolicy: "no-referrer"
-        }
-      ) }),
-      /* @__PURE__ */ jsxs("div", { className: "p-8 sm:p-12", children: [
-        /* @__PURE__ */ jsxs("div", { className: "flex flex-wrap items-center gap-4 text-sm text-slate-400 mb-8 border-b border-slate-700 pb-8", children: [
-          /* @__PURE__ */ jsxs("span", { className: "flex items-center gap-1 bg-slate-900 px-3 py-1 rounded-full border border-slate-700", children: [
-            /* @__PURE__ */ jsx(Tag, { className: "w-4 h-4 text-blue-400" }),
-            post.category
+  return /* @__PURE__ */ jsxs("div", { className: "bg-slate-900 min-h-screen pt-24 pb-20 text-slate-300", children: [
+    /* @__PURE__ */ jsx(
+      QuoteRequestModal,
+      {
+        isOpen: isInquiryOpen,
+        onClose: () => setIsInquiryOpen(false),
+        title: `Discuss ${post.title}`,
+        description: "Use this form to ask for matching products, solution fit, or a quotation path related to this article.",
+        lockedInquiryType: "Blog Inquiry",
+        lockedInquirySubject: post.title,
+        lockedInquirySource: `/blog/${post.id}`,
+        analyticsFormName: "blog_inquiry_modal",
+        submitLabel: "Request Recommendation",
+        successTitle: "Article Inquiry Received",
+        successMessage: "We received your article-driven inquiry and will reply with the most relevant hardware or solution path.",
+        successChecklist: [
+          "Your inquiry stays linked to this article topic for internal triage.",
+          "We will normally reply with matching products, solution fit, or next technical questions.",
+          "Include quantity, network type, and protocol scope if you submit another request."
+        ]
+      }
+    ),
+    /* @__PURE__ */ jsxs("div", { className: "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8", children: [
+      /* @__PURE__ */ jsxs(Link, { to: "/blog", className: "inline-flex items-center gap-2 text-slate-400 hover:text-white mb-8 transition-colors", children: [
+        /* @__PURE__ */ jsx(ArrowLeft, { className: "w-4 h-4" }),
+        " Back to Blog"
+      ] }),
+      /* @__PURE__ */ jsxs("article", { className: "bg-slate-800 border border-slate-700 rounded-xl overflow-hidden shadow-2xl", children: [
+        /* @__PURE__ */ jsx("div", { className: "w-full h-64 sm:h-96", children: /* @__PURE__ */ jsx(
+          "img",
+          {
+            src: post.imageUrl,
+            alt: post.title,
+            className: "w-full h-full object-cover",
+            referrerPolicy: "no-referrer"
+          }
+        ) }),
+        /* @__PURE__ */ jsxs("div", { className: "p-8 sm:p-12", children: [
+          /* @__PURE__ */ jsxs("div", { className: "flex flex-wrap items-center gap-4 text-sm text-slate-400 mb-8 border-b border-slate-700 pb-8", children: [
+            /* @__PURE__ */ jsxs("span", { className: "flex items-center gap-1 bg-slate-900 px-3 py-1 rounded-full border border-slate-700", children: [
+              /* @__PURE__ */ jsx(Tag, { className: "w-4 h-4 text-blue-400" }),
+              post.category
+            ] }),
+            /* @__PURE__ */ jsxs("span", { className: "flex items-center gap-1", children: [
+              /* @__PURE__ */ jsx(Calendar, { className: "w-4 h-4 text-blue-400" }),
+              post.date
+            ] }),
+            /* @__PURE__ */ jsxs("span", { className: "flex items-center gap-1", children: [
+              /* @__PURE__ */ jsx(User, { className: "w-4 h-4 text-blue-400" }),
+              post.author
+            ] })
           ] }),
-          /* @__PURE__ */ jsxs("span", { className: "flex items-center gap-1", children: [
-            /* @__PURE__ */ jsx(Calendar, { className: "w-4 h-4 text-blue-400" }),
-            post.date
-          ] }),
-          /* @__PURE__ */ jsxs("span", { className: "flex items-center gap-1", children: [
-            /* @__PURE__ */ jsx(User, { className: "w-4 h-4 text-blue-400" }),
-            post.author
-          ] })
-        ] }),
-        /* @__PURE__ */ jsx("div", { className: "prose prose-invert prose-blue max-w-none prose-headings:font-display prose-h1:text-3xl prose-h1:text-white prose-h2:text-2xl prose-h2:text-slate-100 prose-h2:mt-8 prose-h2:mb-4 prose-p:text-slate-300 prose-p:leading-relaxed prose-p:mb-6 prose-li:text-slate-300 prose-li:mb-2 prose-ul:list-disc prose-ul:pl-5 prose-ul:mb-6 prose-strong:text-white", children: /* @__PURE__ */ jsx(MarkdownContent, { children: post.content }) }),
-        (relatedProducts.length > 0 || relatedResources.length > 0) && /* @__PURE__ */ jsxs("div", { className: "mt-12 grid grid-cols-1 gap-8 border-t border-slate-700 pt-8", children: [
-          relatedProducts.length > 0 && /* @__PURE__ */ jsxs("section", { children: [
-            /* @__PURE__ */ jsx("h2", { className: "text-2xl font-bold text-white mb-5", style: { fontFamily: "var(--font-display)" }, children: "Related Products" }),
-            /* @__PURE__ */ jsx("div", { className: "grid grid-cols-1 gap-3", children: relatedProducts.map((product) => /* @__PURE__ */ jsxs(
-              Link,
+          /* @__PURE__ */ jsx("div", { className: "prose prose-invert prose-blue max-w-none prose-headings:font-display prose-h1:text-3xl prose-h1:text-white prose-h2:text-2xl prose-h2:text-slate-100 prose-h2:mt-8 prose-h2:mb-4 prose-p:text-slate-300 prose-p:leading-relaxed prose-p:mb-6 prose-li:text-slate-300 prose-li:mb-2 prose-ul:list-disc prose-ul:pl-5 prose-ul:mb-6 prose-strong:text-white", children: /* @__PURE__ */ jsx(MarkdownContent, { children: post.content }) }),
+          /* @__PURE__ */ jsx("section", { className: "mt-12 rounded-xl border border-blue-500/20 bg-blue-500/10 p-6 sm:p-8", children: /* @__PURE__ */ jsxs("div", { className: "flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between", children: [
+            /* @__PURE__ */ jsxs("div", { className: "max-w-2xl", children: [
+              /* @__PURE__ */ jsx("p", { className: "mb-2 text-xs font-bold uppercase tracking-[0.22em] text-blue-300", children: "Need A Hardware Recommendation?" }),
+              /* @__PURE__ */ jsx("h2", { className: "text-2xl font-bold text-white", style: { fontFamily: "var(--font-display)" }, children: "Turn this article into a project conversation" }),
+              /* @__PURE__ */ jsx("p", { className: "mt-3 text-sm leading-relaxed text-slate-300", children: "Tell us your application, network type, protocol scope, and target quantity. We will map this topic to the right IoTEdges product or solution path." })
+            ] }),
+            /* @__PURE__ */ jsxs("div", { className: "flex flex-wrap gap-4", children: [
+              /* @__PURE__ */ jsxs(
+                "button",
+                {
+                  type: "button",
+                  onClick: () => setIsInquiryOpen(true),
+                  "data-analytics-event": "cta_click",
+                  "data-analytics-category": "blog",
+                  "data-analytics-label": `Blog Inquiry - ${post.title}`,
+                  "data-analytics-destination": "blog_inquiry_modal",
+                  className: "inline-flex items-center gap-2 rounded bg-white px-5 py-3 text-xs font-bold uppercase tracking-widest text-slate-950 transition-all hover:bg-slate-200",
+                  children: [
+                    "Request Recommendation ",
+                    /* @__PURE__ */ jsx(ArrowRight, { className: "w-4 h-4" })
+                  ]
+                }
+              ),
+              /* @__PURE__ */ jsxs(
+                Link,
+                {
+                  to: "/contact",
+                  "data-analytics-event": "cta_click",
+                  "data-analytics-category": "blog",
+                  "data-analytics-label": `Blog Contact - ${post.title}`,
+                  "data-analytics-destination": "/contact",
+                  className: "inline-flex items-center gap-2 rounded border border-slate-600 px-5 py-3 text-xs font-bold uppercase tracking-widest text-slate-100 transition-all hover:bg-slate-800",
+                  children: [
+                    "Go To Contact ",
+                    /* @__PURE__ */ jsx(ArrowRight, { className: "w-4 h-4" })
+                  ]
+                }
+              )
+            ] })
+          ] }) }),
+          (relatedProducts.length > 0 || relatedResources.length > 0 || relatedSolutions.length > 0 || relatedKnowledge.length > 0) && /* @__PURE__ */ jsxs("div", { className: "mt-12 grid grid-cols-1 gap-8 border-t border-slate-700 pt-8", children: [
+            relatedProducts.length > 0 && /* @__PURE__ */ jsxs("section", { children: [
+              /* @__PURE__ */ jsx("h2", { className: "text-2xl font-bold text-white mb-5", style: { fontFamily: "var(--font-display)" }, children: "Related Products" }),
+              /* @__PURE__ */ jsx("div", { className: "grid grid-cols-1 gap-3", children: relatedProducts.map((product) => /* @__PURE__ */ jsxs(
+                Link,
+                {
+                  to: `/products/${product.id}`,
+                  className: "flex items-center justify-between gap-4 bg-slate-900 border border-slate-700 p-4 rounded-lg text-sm font-bold text-slate-200 hover:border-blue-500/50 hover:text-blue-300 transition-colors",
+                  children: [
+                    product.title,
+                    /* @__PURE__ */ jsx(ArrowRight, { className: "w-4 h-4 shrink-0" })
+                  ]
+                },
+                product.id
+              )) })
+            ] }),
+            relatedResources.length > 0 && /* @__PURE__ */ jsxs("section", { children: [
+              /* @__PURE__ */ jsx("h2", { className: "text-2xl font-bold text-white mb-5", style: { fontFamily: "var(--font-display)" }, children: "Related Resources" }),
+              /* @__PURE__ */ jsx("div", { className: "grid grid-cols-1 gap-3", children: relatedResources.map((resource) => /* @__PURE__ */ jsxs(
+                Link,
+                {
+                  to: resource.href,
+                  className: "flex items-center justify-between gap-4 bg-slate-900 border border-slate-700 p-4 rounded-lg text-sm font-bold text-slate-200 hover:border-blue-500/50 hover:text-blue-300 transition-colors",
+                  children: [
+                    resource.title,
+                    /* @__PURE__ */ jsx(ArrowRight, { className: "w-4 h-4 shrink-0" })
+                  ]
+                },
+                resource.href
+              )) })
+            ] }),
+            /* @__PURE__ */ jsx(
+              RelatedLinksSection,
               {
-                to: `/products/${product.id}`,
-                className: "flex items-center justify-between gap-4 bg-slate-900 border border-slate-700 p-4 rounded-lg text-sm font-bold text-slate-200 hover:border-blue-500/50 hover:text-blue-300 transition-colors",
-                children: [
-                  product.title,
-                  /* @__PURE__ */ jsx(ArrowRight, { className: "w-4 h-4 shrink-0" })
-                ]
-              },
-              product.id
-            )) })
-          ] }),
-          relatedResources.length > 0 && /* @__PURE__ */ jsxs("section", { children: [
-            /* @__PURE__ */ jsx("h2", { className: "text-2xl font-bold text-white mb-5", style: { fontFamily: "var(--font-display)" }, children: "Related Resources" }),
-            /* @__PURE__ */ jsx("div", { className: "grid grid-cols-1 gap-3", children: relatedResources.map((resource) => /* @__PURE__ */ jsxs(
-              Link,
+                title: "Related Solutions",
+                description: "Application pages that align with the products or routes referenced in this article.",
+                links: relatedSolutions
+              }
+            ),
+            /* @__PURE__ */ jsx(
+              RelatedLinksSection,
               {
-                to: resource.href,
-                className: "flex items-center justify-between gap-4 bg-slate-900 border border-slate-700 p-4 rounded-lg text-sm font-bold text-slate-200 hover:border-blue-500/50 hover:text-blue-300 transition-colors",
-                children: [
-                  resource.title,
-                  /* @__PURE__ */ jsx(ArrowRight, { className: "w-4 h-4 shrink-0" })
-                ]
-              },
-              resource.href
-            )) })
+                title: "Related Knowledge",
+                description: "Technical guides that support the protocol, wiring, or deployment topics in this article.",
+                links: relatedKnowledge
+              }
+            )
           ] })
         ] })
       ] })
     ] })
-  ] }) });
+  ] });
 }
 const getStatusStyles$1 = (status) => {
   switch (status) {
@@ -2154,7 +2596,7 @@ function ProductList() {
       /* @__PURE__ */ jsx("div", { className: "grid grid-cols-1 lg:grid-cols-3 gap-6", children: productPages.map((product) => {
         const meta = getProductListMeta(product);
         return /* @__PURE__ */ jsxs("article", { className: "bg-slate-900 border border-slate-800 rounded-lg overflow-hidden flex flex-col hover:border-blue-500/50 transition-colors", children: [
-          /* @__PURE__ */ jsx(Link, { to: `/products/${product.id}`, className: "block aspect-[16/10] overflow-hidden border-b border-slate-800 bg-slate-950", children: product.imageUrl ? /* @__PURE__ */ jsx(
+          /* @__PURE__ */ jsx(Link, { to: `/products/${product.id}`, className: "block aspect-[16/10] overflow-hidden border-b border-slate-800 bg-slate-950", children: /* @__PURE__ */ jsx(
             "img",
             {
               src: product.imageUrl,
@@ -2162,7 +2604,7 @@ function ProductList() {
               className: "h-full w-full object-cover transition-transform duration-500 hover:scale-105",
               referrerPolicy: "no-referrer"
             }
-          ) : /* @__PURE__ */ jsx("div", { className: "flex h-full w-full items-center justify-center bg-slate-950 text-sm font-bold uppercase tracking-[0.2em] text-slate-500", children: product.model }) }),
+          ) }),
           /* @__PURE__ */ jsxs("div", { className: "p-7 flex flex-1 flex-col", children: [
             /* @__PURE__ */ jsxs("div", { className: "flex items-center justify-between gap-4 mb-5", children: [
               /* @__PURE__ */ jsx("span", { className: "text-[10px] uppercase tracking-[0.2em] text-blue-400 font-bold", children: product.category }),
@@ -2198,44 +2640,6 @@ function ProductList() {
     ] })
   ] });
 }
-function QuoteRequestModal({
-  isOpen,
-  onClose,
-  title,
-  description,
-  lockedInquiryType,
-  lockedInquirySubject,
-  lockedInquirySource,
-  analyticsFormName
-}) {
-  if (!isOpen) return null;
-  return /* @__PURE__ */ jsx("div", { className: "fixed inset-0 z-[80] flex items-center justify-center bg-slate-950/80 px-4 py-6 backdrop-blur-sm", children: /* @__PURE__ */ jsxs("div", { className: "relative w-full max-w-3xl rounded-2xl border border-slate-700 bg-slate-800 shadow-2xl", children: [
-    /* @__PURE__ */ jsx(
-      "button",
-      {
-        type: "button",
-        onClick: onClose,
-        "aria-label": "Close inquiry form",
-        className: "absolute right-4 top-4 inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-700 bg-slate-900 text-slate-300 transition hover:bg-slate-700 hover:text-white",
-        children: /* @__PURE__ */ jsx(X, { className: "h-5 w-5" })
-      }
-    ),
-    /* @__PURE__ */ jsxs("div", { className: "border-b border-slate-700 px-6 py-6 sm:px-8", children: [
-      /* @__PURE__ */ jsx("h2", { className: "pr-12 text-3xl font-bold text-white", style: { fontFamily: "var(--font-display)" }, children: title }),
-      /* @__PURE__ */ jsx("p", { className: "mt-3 max-w-2xl text-sm leading-relaxed text-slate-400", children: description })
-    ] }),
-    /* @__PURE__ */ jsx("div", { className: "px-6 py-6 sm:px-8", children: /* @__PURE__ */ jsx(
-      QuoteRequestForm,
-      {
-        lockedInquiryType,
-        lockedInquirySubject,
-        lockedInquirySource,
-        analyticsFormName,
-        onSubmitted: onClose
-      }
-    ) })
-  ] }) });
-}
 const getStatusStyles = (status) => {
   switch (status) {
     case "Published":
@@ -2260,6 +2664,7 @@ function ProductDetail() {
     "Protocol or device list such as Modbus meter, PLC, inverter, or sensor",
     "Any OEM, logo, enclosure, or firmware customization request"
   ];
+  const { relatedSolutions, relatedKnowledge, relatedBlog } = product ? getRelatedLinksForProduct(product) : { relatedSolutions: [], relatedKnowledge: [], relatedBlog: [] };
   if (!product) {
     return /* @__PURE__ */ jsxs("div", { className: "bg-slate-900 min-h-screen pt-32 pb-20 text-center text-slate-300", children: [
       /* @__PURE__ */ jsx("h1", { className: "text-3xl font-bold text-white mb-4", children: "Product Not Found" }),
@@ -2277,7 +2682,15 @@ function ProductDetail() {
         lockedInquiryType: "Product Inquiry",
         lockedInquirySubject: `${product.model} - ${product.title}`,
         lockedInquirySource: `/products/${product.id}`,
-        analyticsFormName: "product_inquiry_modal"
+        analyticsFormName: "product_inquiry_modal",
+        submitLabel: "Inquire This Product",
+        successTitle: "Product Inquiry Received",
+        successMessage: "We received your product inquiry and will reply with configuration fit, next technical questions, or quotation details.",
+        successChecklist: [
+          "Your request stays linked to this product model and page context.",
+          "We will usually confirm fit, quantity path, and any missing technical requirements.",
+          "If needed, submit another inquiry with target market, protocol list, and I/O count."
+        ]
       }
     ),
     /* @__PURE__ */ jsxs("div", { className: "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8", children: [
@@ -2286,7 +2699,7 @@ function ProductDetail() {
         " Back to Products"
       ] }),
       /* @__PURE__ */ jsxs("article", { className: "bg-slate-900 border border-slate-800 rounded-lg overflow-hidden shadow-2xl", children: [
-        /* @__PURE__ */ jsx("div", { className: "aspect-[16/8] w-full overflow-hidden border-b border-slate-800 bg-slate-950", children: product.imageUrl ? /* @__PURE__ */ jsx(
+        /* @__PURE__ */ jsx("div", { className: "aspect-[16/8] w-full overflow-hidden border-b border-slate-800 bg-slate-950", children: /* @__PURE__ */ jsx(
           "img",
           {
             src: product.imageUrl,
@@ -2294,10 +2707,7 @@ function ProductDetail() {
             className: "h-full w-full object-cover",
             referrerPolicy: "no-referrer"
           }
-        ) : /* @__PURE__ */ jsx("div", { className: "flex h-full w-full items-center justify-center bg-slate-950 text-center", children: /* @__PURE__ */ jsxs("div", { children: [
-          /* @__PURE__ */ jsx("div", { className: "text-[10px] font-bold uppercase tracking-[0.24em] text-slate-500", children: product.category }),
-          /* @__PURE__ */ jsx("div", { className: "mt-3 text-3xl font-bold text-white", style: { fontFamily: "var(--font-display)" }, children: product.model })
-        ] }) }) }),
+        ) }),
         /* @__PURE__ */ jsxs("header", { className: "p-8 sm:p-12 border-b border-slate-800", children: [
           /* @__PURE__ */ jsxs("div", { className: "flex flex-wrap items-center gap-3 mb-6", children: [
             /* @__PURE__ */ jsxs("span", { className: "inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.2em] text-blue-300 font-bold bg-blue-500/10 border border-blue-500/20 px-3 py-1 rounded-full", children: [
@@ -2408,6 +2818,32 @@ function ProductDetail() {
             ] }, item.question)) })
           ] }),
           /* @__PURE__ */ jsx("div", { className: "prose prose-invert prose-blue max-w-none prose-headings:font-display prose-h2:text-2xl prose-h2:text-white prose-h2:mt-10 prose-h2:mb-4 prose-h3:text-xl prose-h3:text-slate-100 prose-p:text-slate-300 prose-p:leading-relaxed prose-li:text-slate-300 prose-strong:text-white prose-table:text-sm prose-th:text-white prose-td:text-slate-300 prose-a:text-blue-400", children: /* @__PURE__ */ jsx(MarkdownContent, { children: product.content }) }),
+          (relatedSolutions.length > 0 || relatedKnowledge.length > 0 || relatedBlog.length > 0) && /* @__PURE__ */ jsxs("section", { className: "mt-12 grid grid-cols-1 gap-8 border-t border-slate-800 pt-8", children: [
+            /* @__PURE__ */ jsx(
+              RelatedLinksSection,
+              {
+                title: "Related Solutions",
+                description: "Application pages that commonly map to this product family.",
+                links: relatedSolutions
+              }
+            ),
+            /* @__PURE__ */ jsx(
+              RelatedLinksSection,
+              {
+                title: "Related Knowledge",
+                description: "Technical guides and wiring notes tied to this model.",
+                links: relatedKnowledge
+              }
+            ),
+            /* @__PURE__ */ jsx(
+              RelatedLinksSection,
+              {
+                title: "Related Articles",
+                description: "Buyer-facing articles that help qualify this product in real projects.",
+                links: relatedBlog
+              }
+            )
+          ] }),
           /* @__PURE__ */ jsx("section", { className: "mt-12 border-t border-slate-800 pt-8", children: /* @__PURE__ */ jsxs("div", { className: "rounded-lg border border-blue-500/20 bg-blue-500/10 p-5", children: [
             /* @__PURE__ */ jsxs("div", { className: "mb-5 flex flex-wrap items-center justify-between gap-4", children: [
               /* @__PURE__ */ jsxs("div", { children: [
@@ -2451,9 +2887,9 @@ function ProductDetail() {
     ] })
   ] });
 }
-const __vite_glob_0_0$1 = "---\nid: accessories-overview\neyebrow: Project Accessories\ntitle: Industrial IoT accessories for RTU, gateway and Remote IO projects\ndescription: Recommended and compatible accessories for IoTEdges project deployments, including 4G antennas, SIM/APN setup, RS485 wiring, DIN rail power supplies, relay interfaces, sensors, meters and gate opener installation parts.\noverviewCards:\n  - title: Project accessory guidance\n    text: Accessories are listed as recommended or compatible project items. Final selection depends on site wiring, cabinet design and local regulations.\n    iconKey: shield-check\n  - title: Installation-ready thinking\n    text: The goal is to help integrators understand the complete bill of materials beyond the main RTU, gateway or Remote IO module.\n    iconKey: cable\n  - title: Export-friendly support\n    text: For overseas projects, antenna, SIM, APN, power and wiring notes often decide whether installation succeeds quickly.\n    iconKey: radio-tower\ngroups:\n  - title: 4G, WiFi And RF Accessories\n    iconKey: radio-tower\n    description: Connectivity accessories for 4G RTUs, 4G gate openers, WiFi gateways and cabinet installations.\n    items:\n      - 4G LTE external antenna\n      - WiFi antenna\n      - Antenna extension cable\n      - SMA connector and cabinet feed-through\n      - IoT SIM / M2M SIM selection guidance\n      - APN and operator setup checklist\n  - title: RS485 And Modbus Wiring\n    iconKey: cable\n    description: Field wiring accessories for Modbus RTU, RS485 sensor networks and remote IO cabinets.\n    items:\n      - Shielded twisted-pair RS485 cable\n      - Pluggable terminal blocks\n      - RS485 surge protector\n      - RS485 isolation module\n      - End-of-line termination resistor\n      - Grounding and cable shielding accessories\n  - title: Power And Cabinet Installation\n    iconKey: zap\n    description: Power supply and panel accessories for industrial IoT gateway, RTU and Remote IO deployments.\n    items:\n      - 12V / 24V DC DIN rail power supply\n      - DIN rail mounting kit\n      - Industrial enclosure or control cabinet\n      - Fuse holder and terminal distribution\n      - Cable gland and strain relief\n      - Small UPS or backup power option\n  - title: DI, DO, Relay And Control Accessories\n    iconKey: sliders-horizontal\n    description: Interface accessories for digital input, relay output, dry contact and field control applications.\n    items:\n      - Interposing relay\n      - Contactor interface\n      - Dry contact signal wiring\n      - Alarm horn or indicator lamp\n      - Exit button\n      - Door or gate magnetic contact\n  - title: Sensors And Meters\n    iconKey: gauge\n    description: Project sensors and meters that commonly connect to RTUs, gateways and Remote IO modules.\n    items:\n      - 4-20mA pressure transmitter\n      - Level sensor\n      - Flow meter\n      - Temperature and humidity sensor\n      - Modbus energy meter\n      - Split-core CT clamp\n  - title: Gate Opener Project Accessories\n    iconKey: door-open\n    description: Recommended accessories for 4G gate opener, remote access controller and dry-contact relay projects.\n    items:\n      - 4G cabinet antenna\n      - Gate status contact\n      - Exit button\n      - Relay terminal wiring kit\n      - Weatherproof enclosure\n      - Installer SIM / APN checklist\nselectionGuides:\n  - title: How to Choose a 4G Antenna for Industrial RTU and Gate Opener Projects\n    href: /knowledge/4g-antenna-industrial-rtu\n    summary: LTE antenna, SIM, APN, cabinet mounting and weak-signal site notes for 4G products.\n  - title: RS485 Cable and Shielding Guide for Modbus RTU Installations\n    href: /knowledge/rs485-cable-shielding-guide\n    summary: Cable, shielding, grounding, termination and surge protection notes for RS485 projects.\n  - title: DIN Rail Power Supply Guide for Industrial IoT Gateways and RTUs\n    href: /knowledge/din-rail-power-supply-industrial-iot\n    summary: 12V/24V DC power, cabinet terminals, fuses and backup power planning.\n  - title: Dry Contact Relay Wiring for 4G Gate Openers and Remote Access Controllers\n    href: /knowledge/dry-contact-relay-wiring-gate-opener\n    summary: Relay COM/NO wiring, gate status contacts, exit buttons and safe integration boundaries.\n  - title: 4-20mA Pressure Sensor Wiring for RTU and Remote IO Projects\n    href: /knowledge/4-20ma-pressure-sensor-rtu-wiring\n    summary: Pressure transmitter wiring and scaling notes for pump, water and irrigation monitoring.\nproductAccessoryMap:\n  - product: IEAC-140 4G GSM Gate Opener\n    href: /products/ieac-140-4g-gsm-gate-opener\n    accessories: 4G antenna, IoT SIM, door contact, exit button, relay wiring terminals, weatherproof cabinet\n  - product: IER-140 / IER-141 / IER-142 4G RTU\n    href: /products/ier-140-4g-remote-relay-rtu\n    accessories: 4G antenna, DIN rail power supply, RS485 cable, pressure/level sensors, relay or contactor interface\n  - product: IEG-100 / IEG-120 Industrial IoT Gateway\n    href: /products/ieg-100-ethernet-industrial-iot-gateway\n    accessories: RS485 cable, Modbus energy meter, terminal blocks, Ethernet patch cable, WiFi antenna for WiFi models\n  - product: IEIO-100 Modbus Remote IO Module\n    href: /products/ieio-100-modbus-remote-io-module\n    accessories: Terminal blocks, shielded RS485 wiring, DI contacts, relay loads, 4-20mA sensors, DIN rail enclosure\n  - product: AI IoT Dashboard\n    href: /products/ai-iot-dashboard-industrial-operations-platform\n    accessories: Ingest token plan, gateway binding, SIM/APN checklist, device labels, register/metric mapping worksheet\nprojectKits:\n  - title: 4G Gate Opener Kit\n    iconKey: door-open\n    contents:\n      - IEAC-140 controller\n      - 4G antenna\n      - IoT SIM guidance\n      - gate status contact\n      - exit button wiring\n      - relay pulse setup\n  - title: Modbus MQTT Gateway Kit\n    iconKey: router\n    contents:\n      - IEG gateway\n      - RS485 cable\n      - Modbus meter or instrument\n      - terminal blocks\n      - MQTT broker settings\n      - register map worksheet\n  - title: Pump And Valve RTU Kit\n    iconKey: server\n    contents:\n      - IER-141 RTU\n      - 4G antenna\n      - pressure transmitter\n      - float switch\n      - relay interface\n      - pump alarm wiring\n  - title: Energy Monitoring Kit\n    iconKey: cpu\n    contents:\n      - Modbus energy meter\n      - CT clamps\n      - IEG gateway\n      - RS485 wiring\n      - 24V power supply\n      - dashboard mapping\nctaLabel: Request accessory BOM\nctaHref: /contact\n---\n\nInternal note: keep accessories content structured and let the page layout stay code-controlled.\n";
-const markdownModules$1 = /* @__PURE__ */ Object.assign({
-  "../content/accessories/accessories-overview.md": __vite_glob_0_0$1
+const __vite_glob_0_0 = "---\nid: accessories-overview\neyebrow: Project Accessories\ntitle: Industrial IoT accessories for RTU, gateway and Remote IO projects\ndescription: Recommended and compatible accessories for IoTEdges project deployments, including 4G antennas, SIM/APN setup, RS485 wiring, DIN rail power supplies, relay interfaces, sensors, meters and gate opener installation parts.\noverviewCards:\n  - title: Project accessory guidance\n    text: Accessories are listed as recommended or compatible project items. Final selection depends on site wiring, cabinet design and local regulations.\n    iconKey: shield-check\n  - title: Installation-ready thinking\n    text: The goal is to help integrators understand the complete bill of materials beyond the main RTU, gateway or Remote IO module.\n    iconKey: cable\n  - title: Export-friendly support\n    text: For overseas projects, antenna, SIM, APN, power and wiring notes often decide whether installation succeeds quickly.\n    iconKey: radio-tower\ngroups:\n  - title: 4G, WiFi And RF Accessories\n    iconKey: radio-tower\n    description: Connectivity accessories for 4G RTUs, 4G gate openers, WiFi gateways and cabinet installations.\n    items:\n      - 4G LTE external antenna\n      - WiFi antenna\n      - Antenna extension cable\n      - SMA connector and cabinet feed-through\n      - IoT SIM / M2M SIM selection guidance\n      - APN and operator setup checklist\n  - title: RS485 And Modbus Wiring\n    iconKey: cable\n    description: Field wiring accessories for Modbus RTU, RS485 sensor networks and remote IO cabinets.\n    items:\n      - Shielded twisted-pair RS485 cable\n      - Pluggable terminal blocks\n      - RS485 surge protector\n      - RS485 isolation module\n      - End-of-line termination resistor\n      - Grounding and cable shielding accessories\n  - title: Power And Cabinet Installation\n    iconKey: zap\n    description: Power supply and panel accessories for industrial IoT gateway, RTU and Remote IO deployments.\n    items:\n      - 12V / 24V DC DIN rail power supply\n      - DIN rail mounting kit\n      - Industrial enclosure or control cabinet\n      - Fuse holder and terminal distribution\n      - Cable gland and strain relief\n      - Small UPS or backup power option\n  - title: DI, DO, Relay And Control Accessories\n    iconKey: sliders-horizontal\n    description: Interface accessories for digital input, relay output, dry contact and field control applications.\n    items:\n      - Interposing relay\n      - Contactor interface\n      - Dry contact signal wiring\n      - Alarm horn or indicator lamp\n      - Exit button\n      - Door or gate magnetic contact\n  - title: Sensors And Meters\n    iconKey: gauge\n    description: Project sensors and meters that commonly connect to RTUs, gateways and Remote IO modules.\n    items:\n      - 4-20mA pressure transmitter\n      - Level sensor\n      - Flow meter\n      - Temperature and humidity sensor\n      - Modbus energy meter\n      - Split-core CT clamp\n  - title: Gate Opener Project Accessories\n    iconKey: door-open\n    description: Recommended accessories for 4G gate opener, remote access controller and dry-contact relay projects.\n    items:\n      - 4G cabinet antenna\n      - Gate status contact\n      - Exit button\n      - Relay terminal wiring kit\n      - Weatherproof enclosure\n      - Installer SIM / APN checklist\nselectionGuides:\n  - title: How to Choose a 4G Antenna for Industrial RTU and Gate Opener Projects\n    href: /knowledge/4g-antenna-industrial-rtu\n    summary: LTE antenna, SIM, APN, cabinet mounting and weak-signal site notes for 4G products.\n  - title: RS485 Cable and Shielding Guide for Modbus RTU Installations\n    href: /knowledge/rs485-cable-shielding-guide\n    summary: Cable, shielding, grounding, termination and surge protection notes for RS485 projects.\n  - title: DIN Rail Power Supply Guide for Industrial IoT Gateways and RTUs\n    href: /knowledge/din-rail-power-supply-industrial-iot\n    summary: 12V/24V DC power, cabinet terminals, fuses and backup power planning.\n  - title: Dry Contact Relay Wiring for 4G Gate Openers and Remote Access Controllers\n    href: /knowledge/dry-contact-relay-wiring-gate-opener\n    summary: Relay COM/NO wiring, gate status contacts, exit buttons and safe integration boundaries.\n  - title: 4-20mA Pressure Sensor Wiring for RTU and Remote IO Projects\n    href: /knowledge/4-20ma-pressure-sensor-rtu-wiring\n    summary: Pressure transmitter wiring and scaling notes for pump, water and irrigation monitoring.\nproductAccessoryMap:\n  - product: IEAC-140 4G GSM Gate Opener\n    href: /products/ieac-140-4g-gsm-gate-opener\n    accessories: 4G antenna, IoT SIM, door contact, exit button, relay wiring terminals, weatherproof cabinet\n  - product: IER-140 / IER-141 / IER-142 4G RTU\n    href: /products/ier-140-4g-remote-relay-rtu\n    accessories: 4G antenna, DIN rail power supply, RS485 cable, pressure/level sensors, relay or contactor interface\n  - product: IEG-100 / IEG-120 Industrial IoT Gateway\n    href: /products/ieg-100-ethernet-industrial-iot-gateway\n    accessories: RS485 cable, Modbus energy meter, terminal blocks, Ethernet patch cable, WiFi antenna for WiFi models\n  - product: IEIO-100 Modbus Remote IO Module\n    href: /products/ieio-100-modbus-remote-io-module\n    accessories: Terminal blocks, shielded RS485 wiring, DI contacts, relay loads, 4-20mA sensors, DIN rail enclosure\n  - product: AI IoT Dashboard\n    href: /products/ai-iot-dashboard-industrial-operations-platform\n    accessories: Ingest token plan, gateway binding, SIM/APN checklist, device labels, register/metric mapping worksheet\nprojectKits:\n  - title: 4G Gate Opener Kit\n    iconKey: door-open\n    contents:\n      - IEAC-140 controller\n      - 4G antenna\n      - IoT SIM guidance\n      - gate status contact\n      - exit button wiring\n      - relay pulse setup\n  - title: Modbus MQTT Gateway Kit\n    iconKey: router\n    contents:\n      - IEG gateway\n      - RS485 cable\n      - Modbus meter or instrument\n      - terminal blocks\n      - MQTT broker settings\n      - register map worksheet\n  - title: Pump And Valve RTU Kit\n    iconKey: server\n    contents:\n      - IER-141 RTU\n      - 4G antenna\n      - pressure transmitter\n      - float switch\n      - relay interface\n      - pump alarm wiring\n  - title: Energy Monitoring Kit\n    iconKey: cpu\n    contents:\n      - Modbus energy meter\n      - CT clamps\n      - IEG gateway\n      - RS485 wiring\n      - 24V power supply\n      - dashboard mapping\nctaLabel: Request accessory BOM\nctaHref: /contact\n---\n\nInternal note: keep accessories content structured and let the page layout stay code-controlled.\n";
+const markdownModules = /* @__PURE__ */ Object.assign({
+  "../content/accessories/accessories-overview.md": __vite_glob_0_0
 });
 function readOverviewCards(value) {
   if (!Array.isArray(value)) return [];
@@ -2540,7 +2976,7 @@ const defaultAccessoryPage = {
   ctaLabel: "Request accessory BOM",
   ctaHref: "/contact"
 };
-const firstMarkdown = Object.values(markdownModules$1)[0];
+const firstMarkdown = Object.values(markdownModules)[0];
 const accessoriesPage = firstMarkdown ? createAccessoryPage(firstMarkdown) : defaultAccessoryPage;
 const accessoryIcons = {
   cable: Cable,
@@ -2678,13 +3114,24 @@ function KnowledgeList() {
           ] }, item.href)) })
         ] })
       ] }),
-      /* @__PURE__ */ jsx("div", { className: "grid grid-cols-1 lg:grid-cols-3 gap-6", children: knowledgePages.map((page) => /* @__PURE__ */ jsxs("article", { className: "bg-slate-900 border border-slate-800 rounded-lg p-7 flex flex-col hover:border-blue-500/50 transition-colors", children: [
-        /* @__PURE__ */ jsx("span", { className: "text-[10px] uppercase tracking-[0.2em] text-blue-400 font-bold mb-5", children: page.category }),
-        /* @__PURE__ */ jsx("h2", { className: "text-2xl font-bold text-white mb-4", style: { fontFamily: "var(--font-display)" }, children: /* @__PURE__ */ jsx(Link, { to: `/knowledge/${page.id}`, className: "hover:text-blue-400 transition-colors", children: page.title }) }),
-        /* @__PURE__ */ jsx("p", { className: "text-slate-400 text-sm leading-relaxed mb-8 flex-1", children: page.excerpt }),
-        /* @__PURE__ */ jsxs(Link, { to: `/knowledge/${page.id}`, className: "inline-flex items-center gap-2 text-xs uppercase tracking-widest font-bold text-blue-400 hover:text-blue-300", children: [
-          "Read guide ",
-          /* @__PURE__ */ jsx(ArrowRight, { className: "w-4 h-4" })
+      /* @__PURE__ */ jsx("div", { className: "grid grid-cols-1 lg:grid-cols-3 gap-6", children: knowledgePages.map((page) => /* @__PURE__ */ jsxs("article", { className: "bg-slate-900 border border-slate-800 rounded-lg overflow-hidden flex flex-col hover:border-blue-500/50 transition-colors", children: [
+        /* @__PURE__ */ jsx(Link, { to: `/knowledge/${page.id}`, className: "block aspect-[16/10] overflow-hidden border-b border-slate-800 bg-slate-950", children: /* @__PURE__ */ jsx(
+          "img",
+          {
+            src: page.imageUrl,
+            alt: page.title,
+            className: "h-full w-full object-cover transition-transform duration-500 hover:scale-105",
+            referrerPolicy: "no-referrer"
+          }
+        ) }),
+        /* @__PURE__ */ jsxs("div", { className: "p-7 flex flex-1 flex-col", children: [
+          /* @__PURE__ */ jsx("span", { className: "text-[10px] uppercase tracking-[0.2em] text-blue-400 font-bold mb-5", children: page.category }),
+          /* @__PURE__ */ jsx("h2", { className: "text-2xl font-bold text-white mb-4", style: { fontFamily: "var(--font-display)" }, children: /* @__PURE__ */ jsx(Link, { to: `/knowledge/${page.id}`, className: "hover:text-blue-400 transition-colors", children: page.title }) }),
+          /* @__PURE__ */ jsx("p", { className: "text-slate-400 text-sm leading-relaxed mb-8 flex-1", children: page.excerpt }),
+          /* @__PURE__ */ jsxs(Link, { to: `/knowledge/${page.id}`, className: "inline-flex items-center gap-2 text-xs uppercase tracking-widest font-bold text-blue-400 hover:text-blue-300", children: [
+            "Read guide ",
+            /* @__PURE__ */ jsx(ArrowRight, { className: "w-4 h-4" })
+          ] })
         ] })
       ] }, page.id)) })
     ] })
@@ -2692,6 +3139,7 @@ function KnowledgeList() {
 }
 function KnowledgeDetail() {
   const { id } = useParams();
+  const [isInquiryOpen, setIsInquiryOpen] = useState(false);
   const page = knowledgePages.find((item) => item.id === id);
   if (!page) {
     return /* @__PURE__ */ jsxs("div", { className: "bg-slate-900 min-h-screen pt-32 pb-20 text-center text-slate-300", children: [
@@ -2700,111 +3148,133 @@ function KnowledgeDetail() {
     ] });
   }
   const relatedProducts = page.relatedProducts.map((productId) => productPages.find((product) => product.id === productId)).filter((product) => Boolean(product));
-  return /* @__PURE__ */ jsx("div", { className: "bg-slate-950 min-h-screen pt-24 pb-20 text-slate-300", children: /* @__PURE__ */ jsxs("div", { className: "max-w-4xl mx-auto px-4 sm:px-6 lg:px-8", children: [
-    /* @__PURE__ */ jsxs(Link, { to: "/knowledge", className: "inline-flex items-center gap-2 text-slate-400 hover:text-white mb-8 transition-colors", children: [
-      /* @__PURE__ */ jsx(ArrowLeft, { className: "w-4 h-4" }),
-      " Back to Knowledge Base"
-    ] }),
-    /* @__PURE__ */ jsxs("article", { className: "bg-slate-900 border border-slate-800 rounded-lg overflow-hidden shadow-2xl", children: [
-      /* @__PURE__ */ jsxs("header", { className: "p-8 sm:p-12 border-b border-slate-800", children: [
-        /* @__PURE__ */ jsxs("span", { className: "inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.2em] text-blue-300 font-bold bg-blue-500/10 border border-blue-500/20 px-3 py-1 rounded-full mb-6", children: [
-          /* @__PURE__ */ jsx(BookOpen, { className: "w-3.5 h-3.5" }),
-          " ",
-          page.category
-        ] }),
-        /* @__PURE__ */ jsx("h1", { className: "text-3xl sm:text-5xl font-extrabold text-white tracking-tight mb-5", style: { fontFamily: "var(--font-display)" }, children: page.title }),
-        /* @__PURE__ */ jsx("p", { className: "text-lg text-slate-400 leading-relaxed", children: page.excerpt })
+  const { relatedSolutions, relatedBlog } = getRelatedLinksForKnowledge(page);
+  return /* @__PURE__ */ jsxs("div", { className: "bg-slate-950 min-h-screen pt-24 pb-20 text-slate-300", children: [
+    /* @__PURE__ */ jsx(
+      QuoteRequestModal,
+      {
+        isOpen: isInquiryOpen,
+        onClose: () => setIsInquiryOpen(false),
+        title: `Request Help For ${page.title}`,
+        description: "Use this form to request hardware matching, wiring review, or a quotation path for the technical topic on this page.",
+        lockedInquiryType: "Knowledge Inquiry",
+        lockedInquirySubject: page.title,
+        lockedInquirySource: `/knowledge/${page.id}`,
+        analyticsFormName: "knowledge_inquiry_modal",
+        submitLabel: "Request Hardware Match",
+        successTitle: "Knowledge Inquiry Received",
+        successMessage: "We received your technical inquiry and will reply with the most relevant product, solution, or wiring follow-up.",
+        successChecklist: [
+          "Your request stays linked to this knowledge page topic.",
+          "We will usually reply with matching hardware, project fit, or missing engineering questions.",
+          "For faster quoting, include country, quantity, uplink, and field I/O scope."
+        ]
+      }
+    ),
+    /* @__PURE__ */ jsxs("div", { className: "max-w-4xl mx-auto px-4 sm:px-6 lg:px-8", children: [
+      /* @__PURE__ */ jsxs(Link, { to: "/knowledge", className: "inline-flex items-center gap-2 text-slate-400 hover:text-white mb-8 transition-colors", children: [
+        /* @__PURE__ */ jsx(ArrowLeft, { className: "w-4 h-4" }),
+        " Back to Knowledge Base"
       ] }),
-      /* @__PURE__ */ jsxs("div", { className: "p-8 sm:p-12", children: [
-        /* @__PURE__ */ jsx("div", { className: "prose prose-invert prose-blue max-w-none prose-headings:font-display prose-h2:text-2xl prose-h2:text-white prose-h2:mt-10 prose-h2:mb-4 prose-h3:text-xl prose-h3:text-slate-100 prose-p:text-slate-300 prose-p:leading-relaxed prose-li:text-slate-300 prose-strong:text-white prose-table:text-sm prose-th:text-white prose-td:text-slate-300 prose-a:text-blue-400", children: /* @__PURE__ */ jsx(MarkdownContent, { children: page.content }) }),
-        relatedProducts.length > 0 && /* @__PURE__ */ jsxs("section", { className: "mt-12 border-t border-slate-800 pt-8", children: [
-          /* @__PURE__ */ jsx("h2", { className: "text-2xl font-bold text-white mb-5", style: { fontFamily: "var(--font-display)" }, children: "Related Products" }),
-          /* @__PURE__ */ jsx("div", { className: "grid grid-cols-1 gap-3", children: relatedProducts.map((product) => /* @__PURE__ */ jsxs(
-            Link,
-            {
-              to: `/products/${product.id}`,
-              className: "flex items-center justify-between gap-4 bg-slate-950 border border-slate-800 p-4 rounded-lg text-sm font-bold text-slate-200 hover:border-blue-500/50 hover:text-blue-300 transition-colors",
-              children: [
-                product.title,
-                /* @__PURE__ */ jsx(ArrowRight, { className: "w-4 h-4 shrink-0" })
-              ]
-            },
-            product.id
-          )) })
+      /* @__PURE__ */ jsxs("article", { className: "bg-slate-900 border border-slate-800 rounded-lg overflow-hidden shadow-2xl", children: [
+        /* @__PURE__ */ jsx("div", { className: "aspect-[16/8] w-full overflow-hidden border-b border-slate-800 bg-slate-950", children: /* @__PURE__ */ jsx(
+          "img",
+          {
+            src: page.imageUrl,
+            alt: page.title,
+            className: "h-full w-full object-cover",
+            referrerPolicy: "no-referrer"
+          }
+        ) }),
+        /* @__PURE__ */ jsxs("header", { className: "p-8 sm:p-12 border-b border-slate-800", children: [
+          /* @__PURE__ */ jsxs("span", { className: "inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.2em] text-blue-300 font-bold bg-blue-500/10 border border-blue-500/20 px-3 py-1 rounded-full mb-6", children: [
+            /* @__PURE__ */ jsx(BookOpen, { className: "w-3.5 h-3.5" }),
+            " ",
+            page.category
+          ] }),
+          /* @__PURE__ */ jsx("h1", { className: "text-3xl sm:text-5xl font-extrabold text-white tracking-tight mb-5", style: { fontFamily: "var(--font-display)" }, children: page.title }),
+          /* @__PURE__ */ jsx("p", { className: "text-lg text-slate-400 leading-relaxed", children: page.excerpt })
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "p-8 sm:p-12", children: [
+          /* @__PURE__ */ jsx("div", { className: "prose prose-invert prose-blue max-w-none prose-headings:font-display prose-h2:text-2xl prose-h2:text-white prose-h2:mt-10 prose-h2:mb-4 prose-h3:text-xl prose-h3:text-slate-100 prose-p:text-slate-300 prose-p:leading-relaxed prose-li:text-slate-300 prose-strong:text-white prose-table:text-sm prose-th:text-white prose-td:text-slate-300 prose-a:text-blue-400", children: /* @__PURE__ */ jsx(MarkdownContent, { children: page.content }) }),
+          /* @__PURE__ */ jsx("section", { className: "mt-12 rounded-xl border border-blue-500/20 bg-blue-500/10 p-6 sm:p-8", children: /* @__PURE__ */ jsxs("div", { className: "flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between", children: [
+            /* @__PURE__ */ jsxs("div", { className: "max-w-2xl", children: [
+              /* @__PURE__ */ jsx("p", { className: "mb-2 text-xs font-bold uppercase tracking-[0.22em] text-blue-300", children: "Need A Matching Device?" }),
+              /* @__PURE__ */ jsx("h2", { className: "text-2xl font-bold text-white", style: { fontFamily: "var(--font-display)" }, children: "Turn this technical topic into a hardware shortlist" }),
+              /* @__PURE__ */ jsx("p", { className: "mt-3 text-sm leading-relaxed text-slate-300", children: "Tell us your project application, protocol, uplink, and local I/O scope. We will help map this topic to the right IoTEdges product or solution path." })
+            ] }),
+            /* @__PURE__ */ jsxs("div", { className: "flex flex-wrap gap-4", children: [
+              /* @__PURE__ */ jsxs(
+                "button",
+                {
+                  type: "button",
+                  onClick: () => setIsInquiryOpen(true),
+                  "data-analytics-event": "cta_click",
+                  "data-analytics-category": "knowledge",
+                  "data-analytics-label": `Knowledge Inquiry - ${page.title}`,
+                  "data-analytics-destination": "knowledge_inquiry_modal",
+                  className: "inline-flex items-center gap-2 rounded bg-white px-5 py-3 text-xs font-bold uppercase tracking-widest text-slate-950 transition-all hover:bg-slate-200",
+                  children: [
+                    "Request Hardware Match ",
+                    /* @__PURE__ */ jsx(ArrowRight, { className: "w-4 h-4" })
+                  ]
+                }
+              ),
+              /* @__PURE__ */ jsxs(
+                Link,
+                {
+                  to: "/contact",
+                  "data-analytics-event": "cta_click",
+                  "data-analytics-category": "knowledge",
+                  "data-analytics-label": `Knowledge Contact - ${page.title}`,
+                  "data-analytics-destination": "/contact",
+                  className: "inline-flex items-center gap-2 rounded border border-slate-600 px-5 py-3 text-xs font-bold uppercase tracking-widest text-slate-100 transition-all hover:bg-slate-800",
+                  children: [
+                    "Go To Contact ",
+                    /* @__PURE__ */ jsx(ArrowRight, { className: "w-4 h-4" })
+                  ]
+                }
+              )
+            ] })
+          ] }) }),
+          (relatedProducts.length > 0 || relatedSolutions.length > 0 || relatedBlog.length > 0) && /* @__PURE__ */ jsxs("section", { className: "mt-12 grid grid-cols-1 gap-8 border-t border-slate-800 pt-8", children: [
+            relatedProducts.length > 0 && /* @__PURE__ */ jsxs("section", { children: [
+              /* @__PURE__ */ jsx("h2", { className: "text-2xl font-bold text-white mb-3", style: { fontFamily: "var(--font-display)" }, children: "Related Products" }),
+              /* @__PURE__ */ jsx("p", { className: "mb-5 text-sm leading-relaxed text-slate-400", children: "Products that directly match this technical topic." }),
+              /* @__PURE__ */ jsx("div", { className: "grid grid-cols-1 gap-3", children: relatedProducts.map((product) => /* @__PURE__ */ jsxs(
+                Link,
+                {
+                  to: `/products/${product.id}`,
+                  className: "flex items-center justify-between gap-4 bg-slate-950 border border-slate-800 p-4 rounded-lg text-sm font-bold text-slate-200 hover:border-blue-500/50 hover:text-blue-300 transition-colors",
+                  children: [
+                    product.title,
+                    /* @__PURE__ */ jsx(ArrowRight, { className: "w-4 h-4 shrink-0" })
+                  ]
+                },
+                product.id
+              )) })
+            ] }),
+            /* @__PURE__ */ jsx(
+              RelatedLinksSection,
+              {
+                title: "Related Solutions",
+                description: "Application pages where this protocol or wiring topic matters in deployment.",
+                links: relatedSolutions
+              }
+            ),
+            /* @__PURE__ */ jsx(
+              RelatedLinksSection,
+              {
+                title: "Related Articles",
+                description: "Buyer-facing articles that expand this topic into hardware or project decisions.",
+                links: relatedBlog
+              }
+            )
+          ] })
         ] })
       ] })
     ] })
-  ] }) });
-}
-const __vite_glob_0_0 = "---\nid: building-automation\ntitle: Building Automation\ndescription: Optimize building energy and equipment visibility through Modbus data collection and practical building monitoring architecture.\nimage: /uploads/solutions/building-automation-hero.svg\narchitectureImage: /uploads/solutions/building-automation-architecture.svg\nrecommendedProductType: Gateway\nrecommendedUplink: Ethernet first\ndeploymentEnvironment: HVAC rooms, building panels, equipment floors\niconKey: snowflake\nlink: /solutions/building-automation\norder: 5\ndetailedContent:\n  - Building automation projects often involve chillers, AHUs, thermostats, energy meters, IAQ monitors, and occupancy sensors. A practical starting point is to identify which devices already expose Modbus data and can be integrated quickly.\n  - By starting with Modbus data collection first, facility managers can build visibility over building performance without over-scoping the first hardware deployment.\n  - BACnet, OPC UA, and broader multi-protocol requirements can be reviewed as higher-tier integration paths when the project needs them.\nhardware:\n  - IEG-100 Ethernet gateway for Modbus device collection\n  - Edge gateway path for BACnet or OPC UA integration when required\n  - Smart HVAC thermostats\n  - Indoor Air Quality (IAQ) monitors\n  - Occupancy sensors\nsoftware:\n  - Floorplan layout visualization\n  - HVAC trend and schedule review\n  - Tenant energy report workflow\n  - Air quality index (AQI) dashboard\nrelatedProducts:\n  - title: IEG-100 Ethernet Industrial IoT Gateway\n    href: /products/ieg-100-ethernet-industrial-iot-gateway\n  - title: IER-142 4G Power Cabinet RTU\n    href: /products/ier-142-4g-power-cabinet-rtu\n  - title: IEIO-100 Modbus Remote IO Module\n    href: /products/ieio-100-modbus-remote-io-module\n---\n\n## Building Visibility\n\nStart with Modbus data collection for HVAC and energy devices, then expand into broader protocol integration when the building scope requires it.\n";
-const __vite_glob_0_1 = "---\nid: factory-energy\ntitle: Factory Energy Monitoring\ndescription: Track power consumption across your entire production line to support energy management, reduce waste, and improve visibility.\nimage: /uploads/solutions/factory-energy-hero.svg\narchitectureImage: /uploads/solutions/factory-energy-architecture.svg\nrecommendedProductType: Gateway or RTU\nrecommendedUplink: Ethernet first\ndeploymentEnvironment: Factory cabinets and LAN-connected workshops\niconKey: zap\nlink: /solutions/factory-energy\norder: 1\ndetailedContent:\n  - In manufacturing environments, understanding and controlling energy consumption is critical. Factory energy monitoring connects Modbus power meters, production assets, and dashboards so teams can see peak demand, hidden waste, and operating patterns.\n  - By capturing real-time metrics across production lines, factory managers can optimize schedules, compare baseline consumption, and prepare better energy management reports.\n  - Integration starts with validated IoTEdges gateway, RTU, and Remote IO product paths. The final hardware selection should follow the meter protocol, cabinet layout, local IO needs, and uplink method of the project.\nhardware:\n  - IEG-100 Ethernet gateway for wired Modbus meter collection\n  - IER-100 Ethernet RTU when local DI/DO/AI signals are required\n  - IEIO-100 Remote IO modules for distributed signal expansion\n  - Split-core Current Transformers (CT)\n  - Modbus RTU / TCP power meters\nsoftware:\n  - Real-time energy consumption dashboard\n  - Energy baseline and peak demand trend analysis\n  - Automated energy reports\n  - Threshold alarms via configured notification channels\nrelatedProducts:\n  - title: IEG-100 Ethernet Industrial IoT Gateway\n    href: /products/ieg-100-ethernet-industrial-iot-gateway\n  - title: IER-142 4G Power Cabinet RTU\n    href: /products/ier-142-4g-power-cabinet-rtu\n  - title: IER-100 Ethernet Industrial RTU\n    href: /products/ier-100-ethernet-industrial-rtu\n  - title: IEIO-100 Modbus Remote IO Module\n    href: /products/ieio-100-modbus-remote-io-module\nrelatedResources:\n  - title: Achieving ISO 50001 with Real-Time Energy Monitoring\n    href: /blog/energy-monitoring-iso-50001\n  - title: How to Choose the Right Modbus to MQTT Gateway\n    href: /blog/how-to-choose-modbus-mqtt-gateway\n  - title: Modbus for Industrial IoT Gateways and RTUs\n    href: /knowledge/modbus\n---\n\n## Factory Energy Monitoring\n\nBuild a practical path from meters and cabinet wiring to dashboards, reporting, and energy visibility across workshops and production assets.\n";
-const __vite_glob_0_2 = "---\nid: gate-access-control\ntitle: Gate Access Control\ndescription: Remote gate, door, barrier and access cabinet control for European installers using a validation-aware 4G-first controller path.\nimage: /uploads/solutions/gate-access-control-hero.svg\narchitectureImage: /uploads/solutions/gate-access-control-architecture.svg\nrecommendedProductType: Access controller or relay RTU\nrecommendedUplink: 4G first\ndeploymentEnvironment: Gate pillars, barriers, access cabinets, remote entrances\niconKey: shield\nlink: /solutions/gate-access-control\norder: 6\ndetailedContent:\n  - Gate access control projects often need a simple way to trigger a relay, authorize users, read door or gate status, and manage remote sites without running new network cables. In Europe, this search demand is often expressed as GSM gate opener, 4G gate opener, 4G intercom, remote access controller or RTU door controller.\n  - A practical architecture should start from 4G LTE rather than assuming long-term GSM availability. Country-level network support, SIM behavior, LTE bands, antenna performance and regulatory requirements must be checked before publishing final compatibility claims.\n  - IoTEdges positions this solution around a 4G-first remote access controller path, with GSM/2G described only as a possible legacy fallback after module and regional validation.\nhardware:\n  - IEAC-140 4G GSM Gate Opener for Europe-focused access projects\n  - Gate, door, barrier or lock relay interface after rating validation\n  - Door contact, gate status or alarm digital input path\n  - External antenna path for cabinets or remote entrances\n  - Local SIM and carrier validation for target European countries\nsoftware:\n  - Authorized access workflow planning\n  - Remote relay trigger and status monitoring concept\n  - Access event logging after firmware validation\n  - Installer setup workflow after product definition\n  - Optional dashboard, SMS, app or API workflow after validation\nrelatedProducts:\n  - title: IER-140 4G Remote Relay RTU\n    href: /products/ier-140-4g-remote-relay-rtu\n  - title: IEAC-140 4G GSM Gate Opener\n    href: /products/ieac-140-4g-gsm-gate-opener\nrelatedResources:\n  - title: How to Choose a 4G Gate Opener for Europe\n    href: /blog/how-to-choose-4g-gate-opener-europe\n  - title: GSM vs 4G Gate Opener for Europe\n    href: /knowledge/4g-gsm-gate-opener-europe\n---\n\n## Gate and Door Control\n\nUse a 4G-first architecture for gate, barrier, and remote entrance projects where installers need relay control, status feedback, and low-friction deployment without local LAN access.\n";
-const __vite_glob_0_3 = "---\nid: smart-agriculture\ntitle: Smart Agriculture\ndescription: Track soil moisture, greenhouse climate, and irrigation equipment with an architecture that separates wired, LoRa, WiFi, and 4G paths.\nimage: /uploads/solutions/smart-agriculture-hero.svg\narchitectureImage: /uploads/solutions/smart-agriculture-architecture.svg\nrecommendedProductType: RTU or Remote IO\nrecommendedUplink: 4G or wired cabinet path\ndeploymentEnvironment: Greenhouses, irrigation cabinets, remote farm assets\niconKey: sprout\nlink: /solutions/smart-agriculture\norder: 4\ndetailedContent:\n  - Smart agriculture projects often combine soil sensors, greenhouse climate data, pump stations, irrigation valves, and remote dashboards. The right architecture depends heavily on distance, power availability, and whether the site can use wired cabinets, LoRa, WiFi, or cellular uplinks.\n  - For greenhouses and equipment rooms, wired Remote IO can be a practical first step. Field-wide LoRa or 4G products should remain validation-gated until wireless range, antenna, power, and regional frequency requirements are confirmed.\n  - IoTEdges should publish agriculture pages by application first, then connect them to product pages only after each wireless model has engineering evidence.\nhardware:\n  - Future LoRa or 4G RTU path after wireless and power validation\n  - IEIO-100 Remote IO modules for wired greenhouse cabinets\n  - Multi-depth soil moisture probes\n  - Environmental temperature and humidity sensors\n  - Solenoid valve controllers\nsoftware:\n  - Irrigation schedule dashboard\n  - Crop stress warning notifications\n  - Weather data integration after project scoping\n  - Historical sensor trend reporting\nrelatedProducts:\n  - title: IER-141 4G Pump & Valve RTU\n    href: /products/ier-141-4g-pump-valve-rtu\n  - title: IER-140 4G Remote Relay RTU\n    href: /products/ier-140-4g-remote-relay-rtu\n  - title: IEIO-100 Modbus Remote IO Module\n    href: /products/ieio-100-modbus-remote-io-module\n---\n\n## Smart Agriculture Deployment\n\nSeparate greenhouse cabinet monitoring, irrigation control, and field-wide wireless sensing into clear hardware paths before fixing the final product combination.\n";
-const __vite_glob_0_4 = "---\nid: solar-energy\ntitle: Solar & Renewable Energy\ndescription: Monitor inverter data, site conditions, and renewable energy assets with practical gateway architecture for solar monitoring.\nimage: /uploads/solutions/solar-energy-hero.svg\narchitectureImage: /uploads/solutions/solar-energy-architecture.svg\nrecommendedProductType: Gateway\nrecommendedUplink: Ethernet first\ndeploymentEnvironment: Inverter cabinets and site LAN environments\niconKey: sun\nlink: /solutions/solar-energy\norder: 2\ndetailedContent:\n  - Managing distributed solar and renewable energy assets requires consistent access to inverter, meter, and site-condition data. A practical monitoring architecture starts by matching protocol support, cabinet networking, and the required uplink method to the site.\n  - Dashboards can help operators compare production trends, detect abnormal generation, and understand equipment behavior across sites. Advanced control or grid-management functions should be defined according to the operating workflow of the project.\n  - Ethernet gateway deployments are a strong fit for LAN-connected inverter cabinets, while 4G or LoRaWAN paths can be used for remote or distributed solar sites where wired networking is not practical.\nhardware:\n  - IEG-100 Ethernet gateway for LAN-connected inverter cabinets\n  - IEG-140 4G gateway for remote solar sites without reliable wired networking\n  - String combiner boxes\n  - Irradiance and temperature weather stations\n  - Modbus-capable solar inverters\nsoftware:\n  - Multi-site PV dashboard\n  - Inverter and meter trend visualization\n  - Performance ratio analysis\n  - Fault and threshold notification workflows\nrelatedProducts:\n  - title: IEG-100 Ethernet Industrial IoT Gateway\n    href: /products/ieg-100-ethernet-industrial-iot-gateway\n---\n\n## Solar and Renewable Monitoring\n\nUse a protocol-first architecture to collect inverter, meter, and site-condition data before expanding into multi-site renewable energy dashboards.\n";
-const __vite_glob_0_5 = "---\nid: water-management\ntitle: Water Management\ndescription: Remote monitoring for pump stations, tank levels, flow meters, and water quality sensors across distributed sites.\nimage: /uploads/solutions/water-management-hero.svg\narchitectureImage: /uploads/solutions/water-management-architecture.svg\nrecommendedProductType: RTU and Remote IO\nrecommendedUplink: Ethernet or 4G\ndeploymentEnvironment: Pump stations, tanks, distributed utility cabinets\niconKey: droplets\nlink: /solutions/water-management\norder: 3\ndetailedContent:\n  - Water distribution and treatment systems need reliable telemetry from pumps, tanks, valves, meters, and water quality sensors. A practical solution starts by mapping local IO, Modbus devices, and uplink availability at each station.\n  - Dashboards can help operators monitor tank levels, pressure trends, pump status, and abnormal events. Automated control should be scoped carefully and validated against the site control philosophy.\n  - For IoTEdges planning, wired RTU and Remote IO paths are the safest first public pages. Cellular water monitoring remains a strong SEO topic, but final 4G RTU specifications should wait for module, band, and field validation.\nhardware:\n  - IER-100 Ethernet RTU for cabinet-based water telemetry\n  - IEIO-100 Remote IO modules for pump and level signal expansion\n  - Future IER-140 4G RTU after cellular validation\n  - Ultrasonic level sensors\n  - Water quality probes and flow or pressure transmitters\n  - Variable Frequency Drives (VFDs)\nsoftware:\n  - Pump station and tank dashboard\n  - Level, pressure, and flow trend analysis\n  - Tank level threshold alarms\n  - Maintenance history and event review\nrelatedProducts:\n  - title: IER-141 4G Pump & Valve RTU\n    href: /products/ier-141-4g-pump-valve-rtu\n  - title: IER-140 4G Remote Relay RTU\n    href: /products/ier-140-4g-remote-relay-rtu\n  - title: IER-100 Ethernet Industrial RTU\n    href: /products/ier-100-ethernet-industrial-rtu\n  - title: IEIO-100 Modbus Remote IO Module\n    href: /products/ieio-100-modbus-remote-io-module\n---\n\n## Water Monitoring Architecture\n\nMap signals, field devices, and uplink constraints first, then select the RTU and Remote IO path that fits pump stations, tanks, and distributed utility cabinets.\n";
-const solutionIconsByKey = {
-  zap: Zap,
-  sun: Sun,
-  droplets: Droplets,
-  sprout: Sprout,
-  snowflake: ThermometerSnowflake,
-  shield: ShieldCheck
-};
-const defaultSolutionIcon = Zap;
-const markdownModules = /* @__PURE__ */ Object.assign({
-  "../content/solutions/building-automation.md": __vite_glob_0_0,
-  "../content/solutions/factory-energy.md": __vite_glob_0_1,
-  "../content/solutions/gate-access-control.md": __vite_glob_0_2,
-  "../content/solutions/smart-agriculture.md": __vite_glob_0_3,
-  "../content/solutions/solar-energy.md": __vite_glob_0_4,
-  "../content/solutions/water-management.md": __vite_glob_0_5
-});
-function readContentLinks(value) {
-  if (!Array.isArray(value)) {
-    return [];
-  }
-  return value.map((item) => {
-    if (!item || typeof item !== "object") {
-      return null;
-    }
-    const title = readString(item.title);
-    const href = readString(item.href);
-    if (!title || !href) {
-      return null;
-    }
-    return { title, href };
-  }).filter((item) => Boolean(item));
-}
-function createSolutionPage(path, markdown) {
-  var _a;
-  const { metadata, content } = parseFrontmatter(markdown);
-  const fallbackId = ((_a = path.split("/").pop()) == null ? void 0 : _a.replace(/\.md$/, "")) || "solution-page";
-  const id = readString(metadata.id, fallbackId);
-  const iconKey = readString(metadata.iconKey, "zap");
-  const link = readString(metadata.link, `/solutions/${id}`);
-  return {
-    id,
-    title: readString(metadata.title, "Untitled Solution"),
-    description: readString(metadata.description),
-    content,
-    image: readString(metadata.image),
-    architectureImage: readOptionalString(metadata.architectureImage),
-    recommendedProductType: readString(metadata.recommendedProductType),
-    recommendedUplink: readString(metadata.recommendedUplink),
-    deploymentEnvironment: readString(metadata.deploymentEnvironment),
-    detailedContent: readStringArray(metadata.detailedContent),
-    hardware: readStringArray(metadata.hardware),
-    software: readStringArray(metadata.software),
-    relatedProducts: readContentLinks(metadata.relatedProducts),
-    relatedResources: readContentLinks(metadata.relatedResources),
-    iconKey: solutionIconsByKey[iconKey] ? iconKey : "zap",
-    link,
-    order: readNumber(metadata.order)
-  };
-}
-const solutions = Object.entries(markdownModules).map(([path, markdown]) => createSolutionPage(path, markdown)).sort((a, b) => a.order - b.order);
-function getSolutionIcon(iconKey) {
-  return solutionIconsByKey[iconKey] || defaultSolutionIcon;
+  ] });
 }
 function SolutionsList() {
   return /* @__PURE__ */ jsx("div", { className: "bg-slate-900 min-h-screen pt-24 pb-20 text-slate-300", children: /* @__PURE__ */ jsxs("div", { className: "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8", children: [
@@ -2894,6 +3364,7 @@ function SolutionDetail() {
     "Existing devices to integrate such as meter, PLC, inverter, VFD, or access controller",
     "Any OEM branding, dashboard, or deployment preference"
   ];
+  const { relatedKnowledge, relatedBlog } = solution ? getRelatedLinksForSolution(solution) : { relatedKnowledge: [], relatedBlog: [] };
   if (!solution) {
     return /* @__PURE__ */ jsxs("div", { className: "bg-slate-900 min-h-screen pt-32 pb-20 text-center text-slate-300", children: [
       /* @__PURE__ */ jsx("h1", { className: "text-3xl font-bold text-white mb-4", children: "Solution Not Found" }),
@@ -2912,7 +3383,15 @@ function SolutionDetail() {
         lockedInquiryType: "Solution Inquiry",
         lockedInquirySubject: solution.title,
         lockedInquirySource: solution.link,
-        analyticsFormName: "solution_inquiry_modal"
+        analyticsFormName: "solution_inquiry_modal",
+        submitLabel: "Inquire This Solution",
+        successTitle: "Solution Inquiry Received",
+        successMessage: "We received your solution inquiry and will reply with the most relevant hardware path, deployment fit, or quotation follow-up.",
+        successChecklist: [
+          "Your request stays linked to this solution page and its application context.",
+          "We will usually confirm site type, uplink fit, field signals, and matching product path.",
+          "If needed, submit another inquiry with site count, country, and existing device list."
+        ]
       }
     ),
     /* @__PURE__ */ jsxs("section", { className: "relative w-full h-[50vh] min-h-[400px]", children: [
@@ -2994,7 +3473,7 @@ function SolutionDetail() {
               /* @__PURE__ */ jsx("span", { className: "text-sm text-slate-300 font-medium", children: item })
             ] }, index)) })
           ] }),
-          solution.relatedProducts && /* @__PURE__ */ jsxs("div", { children: [
+          solution.relatedProducts.length > 0 && /* @__PURE__ */ jsxs("div", { children: [
             /* @__PURE__ */ jsxs("h3", { className: "text-xl font-bold text-white mb-4 flex items-center gap-2", children: [
               /* @__PURE__ */ jsx(Server, { className: "w-5 h-5 text-blue-400" }),
               "Related Products"
@@ -3012,7 +3491,7 @@ function SolutionDetail() {
               product.href
             )) })
           ] }),
-          solution.relatedResources && /* @__PURE__ */ jsxs("div", { children: [
+          solution.relatedResources.length > 0 && /* @__PURE__ */ jsxs("div", { children: [
             /* @__PURE__ */ jsxs("h3", { className: "text-xl font-bold text-white mb-4 flex items-center gap-2", children: [
               /* @__PURE__ */ jsx(Monitor, { className: "w-5 h-5 text-blue-400" }),
               "Related Resources"
@@ -3029,6 +3508,24 @@ function SolutionDetail() {
               },
               resource.href
             )) })
+          ] }),
+          (relatedKnowledge.length > 0 || relatedBlog.length > 0) && /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 gap-8", children: [
+            /* @__PURE__ */ jsx(
+              RelatedLinksSection,
+              {
+                title: "Related Knowledge",
+                description: "Technical guidance that supports engineering and deployment for this solution.",
+                links: relatedKnowledge
+              }
+            ),
+            /* @__PURE__ */ jsx(
+              RelatedLinksSection,
+              {
+                title: "Related Articles",
+                description: "Buyer-facing articles tied to this solution path and its product stack.",
+                links: relatedBlog
+              }
+            )
           ] })
         ] })
       ] }),
@@ -3609,7 +4106,7 @@ function getSeoMeta(url) {
     return {
       title: `${post.title} | IoTEdges Blog`,
       description: post.excerpt,
-      imageUrl: post.imageUrl,
+      imageUrl: post.imageUrl || DEFAULT_BLOG_IMAGE_URL,
       type: "article"
     };
   }
@@ -3619,6 +4116,7 @@ function getSeoMeta(url) {
     return {
       title: `${product.title} | IoTEdges Products`,
       description: product.excerpt,
+      imageUrl: product.imageUrl || DEFAULT_PRODUCT_IMAGE_URL,
       type: "product"
     };
   }
@@ -3645,6 +4143,7 @@ function getSeoMeta(url) {
     return {
       title: `${knowledge.title} | IoTEdges Knowledge Base`,
       description: knowledge.excerpt,
+      imageUrl: knowledge.imageUrl || DEFAULT_KNOWLEDGE_IMAGE_URL,
       type: "article"
     };
   }

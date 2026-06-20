@@ -2,7 +2,9 @@ import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft, ArrowRight, CheckCircle2, Server, Monitor } from 'lucide-react';
 import { getSolutionIcon, solutions } from '../data/solutions';
+import { getRelatedLinksForSolution } from '../data/relatedContent';
 import QuoteRequestModal from '../components/QuoteRequestModal';
+import RelatedLinksSection from '../components/RelatedLinksSection';
 
 export default function SolutionDetail() {
   const { id } = useParams<{ id: string }>();
@@ -16,6 +18,7 @@ export default function SolutionDetail() {
     'Existing devices to integrate such as meter, PLC, inverter, VFD, or access controller',
     'Any OEM branding, dashboard, or deployment preference',
   ];
+  const { relatedKnowledge, relatedBlog } = solution ? getRelatedLinksForSolution(solution) : { relatedKnowledge: [], relatedBlog: [] };
 
   if (!solution) {
     return (
@@ -41,6 +44,14 @@ export default function SolutionDetail() {
         lockedInquirySubject={solution.title}
         lockedInquirySource={solution.link}
         analyticsFormName="solution_inquiry_modal"
+        submitLabel="Inquire This Solution"
+        successTitle="Solution Inquiry Received"
+        successMessage="We received your solution inquiry and will reply with the most relevant hardware path, deployment fit, or quotation follow-up."
+        successChecklist={[
+          'Your request stays linked to this solution page and its application context.',
+          'We will usually confirm site type, uplink fit, field signals, and matching product path.',
+          'If needed, submit another inquiry with site count, country, and existing device list.',
+        ]}
       />
       {/* Hero */}
       <section className="relative w-full h-[50vh] min-h-[400px]">
@@ -155,7 +166,7 @@ export default function SolutionDetail() {
                   </div>
                 )}
 
-                {solution.relatedProducts && (
+                {solution.relatedProducts.length > 0 && (
                   <div>
                     <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
                       <Server className="w-5 h-5 text-blue-400" />
@@ -176,7 +187,7 @@ export default function SolutionDetail() {
                   </div>
                 )}
 
-                {solution.relatedResources && (
+                {solution.relatedResources.length > 0 && (
                   <div>
                     <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
                       <Monitor className="w-5 h-5 text-blue-400" />
@@ -194,6 +205,21 @@ export default function SolutionDetail() {
                         </Link>
                       ))}
                     </div>
+                  </div>
+                )}
+
+                {(relatedKnowledge.length > 0 || relatedBlog.length > 0) && (
+                  <div className="grid grid-cols-1 gap-8">
+                    <RelatedLinksSection
+                      title="Related Knowledge"
+                      description="Technical guidance that supports engineering and deployment for this solution."
+                      links={relatedKnowledge}
+                    />
+                    <RelatedLinksSection
+                      title="Related Articles"
+                      description="Buyer-facing articles tied to this solution path and its product stack."
+                      links={relatedBlog}
+                    />
                   </div>
                 )}
               </div>

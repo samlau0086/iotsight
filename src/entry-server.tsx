@@ -7,6 +7,7 @@ import { productPages } from './data/products';
 import { knowledgePages } from './data/knowledge';
 import { solutions } from './data/solutions';
 import { aboutSiteCopy, contactSiteCopy, demoSiteCopy, gatewaySiteCopy } from './data/siteCopy';
+import { DEFAULT_BLOG_IMAGE_URL, DEFAULT_KNOWLEDGE_IMAGE_URL, DEFAULT_PRODUCT_IMAGE_URL } from './lib/contentImages';
 
 export function render(url: string) {
   return renderToString(
@@ -45,7 +46,7 @@ export function getSeoMeta(url: string) {
     return {
       title: `${post.title} | IoTEdges Blog`,
       description: post.excerpt,
-      imageUrl: post.imageUrl,
+      imageUrl: post.imageUrl || DEFAULT_BLOG_IMAGE_URL,
       type: 'article',
     };
   }
@@ -57,6 +58,7 @@ export function getSeoMeta(url: string) {
     return {
       title: `${product.title} | IoTEdges Products`,
       description: product.excerpt,
+      imageUrl: product.imageUrl || DEFAULT_PRODUCT_IMAGE_URL,
       type: 'product',
     };
   }
@@ -88,6 +90,7 @@ export function getSeoMeta(url: string) {
     return {
       title: `${knowledge.title} | IoTEdges Knowledge Base`,
       description: knowledge.excerpt,
+      imageUrl: knowledge.imageUrl || DEFAULT_KNOWLEDGE_IMAGE_URL,
       type: 'article',
     };
   }

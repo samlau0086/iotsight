@@ -1,13 +1,18 @@
+import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { blogPosts } from '../data/blog';
 import { knowledgePages } from '../data/knowledge';
 import { productPages } from '../data/products';
+import { getRelatedLinksForBlog, resolveInternalRouteTitle } from '../data/relatedContent';
 import { ProductPage } from '../types';
 import { Calendar, User, Tag, ArrowLeft, ArrowRight } from 'lucide-react';
 import MarkdownContent from '../components/MarkdownContent';
+import RelatedLinksSection from '../components/RelatedLinksSection';
+import QuoteRequestModal from '../components/QuoteRequestModal';
 
 export default function BlogPostPage() {
   const { id } = useParams<{ id: string }>();
+  const [isInquiryOpen, setIsInquiryOpen] = useState(false);
   const post = blogPosts.find(p => p.id === id);
 
   if (!post) {
@@ -24,6 +29,7 @@ export default function BlogPostPage() {
   const relatedProducts = post.relatedProducts
     .map(productId => productPages.find(product => product.id === productId))
     .filter((product): product is ProductPage => Boolean(product));
+  const { relatedSolutions, relatedKnowledge } = getRelatedLinksForBlog(post);
 
   const relatedResources = post.relatedResources.map((href) => {
     const blogMatch = href.match(/^\/blog\/([^/]+)$/);
@@ -33,28 +39,44 @@ export default function BlogPostPage() {
 
     return {
       href,
-      title: matchingBlog?.title || matchingKnowledge?.title || href.split('/').filter(Boolean).pop()?.replace(/-/g, ' ') || href,
+      title: matchingBlog?.title || matchingKnowledge?.title || resolveInternalRouteTitle(href) || href.split('/').filter(Boolean).pop()?.replace(/-/g, ' ') || href,
     };
   });
 
   return (
     <div className="bg-slate-900 min-h-screen pt-24 pb-20 text-slate-300">
+      <QuoteRequestModal
+        isOpen={isInquiryOpen}
+        onClose={() => setIsInquiryOpen(false)}
+        title={`Discuss ${post.title}`}
+        description="Use this form to ask for matching products, solution fit, or a quotation path related to this article."
+        lockedInquiryType="Blog Inquiry"
+        lockedInquirySubject={post.title}
+        lockedInquirySource={`/blog/${post.id}`}
+        analyticsFormName="blog_inquiry_modal"
+        submitLabel="Request Recommendation"
+        successTitle="Article Inquiry Received"
+        successMessage="We received your article-driven inquiry and will reply with the most relevant hardware or solution path."
+        successChecklist={[
+          'Your inquiry stays linked to this article topic for internal triage.',
+          'We will normally reply with matching products, solution fit, or next technical questions.',
+          'Include quantity, network type, and protocol scope if you submit another request.',
+        ]}
+      />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <Link to="/blog" className="inline-flex items-center gap-2 text-slate-400 hover:text-white mb-8 transition-colors">
           <ArrowLeft className="w-4 h-4" /> Back to Blog
         </Link>
         
         <article className="bg-slate-800 border border-slate-700 rounded-xl overflow-hidden shadow-2xl">
-          {post.imageUrl && (
-            <div className="w-full h-64 sm:h-96">
-              <img 
-                src={post.imageUrl} 
-                alt={post.title} 
-                className="w-full h-full object-cover"
-                referrerPolicy="no-referrer"
-              />
-            </div>
-          )}
+          <div className="w-full h-64 sm:h-96">
+            <img 
+              src={post.imageUrl} 
+              alt={post.title} 
+              className="w-full h-full object-cover"
+              referrerPolicy="no-referrer"
+            />
+          </div>
           <div className="p-8 sm:p-12">
             <div className="flex flex-wrap items-center gap-4 text-sm text-slate-400 mb-8 border-b border-slate-700 pb-8">
               <span className="flex items-center gap-1 bg-slate-900 px-3 py-1 rounded-full border border-slate-700">
@@ -75,7 +97,44 @@ export default function BlogPostPage() {
             <MarkdownContent>{post.content}</MarkdownContent>
           </div>
 
-          {(relatedProducts.length > 0 || relatedResources.length > 0) && (
+          <section className="mt-12 rounded-xl border border-blue-500/20 bg-blue-500/10 p-6 sm:p-8">
+            <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
+              <div className="max-w-2xl">
+                <p className="mb-2 text-xs font-bold uppercase tracking-[0.22em] text-blue-300">Need A Hardware Recommendation?</p>
+                <h2 className="text-2xl font-bold text-white" style={{ fontFamily: 'var(--font-display)' }}>
+                  Turn this article into a project conversation
+                </h2>
+                <p className="mt-3 text-sm leading-relaxed text-slate-300">
+                  Tell us your application, network type, protocol scope, and target quantity. We will map this topic to the right IoTEdges product or solution path.
+                </p>
+              </div>
+              <div className="flex flex-wrap gap-4">
+                <button
+                  type="button"
+                  onClick={() => setIsInquiryOpen(true)}
+                  data-analytics-event="cta_click"
+                  data-analytics-category="blog"
+                  data-analytics-label={`Blog Inquiry - ${post.title}`}
+                  data-analytics-destination="blog_inquiry_modal"
+                  className="inline-flex items-center gap-2 rounded bg-white px-5 py-3 text-xs font-bold uppercase tracking-widest text-slate-950 transition-all hover:bg-slate-200"
+                >
+                  Request Recommendation <ArrowRight className="w-4 h-4" />
+                </button>
+                <Link
+                  to="/contact"
+                  data-analytics-event="cta_click"
+                  data-analytics-category="blog"
+                  data-analytics-label={`Blog Contact - ${post.title}`}
+                  data-analytics-destination="/contact"
+                  className="inline-flex items-center gap-2 rounded border border-slate-600 px-5 py-3 text-xs font-bold uppercase tracking-widest text-slate-100 transition-all hover:bg-slate-800"
+                >
+                  Go To Contact <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
+            </div>
+          </section>
+
+          {(relatedProducts.length > 0 || relatedResources.length > 0 || relatedSolutions.length > 0 || relatedKnowledge.length > 0) && (
             <div className="mt-12 grid grid-cols-1 gap-8 border-t border-slate-700 pt-8">
               {relatedProducts.length > 0 && (
                 <section>
@@ -112,6 +171,18 @@ export default function BlogPostPage() {
                   </div>
                 </section>
               )}
+
+              <RelatedLinksSection
+                title="Related Solutions"
+                description="Application pages that align with the products or routes referenced in this article."
+                links={relatedSolutions}
+              />
+
+              <RelatedLinksSection
+                title="Related Knowledge"
+                description="Technical guides that support the protocol, wiring, or deployment topics in this article."
+                links={relatedKnowledge}
+              />
             </div>
           )}
           </div>

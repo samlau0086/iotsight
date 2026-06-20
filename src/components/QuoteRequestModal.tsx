@@ -10,6 +10,10 @@ type QuoteRequestModalProps = {
   lockedInquirySubject: string;
   lockedInquirySource: string;
   analyticsFormName: string;
+  submitLabel?: string;
+  successTitle?: string;
+  successMessage?: string;
+  successChecklist?: string[];
 };
 
 export default function QuoteRequestModal({
@@ -21,6 +25,10 @@ export default function QuoteRequestModal({
   lockedInquirySubject,
   lockedInquirySource,
   analyticsFormName,
+  submitLabel,
+  successTitle,
+  successMessage,
+  successChecklist,
 }: QuoteRequestModalProps) {
   if (!isOpen) return null;
 
@@ -47,7 +55,12 @@ export default function QuoteRequestModal({
             lockedInquirySubject={lockedInquirySubject}
             lockedInquirySource={lockedInquirySource}
             analyticsFormName={analyticsFormName}
-            onSubmitted={onClose}
+            submitLabel={submitLabel}
+            successTitle={successTitle}
+            successMessage={successMessage}
+            successChecklist={successChecklist}
+            onSuccessSecondaryAction={onClose}
+            successSecondaryLabel="Close"
           />
         </div>
       </div>

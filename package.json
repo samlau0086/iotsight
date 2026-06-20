@@ -17,6 +17,7 @@
     "verify:cms-external-config": "node scripts/verify-cms-external-config.mjs",
     "verify:auth-worker-surface": "node scripts/verify-auth-worker-surface.mjs",
     "verify:production-surface": "node scripts/verify-production-surface.mjs",
+    "verify:live-route-samples": "node scripts/verify-live-route-samples.mjs",
     "verify:cms-live-surface": "node scripts/verify-cms-live-surface.mjs",
     "verify:cms-go-live": "node scripts/verify-cms-go-live.mjs",
     "verify:cms-auth-preflight": "npm run verify:cms && npm run verify:cms-runtime",

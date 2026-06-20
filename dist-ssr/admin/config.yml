@@ -4,7 +4,7 @@
 
 backend:
   name: github
-  repo: samla/iotsight
+  repo: samlau0086/iotsight
   branch: main
   base_url: https://cms-auth.iotedges.com
   auth_endpoint: auth
@@ -32,7 +32,7 @@ slug:
   sanitize_replacement: "-"
 
 issue_reports:
-  url: https://github.com/samla/iotsight/issues/new
+  url: https://github.com/samlau0086/iotsight/issues/new
 
 collections:
   # CMS stays focused on file-backed marketing content only.
@@ -73,7 +73,17 @@ collections:
           - { label: Industry Trends, value: "Industry Trends" }
           - { label: Hardware Guide, value: "Hardware Guide" }
           - { label: Case Studies, value: "Case Studies" }
-      - { label: Hero Image, name: imageUrl, widget: image, required: false, hint: "Prefer a 16:9 cover image. Use uploaded assets under /uploads when possible." }
+      - label: Status
+        name: status
+        widget: select
+        default: "Published"
+        required: false
+        hint: "Only Published entries are rendered on the public site and included in prerender routes or sitemap. Review and Draft stay non-public."
+        options:
+          - { label: Published, value: "Published" }
+          - { label: Review, value: "Review" }
+          - { label: Draft, value: "Draft" }
+      - { label: Hero Image, name: imageUrl, widget: image, required: true, hint: "Use a 16:9 article cover. If no final artwork exists yet, upload a controlled placeholder under /uploads." }
       - label: Related Products
         name: relatedProducts
         widget: list
@@ -134,7 +144,18 @@ collections:
           - { label: Access Control Guide, value: "Access Control Guide" }
           - { label: Connectivity Guide, value: "Connectivity Guide" }
           - { label: Application Guide, value: "Application Guide" }
+      - label: Status
+        name: status
+        widget: select
+        default: "Published"
+        required: false
+        hint: "Only Published entries are rendered on the public site and included in prerender routes or sitemap. Review and Draft stay non-public."
+        options:
+          - { label: Published, value: "Published" }
+          - { label: Review, value: "Review" }
+          - { label: Draft, value: "Draft" }
       - { label: Primary Keyword, name: primaryKeyword, widget: string, hint: "One page should usually focus on one primary keyword or protocol term." }
+      - { label: Hero Image, name: imageUrl, widget: image, required: false, hint: "Optional knowledge cover image. If omitted, the frontend uses the controlled knowledge placeholder." }
       - label: Related Products
         name: relatedProducts
         widget: list
@@ -290,6 +311,16 @@ collections:
       - { label: ID, name: id, widget: string, hint: "Stable slug used in /solutions/:id", pattern: ['^[a-z0-9]+(?:-[a-z0-9]+)*$', "Use a lowercase slug with hyphens only."] }
       - { label: Title, name: title, widget: string, hint: "Buyer-facing solution title shown as the page H1." }
       - { label: Description, name: description, widget: text, hint: "Short summary used on solution cards and as a page introduction." }
+      - label: Status
+        name: status
+        widget: select
+        default: "Published"
+        required: false
+        hint: "Only Published entries are rendered on the public site and included in prerender routes or sitemap. Review and Draft stay non-public."
+        options:
+          - { label: Published, value: "Published" }
+          - { label: Review, value: "Review" }
+          - { label: Draft, value: "Draft" }
       - { label: Hero Image, name: image, widget: image, hint: "Use a required solution hero image in 16:9." }
       - { label: Architecture Image, name: architectureImage, widget: image, required: false, hint: "Use a clear architecture or deployment diagram when available." }
       - { label: Icon Key, name: iconKey, widget: select, options: ["zap", "sun", "droplets", "sprout", "snowflake", "shield"], hint: "Matches the controlled frontend icon map." }

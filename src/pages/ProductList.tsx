@@ -114,18 +114,12 @@ export default function ProductList() {
             return (
               <article key={product.id} className="bg-slate-900 border border-slate-800 rounded-lg overflow-hidden flex flex-col hover:border-blue-500/50 transition-colors">
                 <Link to={`/products/${product.id}`} className="block aspect-[16/10] overflow-hidden border-b border-slate-800 bg-slate-950">
-                  {product.imageUrl ? (
-                    <img
-                      src={product.imageUrl}
-                      alt={product.title}
-                      className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
-                      referrerPolicy="no-referrer"
-                    />
-                  ) : (
-                    <div className="flex h-full w-full items-center justify-center bg-slate-950 text-sm font-bold uppercase tracking-[0.2em] text-slate-500">
-                      {product.model}
-                    </div>
-                  )}
+                  <img
+                    src={product.imageUrl}
+                    alt={product.title}
+                    className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
+                    referrerPolicy="no-referrer"
+                  />
                 </Link>
                 <div className="p-7 flex flex-1 flex-col">
                 <div className="flex items-center justify-between gap-4 mb-5">

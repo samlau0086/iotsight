@@ -2,8 +2,10 @@ import { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { ArrowLeft, ArrowRight, CheckCircle2 } from 'lucide-react';
 import { productPages } from '../data/products';
+import { getRelatedLinksForProduct } from '../data/relatedContent';
 import MarkdownContent from '../components/MarkdownContent';
 import QuoteRequestModal from '../components/QuoteRequestModal';
+import RelatedLinksSection from '../components/RelatedLinksSection';
 
 const getStatusStyles = (status: string) => {
   switch (status) {
@@ -30,6 +32,7 @@ export default function ProductDetail() {
     'Protocol or device list such as Modbus meter, PLC, inverter, or sensor',
     'Any OEM, logo, enclosure, or firmware customization request',
   ];
+  const { relatedSolutions, relatedKnowledge, relatedBlog } = product ? getRelatedLinksForProduct(product) : { relatedSolutions: [], relatedKnowledge: [], relatedBlog: [] };
 
   if (!product) {
     return (
@@ -53,6 +56,14 @@ export default function ProductDetail() {
         lockedInquirySubject={`${product.model} - ${product.title}`}
         lockedInquirySource={`/products/${product.id}`}
         analyticsFormName="product_inquiry_modal"
+        submitLabel="Inquire This Product"
+        successTitle="Product Inquiry Received"
+        successMessage="We received your product inquiry and will reply with configuration fit, next technical questions, or quotation details."
+        successChecklist={[
+          'Your request stays linked to this product model and page context.',
+          'We will usually confirm fit, quantity path, and any missing technical requirements.',
+          'If needed, submit another inquiry with target market, protocol list, and I/O count.',
+        ]}
       />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <Link to="/products" className="inline-flex items-center gap-2 text-slate-400 hover:text-white mb-8 transition-colors">
@@ -61,21 +72,12 @@ export default function ProductDetail() {
 
         <article className="bg-slate-900 border border-slate-800 rounded-lg overflow-hidden shadow-2xl">
           <div className="aspect-[16/8] w-full overflow-hidden border-b border-slate-800 bg-slate-950">
-            {product.imageUrl ? (
-              <img
-                src={product.imageUrl}
-                alt={product.title}
-                className="h-full w-full object-cover"
-                referrerPolicy="no-referrer"
-              />
-            ) : (
-              <div className="flex h-full w-full items-center justify-center bg-slate-950 text-center">
-                <div>
-                  <div className="text-[10px] font-bold uppercase tracking-[0.24em] text-slate-500">{product.category}</div>
-                  <div className="mt-3 text-3xl font-bold text-white" style={{ fontFamily: 'var(--font-display)' }}>{product.model}</div>
-                </div>
-              </div>
-            )}
+            <img
+              src={product.imageUrl}
+              alt={product.title}
+              className="h-full w-full object-cover"
+              referrerPolicy="no-referrer"
+            />
           </div>
           <header className="p-8 sm:p-12 border-b border-slate-800">
             <div className="flex flex-wrap items-center gap-3 mb-6">
@@ -253,6 +255,25 @@ export default function ProductDetail() {
             <div className="prose prose-invert prose-blue max-w-none prose-headings:font-display prose-h2:text-2xl prose-h2:text-white prose-h2:mt-10 prose-h2:mb-4 prose-h3:text-xl prose-h3:text-slate-100 prose-p:text-slate-300 prose-p:leading-relaxed prose-li:text-slate-300 prose-strong:text-white prose-table:text-sm prose-th:text-white prose-td:text-slate-300 prose-a:text-blue-400">
               <MarkdownContent>{product.content}</MarkdownContent>
             </div>
+            {(relatedSolutions.length > 0 || relatedKnowledge.length > 0 || relatedBlog.length > 0) && (
+              <section className="mt-12 grid grid-cols-1 gap-8 border-t border-slate-800 pt-8">
+                <RelatedLinksSection
+                  title="Related Solutions"
+                  description="Application pages that commonly map to this product family."
+                  links={relatedSolutions}
+                />
+                <RelatedLinksSection
+                  title="Related Knowledge"
+                  description="Technical guides and wiring notes tied to this model."
+                  links={relatedKnowledge}
+                />
+                <RelatedLinksSection
+                  title="Related Articles"
+                  description="Buyer-facing articles that help qualify this product in real projects."
+                  links={relatedBlog}
+                />
+              </section>
+            )}
             <section className="mt-12 border-t border-slate-800 pt-8">
               <div className="rounded-lg border border-blue-500/20 bg-blue-500/10 p-5">
                 <div className="mb-5 flex flex-wrap items-center justify-between gap-4">

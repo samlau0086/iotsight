@@ -1,5 +1,7 @@
 import { ProductPage } from '../types';
 import { parseFrontmatter, readNumber, readOptionalString, readString } from '../lib/frontmatter';
+import { resolveProductImageUrl } from '../lib/contentImages';
+import { isPublicProductStatus, resolveProductStatus } from '../lib/contentStatus';
 
 const markdownModules = import.meta.glob('../content/products/*.md', {
   eager: true,
@@ -97,10 +99,10 @@ function createProductPage(path: string, markdown: string): ProductPage {
     title: readString(metadata.title, 'Untitled Product'),
     excerpt: readString(metadata.excerpt),
     content,
-    imageUrl: readOptionalString(metadata.imageUrl),
+    imageUrl: resolveProductImageUrl(readOptionalString(metadata.imageUrl)),
     category: readString(metadata.category, 'Industrial IoT Product'),
     model: readString(metadata.model),
-    status: readString(metadata.status),
+    status: resolveProductStatus(readString(metadata.status)),
     primaryKeyword: readString(metadata.primaryKeyword),
     route: readString(metadata.route, `/products/${productId}`),
     order: readNumber(metadata.order),
@@ -114,4 +116,5 @@ function createProductPage(path: string, markdown: string): ProductPage {
 
 export const productPages: ProductPage[] = Object.entries(markdownModules)
   .map(([path, markdown]) => createProductPage(path, markdown))
+  .filter((product) => isPublicProductStatus(product.status))
   .sort((a, b) => a.order - b.order);

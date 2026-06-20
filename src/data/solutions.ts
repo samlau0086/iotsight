@@ -1,6 +1,8 @@
 import { SolutionPage, ContentLink } from '../types';
 import { parseFrontmatter, readNumber, readOptionalString, readString, readStringArray } from '../lib/frontmatter';
 import { defaultSolutionIcon, solutionIconsByKey } from './solutionIcons';
+import { resolveSolutionImageUrl } from '../lib/contentImages';
+import { isPublicEditorialStatus, resolveEditorialStatus } from '../lib/contentStatus';
 
 const markdownModules = import.meta.glob('../content/solutions/*.md', {
   eager: true,
@@ -43,7 +45,8 @@ function createSolutionPage(path: string, markdown: string): SolutionPage {
     title: readString(metadata.title, 'Untitled Solution'),
     description: readString(metadata.description),
     content,
-    image: readString(metadata.image),
+    status: resolveEditorialStatus(metadata.status),
+    image: resolveSolutionImageUrl(readString(metadata.image)),
     architectureImage: readOptionalString(metadata.architectureImage),
     recommendedProductType: readString(metadata.recommendedProductType),
     recommendedUplink: readString(metadata.recommendedUplink),
@@ -61,6 +64,7 @@ function createSolutionPage(path: string, markdown: string): SolutionPage {
 
 export const solutions: SolutionPage[] = Object.entries(markdownModules)
   .map(([path, markdown]) => createSolutionPage(path, markdown))
+  .filter((solution) => isPublicEditorialStatus(solution.status))
   .sort((a, b) => a.order - b.order);
 
 export function getSolutionIcon(iconKey: string) {
