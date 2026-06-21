@@ -275,10 +275,10 @@ export default function Home() {
             {homeSiteCopy.bottomCtaDescription}
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <Link to={homeSiteCopy.bottomPrimaryCtaHref} data-analytics-event="cta_click" data-analytics-category="bottom_cta" data-analytics-label={homeSiteCopy.bottomPrimaryCtaLabel} data-analytics-destination={homeSiteCopy.bottomPrimaryCtaHref} className="px-8 py-4 bg-white text-blue-600 font-bold rounded hover:bg-slate-100 transition-all uppercase tracking-widest text-xs flex justify-center items-center shadow-lg">
+            <Link to={homeSiteCopy.bottomPrimaryCtaHref} data-analytics-event="cta_click" data-analytics-category="bottom_cta" data-analytics-label={homeSiteCopy.bottomPrimaryCtaLabel} data-analytics-destination={homeSiteCopy.bottomPrimaryCtaHref} className="px-8 py-4 rounded border border-stone-200/80 bg-stone-50 text-stone-950 font-bold uppercase tracking-widest text-xs flex justify-center items-center shadow-lg shadow-black/10 transition-all hover:bg-white">
               {homeSiteCopy.bottomPrimaryCtaLabel}
             </Link>
-            <Link to={homeSiteCopy.bottomSecondaryCtaHref} data-analytics-event="cta_click" data-analytics-category="bottom_cta" data-analytics-label={homeSiteCopy.bottomSecondaryCtaLabel} data-analytics-destination={homeSiteCopy.bottomSecondaryCtaHref} className="px-8 py-4 border border-blue-400 text-white font-bold rounded hover:bg-blue-700 transition-all uppercase tracking-widest text-xs flex justify-center items-center">
+            <Link to={homeSiteCopy.bottomSecondaryCtaHref} data-analytics-event="cta_click" data-analytics-category="bottom_cta" data-analytics-label={homeSiteCopy.bottomSecondaryCtaLabel} data-analytics-destination={homeSiteCopy.bottomSecondaryCtaHref} className="px-8 py-4 rounded border border-stone-300/30 bg-transparent text-stone-50 font-bold uppercase tracking-widest text-xs flex justify-center items-center transition-all hover:border-stone-200/60 hover:bg-white/6">
               {homeSiteCopy.bottomSecondaryCtaLabel}
             </Link>
           </div>
