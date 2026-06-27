@@ -249,6 +249,7 @@ async function startServer() {
     app.use(vite.middlewares);
   } else {
     const distPath = path.join(process.cwd(), "dist");
+    const notFoundHtmlPath = path.join(distPath, "404.html");
     app.use(express.static(distPath, { redirect: false }));
 
     const resolvePrerenderedHtml = (requestPath: string) => {
@@ -267,11 +268,17 @@ async function startServer() {
 
     app.get("*", (req, res) => {
       const prerenderedPath = resolvePrerenderedHtml(req.path);
-      const fallbackPath = fs.existsSync(prerenderedPath)
-        ? prerenderedPath
-        : path.join(distPath, "index.html");
+      if (fs.existsSync(prerenderedPath)) {
+        res.sendFile(prerenderedPath);
+        return;
+      }
 
-      res.sendFile(fallbackPath);
+      if (fs.existsSync(notFoundHtmlPath)) {
+        res.status(404).sendFile(notFoundHtmlPath);
+        return;
+      }
+
+      res.status(404).type("text/plain").send("404 Not Found");
     });
   }
 

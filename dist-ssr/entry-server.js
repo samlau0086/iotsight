@@ -2,7 +2,7 @@ import { jsx, jsxs, Fragment as Fragment$1 } from "react/jsx-runtime";
 import React, { createContext, useState, useEffect, useMemo, useContext, Fragment, useRef } from "react";
 import { renderToString } from "react-dom/server";
 import { useLocation, Link, useSearchParams, useParams, Routes, Route, Navigate, MemoryRouter } from "react-router-dom";
-import { Moon, Sun, X, Menu, Bell, ArrowRight, Bot, Server, Activity, Zap, Cloud, ShieldCheck, RadioTower, Droplets, Wifi, Network, LayoutDashboard, GitMerge, SlidersHorizontal, KeyRound, Database, Settings, AlertTriangle, TerminalSquare, CheckCircle2, BarChart3, Gauge, Power, Router, Workflow, Radio, Cpu, Send, MapPin, Phone, Mail, Tag, Calendar, User, ThermometerSnowflake, Sprout, ArrowLeft, Cable, DoorOpen, BookOpen, Monitor, MessageCircle } from "lucide-react";
+import { Moon, Sun, X, Menu, Bell, ArrowRight, Bot, Server, Activity, Zap, Cloud, ShieldCheck, RadioTower, Droplets, Wifi, Network, LayoutDashboard, GitMerge, SlidersHorizontal, KeyRound, Database, Settings, AlertTriangle, TerminalSquare, CheckCircle2, BarChart3, Gauge, Power, Router, Workflow, Radio, Cpu, Send, MapPin, Phone, Mail, Tag, Calendar, User, ThermometerSnowflake, Sprout, ArrowLeft, Cable, DoorOpen, BookOpen, Monitor, SearchX, MessageCircle } from "lucide-react";
 import { clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { motion, AnimatePresence } from "motion/react";
@@ -233,8 +233,8 @@ function Footer() {
         " IoTEdges Solutions"
       ] }),
       /* @__PURE__ */ jsxs("div", { className: "flex space-x-6 mt-4 md:mt-0", children: [
-        /* @__PURE__ */ jsx(Link, { to: "#", className: "hover:text-slate-300 transition-colors", children: "Privacy" }),
-        /* @__PURE__ */ jsx(Link, { to: "#", className: "hover:text-slate-300 transition-colors", children: "Terms" })
+        /* @__PURE__ */ jsx(Link, { to: "/privacy", className: "hover:text-slate-300 transition-colors", children: "Privacy" }),
+        /* @__PURE__ */ jsx(Link, { to: "/terms", className: "hover:text-slate-300 transition-colors", children: "Terms" })
       ] })
     ] })
   ] });
@@ -897,8 +897,8 @@ function Home() {
       /* @__PURE__ */ jsx("h2", { className: "text-3xl md:text-5xl font-extrabold mb-6 tracking-tight", children: homeSiteCopy.bottomCtaTitle }),
       /* @__PURE__ */ jsx("p", { className: "text-blue-100 text-lg mb-10 max-w-2xl mx-auto font-medium", children: homeSiteCopy.bottomCtaDescription }),
       /* @__PURE__ */ jsxs("div", { className: "flex flex-col sm:flex-row justify-center gap-4", children: [
-        /* @__PURE__ */ jsx(Link, { to: homeSiteCopy.bottomPrimaryCtaHref, "data-analytics-event": "cta_click", "data-analytics-category": "bottom_cta", "data-analytics-label": homeSiteCopy.bottomPrimaryCtaLabel, "data-analytics-destination": homeSiteCopy.bottomPrimaryCtaHref, className: "px-8 py-4 bg-white text-blue-600 font-bold rounded hover:bg-slate-100 transition-all uppercase tracking-widest text-xs flex justify-center items-center shadow-lg", children: homeSiteCopy.bottomPrimaryCtaLabel }),
-        /* @__PURE__ */ jsx(Link, { to: homeSiteCopy.bottomSecondaryCtaHref, "data-analytics-event": "cta_click", "data-analytics-category": "bottom_cta", "data-analytics-label": homeSiteCopy.bottomSecondaryCtaLabel, "data-analytics-destination": homeSiteCopy.bottomSecondaryCtaHref, className: "px-8 py-4 border border-blue-400 text-white font-bold rounded hover:bg-blue-700 transition-all uppercase tracking-widest text-xs flex justify-center items-center", children: homeSiteCopy.bottomSecondaryCtaLabel })
+        /* @__PURE__ */ jsx(Link, { to: homeSiteCopy.bottomPrimaryCtaHref, "data-analytics-event": "cta_click", "data-analytics-category": "bottom_cta", "data-analytics-label": homeSiteCopy.bottomPrimaryCtaLabel, "data-analytics-destination": homeSiteCopy.bottomPrimaryCtaHref, className: "px-8 py-4 rounded border border-stone-200/80 bg-stone-50 text-stone-950 font-bold uppercase tracking-widest text-xs flex justify-center items-center shadow-lg shadow-black/10 transition-all hover:bg-white", children: homeSiteCopy.bottomPrimaryCtaLabel }),
+        /* @__PURE__ */ jsx(Link, { to: homeSiteCopy.bottomSecondaryCtaHref, "data-analytics-event": "cta_click", "data-analytics-category": "bottom_cta", "data-analytics-label": homeSiteCopy.bottomSecondaryCtaLabel, "data-analytics-destination": homeSiteCopy.bottomSecondaryCtaHref, className: "px-8 py-4 rounded border border-stone-300/30 bg-transparent text-stone-50 font-bold uppercase tracking-widest text-xs flex justify-center items-center transition-all hover:border-stone-200/60 hover:bg-white/6", children: homeSiteCopy.bottomSecondaryCtaLabel })
       ] })
     ] }) })
   ] });
@@ -3619,6 +3619,149 @@ function SolutionDetail() {
     ] }) })
   ] });
 }
+function NotFound() {
+  return /* @__PURE__ */ jsx("div", { className: "bg-slate-950 min-h-screen pt-24 pb-20 text-slate-300", children: /* @__PURE__ */ jsx("div", { className: "max-w-5xl mx-auto px-4 sm:px-6 lg:px-8", children: /* @__PURE__ */ jsxs("div", { className: "rounded-2xl border border-slate-800 bg-slate-900/80 p-8 shadow-2xl sm:p-12", children: [
+    /* @__PURE__ */ jsx("div", { className: "mb-6 inline-flex h-14 w-14 items-center justify-center rounded-2xl border border-blue-500/20 bg-blue-500/10 text-blue-300", children: /* @__PURE__ */ jsx(SearchX, { className: "h-7 w-7" }) }),
+    /* @__PURE__ */ jsx("p", { className: "mb-3 text-xs font-bold uppercase tracking-[0.24em] text-blue-300", children: "404 Not Found" }),
+    /* @__PURE__ */ jsx("h1", { className: "mb-4 text-3xl font-extrabold tracking-tight text-white sm:text-5xl", style: { fontFamily: "var(--font-display)" }, children: "This page does not exist" }),
+    /* @__PURE__ */ jsx("p", { className: "max-w-2xl text-base leading-relaxed text-slate-400 sm:text-lg", children: "The URL may be outdated, typed incorrectly, or no longer available. Use the links below to continue browsing products, solutions, and technical resources." }),
+    /* @__PURE__ */ jsxs("div", { className: "mt-8 flex flex-wrap gap-4", children: [
+      /* @__PURE__ */ jsxs(
+        Link,
+        {
+          to: "/",
+          className: "inline-flex items-center gap-2 rounded bg-white px-6 py-3 text-xs font-bold uppercase tracking-widest text-slate-950 transition-all hover:bg-slate-200",
+          children: [
+            /* @__PURE__ */ jsx(ArrowLeft, { className: "h-4 w-4" }),
+            "Back To Home"
+          ]
+        }
+      ),
+      /* @__PURE__ */ jsx(
+        Link,
+        {
+          to: "/products",
+          className: "inline-flex items-center gap-2 rounded border border-slate-700 px-6 py-3 text-xs font-bold uppercase tracking-widest text-slate-100 transition-all hover:bg-slate-800",
+          children: "View Products"
+        }
+      ),
+      /* @__PURE__ */ jsx(
+        Link,
+        {
+          to: "/knowledge",
+          className: "inline-flex items-center gap-2 rounded border border-slate-700 px-6 py-3 text-xs font-bold uppercase tracking-widest text-slate-100 transition-all hover:bg-slate-800",
+          children: "Knowledge Base"
+        }
+      )
+    ] })
+  ] }) }) });
+}
+function PrivacyPolicy() {
+  return /* @__PURE__ */ jsx("div", { className: "bg-slate-950 min-h-screen pt-24 pb-20 text-slate-300", children: /* @__PURE__ */ jsx("div", { className: "max-w-5xl mx-auto px-4 sm:px-6 lg:px-8", children: /* @__PURE__ */ jsxs("article", { className: "rounded-2xl border border-slate-800 bg-slate-900/80 p-8 shadow-2xl sm:p-12", children: [
+    /* @__PURE__ */ jsx("p", { className: "mb-3 text-xs font-bold uppercase tracking-[0.24em] text-blue-300", children: "Privacy Policy" }),
+    /* @__PURE__ */ jsx("h1", { className: "mb-4 text-3xl font-extrabold tracking-tight text-white sm:text-5xl", style: { fontFamily: "var(--font-display)" }, children: "Privacy Policy" }),
+    /* @__PURE__ */ jsx("p", { className: "mb-10 max-w-3xl text-base leading-relaxed text-slate-400", children: "This policy describes how IoTEdges collects and uses information when you browse this website, submit a quote request, or use live chat." }),
+    /* @__PURE__ */ jsxs("div", { className: "space-y-10", children: [
+      /* @__PURE__ */ jsxs("section", { children: [
+        /* @__PURE__ */ jsx("h2", { className: "mb-3 text-2xl font-bold text-white", style: { fontFamily: "var(--font-display)" }, children: "Who We Are" }),
+        /* @__PURE__ */ jsx("p", { className: "leading-relaxed text-slate-300", children: "IoTEdges operates this website to present industrial IoT products, solution information, technical resources, and quotation workflows for international B2B customers." })
+      ] }),
+      /* @__PURE__ */ jsxs("section", { children: [
+        /* @__PURE__ */ jsx("h2", { className: "mb-3 text-2xl font-bold text-white", style: { fontFamily: "var(--font-display)" }, children: "Information We Collect" }),
+        /* @__PURE__ */ jsx("div", { className: "grid grid-cols-1 gap-3", children: [
+          "Contact and business details you submit in quote or inquiry forms, such as name, company, email, WhatsApp number, country, and project message.",
+          "Technical project details you choose to share, such as application type, protocol requirements, uplink preference, and I/O scope.",
+          "Live chat session details that are required to continue a customer support or sales conversation.",
+          "Basic analytics and traffic information collected through Google Analytics and Google Tag Manager."
+        ].map((item) => /* @__PURE__ */ jsx("div", { className: "rounded-lg border border-slate-800 bg-slate-950/70 px-4 py-3 text-sm leading-relaxed text-slate-300", children: item }, item)) })
+      ] }),
+      /* @__PURE__ */ jsxs("section", { children: [
+        /* @__PURE__ */ jsx("h2", { className: "mb-3 text-2xl font-bold text-white", style: { fontFamily: "var(--font-display)" }, children: "How We Use Information" }),
+        /* @__PURE__ */ jsx("div", { className: "grid grid-cols-1 gap-3", children: [
+          "To respond to quote requests, product inquiries, solution questions, and technical follow-up.",
+          "To evaluate project fit, prepare pricing discussions, and recommend matching products or architectures.",
+          "To operate live chat and maintain continuity for customer-facing conversations.",
+          "To measure website traffic, page usage, and conversion activity so the website can be improved."
+        ].map((item) => /* @__PURE__ */ jsx("div", { className: "rounded-lg border border-slate-800 bg-slate-950/70 px-4 py-3 text-sm leading-relaxed text-slate-300", children: item }, item)) })
+      ] }),
+      /* @__PURE__ */ jsxs("section", { children: [
+        /* @__PURE__ */ jsx("h2", { className: "mb-3 text-2xl font-bold text-white", style: { fontFamily: "var(--font-display)" }, children: "Third-Party Services" }),
+        /* @__PURE__ */ jsx("p", { className: "mb-4 leading-relaxed text-slate-300", children: "This website uses third-party services to support operations. Those services may process data according to their own terms and privacy rules." }),
+        /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 gap-3 sm:grid-cols-2", children: [
+          /* @__PURE__ */ jsxs("div", { className: "rounded-lg border border-slate-800 bg-slate-950/70 p-4", children: [
+            /* @__PURE__ */ jsx("div", { className: "mb-2 text-xs font-bold uppercase tracking-[0.2em] text-slate-500", children: "Analytics" }),
+            /* @__PURE__ */ jsx("p", { className: "text-sm leading-relaxed text-slate-300", children: "Google Analytics and Google Tag Manager for traffic and conversion measurement." })
+          ] }),
+          /* @__PURE__ */ jsxs("div", { className: "rounded-lg border border-slate-800 bg-slate-950/70 p-4", children: [
+            /* @__PURE__ */ jsx("div", { className: "mb-2 text-xs font-bold uppercase tracking-[0.2em] text-slate-500", children: "Quote Processing" }),
+            /* @__PURE__ */ jsx("p", { className: "text-sm leading-relaxed text-slate-300", children: "Quote request submissions are forwarded to the external CRM workflow used by this website." })
+          ] }),
+          /* @__PURE__ */ jsxs("div", { className: "rounded-lg border border-slate-800 bg-slate-950/70 p-4", children: [
+            /* @__PURE__ */ jsx("div", { className: "mb-2 text-xs font-bold uppercase tracking-[0.2em] text-slate-500", children: "Live Chat" }),
+            /* @__PURE__ */ jsx("p", { className: "text-sm leading-relaxed text-slate-300", children: "Live chat requests and messages are proxied to the configured live chat service." })
+          ] }),
+          /* @__PURE__ */ jsxs("div", { className: "rounded-lg border border-slate-800 bg-slate-950/70 p-4", children: [
+            /* @__PURE__ */ jsx("div", { className: "mb-2 text-xs font-bold uppercase tracking-[0.2em] text-slate-500", children: "Infrastructure" }),
+            /* @__PURE__ */ jsx("p", { className: "text-sm leading-relaxed text-slate-300", children: "Website delivery, caching, and DNS may rely on infrastructure providers used by IoTEdges." })
+          ] })
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxs("section", { children: [
+        /* @__PURE__ */ jsx("h2", { className: "mb-3 text-2xl font-bold text-white", style: { fontFamily: "var(--font-display)" }, children: "Data Retention" }),
+        /* @__PURE__ */ jsx("p", { className: "leading-relaxed text-slate-300", children: "Inquiry, quotation, and support data may be retained for sales follow-up, project communication, record keeping, and operational review for as long as reasonably necessary." })
+      ] }),
+      /* @__PURE__ */ jsxs("section", { children: [
+        /* @__PURE__ */ jsx("h2", { className: "mb-3 text-2xl font-bold text-white", style: { fontFamily: "var(--font-display)" }, children: "Your Choices" }),
+        /* @__PURE__ */ jsx("p", { className: "leading-relaxed text-slate-300", children: "If you want to ask about the information you submitted through this website, use the contact or quote channels shown on the site and identify the relevant submission details so the request can be reviewed." })
+      ] }),
+      /* @__PURE__ */ jsxs("section", { children: [
+        /* @__PURE__ */ jsx("h2", { className: "mb-3 text-2xl font-bold text-white", style: { fontFamily: "var(--font-display)" }, children: "Policy Updates" }),
+        /* @__PURE__ */ jsx("p", { className: "leading-relaxed text-slate-300", children: "This policy may be updated as the website, integrations, or business workflows change." })
+      ] })
+    ] })
+  ] }) }) });
+}
+function TermsOfService() {
+  return /* @__PURE__ */ jsx("div", { className: "bg-slate-950 min-h-screen pt-24 pb-20 text-slate-300", children: /* @__PURE__ */ jsx("div", { className: "max-w-5xl mx-auto px-4 sm:px-6 lg:px-8", children: /* @__PURE__ */ jsxs("article", { className: "rounded-2xl border border-slate-800 bg-slate-900/80 p-8 shadow-2xl sm:p-12", children: [
+    /* @__PURE__ */ jsx("p", { className: "mb-3 text-xs font-bold uppercase tracking-[0.24em] text-blue-300", children: "Terms Of Service" }),
+    /* @__PURE__ */ jsx("h1", { className: "mb-4 text-3xl font-extrabold tracking-tight text-white sm:text-5xl", style: { fontFamily: "var(--font-display)" }, children: "Terms Of Service" }),
+    /* @__PURE__ */ jsx("p", { className: "mb-10 max-w-3xl text-base leading-relaxed text-slate-400", children: "These terms govern use of the IoTEdges website and its public product, solution, technical content, inquiry, and chat workflows." }),
+    /* @__PURE__ */ jsxs("div", { className: "space-y-10", children: [
+      /* @__PURE__ */ jsxs("section", { children: [
+        /* @__PURE__ */ jsx("h2", { className: "mb-3 text-2xl font-bold text-white", style: { fontFamily: "var(--font-display)" }, children: "Website Use" }),
+        /* @__PURE__ */ jsx("p", { className: "leading-relaxed text-slate-300", children: "You may use this website to review product information, evaluate solutions, read technical content, and submit legitimate business inquiries. You may not use the website for unlawful, abusive, or misleading activity." })
+      ] }),
+      /* @__PURE__ */ jsxs("section", { children: [
+        /* @__PURE__ */ jsx("h2", { className: "mb-3 text-2xl font-bold text-white", style: { fontFamily: "var(--font-display)" }, children: "Informational Content" }),
+        /* @__PURE__ */ jsx("p", { className: "leading-relaxed text-slate-300", children: "Product pages, architecture notes, selection guides, blog posts, and knowledge content are provided for general commercial and technical reference. Final purchasing, engineering, compliance, and deployment decisions should be confirmed against the released hardware specification, approved project scope, and the final quotation or commercial agreement." })
+      ] }),
+      /* @__PURE__ */ jsxs("section", { children: [
+        /* @__PURE__ */ jsx("h2", { className: "mb-3 text-2xl font-bold text-white", style: { fontFamily: "var(--font-display)" }, children: "Quotes And Orders" }),
+        /* @__PURE__ */ jsx("div", { className: "grid grid-cols-1 gap-3", children: [
+          "Submitting a quote request does not create a binding order or acceptance.",
+          "Pricing, availability, configuration, lead time, and customization scope remain subject to confirmation.",
+          "Product fit may depend on application details such as protocol list, device count, signal type, certification, and deployment environment."
+        ].map((item) => /* @__PURE__ */ jsx("div", { className: "rounded-lg border border-slate-800 bg-slate-950/70 px-4 py-3 text-sm leading-relaxed text-slate-300", children: item }, item)) })
+      ] }),
+      /* @__PURE__ */ jsxs("section", { children: [
+        /* @__PURE__ */ jsx("h2", { className: "mb-3 text-2xl font-bold text-white", style: { fontFamily: "var(--font-display)" }, children: "Technical Boundaries" }),
+        /* @__PURE__ */ jsx("p", { className: "leading-relaxed text-slate-300", children: "Example register maps, protocol notes, wiring references, and application descriptions on this website do not replace final engineering review. Any field deployment should be validated against the target device list, power environment, communications design, and site-specific risk controls." })
+      ] }),
+      /* @__PURE__ */ jsxs("section", { children: [
+        /* @__PURE__ */ jsx("h2", { className: "mb-3 text-2xl font-bold text-white", style: { fontFamily: "var(--font-display)" }, children: "Intellectual Property" }),
+        /* @__PURE__ */ jsx("p", { className: "leading-relaxed text-slate-300", children: "Website copy, page structure, graphics, product descriptions, and related materials remain the property of IoTEdges or the applicable rights holder unless otherwise stated." })
+      ] }),
+      /* @__PURE__ */ jsxs("section", { children: [
+        /* @__PURE__ */ jsx("h2", { className: "mb-3 text-2xl font-bold text-white", style: { fontFamily: "var(--font-display)" }, children: "No Warranty On Website Availability" }),
+        /* @__PURE__ */ jsx("p", { className: "leading-relaxed text-slate-300", children: "IoTEdges may update, suspend, or change website content, form workflows, integrations, and live chat availability without notice." })
+      ] }),
+      /* @__PURE__ */ jsxs("section", { children: [
+        /* @__PURE__ */ jsx("h2", { className: "mb-3 text-2xl font-bold text-white", style: { fontFamily: "var(--font-display)" }, children: "Updates" }),
+        /* @__PURE__ */ jsx("p", { className: "leading-relaxed text-slate-300", children: "These terms may be updated as the website, product program, or commercial workflows change." })
+      ] })
+    ] })
+  ] }) }) });
+}
 function ScrollToTop() {
   const { pathname } = useLocation();
   useEffect(() => {
@@ -4097,8 +4240,11 @@ function AppLayout() {
         /* @__PURE__ */ jsx(Route, { path: "/demo", element: /* @__PURE__ */ jsx(Demo, {}) }),
         /* @__PURE__ */ jsx(Route, { path: "/about", element: /* @__PURE__ */ jsx(About, {}) }),
         /* @__PURE__ */ jsx(Route, { path: "/contact", element: /* @__PURE__ */ jsx(Contact, {}) }),
+        /* @__PURE__ */ jsx(Route, { path: "/privacy", element: /* @__PURE__ */ jsx(PrivacyPolicy, {}) }),
+        /* @__PURE__ */ jsx(Route, { path: "/terms", element: /* @__PURE__ */ jsx(TermsOfService, {}) }),
         /* @__PURE__ */ jsx(Route, { path: "/blog", element: /* @__PURE__ */ jsx(BlogList, {}) }),
-        /* @__PURE__ */ jsx(Route, { path: "/blog/:id", element: /* @__PURE__ */ jsx(BlogPostPage, {}) })
+        /* @__PURE__ */ jsx(Route, { path: "/blog/:id", element: /* @__PURE__ */ jsx(BlogPostPage, {}) }),
+        /* @__PURE__ */ jsx(Route, { path: "*", element: /* @__PURE__ */ jsx(NotFound, {}) })
       ] }) }),
       /* @__PURE__ */ jsx(Footer, {}),
       /* @__PURE__ */ jsx(AIChatWidget, {})
@@ -4118,6 +4264,8 @@ function getPrerenderRoutes() {
     "/demo",
     "/about",
     "/contact",
+    "/privacy",
+    "/terms",
     "/products",
     "/accessories",
     ...productPages.map((product) => `/products/${product.id}`),
@@ -4222,6 +4370,20 @@ function getSeoMeta(url) {
     return {
       title: "Industrial IoT Accessories for RTU, Gateway and Remote IO Projects | IoTEdges",
       description: "Recommended project accessories for IoTEdges industrial IoT deployments, including 4G antennas, SIM/APN setup, RS485 wiring, DIN rail power supplies, relay interfaces, sensors and meters.",
+      type: "website"
+    };
+  }
+  if (url === "/privacy") {
+    return {
+      title: "Privacy Policy | IoTEdges",
+      description: "How IoTEdges collects and uses information from quote requests, live chat, and analytics on this industrial IoT website.",
+      type: "website"
+    };
+  }
+  if (url === "/terms") {
+    return {
+      title: "Terms Of Service | IoTEdges",
+      description: "Terms governing use of the IoTEdges website, product information, technical resources, and inquiry workflows.",
       type: "website"
     };
   }

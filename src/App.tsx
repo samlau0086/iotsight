@@ -15,6 +15,9 @@ import KnowledgeList from './pages/KnowledgeList';
 import KnowledgeDetail from './pages/KnowledgeDetail';
 import SolutionsList from './pages/SolutionsList';
 import SolutionDetail from './pages/SolutionDetail';
+import NotFound from './pages/NotFound';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import TermsOfService from './pages/TermsOfService';
 import ScrollToTop from './components/ScrollToTop';
 import AnalyticsPageView from './components/AnalyticsPageView';
 import { AIChatWidget } from './components/AIChatWidget';
@@ -42,8 +45,11 @@ export function AppLayout() {
             <Route path="/demo" element={<Demo />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/privacy" element={<PrivacyPolicy />} />
+            <Route path="/terms" element={<TermsOfService />} />
             <Route path="/blog" element={<BlogList />} />
             <Route path="/blog/:id" element={<BlogPostPage />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
         <Footer />
