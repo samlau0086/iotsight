@@ -194,21 +194,6 @@ function createStructuredData(url, meta, absoluteUrl) {
     graph.push(createBreadcrumbList(url));
   }
 
-  if (url.startsWith('/products/')) {
-    graph.push({
-      '@type': 'Product',
-      name: meta.title.replace(' | IoTEdges Products', ''),
-      description: meta.description,
-      category: 'Industrial IoT Product',
-      model: meta.title.replace(' | IoTEdges Products', ''),
-      url: absoluteUrl,
-      brand: {
-        '@type': 'Brand',
-        name: 'IoTEdges',
-      },
-    });
-  }
-
   if (url.startsWith('/knowledge/')) {
     graph.push({
       '@type': 'TechArticle',
