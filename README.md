@@ -134,6 +134,14 @@ CMS build artifact verification:
 npm run verify:cms-build
 ```
 
+Draft/public visibility verification:
+
+```bash
+npm run verify:draft-visibility
+```
+
+This checks built `dist` output and `sitemap.xml` against CMS `status` rules, so `Draft` and `Review` product or solution entries do not accidentally become public.
+
 Built production server surface verification:
 
 ```bash
@@ -277,6 +285,7 @@ CMS usage quick guide:
 Important notes:
 
 - Use `https://iotedges.com/admin/` as the canonical CMS URL. `/admin` now redirects to `/admin/`, but the trailing slash version is the correct login entry and avoids relative-path issues when loading `config.yml`.
+- `Blog`, `Knowledge Base`, `Products`, and `Solutions` can now create new entries directly in CMS. `Accessories` and `Site Copy` remain fixed-file collections, so those sections only edit predefined files.
 - `/admin/` is a public URL, but only GitHub accounts with repository write access should be able to edit content.
 - The repository is currently `public`, so do not add collaborators casually.
 - Product, solution, knowledge, and blog entries are file-backed Markdown content. Route slugs, IDs, and key schema fields should be changed carefully.
@@ -292,7 +301,8 @@ Post-publish checklist:
 2. Open the live page URL and verify the title, hero image, CTA, and related links.
 3. Confirm the page appears in `https://iotedges.com/sitemap.xml`.
 4. Check `https://iotedges.com/robots.txt` still contains the sitemap line and `Disallow: /admin`.
-5. Run `npm run verify:cms-live-surface` when you need a broader deployment sanity check.
+5. Run `npm run verify:draft-visibility` after build when testing product or solution draft status.
+6. Run `npm run verify:cms-live-surface` when you need a broader deployment sanity check.
 
 Common CMS operations notes:
 
@@ -301,6 +311,40 @@ Common CMS operations notes:
 - Solution pages rely on `link`, related products, and architecture assets. Keep those fields consistent with the actual page route.
 - Blog and knowledge pages should keep `relatedProducts` and `relatedResources` aligned with real live routes.
 - Blog hero images are now expected for CMS-managed entries. Knowledge pages may omit a cover image, in which case the frontend uses the controlled knowledge placeholder.
+- Product and solution CMS fields now include stricter hints for status, route safety, spec groups, and related links. Follow the in-admin hints first when creating new entries.
+- Detailed product and solution creation examples, including `IEG-*`, `IER-*`, `Factory Energy`, and `Gate Access Control` starter templates, are in `docs/cms-entry-templates.md`.
+- Product-specific CMS fill checklists for `IEG-140`, `IER-141`, `IER-142`, `IEAC-140`, and `IEIO-100` are in `docs/cms-product-fill-checklists.md`.
+
+Creating a new product entry:
+
+1. In CMS, open `Products` and click `New Product Page`.
+2. Fill the required identity fields first:
+   - `id`: lowercase slug only, for example `ieg-160-4g-industrial-iot-gateway`
+   - `model`: canonical model code, for example `IEG-160`
+   - `title`: buyer-facing H1
+   - `route`: must start with `/products/`
+3. Choose the controlled `category` and `status`. Use `Draft` if the page should stay non-public.
+4. Add `excerpt`, `primaryKeyword`, and `imageUrl`.
+5. Add at least one `specGroups` block so the page does not rely only on body copy for key specs.
+6. Fill `selectionGuide`, `bomGroups`, and `preSalesFaq` when relevant. These sections drive the current product template.
+7. Keep `route`, `id`, and `model` aligned. Do not publish a product whose route and slug describe different models.
+
+Creating a new solution entry:
+
+1. In CMS, open `Solutions` and click `New Solution Page`.
+2. Fill the route-critical fields first:
+   - `id`: lowercase slug only, for example `pump-station-monitoring`
+   - `title`
+   - `description`
+   - `link`: must start with `/solutions/`
+3. Choose `status`, `iconKey`, `recommendedProductType`, and `recommendedUplink` from the controlled options.
+4. Add `image`, optional `architectureImage`, and `deploymentEnvironment`.
+5. Add enough structured content to render the page properly:
+   - `detailedContent`: target at least 3 paragraphs
+   - `hardware`: target at least 4 items
+   - `software`: target at least 3 items
+6. Keep `relatedProducts` and `relatedResources` pointing to real live routes only.
+7. Keep `id` and `link` aligned. Do not publish a solution whose slug and route describe different topics.
 
 Common failure checks:
 
@@ -319,6 +363,8 @@ Common failure checks:
 
 - `docs/decap-cms-draft.md`
 - `docs/decap-cms-config-draft.md`
+- `docs/cms-entry-templates.md`
+- `docs/cms-product-fill-checklists.md`
 - `docs/cms-minimum-go-live.md`
 - `docs/decap-auth-rollout.md`
 - `docs/decap-cms-qa-checklist.md`

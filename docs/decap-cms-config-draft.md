@@ -151,7 +151,7 @@ Key fields:
 
 - type: folder collection
 - source: `src/content/products`
-- creation: disabled
+- creation: enabled
 - body: Markdown
 - purpose: controlled editing of existing product pages
 
@@ -172,19 +172,13 @@ Key fields:
 - `preSalesFaq`
 - `body`
 
-Why `create: false`:
-
-- product taxonomy is still curated in code and content planning
-- product pages carry structured sections that are easy to break with uncontrolled new entries
-- go-live should start with editing existing models before opening product creation
-
 ### `solutions`
 
 - type: folder collection
 - source: `src/content/solutions`
-- creation: disabled
+- creation: enabled
 - body: Markdown plus structured blocks
-- purpose: controlled editing of existing solution landing pages
+- purpose: create and maintain solution landing pages in CMS
 
 Key fields:
 
@@ -245,12 +239,12 @@ Recommended rollout order:
 
 1. Blog
 2. Knowledge Base
-3. Existing Products
-4. Existing Solutions
+3. Products
+4. Solutions
 5. Accessories Overview
 6. Site Copy
 
-This sequence keeps the higher-risk commercial landing pages under tighter control until the editor workflow is proven.
+This sequence still starts with the lower-risk editorial collections first, but products and solutions can now be created directly in CMS when the schema is followed carefully.
 
 ## 8. Runtime Prerequisites
 

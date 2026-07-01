@@ -251,7 +251,7 @@ async function startServer() {
     const distPath = path.join(process.cwd(), "dist");
     const notFoundHtmlPath = path.join(distPath, "404.html");
 
-    app.get("/admin", (req, res) => {
+    app.get(/^\/admin$/, (req, res) => {
       const query = req.url.includes("?") ? req.url.slice(req.url.indexOf("?")) : "";
       res.redirect(308, `/admin/${query}`);
     });

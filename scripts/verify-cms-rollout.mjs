@@ -310,6 +310,7 @@ function main() {
   const adminConfig = readFile('public/admin/config.yml');
   const prerenderScript = readFile('scripts/prerender.mjs');
   const buildOutputVerifier = readFile('scripts/verify-cms-build-output.mjs');
+  const draftVisibilityVerifier = readFile('scripts/verify-draft-visibility.mjs');
   const builtServerVerifier = readFile('scripts/verify-built-server-surface.mjs');
   const externalConfigVerifier = readFile('scripts/verify-cms-external-config.mjs');
   const productionSurfaceVerifier = readFile('scripts/verify-production-surface.mjs');
@@ -357,6 +358,7 @@ function main() {
   assertFile('workers/decap-auth-cloudflare/wrangler.jsonc');
   assertFile('workers/decap-auth-cloudflare/.dev.vars.example');
   assertFile('docs/decap-cms-qa-checklist.md');
+  assertFile('scripts/verify-draft-visibility.mjs');
 
   assertAllContentFrontmatterParses();
   assertBlogStructure();
@@ -376,6 +378,7 @@ function main() {
   assertIncludes(adminConfig, 'display_url: https://iotedges.com', 'public/admin/config.yml');
   assertIncludes(packageJson, '"verify:cms-preflight"', 'package.json');
   assertIncludes(packageJson, '"verify:cms-auth-preflight"', 'package.json');
+  assertIncludes(packageJson, '"verify:draft-visibility"', 'package.json');
   assertIncludes(packageJson, '"verify:server-surface"', 'package.json');
   assertIncludes(packageJson, '"verify:cms-external-config"', 'package.json');
   assertIncludes(packageJson, '"verify:auth-worker-surface"', 'package.json');
@@ -386,6 +389,9 @@ function main() {
   assertIncludes(prerenderScript, "Disallow: /admin", 'scripts/prerender.mjs');
   assertIncludes(buildOutputVerifier, 'readAdminConfigExpectations', 'scripts/verify-cms-build-output.mjs');
   assertIncludes(buildOutputVerifier, 'dist/admin/config.yml', 'scripts/verify-cms-build-output.mjs');
+  assertIncludes(draftVisibilityVerifier, 'publicProductStatuses', 'scripts/verify-draft-visibility.mjs');
+  assertIncludes(draftVisibilityVerifier, 'private route should not appear in sitemap', 'scripts/verify-draft-visibility.mjs');
+  assertIncludes(draftVisibilityVerifier, 'private route should not be prerendered', 'scripts/verify-draft-visibility.mjs');
   assertIncludes(builtServerVerifier, 'readAdminConfigExpectations', 'scripts/verify-built-server-surface.mjs');
   assertIncludes(builtServerVerifier, '/admin should redirect to /admin/', 'scripts/verify-built-server-surface.mjs');
   assertIncludes(builtServerVerifier, '/admin/config.yml', 'scripts/verify-built-server-surface.mjs');
@@ -583,6 +589,7 @@ function main() {
   assertIncludes(readme, 'npm run verify:cms-preflight', 'README.md');
   assertIncludes(readme, 'npm run verify:cms-auth-preflight', 'README.md');
   assertIncludes(readme, 'npm run verify:server-surface', 'README.md');
+  assertIncludes(readme, 'npm run verify:draft-visibility', 'README.md');
   assertIncludes(readme, 'npm run verify:cms-external-config', 'README.md');
   assertIncludes(readme, 'base_url` / `site_url` / `display_url`', 'README.md');
   assertIncludes(readme, 'npm run verify:auth-worker-surface', 'README.md');

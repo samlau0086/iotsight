@@ -176,7 +176,7 @@ collections:
     label: Products
     label_singular: Product Page
     folder: src/content/products
-    create: false
+    create: true
     slug: "{{slug}}"
     extension: md
     format: frontmatter
@@ -184,14 +184,14 @@ collections:
     editor:
       preview: false
     fields:
-      - { label: ID, name: id, widget: string, hint: "Stable slug used in /products/:id", pattern: ['^[a-z0-9]+(?:-[a-z0-9]+)*$', "Use a lowercase slug with hyphens only."] }
+      - { label: ID, name: id, widget: string, hint: "Stable product slug used in /products/:id. Keep it identical to the final route slug and do not change it after publishing.", pattern: ['^[a-z0-9]+(?:-[a-z0-9]+)*$', "Use a lowercase slug with hyphens only."] }
       - { label: Title, name: title, widget: string, hint: "Buyer-facing product name shown as the page H1." }
       - { label: Excerpt, name: excerpt, widget: text, hint: "Short product summary used in list cards and SEO description candidates." }
       - { label: Hero Image, name: imageUrl, widget: image, hint: "Use a required product hero image in 4:3 or a controlled product visual under /uploads." }
       - label: Category
         name: category
         widget: select
-        hint: "Choose the product family. If a new family is needed, update the frontend taxonomy before using it here."
+        hint: "Choose the closest existing product family. Do not invent a new category value here; new families need frontend taxonomy and product-list filter review first."
         options:
           - { label: Industrial IoT Gateway, value: "Industrial IoT Gateway" }
           - { label: Industrial RTU, value: "Industrial RTU" }
@@ -201,11 +201,11 @@ collections:
           - { label: 4G Pump & Valve RTU, value: "4G Pump & Valve RTU" }
           - { label: 4G Power Cabinet RTU, value: "4G Power Cabinet RTU" }
           - { label: Industrial IoT Software, value: "Industrial IoT Software" }
-      - { label: Model, name: model, widget: string, hint: "Use the canonical model code, for example IEG-100 or IER-140." }
+      - { label: Model, name: model, widget: string, hint: "Use the canonical model code, for example IEG-100 or IER-140. Model, ID, route, title, and page content should describe the same device." }
       - label: Status
         name: status
         widget: select
-        hint: "Use Published for live-ready models, Available for project inquiry for validated but inquiry-led pages, Preview for roadmap-facing pages, and Draft for non-public content."
+        hint: "Publishing rule: Draft is non-public. Preview and Available for project inquiry are public product pages. Published should be used only for live-ready product pages with acceptable specs, image, related links, and inquiry fit."
         options:
           - { label: Published, value: "Published" }
           - { label: Available for project inquiry, value: "Available for project inquiry" }
@@ -215,7 +215,7 @@ collections:
       - label: Route
         name: route
         widget: string
-        hint: "Canonical path, for example /products/ieg-100-ethernet-industrial-iot-gateway"
+        hint: "Canonical product path. It must start with /products/ and its final slug should match the ID, for example /products/ieg-100-ethernet-industrial-iot-gateway."
         pattern:
           - '^\/products\/[a-z0-9\-\/]*$'
           - "Use a site-relative product path starting with /products/."
@@ -224,12 +224,12 @@ collections:
         name: specGroups
         widget: list
         summary: "{{fields.title}} | {{fields.specs.length}} specs"
-        hint: "Use this for structured specs such as communication, I/O, protocol, power, mounting, and environment. Do not hide key specs only inside the body."
+        hint: "Required for product quality. Include the buyer-critical specs here: I/O counts, uplink, field interface, protocols, power, mounting, and key product boundaries. Do not hide these specs only inside the Markdown body."
         fields:
           - label: Group Title
             name: title
             widget: select
-            hint: "Use the controlled spec-group vocabulary so product pages stay consistent."
+            hint: "Use the controlled spec-group vocabulary so product pages stay consistent. Start with Hardware I/O, Communication, Protocols, and Power & Mounting for most hardware products."
             options:
               - { label: Hardware I/O, value: "Hardware I/O" }
               - { label: Communication, value: "Communication" }
@@ -244,8 +244,8 @@ collections:
             widget: list
             summary: "{{fields.label}}: {{fields.value}}"
             fields:
-              - { label: Label, name: label, widget: string }
-              - { label: Value, name: value, widget: text }
+              - { label: Label, name: label, widget: string, hint: "Short spec name, for example Digital Inputs, Uplink, Protocols, Power Supply, Mounting." }
+              - { label: Value, name: value, widget: text, hint: "Buyer-facing spec value. Avoid unverified certification, rating, band, relay-contact, or safety claims." }
       - label: Selection Guide
         name: selectionGuide
         widget: object
@@ -265,13 +265,13 @@ collections:
             name: compareLinks
             widget: list
             summary: "{{fields.label}} -> {{fields.href}}"
-            hint: "Add compare or browse links that help buyers continue product selection."
+            hint: "Add real live routes only. Use compare links to nearby products or /products. Do not link to pages that do not exist yet."
             fields:
               - { label: Label, name: label, widget: string }
               - label: Href
                 name: href
                 widget: string
-                hint: "Use a site-relative path such as /products/ier-100-ethernet-industrial-rtu."
+                hint: "Use a real site-relative path such as /products/ier-100-ethernet-industrial-rtu. Do not use a full URL or unpublished placeholder route."
                 pattern:
                   - '^\/[a-z0-9\-\/]*$'
                   - "Use a site-relative path starting with /, not a full URL."
@@ -300,7 +300,7 @@ collections:
     label: Solutions
     label_singular: Solution Page
     folder: src/content/solutions
-    create: false
+    create: true
     slug: "{{slug}}"
     extension: md
     format: frontmatter
@@ -308,7 +308,7 @@ collections:
     editor:
       preview: false
     fields:
-      - { label: ID, name: id, widget: string, hint: "Stable slug used in /solutions/:id", pattern: ['^[a-z0-9]+(?:-[a-z0-9]+)*$', "Use a lowercase slug with hyphens only."] }
+      - { label: ID, name: id, widget: string, hint: "Stable solution slug used in /solutions/:id. Keep it aligned with the Route field and do not change it after publishing.", pattern: ['^[a-z0-9]+(?:-[a-z0-9]+)*$', "Use a lowercase slug with hyphens only."] }
       - { label: Title, name: title, widget: string, hint: "Buyer-facing solution title shown as the page H1." }
       - { label: Description, name: description, widget: text, hint: "Short summary used on solution cards and as a page introduction." }
       - label: Status
@@ -316,14 +316,14 @@ collections:
         widget: select
         default: "Published"
         required: false
-        hint: "Only Published entries are rendered on the public site and included in prerender routes or sitemap. Review and Draft stay non-public."
+        hint: "Publishing rule: only Published solution entries are rendered on the public site and included in prerender routes or sitemap. Review and Draft stay non-public."
         options:
           - { label: Published, value: "Published" }
           - { label: Review, value: "Review" }
           - { label: Draft, value: "Draft" }
       - { label: Hero Image, name: image, widget: image, hint: "Use a required solution hero image in 16:9." }
       - { label: Architecture Image, name: architectureImage, widget: image, required: false, hint: "Use a clear architecture or deployment diagram when available." }
-      - { label: Icon Key, name: iconKey, widget: select, options: ["zap", "sun", "droplets", "sprout", "snowflake", "shield"], hint: "Matches the controlled frontend icon map." }
+      - { label: Icon Key, name: iconKey, widget: select, options: ["zap", "sun", "droplets", "sprout", "snowflake", "shield"], hint: "Matches the controlled frontend icon map. Use zap for energy, sun for solar, droplets for water, sprout for agriculture, snowflake for cold storage or environment, and shield for access control." }
       - label: Recommended Product Type
         name: recommendedProductType
         widget: select
@@ -348,7 +348,7 @@ collections:
       - label: Route
         name: link
         widget: string
-        hint: "Canonical path, for example /solutions/factory-energy"
+        hint: "Canonical solution path. It must start with /solutions/ and its final slug should match the ID, for example /solutions/factory-energy."
         pattern:
           - '^\/solutions\/[a-z0-9\-\/]*$'
           - "Use a site-relative solution path starting with /solutions/."
@@ -356,29 +356,29 @@ collections:
       - label: Detailed Content
         name: detailedContent
         widget: list
-        hint: "Use short structured paragraphs for the upper part of the solution page. Target at least 3 paragraphs."
+        hint: "Use short structured paragraphs for the upper part of the solution page. Target at least 3 paragraphs covering problem, architecture, and project fit."
         field: { label: Paragraph, name: paragraph, widget: text }
       - label: Hardware
         name: hardware
         widget: list
-        hint: "List the typical hardware stack used in this solution. Target at least 4 items."
+        hint: "List the typical hardware stack used in this solution. Target at least 4 items, including IoTEdges devices plus sensors, meters, antennas, cabinets, or wiring accessories where relevant."
         field: { label: Item, name: item, widget: text }
       - label: Software
         name: software
         widget: list
-        hint: "List dashboards, analytics, alerts, or reporting functions used in this solution. Target at least 3 items."
+        hint: "List dashboards, analytics, alerts, reports, access workflows, or remote management functions used in this solution. Target at least 3 items."
         field: { label: Item, name: item, widget: text }
       - label: Related Products
         name: relatedProducts
         widget: list
         summary: "{{fields.title}} -> {{fields.href}}"
-        hint: "Use buyer-facing link titles and valid site-relative product paths."
+        hint: "Use buyer-facing link titles and real live product paths only. Do not link to unpublished product pages."
         fields:
           - { label: Title, name: title, widget: string }
           - label: Href
             name: href
             widget: string
-            hint: "Use a site-relative product route such as /products/ier-141-4g-pump-valve-rtu."
+            hint: "Use a real site-relative product route such as /products/ier-141-4g-pump-valve-rtu. Do not use a full URL or unpublished placeholder route."
             pattern:
               - '^\/[a-z0-9\-\/]*$'
               - "Use a site-relative path starting with /, not a full URL."
@@ -387,13 +387,13 @@ collections:
         widget: list
         required: false
         summary: "{{fields.title}} -> {{fields.href}}"
-        hint: "Link related blog posts, knowledge pages, or case-study-style content."
+        hint: "Link related blog posts, knowledge pages, or case-study-style content that already exists or will be published in the same release."
         fields:
           - { label: Title, name: title, widget: string }
           - label: Href
             name: href
             widget: string
-            hint: "Use a site-relative route such as /blog/how-to-choose-modbus-mqtt-gateway."
+            hint: "Use a real site-relative route such as /blog/how-to-choose-modbus-mqtt-gateway. Do not use a full URL or unpublished placeholder route."
             pattern:
               - '^\/[a-z0-9\-\/]*$'
               - "Use a site-relative path starting with /, not a full URL."

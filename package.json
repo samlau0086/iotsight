@@ -13,6 +13,7 @@
     "verify:cms": "node scripts/verify-cms-rollout.mjs",
     "verify:cms-runtime": "tsx scripts/smoke-decap-auth-worker.ts",
     "verify:cms-build": "node scripts/verify-cms-build-output.mjs",
+    "verify:draft-visibility": "node scripts/verify-draft-visibility.mjs",
     "verify:server-surface": "node scripts/verify-built-server-surface.mjs",
     "verify:cms-external-config": "node scripts/verify-cms-external-config.mjs",
     "verify:auth-worker-surface": "node scripts/verify-auth-worker-surface.mjs",
@@ -21,7 +22,7 @@
     "verify:cms-live-surface": "node scripts/verify-cms-live-surface.mjs",
     "verify:cms-go-live": "node scripts/verify-cms-go-live.mjs",
     "verify:cms-auth-preflight": "npm run verify:cms && npm run verify:cms-runtime",
-    "verify:cms-preflight": "npm run lint && npm run verify:cms && npm run verify:cms-runtime && npm run build && npm run verify:cms-build && npm run verify:server-surface",
+    "verify:cms-preflight": "npm run lint && npm run verify:cms && npm run verify:cms-runtime && npm run build && npm run verify:cms-build && npm run verify:draft-visibility && npm run verify:server-surface",
     "create:cms-dry-run-report": "node scripts/create-cms-dry-run-report.mjs"
   },
   "dependencies": {
