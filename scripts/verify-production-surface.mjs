@@ -59,6 +59,21 @@ async function fetchText(url) {
   return { response, text };
 }
 
+async function fetchRedirect(url) {
+  const response = await fetch(url, {
+    redirect: "manual",
+    headers: {
+      "user-agent": "IoTEdges-CMS-Production-Verification/1.0",
+      accept: "text/html,application/xml,text/plain,*/*",
+    },
+  });
+
+  return {
+    response,
+    location: response.headers.get("location") || "",
+  };
+}
+
 function assertIncludes(haystack, needle, label, failures) {
   if (!haystack.includes(needle)) {
     failures.push(`${label} is missing "${needle}"`);
@@ -86,7 +101,8 @@ function withLikelyActions(site, failures) {
 
   if (
     combined.includes('/admin/ appears to be serving the homepage HTML fallback instead of the CMS shell') ||
-    combined.includes('/admin/config.yml appears to match the homepage HTML, indicating homepage fallback routing')
+    combined.includes('/admin/config.yml appears to match the homepage HTML, indicating homepage fallback routing') ||
+    combined.includes('/admin should redirect to /admin/')
   ) {
     hints.push('The live site is serving homepage fallback content for /admin and/or /admin/config.yml. Check the VPS deployment version, Express static routing, and any CDN or reverse-proxy rewrites.');
   }
@@ -113,8 +129,15 @@ function withLikelyActions(site, failures) {
 
 async function verifyAdminSurface(failures) {
   const homepage = await fetchText(`${siteUrl}/`);
+  const redirectCheck = await fetchRedirect(`${siteUrl}/admin`);
   const url = `${siteUrl}/admin/`;
   const { response, text } = await fetchText(url);
+
+  if (![301, 302, 307, 308].includes(redirectCheck.response.status)) {
+    failures.push(`/admin should redirect to /admin/ but returned HTTP ${redirectCheck.response.status}`);
+  } else if (redirectCheck.location !== '/admin/') {
+    failures.push(`/admin should redirect to /admin/ but returned location "${redirectCheck.location}"`);
+  }
 
   if (!response.ok) {
     failures.push(`/admin/ returned HTTP ${response.status}`);

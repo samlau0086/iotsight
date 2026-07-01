@@ -276,6 +276,7 @@ CMS usage quick guide:
 
 Important notes:
 
+- Use `https://iotedges.com/admin/` as the canonical CMS URL. `/admin` now redirects to `/admin/`, but the trailing slash version is the correct login entry and avoids relative-path issues when loading `config.yml`.
 - `/admin/` is a public URL, but only GitHub accounts with repository write access should be able to edit content.
 - The repository is currently `public`, so do not add collaborators casually.
 - Product, solution, knowledge, and blog entries are file-backed Markdown content. Route slugs, IDs, and key schema fields should be changed carefully.

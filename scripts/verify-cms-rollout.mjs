@@ -387,12 +387,14 @@ function main() {
   assertIncludes(buildOutputVerifier, 'readAdminConfigExpectations', 'scripts/verify-cms-build-output.mjs');
   assertIncludes(buildOutputVerifier, 'dist/admin/config.yml', 'scripts/verify-cms-build-output.mjs');
   assertIncludes(builtServerVerifier, 'readAdminConfigExpectations', 'scripts/verify-built-server-surface.mjs');
+  assertIncludes(builtServerVerifier, '/admin should redirect to /admin/', 'scripts/verify-built-server-surface.mjs');
   assertIncludes(builtServerVerifier, '/admin/config.yml', 'scripts/verify-built-server-surface.mjs');
   assertIncludes(externalConfigVerifier, 'public/admin/config.yml base_url', 'scripts/verify-cms-external-config.mjs');
   assertIncludes(externalConfigVerifier, 'public/admin/config.yml site_url', 'scripts/verify-cms-external-config.mjs');
   assertIncludes(externalConfigVerifier, 'public/admin/config.yml display_url', 'scripts/verify-cms-external-config.mjs');
   assertIncludes(externalConfigVerifier, 'DECAP_AUTH_HEALTH_URL', 'scripts/verify-cms-external-config.mjs');
   assertIncludes(productionSurfaceVerifier, 'readAdminConfigExpectations', 'scripts/verify-production-surface.mjs');
+  assertIncludes(productionSurfaceVerifier, '/admin should redirect to /admin/', 'scripts/verify-production-surface.mjs');
   assertIncludes(productionSurfaceVerifier, '/admin/config.yml', 'scripts/verify-production-surface.mjs');
   assertIncludes(productionSurfaceVerifier, 'HTML fallback instead of the CMS YAML config', 'scripts/verify-production-surface.mjs');
   assertIncludes(productionSurfaceVerifier, 'homepage HTML fallback', 'scripts/verify-production-surface.mjs');
@@ -587,6 +589,7 @@ function main() {
   assertIncludes(readme, 'npm run verify:production-surface', 'README.md');
   assertIncludes(readme, 'npm run verify:cms-live-surface', 'README.md');
   assertIncludes(readme, 'npm run verify:cms-go-live', 'README.md');
+  assertIncludes(readme, 'Use `https://iotedges.com/admin/` as the canonical CMS URL.', 'README.md');
   assertIncludes(readme, 'docs/github-cloudflare-cms-setup-runbook.zh-CN.md', 'README.md');
   assertIncludes(readme, 'docs/cms-go-live-checklist.zh-CN.md', 'README.md');
   assertIncludes(readme, 'base_url: https://cms-auth.iotedges.com', 'README.md');

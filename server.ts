@@ -250,6 +250,16 @@ async function startServer() {
   } else {
     const distPath = path.join(process.cwd(), "dist");
     const notFoundHtmlPath = path.join(distPath, "404.html");
+
+    app.get("/admin", (req, res) => {
+      const query = req.url.includes("?") ? req.url.slice(req.url.indexOf("?")) : "";
+      res.redirect(308, `/admin/${query}`);
+    });
+
+    app.get("/admin/", (_req, res) => {
+      res.sendFile(path.join(distPath, "admin", "index.html"));
+    });
+
     app.use(express.static(distPath, { redirect: false }));
 
     const resolvePrerenderedHtml = (requestPath: string) => {
@@ -261,10 +271,6 @@ async function startServer() {
         ? path.join(distPath, normalizedPath, "index.html")
         : path.join(distPath, "index.html");
     };
-
-    app.get(["/admin", "/admin/"], (_req, res) => {
-      res.sendFile(path.join(distPath, "admin", "index.html"));
-    });
 
     app.get("*", (req, res) => {
       const prerenderedPath = resolvePrerenderedHtml(req.path);

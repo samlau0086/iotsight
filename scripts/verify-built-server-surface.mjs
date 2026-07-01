@@ -59,6 +59,20 @@ async function fetchText(pathname) {
   };
 }
 
+async function fetchRedirect(pathname) {
+  const response = await fetch(`${baseUrl}${pathname}`, {
+    redirect: 'manual',
+    headers: {
+      accept: 'text/html,application/xml,text/plain,*/*',
+    },
+  });
+
+  return {
+    status: response.status,
+    location: response.headers.get('location') || '',
+  };
+}
+
 function assertIncludes(content, needle, label) {
   if (!content.includes(needle)) {
     throw new Error(`Missing expected runtime content in ${label}: ${needle}`);
@@ -119,11 +133,18 @@ async function main() {
     await waitForServerReady(15000);
 
     const homepage = await fetchText('/');
+    const adminRedirect = await fetchRedirect('/admin');
     const admin = await fetchText('/admin/');
     const adminConfig = await fetchText('/admin/config.yml');
     const robots = await fetchText('/robots.txt');
     const sitemap = await fetchText('/sitemap.xml');
 
+    if (![301, 302, 307, 308].includes(adminRedirect.status)) {
+      throw new Error(`/admin should redirect to /admin/ but returned HTTP ${adminRedirect.status}`);
+    }
+    if (adminRedirect.location !== '/admin/') {
+      throw new Error(`/admin should redirect to /admin/ but returned location "${adminRedirect.location}"`);
+    }
     if (admin.status !== 200) {
       throw new Error(`/admin/ returned HTTP ${admin.status}`);
     }
