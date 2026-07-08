@@ -196,8 +196,6 @@ jobs:
         env:
           APP_URL: ${{ vars.APP_URL || secrets.APP_URL }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          LIVE_CHAT_API_BASE_URL: ${{ secrets.LIVE_CHAT_API_BASE_URL }}
-          LIVE_CHAT_API_TOKEN: ${{ secrets.LIVE_CHAT_API_TOKEN }}
           PORT: ${{ vars.PORT }}
         run: |
           write_env() {
@@ -212,8 +210,6 @@ jobs:
             write_env "PORT" "${PORT:-3005}"
             if [ -n "$APP_URL" ]; then write_env "APP_URL" "$APP_URL"; fi
             if [ -n "$GEMINI_API_KEY" ]; then write_env "GEMINI_API_KEY" "$GEMINI_API_KEY"; fi
-            if [ -n "$LIVE_CHAT_API_BASE_URL" ]; then write_env "LIVE_CHAT_API_BASE_URL" "$LIVE_CHAT_API_BASE_URL"; fi
-            if [ -n "$LIVE_CHAT_API_TOKEN" ]; then write_env "LIVE_CHAT_API_TOKEN" "$LIVE_CHAT_API_TOKEN"; fi
           } > .env.production
 
       - name: Configure SSH

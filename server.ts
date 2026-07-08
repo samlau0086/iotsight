@@ -11,7 +11,7 @@ async function startServer() {
   const quoteFormEndpoint = "https://crms.geekmt.com/api/public/customer-forms/form_1780670393030_531/submit";
   const quoteRequestTimeoutMs = Number(process.env.QUOTE_REQUEST_TIMEOUT_MS || 15000);
   const quoteMinimumSubmitTimeMs = 3000;
-  const liveChatApiBaseUrl = (process.env.LIVE_CHAT_API_BASE_URL || "https://chat.iotedges.com").replace(/\/+$/, "");
+  const liveChatApiBaseUrl = "https://chat.iotedges.com";
 
   console.log(`Live chat API proxy target: ${liveChatApiBaseUrl}`);
 

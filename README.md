@@ -82,11 +82,7 @@ Optional local environment file:
 cp .env.example .env
 ```
 
-Live chat settings:
-
-```bash
-LIVE_CHAT_API_BASE_URL=https://chat.iotedges.com
-```
+Live chat is proxied by the Express server to `https://chat.iotedges.com`.
 
 Start dev server:
 
@@ -216,7 +212,6 @@ npm start
 | `APP_URL` | CMS deploy required | Public site URL for canonical URLs, sitemap, and CMS URL consistency checks |
 | `VITE_GA_MEASUREMENT_ID` | No | Google Analytics 4 Measurement ID |
 | `VITE_GTM_ID` | No | Google Tag Manager Container ID |
-| `LIVE_CHAT_API_BASE_URL` | No | ai-agent-live-chat origin, default `https://chat.iotedges.com` |
 | `GEMINI_API_KEY` | No | Reserved for optional server-side AI features |
 
 ### Content Authoring
