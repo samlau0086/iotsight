@@ -8,7 +8,6 @@ import { twMerge } from "tailwind-merge";
 import { motion, AnimatePresence } from "motion/react";
 import { parse } from "yaml";
 import Markdown from "react-markdown";
-import { io } from "socket.io-client";
 function cn(...inputs) {
   return twMerge(clsx(inputs));
 }
@@ -3809,37 +3808,29 @@ function AnalyticsPageView() {
   }, []);
   return null;
 }
-const mergeLiveChatMessage = (currentMessages, incomingMessage, optimisticMessageId) => {
-  let messages = optimisticMessageId ? currentMessages.filter((message) => message.id !== optimisticMessageId) : currentMessages;
-  if (messages.some((message) => message.id === incomingMessage.id)) {
-    return messages;
-  }
-  const optimisticMatchIndex = messages.findIndex(
-    (message) => message.id.startsWith("temp_") && message.sessionId === incomingMessage.sessionId && message.role === incomingMessage.role && message.body === incomingMessage.body
-  );
-  if (optimisticMatchIndex >= 0) {
-    const nextMessages = [...messages];
-    nextMessages[optimisticMatchIndex] = incomingMessage;
-    return nextMessages;
-  }
-  return [...messages, incomingMessage];
+const defaultWidgetConfig = {
+  themeColor: "#2563eb",
+  welcomeMessage: "No messages yet. Send a message to begin!",
+  offlineMessage: "No human agents are online right now. Leave a message and the AI agent will keep helping."
+};
+const mergeConversation = (current, incoming) => {
+  if (!current) return incoming;
+  const messagesById = /* @__PURE__ */ new Map();
+  current.messages.forEach((message) => messagesById.set(message.id, message));
+  incoming.messages.forEach((message) => messagesById.set(message.id, message));
+  return {
+    ...current,
+    ...incoming,
+    messages: Array.from(messagesById.values()).sort(
+      (a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+    )
+  };
 };
 function AIChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
-  const [sessionInfo, setSessionInfo] = useState(() => {
-    if (typeof window === "undefined") return null;
-    const saved = localStorage.getItem("iotEdgesChatSession");
-    if (saved) {
-      try {
-        return JSON.parse(saved);
-      } catch (e) {
-      }
-    }
-    return null;
-  });
-  const [isFormSubmitted, setIsFormSubmitted] = useState(() => {
-    return !!sessionInfo;
-  });
+  const [widgetConfig, setWidgetConfig] = useState(defaultWidgetConfig);
+  const [supportOnline, setSupportOnline] = useState(true);
+  const [conversation, setConversation] = useState(null);
   const [formData, setFormData] = useState(() => {
     if (typeof window === "undefined") {
       return { name: "", email: "", phone: "", company: "" };
@@ -3853,65 +3844,66 @@ function AIChatWidget() {
     }
     return { name: "", email: "", phone: "", company: "" };
   });
-  const [messages, setMessages] = useState([]);
+  const [isFormSubmitted, setIsFormSubmitted] = useState(() => {
+    if (typeof window === "undefined") return false;
+    return localStorage.getItem("iotEdgesChatProfileCompleted") === "true";
+  });
   const [inputValue, setInputValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const messagesEndRef = useRef(null);
-  const [socket, setSocket] = useState(null);
+  const messages = (conversation == null ? void 0 : conversation.messages) || [];
   const scrollToBottom = () => {
     var _a;
     (_a = messagesEndRef.current) == null ? void 0 : _a.scrollIntoView({ behavior: "smooth" });
   };
   useEffect(() => {
+    fetch("/api/live-chat/widget-config").then((response) => response.json()).then((data) => {
+      if (data.widgetConfig) {
+        setWidgetConfig({
+          ...defaultWidgetConfig,
+          ...data.widgetConfig
+        });
+      }
+      if (typeof data.supportOnline === "boolean") {
+        setSupportOnline(data.supportOnline);
+      }
+    }).catch(() => void 0);
+  }, []);
+  useEffect(() => {
+    if (!isOpen || !isFormSubmitted) return;
+    fetch("/api/live-chat/conversation").then((response) => {
+      if (response.status === 409 || response.status === 401) {
+        localStorage.removeItem("iotEdgesChatProfileCompleted");
+        setIsFormSubmitted(false);
+        return null;
+      }
+      return response.ok ? response.json() : null;
+    }).then((data) => {
+      if (data == null ? void 0 : data.conversation) {
+        setConversation((prev) => mergeConversation(prev, data.conversation));
+      }
+    }).catch(() => void 0);
+    const events = new EventSource("/api/live-chat/stream");
+    events.onmessage = (event) => {
+      try {
+        const data = JSON.parse(event.data);
+        setConversation((prev) => mergeConversation(prev, data));
+        setIsLoading(false);
+      } catch (error) {
+        console.warn("Invalid live chat stream payload:", error);
+      }
+    };
+    events.onerror = () => {
+      events.close();
+    };
+    return () => events.close();
+  }, [isOpen, isFormSubmitted]);
+  useEffect(() => {
     if (isOpen && isFormSubmitted) {
       scrollToBottom();
     }
   }, [messages, isOpen, isFormSubmitted]);
-  useEffect(() => {
-    if (!(sessionInfo == null ? void 0 : sessionInfo.id) || !(sessionInfo == null ? void 0 : sessionInfo.token) || !isOpen) return;
-    const newSocket = io("/", {
-      path: "/socket.io",
-      transports: ["websocket", "polling"]
-    });
-    newSocket.on("connect", () => {
-      newSocket.emit("live_chat:visitor_auth", {
-        sessionId: sessionInfo.id,
-        visitorToken: sessionInfo.token
-      }, (res) => {
-        if (res == null ? void 0 : res.ok) {
-          fetch(`/api/live-chat/public/sessions/${sessionInfo.id}/messages?token=${sessionInfo.token}`).then((r) => {
-            if (!r.ok) throw new Error("Invalid session");
-            return r.json();
-          }).then((data) => {
-            if (Array.isArray(data)) setMessages(data);
-          }).catch((e) => {
-            console.warn("Session verification failed via fetch:", e);
-            localStorage.removeItem("iotEdgesChatSession");
-            setSessionInfo(null);
-            setIsFormSubmitted(false);
-          });
-        } else {
-          console.warn("Socket auth failed, resetting session:", res == null ? void 0 : res.error);
-          localStorage.removeItem("iotEdgesChatSession");
-          setSessionInfo(null);
-          setIsFormSubmitted(false);
-        }
-      });
-    });
-    newSocket.on("live_chat:message", (message) => {
-      setMessages((prev) => {
-        return mergeLiveChatMessage(prev, message);
-      });
-      if (message.role === "agent" || message.role === "operator") {
-        setIsLoading(false);
-      }
-    });
-    setSocket(newSocket);
-    return () => {
-      newSocket.disconnect();
-    };
-  }, [sessionInfo, isOpen]);
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     if (!formData.name || !formData.email || !formData.phone) return;
@@ -3919,26 +3911,27 @@ function AIChatWidget() {
     setErrorMessage("");
     localStorage.setItem("iotEdgesChatUser", JSON.stringify(formData));
     try {
-      const response = await fetch("/api/live-chat/public/sessions", {
-        method: "POST",
+      const response = await fetch("/api/live-chat/profile", {
+        method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          visitorName: formData.name,
-          visitorEmail: formData.email,
-          visitorPhone: formData.phone,
-          pageUrl: window.location.href,
+          name: formData.name,
+          email: formData.email,
           metadata: {
+            phone: formData.phone,
+            company: formData.company,
             source: "website-widget",
-            company: formData.company
+            pageUrl: window.location.href
           }
         })
       });
-      if (!response.ok) throw new Error("Failed to create session");
       const data = await response.json();
-      const newSessionInfo = { id: data.session.id, token: data.token };
-      setSessionInfo(newSessionInfo);
-      localStorage.setItem("iotEdgesChatSession", JSON.stringify(newSessionInfo));
+      if (!response.ok) throw new Error(data.error || "Failed to save chat profile");
+      if (data.conversation) {
+        setConversation(data.conversation);
+      }
       setIsFormSubmitted(true);
+      localStorage.setItem("iotEdgesChatProfileCompleted", "true");
       trackEvent("live_chat_lead_submit", {
         event_category: "live_chat",
         has_company: Boolean(formData.company),
@@ -3953,78 +3946,65 @@ function AIChatWidget() {
   };
   const handleSendMessage = async (e) => {
     e.preventDefault();
-    if (!inputValue.trim() || isLoading || !sessionInfo) return;
+    if (!inputValue.trim() || isLoading) return;
     const msgText = inputValue.trim();
     setInputValue("");
     setErrorMessage("");
     const optimisticMsg = {
       id: `temp_${Date.now()}`,
-      sessionId: sessionInfo.id,
       role: "visitor",
-      senderName: formData.name,
-      body: msgText,
+      content: msgText,
       createdAt: (/* @__PURE__ */ new Date()).toISOString()
     };
-    setMessages((prev) => [...prev, optimisticMsg]);
+    setConversation((prev) => ({
+      id: (prev == null ? void 0 : prev.id) || "pending",
+      status: (prev == null ? void 0 : prev.status) || "ai_active",
+      customerProfile: prev == null ? void 0 : prev.customerProfile,
+      messages: [...(prev == null ? void 0 : prev.messages) || [], optimisticMsg]
+    }));
     setIsLoading(true);
-    if (socket && socket.connected) {
-      socket.emit("live_chat:visitor_message", {
-        body: msgText
-      }, (response) => {
-        if (response == null ? void 0 : response.message) {
-          setMessages((prev) => {
-            return mergeLiveChatMessage(prev, response.message, optimisticMsg.id);
-          });
-          trackEvent("live_chat_message_send", {
-            event_category: "live_chat",
-            transport: "socket",
-            page_path: window.location.pathname
-          });
-        }
-        if (response == null ? void 0 : response.agentMessage) {
-          setMessages((prev) => {
-            return mergeLiveChatMessage(prev, response.agentMessage);
-          });
-          setIsLoading(false);
-        }
+    try {
+      const response = await fetch("/api/live-chat/messages", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ content: msgText })
       });
-    } else {
-      try {
-        const response = await fetch(`/api/live-chat/public/sessions/${sessionInfo.id}/messages`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            token: sessionInfo.token,
-            senderName: formData.name,
-            body: msgText
-          })
-        });
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
+      const data = await response.json();
+      if (!response.ok) {
+        if (response.status === 409 && data.error === "profile_required") {
+          localStorage.removeItem("iotEdgesChatProfileCompleted");
+          setIsFormSubmitted(false);
         }
-        const data = await response.json();
-        setMessages((prev) => {
-          let newMsgs = data.message ? mergeLiveChatMessage(prev, data.message, optimisticMsg.id) : prev.filter((m) => m.id !== optimisticMsg.id);
-          if (data.agentMessage) {
-            newMsgs = mergeLiveChatMessage(newMsgs, data.agentMessage);
-          }
-          return newMsgs;
-        });
-        trackEvent("live_chat_message_send", {
-          event_category: "live_chat",
-          transport: "rest",
-          page_path: window.location.pathname
-        });
-      } catch (error) {
-        console.error("Error sending message:", error);
-        setMessages((prev) => prev.filter((m) => m.id !== optimisticMsg.id));
-        setErrorMessage("Message failed to send. Please try again.");
-      } finally {
-        setIsLoading(false);
+        throw new Error(data.error || "Network response was not ok");
       }
+      if (data.conversation) {
+        setConversation(data.conversation);
+      }
+      trackEvent("live_chat_message_send", {
+        event_category: "live_chat",
+        transport: "rest",
+        page_path: window.location.pathname
+      });
+    } catch (error) {
+      console.error("Error sending message:", error);
+      setConversation((prev) => prev ? {
+        ...prev,
+        messages: prev.messages.filter((message) => message.id !== optimisticMsg.id)
+      } : prev);
+      setErrorMessage("Message failed to send. Please try again.");
+    } finally {
+      setIsLoading(false);
     }
+  };
+  const getMessageBody = (message) => {
+    var _a;
+    const translation = (_a = message.metadata) == null ? void 0 : _a.translation;
+    if (message.role !== "visitor" && translation && typeof translation === "object" && "visitorText" in translation && typeof translation.visitorText === "string") {
+      return translation.visitorText;
+    }
+    return message.content;
   };
   return /* @__PURE__ */ jsxs(Fragment$1, { children: [
     /* @__PURE__ */ jsx("div", { className: "fixed bottom-6 right-6 z-50", children: /* @__PURE__ */ jsx(
@@ -4057,8 +4037,8 @@ function AIChatWidget() {
               /* @__PURE__ */ jsxs("div", { children: [
                 /* @__PURE__ */ jsx("h3", { className: "text-white font-medium text-sm", children: "IoTEdges Live Chat" }),
                 /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-1.5", children: [
-                  /* @__PURE__ */ jsx("span", { className: "w-1.5 h-1.5 rounded-full bg-green-500" }),
-                  /* @__PURE__ */ jsx("span", { className: "text-xs text-slate-400", children: "Online" })
+                  /* @__PURE__ */ jsx("span", { className: `w-1.5 h-1.5 rounded-full ${supportOnline ? "bg-green-500" : "bg-amber-400"}` }),
+                  /* @__PURE__ */ jsx("span", { className: "text-xs text-slate-400", children: supportOnline ? "Online" : "AI online" })
                 ] })
               ] })
             ] }),
@@ -4166,18 +4146,22 @@ function AIChatWidget() {
             /* Chat Interface */
             /* @__PURE__ */ jsxs(Fragment$1, { children: [
               /* @__PURE__ */ jsxs("div", { className: "flex-1 overflow-y-auto p-4 space-y-4 bg-slate-900/50", children: [
-                messages.length === 0 && !isLoading && /* @__PURE__ */ jsx("div", { className: "text-center text-slate-500 text-sm mt-10", children: "No messages yet. Send a message to begin!" }),
-                messages.map((msg) => /* @__PURE__ */ jsx(
-                  "div",
-                  {
-                    className: `flex ${msg.role === "visitor" ? "justify-end" : "justify-start"}`,
-                    children: /* @__PURE__ */ jsxs("div", { className: `flex gap-2 max-w-[85%] ${msg.role === "visitor" ? "flex-row-reverse" : "flex-row"}`, children: [
-                      /* @__PURE__ */ jsx("div", { className: `w-6 h-6 rounded-full shrink-0 flex items-center justify-center mt-1 border ${msg.role === "visitor" ? "bg-slate-700 border-slate-600" : "bg-blue-600/20 border-blue-500/30"}`, children: msg.role === "visitor" ? /* @__PURE__ */ jsx(User, { className: "w-3.5 h-3.5 text-slate-300" }) : /* @__PURE__ */ jsx(Bot, { className: "w-3.5 h-3.5 text-blue-400" }) }),
-                      /* @__PURE__ */ jsx("div", { className: `px-4 py-2.5 rounded-2xl text-sm ${msg.role === "visitor" ? "bg-blue-600 text-white rounded-tr-none" : "bg-slate-800 text-slate-200 border border-slate-700 rounded-tl-none"}`, children: msg.body })
-                    ] })
-                  },
-                  msg.id
-                )),
+                !supportOnline && messages.length === 0 && !isLoading && /* @__PURE__ */ jsx("div", { className: "text-center text-amber-200 text-sm mt-6 rounded-lg border border-amber-300/20 bg-amber-400/10 px-3 py-2", children: widgetConfig.offlineMessage }),
+                messages.length === 0 && !isLoading && /* @__PURE__ */ jsx("div", { className: "text-center text-slate-500 text-sm mt-10", children: widgetConfig.welcomeMessage }),
+                messages.map((msg) => {
+                  const isVisitor = msg.role === "visitor";
+                  return /* @__PURE__ */ jsx(
+                    "div",
+                    {
+                      className: `flex ${isVisitor ? "justify-end" : "justify-start"}`,
+                      children: /* @__PURE__ */ jsxs("div", { className: `flex gap-2 max-w-[85%] ${isVisitor ? "flex-row-reverse" : "flex-row"}`, children: [
+                        /* @__PURE__ */ jsx("div", { className: `w-6 h-6 rounded-full shrink-0 flex items-center justify-center mt-1 border ${isVisitor ? "bg-slate-700 border-slate-600" : "bg-blue-600/20 border-blue-500/30"}`, children: isVisitor ? /* @__PURE__ */ jsx(User, { className: "w-3.5 h-3.5 text-slate-300" }) : /* @__PURE__ */ jsx(Bot, { className: "w-3.5 h-3.5 text-blue-400" }) }),
+                        /* @__PURE__ */ jsx("div", { className: `px-4 py-2.5 rounded-2xl text-sm ${isVisitor ? "bg-blue-600 text-white rounded-tr-none" : "bg-slate-800 text-slate-200 border border-slate-700 rounded-tl-none"}`, children: getMessageBody(msg) })
+                      ] })
+                    },
+                    msg.id
+                  );
+                }),
                 isLoading && /* @__PURE__ */ jsx("div", { className: "flex justify-start", children: /* @__PURE__ */ jsxs("div", { className: "flex gap-2 max-w-[85%] flex-row", children: [
                   /* @__PURE__ */ jsx("div", { className: "w-6 h-6 rounded-full shrink-0 flex items-center justify-center mt-1 border bg-blue-600/20 border-blue-500/30", children: /* @__PURE__ */ jsx(Bot, { className: "w-3.5 h-3.5 text-blue-400" }) }),
                   /* @__PURE__ */ jsxs("div", { className: "px-4 py-3 rounded-2xl text-sm bg-slate-800 text-slate-200 border border-slate-700 rounded-tl-none flex gap-1.5 items-center", children: [
@@ -4199,14 +4183,14 @@ function AIChatWidget() {
                       onChange: (e) => setInputValue(e.target.value),
                       placeholder: "Type a message...",
                       className: "flex-1 bg-slate-900 border border-slate-700 rounded-full px-4 py-2.5 text-sm text-white focus:outline-none focus:border-blue-500 pr-12",
-                      disabled: isLoading
+                      disabled: isLoading || (conversation == null ? void 0 : conversation.status) === "closed" || (conversation == null ? void 0 : conversation.status) === "resolved"
                     }
                   ),
                   /* @__PURE__ */ jsx(
                     "button",
                     {
                       type: "submit",
-                      disabled: !inputValue.trim() || isLoading,
+                      disabled: !inputValue.trim() || isLoading || (conversation == null ? void 0 : conversation.status) === "closed" || (conversation == null ? void 0 : conversation.status) === "resolved",
                       className: "absolute right-1 top-1 w-8 h-8 rounded-full bg-blue-600 hover:bg-blue-500 text-white flex items-center justify-center disabled:opacity-50 disabled:hover:bg-blue-600 transition",
                       children: /* @__PURE__ */ jsx(Send, { className: "w-4 h-4 ml-0.5" })
                     }

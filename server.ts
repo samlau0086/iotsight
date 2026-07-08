@@ -3,8 +3,6 @@ import express from "express";
 import fs from "fs";
 import path from "path";
 import { createServer as createViteServer } from "vite";
-import { Server as SocketIOServer } from "socket.io";
-import { io as createSocketClient, Socket as ClientSocket } from "socket.io-client";
 import http from "http";
 
 async function startServer() {
@@ -13,21 +11,11 @@ async function startServer() {
   const quoteFormEndpoint = "https://crms.geekmt.com/api/public/customer-forms/form_1780670393030_531/submit";
   const quoteRequestTimeoutMs = Number(process.env.QUOTE_REQUEST_TIMEOUT_MS || 15000);
   const quoteMinimumSubmitTimeMs = 3000;
-  const liveChatApiToken = process.env.LIVE_CHAT_API_TOKEN;
-  const liveChatApiBaseUrl = process.env.LIVE_CHAT_API_BASE_URL?.replace(/\/+$/, "");
+  const liveChatApiBaseUrl = (process.env.LIVE_CHAT_API_BASE_URL || "https://chat.iotedges.com").replace(/\/+$/, "");
 
-  if ((!liveChatApiToken || !liveChatApiBaseUrl) && process.env.NODE_ENV === "production") {
-    console.warn("LIVE_CHAT_API_TOKEN or LIVE_CHAT_API_BASE_URL is not configured. Live chat API proxy is disabled.");
-  }
+  console.log(`Live chat API proxy target: ${liveChatApiBaseUrl}`);
 
   const server = http.createServer(app);
-  const io = new SocketIOServer(server, {
-    path: "/socket.io",
-    cors: {
-      origin: "*",
-      methods: ["GET", "POST"],
-    },
-  });
 
   app.use(express.json());
 
@@ -117,28 +105,36 @@ async function startServer() {
     void forwardQuoteRequest();
   });
 
-  const requireLiveChatConfig = (res: express.Response) => {
-    if (liveChatApiToken && liveChatApiBaseUrl) return true;
-    res.status(503).json({ error: "Live chat service is not configured" });
-    return false;
+  const copyLiveChatCookies = (res: express.Response, upstream: Response) => {
+    const headersWithSetCookie = upstream.headers as Headers & { getSetCookie?: () => string[] };
+    const cookies = headersWithSetCookie.getSetCookie?.() || [];
+    const fallbackCookie = upstream.headers.get("set-cookie");
+    const upstreamCookies = cookies.length ? cookies : fallbackCookie ? [fallbackCookie] : [];
+
+    upstreamCookies.forEach((cookie) => {
+      res.append("Set-Cookie", cookie.replace(/;\s*Domain=[^;]+/gi, ""));
+    });
   };
 
-  const forwardLiveChatJson = async (res: express.Response, pathAndQuery: string, init: RequestInit) => {
-    if (!liveChatApiBaseUrl) {
-      res.status(503).json({ error: "Live chat service is not configured" });
-      return;
-    }
+  const liveChatProxyHeaders = (req: express.Request, contentType?: string) => ({
+    Accept: req.headers.accept || "application/json",
+    ...(contentType ? { "Content-Type": contentType } : {}),
+    ...(req.headers.cookie ? { Cookie: req.headers.cookie } : {}),
+    ...(req.headers["user-agent"] ? { "User-Agent": req.headers["user-agent"] } : {}),
+  });
 
+  const forwardLiveChat = async (req: express.Request, res: express.Response, upstreamPath: string) => {
     try {
-      const upstream = await fetch(`${liveChatApiBaseUrl}${pathAndQuery}`, {
-        ...init,
-        headers: {
-          "Content-Type": "application/json",
-          ...(init.headers || {}),
-        },
+      const hasBody = !["GET", "HEAD"].includes(req.method);
+      const upstream = await fetch(`${liveChatApiBaseUrl}${upstreamPath}`, {
+        method: req.method,
+        headers: liveChatProxyHeaders(req, hasBody ? "application/json" : undefined),
+        body: hasBody ? JSON.stringify(req.body || {}) : undefined,
       });
+
       const text = await upstream.text();
 
+      copyLiveChatCookies(res, upstream);
       res.status(upstream.status);
       res.type(upstream.headers.get("content-type") || "application/json");
       res.send(text);
@@ -148,97 +144,45 @@ async function startServer() {
     }
   };
 
-  app.post("/api/live-chat/public/sessions", async (req, res) => {
-    if (!requireLiveChatConfig(res)) return;
+  app.get("/api/live-chat/stream", async (req, res) => {
+    const controller = new AbortController();
+    req.on("close", () => controller.abort());
 
-    await forwardLiveChatJson(res, "/api/live-chat/public/sessions", {
-      method: "POST",
-      body: JSON.stringify({
-        ...req.body,
-        apiToken: liveChatApiToken,
-      }),
-    });
-  });
+    try {
+      const upstream = await fetch(`${liveChatApiBaseUrl}/api/chat/stream`, {
+        method: "GET",
+        headers: liveChatProxyHeaders(req, "text/event-stream"),
+        signal: controller.signal,
+      });
 
-  app.get("/api/live-chat/public/sessions/:id/messages", async (req, res) => {
-    if (!requireLiveChatConfig(res)) return;
+      copyLiveChatCookies(res, upstream);
+      res.status(upstream.status);
+      res.setHeader("Content-Type", upstream.headers.get("content-type") || "text/event-stream");
+      res.setHeader("Cache-Control", "no-cache, no-transform");
+      res.setHeader("Connection", "keep-alive");
 
-    const sessionId = encodeURIComponent(req.params.id);
-    const token = encodeURIComponent(String(req.query.token || ""));
-    await forwardLiveChatJson(res, `/api/live-chat/public/sessions/${sessionId}/messages?token=${token}`, {
-      method: "GET",
-    });
-  });
-
-  app.post("/api/live-chat/public/sessions/:id/messages", async (req, res) => {
-    if (!requireLiveChatConfig(res)) return;
-
-    const sessionId = encodeURIComponent(req.params.id);
-    await forwardLiveChatJson(res, `/api/live-chat/public/sessions/${sessionId}/messages`, {
-      method: "POST",
-      body: JSON.stringify(req.body),
-    });
-  });
-
-  io.on("connection", (socket) => {
-    let upstreamSocket: ClientSocket | null = null;
-    let authCallbackSent = false;
-
-    const sendAuthCallback = (cb: ((response: any) => void) | undefined, response: any) => {
-      if (authCallbackSent) return;
-      authCallbackSent = true;
-      if (cb) cb(response);
-    };
-
-    socket.on("live_chat:visitor_auth", (data, cb) => {
-      if (!liveChatApiBaseUrl) {
-        sendAuthCallback(cb, { ok: false, error: "Live chat service is not configured" });
+      if (!upstream.ok || !upstream.body) {
+        res.end(await upstream.text());
         return;
       }
 
-      upstreamSocket?.disconnect();
-      authCallbackSent = false;
-
-      upstreamSocket = createSocketClient(liveChatApiBaseUrl, {
-        path: "/socket.io",
-        transports: ["websocket", "polling"],
-      });
-
-      upstreamSocket.on("connect", () => {
-        upstreamSocket?.emit("live_chat:visitor_auth", data, (response: any) => {
-          if (response?.ok && data.sessionId) {
-            socket.join(data.sessionId);
-          }
-          sendAuthCallback(cb, response);
-        });
-      });
-
-      upstreamSocket.on("connect_error", (error) => {
-        console.error("Live chat upstream socket connection failed:", error.message);
-        sendAuthCallback(cb, { ok: false, error: "Live chat service is unavailable" });
-      });
-
-      upstreamSocket.on("live_chat:message", (message) => {
-        socket.emit("live_chat:message", message);
-      });
-
-      upstreamSocket.on("live_chat:session_updated", (session) => {
-        socket.emit("live_chat:session_updated", session);
-      });
-    });
-
-    socket.on("live_chat:visitor_message", (data, cb) => {
-      if (!upstreamSocket?.connected) {
-        if (cb) cb({ ok: false, error: "Live chat socket is not authenticated" });
-        return;
+      const reader = upstream.body.getReader();
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        res.write(Buffer.from(value));
       }
+      res.end();
+    } catch (error) {
+      if (!controller.signal.aborted) {
+        console.error("Live chat upstream stream failed:", error);
+        res.status(502).json({ error: "Live chat stream is unavailable" });
+      }
+    }
+  });
 
-      upstreamSocket.emit("live_chat:visitor_message", data, cb);
-    });
-
-    socket.on("disconnect", () => {
-      upstreamSocket?.disconnect();
-    });
+  app.all(/^\/api\/live-chat\/(widget-config|conversation|profile|messages|end|rating|transcript)$/, async (req, res) => {
+    await forwardLiveChat(req, res, `/api/chat/${req.params[0]}`);
   });
 
   if (process.env.NODE_ENV !== "production") {
